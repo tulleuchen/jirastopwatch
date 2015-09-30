@@ -2,7 +2,7 @@
 
 A tool for recording time spent on different Jira tasks.
 
-![](https://github.com/carstengehling/jirastopwatch/images/screenshot.png)
+![](https://github.com/carstengehling/jirastopwatch/images/screenshot.PNG)
 
 Features:
 * Configure how many time-tracking slots you want available
