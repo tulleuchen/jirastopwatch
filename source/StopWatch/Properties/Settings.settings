@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="StopWatch.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="JiraBaseUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://spectranet.spectra.local:8080/</Value>
-    </Setting>
     <Setting Name="IssueCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">6</Value>
     </Setting>
@@ -22,6 +19,9 @@
     </Setting>
     <Setting Name="RememberCredentials" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="JiraBaseUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://myjiraserver.local/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

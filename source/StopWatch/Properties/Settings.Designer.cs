@@ -25,18 +25,6 @@ namespace StopWatch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://spectranet.spectra.local:8080/")]
-        public string JiraBaseUrl {
-            get {
-                return ((string)(this["JiraBaseUrl"]));
-            }
-            set {
-                this["JiraBaseUrl"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("6")]
         public int IssueCount {
             get {
@@ -103,6 +91,18 @@ namespace StopWatch.Properties {
             }
             set {
                 this["RememberCredentials"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://myjiraserver.local/")]
+        public string JiraBaseUrl {
+            get {
+                return ((string)(this["JiraBaseUrl"]));
+            }
+            set {
+                this["JiraBaseUrl"] = value;
             }
         }
     }
