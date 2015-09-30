@@ -2,14 +2,16 @@
 
 A tool for recording time spent on different Jira tasks.
 
-![](https://github.com/carstengehling/jirastopwatch/images/screenshot.PNG)
+![](http://gehling.dk/jirastopwatch/screenshot.png)
 
-Features:
+### Features:
+
 * Configure how many time-tracking slots you want available
 * Integration to Jira REST API: Fetch task description when task-key has been entered (requires login)
 * Time is reported in Jira time-logging format (eg. 2h 31m) to easily copy/paste into time-logging
 
-Planned features
+### Planned features
+
 * Posting spent time into Jira API
 * Nice icons on buttons
 
