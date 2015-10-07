@@ -3727,7 +3727,7 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-861675125</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-861675125</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>-861675125</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.CarstenGehling.com</td><td>0</td><td/><td>-190586290</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>https://github.com/carstengehling/jirastopwatch</td><td>0</td><td/><td>1025735760</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Carsten Gehling</td><td>0</td><td/><td>-190586290</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>LAUNCH~1.EXE|Launch StopWatch.exe</td><td>0</td><td/><td>-861705365</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>LAUNCH~1.EXE|Launch StopWatch.exe</td><td>0</td><td/><td>-861675156</td></row>
@@ -4361,7 +4361,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]StopWatch.exe</td><td/></row>
 		<row><td>ProductCode</td><td>{855AA192-7458-4B33-954C-8B9708CD2ABC}</td><td/></row>
 		<row><td>ProductName</td><td>JIRA StopWatch</td><td/></row>
-		<row><td>ProductVersion</td><td>1.0.4</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0.5</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

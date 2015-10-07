@@ -14,7 +14,6 @@ A tool for recording time spent on different Jira tasks.
 ### Planned features
 
 * Posting spent time into Jira API
-* Nice icons on buttons
 * Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
 
 Feature-requests are more than welcome :-)
@@ -55,4 +54,5 @@ Bug reports, feature requests etc. are welcome. Please use Github for this.
 1.0.2     2015-09-28     Integration with Jira: Async load issue summary
 1.0.3     2015-09-28     Remember login credentials with DPAPI
 1.0.4     2015-09-30     Clear summary label when issue key is empty
+1.0.5     2015-10-07     Nicer buttons + tooltips
 </pre>
