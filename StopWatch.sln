@@ -5,6 +5,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopWatch", "source\StopWat
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup", "source\Setup\Setup.isproj", "{04FDEA0A-15E5-4A2C-99EF-3B95FCFE26AA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D8C61A83-5EA6-4C4B-993E-AA68E458F1E9}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.rtf = LICENSE.rtf
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
