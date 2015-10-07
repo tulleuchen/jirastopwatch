@@ -57,11 +57,11 @@ namespace StopWatch
 
             if (watchTimer.Running)
             {
-                btnStartStop.Text = "Pause";
+                btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.pause26);
                 tbTime.BackColor = Color.PaleGreen;
             }
             else {
-                btnStartStop.Text = "Start";
+                btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.play26);
                 tbTime.BackColor = SystemColors.Control;
             }
         }
@@ -123,67 +123,75 @@ namespace StopWatch
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IssueControl));
             this.tbJira = new System.Windows.Forms.TextBox();
-            this.btnOpen = new System.Windows.Forms.Button();
             this.tbTime = new System.Windows.Forms.TextBox();
-            this.btnStartStop = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
             this.lblSummary = new System.Windows.Forms.Label();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnStartStop = new System.Windows.Forms.Button();
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.ttIssue = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // tbJira
             // 
             this.tbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbJira.Location = new System.Drawing.Point(0, 0);
+            this.tbJira.Location = new System.Drawing.Point(0, 2);
             this.tbJira.Name = "tbJira";
             this.tbJira.Size = new System.Drawing.Size(155, 28);
             this.tbJira.TabIndex = 0;
             this.tbJira.Leave += new System.EventHandler(this.tbJira_Leave);
             // 
-            // btnOpen
-            // 
-            this.btnOpen.Location = new System.Drawing.Point(156, 0);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(58, 28);
-            this.btnOpen.TabIndex = 1;
-            this.btnOpen.Text = "Open";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
             // tbTime
             // 
             this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTime.Location = new System.Drawing.Point(250, 0);
+            this.tbTime.Location = new System.Drawing.Point(250, 2);
             this.tbTime.Name = "tbTime";
             this.tbTime.Size = new System.Drawing.Size(95, 28);
             this.tbTime.TabIndex = 2;
             // 
-            // btnStartStop
+            // lblSummary
             // 
-            this.btnStartStop.Location = new System.Drawing.Point(346, 0);
-            this.btnStartStop.Name = "btnStartStop";
-            this.btnStartStop.Size = new System.Drawing.Size(58, 28);
-            this.btnStartStop.TabIndex = 3;
-            this.btnStartStop.Text = "Start";
-            this.btnStartStop.UseVisualStyleBackColor = true;
-            this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
+            this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSummary.Location = new System.Drawing.Point(0, 33);
+            this.lblSummary.Name = "lblSummary";
+            this.lblSummary.Size = new System.Drawing.Size(503, 17);
+            this.lblSummary.TabIndex = 5;
             // 
             // btnReset
             // 
+            this.btnReset.Image = global::StopWatch.Properties.Resources.return24;
             this.btnReset.Location = new System.Drawing.Point(444, 0);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(58, 28);
+            this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 4;
-            this.btnReset.Text = "Reset";
+            this.ttIssue.SetToolTip(this.btnReset, "Reset timer");
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
-            // lblSummary
+            // btnStartStop
             // 
-            this.lblSummary.Location = new System.Drawing.Point(0, 29);
-            this.lblSummary.Name = "lblSummary";
-            this.lblSummary.Size = new System.Drawing.Size(503, 23);
-            this.lblSummary.TabIndex = 5;
+            this.btnStartStop.Image = global::StopWatch.Properties.Resources.play26;
+            this.btnStartStop.Location = new System.Drawing.Point(346, 0);
+            this.btnStartStop.Name = "btnStartStop";
+            this.btnStartStop.Size = new System.Drawing.Size(32, 32);
+            this.btnStartStop.TabIndex = 3;
+            this.ttIssue.SetToolTip(this.btnStartStop, "Start/stop timer");
+            this.btnStartStop.UseVisualStyleBackColor = true;
+            this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnOpen.Image")));
+            this.btnOpen.Location = new System.Drawing.Point(156, 0);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(32, 32);
+            this.btnOpen.TabIndex = 1;
+            this.ttIssue.SetToolTip(this.btnOpen, "Open issue in browser");
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // IssueControl
             // 
@@ -194,7 +202,7 @@ namespace StopWatch
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.tbJira);
             this.Name = "IssueControl";
-            this.Size = new System.Drawing.Size(503, 55);
+            this.Size = new System.Drawing.Size(503, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,14 +213,14 @@ namespace StopWatch
         #region private eventhandlers
         private void btnStartStop_Click(object sender, EventArgs e)
         {
-            if (btnStartStop.Text == "Start") {
+            if (watchTimer.Running) {
+                this.watchTimer.Pause();
+            }
+            else {
                 this.watchTimer.Start();
 
                 if (this.TimerStarted != null)
                     this.TimerStarted(this, e);
-            }
-            else {
-                this.watchTimer.Pause();
             }
             UpdateOutput();
         }
@@ -247,6 +255,8 @@ namespace StopWatch
         private Label lblSummary;
 
         private WatchTimer watchTimer;
+        private ToolTip ttIssue;
+        private System.ComponentModel.IContainer components;
 
         private JiraClient jiraClient;
         #endregion

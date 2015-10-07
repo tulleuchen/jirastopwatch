@@ -29,11 +29,22 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.pbSettings = new System.Windows.Forms.PictureBox();
             this.pbLogin = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
+            this.pbSettings = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pbLogin
+            // 
+            this.pbLogin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbLogin.Image = global::StopWatch.Properties.Resources.login22;
+            this.pbLogin.Location = new System.Drawing.Point(12, 113);
+            this.pbLogin.Name = "pbLogin";
+            this.pbLogin.Size = new System.Drawing.Size(22, 22);
+            this.pbLogin.TabIndex = 1;
+            this.pbLogin.TabStop = false;
+            this.pbLogin.Click += new System.EventHandler(this.pbLogin_Click);
             // 
             // pbSettings
             // 
@@ -44,17 +55,6 @@
             this.pbSettings.TabIndex = 0;
             this.pbSettings.TabStop = false;
             this.pbSettings.Click += new System.EventHandler(this.pbSettings_Click);
-            // 
-            // pbLogin
-            // 
-            this.pbLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbLogin.Image = ((System.Drawing.Image)(resources.GetObject("pbLogin.Image")));
-            this.pbLogin.Location = new System.Drawing.Point(12, 113);
-            this.pbLogin.Name = "pbLogin";
-            this.pbLogin.Size = new System.Drawing.Size(22, 22);
-            this.pbLogin.TabIndex = 1;
-            this.pbLogin.TabStop = false;
-            this.pbLogin.Click += new System.EventHandler(this.pbLogin_Click);
             // 
             // MainForm
             // 
@@ -71,8 +71,8 @@
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.ResumeLayout(false);
 
         }
