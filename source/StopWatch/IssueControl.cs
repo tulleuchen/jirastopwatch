@@ -64,6 +64,8 @@ namespace StopWatch
                 btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.play26);
                 tbTime.BackColor = SystemColors.Control;
             }
+
+            btnReset.Enabled = watchTimer.Running || watchTimer.TimeElapsed.Ticks > 0;
         }
 
 
