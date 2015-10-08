@@ -124,13 +124,13 @@
   <data name="play26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\play26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="return24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\return24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="settings22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\settings22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="login22" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\login22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="settings22" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\settings22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reset24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\reset24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

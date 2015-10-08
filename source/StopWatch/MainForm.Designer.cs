@@ -38,7 +38,7 @@
             // pbLogin
             // 
             this.pbLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbLogin.Image = global::StopWatch.Properties.Resources.login22;
+            this.pbLogin.Image = ((System.Drawing.Image)(resources.GetObject("pbLogin.Image")));
             this.pbLogin.Location = new System.Drawing.Point(12, 113);
             this.pbLogin.Name = "pbLogin";
             this.pbLogin.Size = new System.Drawing.Size(22, 22);
@@ -48,7 +48,8 @@
             // 
             // pbSettings
             // 
-            this.pbSettings.Image = ((System.Drawing.Image)(resources.GetObject("pbSettings.Image")));
+            this.pbSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbSettings.Image = global::StopWatch.Properties.Resources.settings22;
             this.pbSettings.Location = new System.Drawing.Point(590, 113);
             this.pbSettings.Name = "pbSettings";
             this.pbSettings.Size = new System.Drawing.Size(22, 22);

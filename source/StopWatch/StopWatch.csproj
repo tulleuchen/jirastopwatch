@@ -120,6 +120,8 @@
     <None Include="icons\return24.png" />
     <None Include="icons\login22.png" />
     <None Include="icons\settings22.png" />
+    <None Include="icons\login26.png" />
+    <None Include="icons\reset24.png" />
     <Content Include="StopWatch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -48,6 +48,12 @@ That's it!
 
 Bug reports, feature requests etc. are welcome. Please use Github for this.
 
+## Other
+
+All icons on buttons were downloaded from https://icons8.com
+
+
+
 ## Changelog
 
 <pre>
@@ -56,4 +62,6 @@ Bug reports, feature requests etc. are welcome. Please use Github for this.
 1.0.3     2015-09-28     Remember login credentials with DPAPI
 1.0.4     2015-09-30     Clear summary label when issue key is empty
 1.0.5     2015-10-07     Nicer buttons + tooltips
+
+                         Changed all icons to https://icons8.com
 </pre>

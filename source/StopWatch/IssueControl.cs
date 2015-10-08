@@ -161,7 +161,8 @@ namespace StopWatch
             // 
             // btnReset
             // 
-            this.btnReset.Image = global::StopWatch.Properties.Resources.return24;
+            this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset.Image = global::StopWatch.Properties.Resources.reset24;
             this.btnReset.Location = new System.Drawing.Point(444, 0);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
@@ -172,6 +173,7 @@ namespace StopWatch
             // 
             // btnStartStop
             // 
+            this.btnStartStop.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartStop.Image = global::StopWatch.Properties.Resources.play26;
             this.btnStartStop.Location = new System.Drawing.Point(346, 0);
             this.btnStartStop.Name = "btnStartStop";
