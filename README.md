@@ -15,6 +15,7 @@ A tool for recording time spent on different Jira tasks.
 
 * Posting spent time into Jira API
 * Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
+* Automatic re-login, if Jira session has expired
 
 Feature-requests are more than welcome :-)
 
