@@ -21,7 +21,7 @@ Feature-requests are more than welcome :-)
 
 ## License
 
-Apache License version 2.0 - please read [LICENSE.txt]
+Apache License version 2.0 - please read [LICENSE.txt](LICENSE.txt)
 
 ## Download
 
