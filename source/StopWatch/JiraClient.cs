@@ -18,8 +18,7 @@ namespace StopWatch
 
         public bool Authenticate(string username, string password)
         {
-            var client = new RestClient(BaseUrl);
-            client.CookieContainer = this.cookieContainer;
+            var client = GetClient();
 
             var request = new RestRequest("/rest/auth/1/session", Method.POST);
             request.RequestFormat = DataFormat.Json;
@@ -38,8 +37,7 @@ namespace StopWatch
 
         public string GetIssueSummary(string key)
         {
-            var client = new RestClient(BaseUrl);
-            client.CookieContainer = this.cookieContainer;
+            var client = GetClient();
 
             var request = new RestRequest(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
 
@@ -59,6 +57,38 @@ namespace StopWatch
             url += "browse/";
             url += key;
             System.Diagnostics.Process.Start(url);
+        }
+
+
+        public bool PostWorklog(string key, TimeSpan time, string comment)
+        {
+            var client = GetClient();
+
+            var request = new RestRequest(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
+            request.RequestFormat = DataFormat.Json;
+
+            request.AddBody(new
+                {
+                    timeSpent = JiraHelpers.TimeSpanToJiraTime(time),
+                    comment = comment
+                }
+            );
+
+            IRestResponse<Issue> response = client.Execute<Issue>(request);
+            if (response.StatusCode != System.Net.HttpStatusCode.Created)
+                return false;
+
+            return true;
+        }
+        #endregion
+
+
+        #region private methods
+        public RestClient GetClient()
+        {
+            RestClient client = new RestClient(BaseUrl);
+            client.CookieContainer = this.cookieContainer;
+            return client;
         }
         #endregion
 

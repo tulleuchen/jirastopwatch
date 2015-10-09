@@ -51,12 +51,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DPApi.cs" />
-    <Compile Include="Issue.cs" />
+    <Compile Include="WorklogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorklogForm.Designer.cs">
+      <DependentUpon>WorklogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JiraApi\Issue.cs" />
     <Compile Include="IssueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IssueFields.cs" />
+    <Compile Include="JiraApi\IssueFields.cs" />
     <Compile Include="JiraClient.cs" />
+    <Compile Include="JiraHelpers.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +85,9 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WatchTimer.cs" />
+    <EmbeddedResource Include="WorklogForm.resx">
+      <DependentUpon>WorklogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IssueControl.resx">
       <DependentUpon>IssueControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +132,8 @@
     <None Include="icons\settings22.png" />
     <None Include="icons\login26.png" />
     <None Include="icons\reset24.png" />
+    <None Include="icons\openbrowser26.png" />
+    <None Include="icons\posttime26.png" />
     <Content Include="StopWatch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -73,6 +73,16 @@ namespace StopWatch.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap openbrowser26 {
+            get {
+                object obj = ResourceManager.GetObject("openbrowser26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pause26 {
             get {
                 object obj = ResourceManager.GetObject("pause26", resourceCulture);
@@ -86,6 +96,16 @@ namespace StopWatch.Properties {
         internal static System.Drawing.Bitmap play26 {
             get {
                 object obj = ResourceManager.GetObject("play26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap posttime26 {
+            get {
+                object obj = ResourceManager.GetObject("posttime26", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
