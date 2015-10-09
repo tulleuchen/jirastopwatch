@@ -277,7 +277,7 @@ namespace StopWatch
 
             using (var worklogForm = new WorklogForm())
             {
-                if (worklogForm.ShowDialog() == DialogResult.OK)
+                if (worklogForm.ShowDialog(this) == DialogResult.OK)
                 {
                     Cursor.Current = Cursors.WaitCursor;
                     if (jiraClient.PostWorklog(tbJira.Text, watchTimer.TimeElapsed, worklogForm.Comment))

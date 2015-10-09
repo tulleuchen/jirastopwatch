@@ -213,9 +213,7 @@ namespace StopWatch
                 form.IssueCount = this.issueCount;
                 form.AlwaysOnTop = this.alwaysOnTop;
 
-                this.TopMost = false;
-
-                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     jiraClient.BaseUrl = form.JiraBaseUrl;
                     this.issueCount = form.IssueCount;
@@ -231,13 +229,11 @@ namespace StopWatch
         {
             using (var form = new LoginForm())
             {
-                this.TopMost = false;
-
                 form.Username = this.username;
                 form.Password = this.password;
                 form.Remember = this.rememberCredentials;
 
-                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     this.jiraClient.Authenticate(form.Username, form.Password);
 
