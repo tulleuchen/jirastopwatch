@@ -4,7 +4,7 @@ A tool for recording time spent on different Jira tasks.
 
 ![](http://gehling.dk/jirastopwatch/screenshot3.png)
 
-### Features:
+## Features:
 
 * Configure how many time-tracking slots you want available
 * Integration to Jira REST API: Fetch task description when task-key has been entered (requires login)
@@ -12,7 +12,7 @@ A tool for recording time spent on different Jira tasks.
 * Jira issue keys are saved on program exit
 * Posting spent time into Jira as a worklog with comment (using Jira REST API)
 
-### Planned features
+## Planned features
 
 * Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
 * Automatic re-login, if Jira session has expired
