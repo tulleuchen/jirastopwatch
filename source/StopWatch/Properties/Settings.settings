@@ -23,5 +23,8 @@
     <Setting Name="JiraBaseUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://myjiraserver.local/</Value>
     </Setting>
+    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

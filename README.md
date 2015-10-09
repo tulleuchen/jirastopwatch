@@ -10,10 +10,10 @@ A tool for recording time spent on different Jira tasks.
 * Integration to Jira REST API: Fetch task description when task-key has been entered (requires login)
 * Time is reported in Jira time-logging format (eg. 2h 31m) to easily copy/paste into time-logging
 * Jira issue keys are saved on program exit
+* Posting spent time into Jira as a worklog with comment (using Jira REST API)
 
 ### Planned features
 
-* Posting spent time into Jira API
 * Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
 * Automatic re-login, if Jira session has expired
 
@@ -29,15 +29,15 @@ After install, start the application and click the settings icon (gears icon). E
 
 Now write a Jira task id in one of the white textboxes. When you leave the textbox, the task description will be fetched from your Jira server and displayed below the textbox. Repeat this for the tasks you are currently working on.
 
-Press "Start" on one of your tasks. The time-tracking textbox will now turn green, and after the first minute has passed, the time elapsed will change from "0m" to "1m".
+Press the green PLAY button next to your task-id. The time-tracking textbox will now turn green, and after the first minute has passed, the time elapsed will change from "0m" to "1m".
 
-If you press "Start" on another task, the previous will automatically pause.
+If you press PLAY on another task, the previous will automatically pause.
 
-Click on "Reset" to... well... reset the time to 0m. :-)
+The button to the right of the time box lets you post the time directly on Jira as a worklog along with a comment. If the posting is successful, the timer will automatically reset, otherwise the timer will not be changed.
 
-Click on "Open" to open the task in your browser
+Click on the rightmost button to reset the time to 0m.
 
-That's it!
+That's pretty much it!
 
 ## License
 
@@ -62,5 +62,6 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 1.0.4     2015-09-30     Clear summary label when issue key is empty
 1.0.5     2015-10-07     Nicer buttons + tooltips
 
-                         Changed all icons to https://icons8.com
+1.1.0     2015-10-09     Changed all icons to https://icons8.com
+                         New feature: Post worklog to Jira with a comment
 </pre>

@@ -23,6 +23,7 @@ namespace StopWatch
 {
     public partial class MainForm : Form
     {
+        #region public methods
         public MainForm()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace StopWatch
             ticker.Tick += ticker_Tick;
             ticker.Start();
         }
+        #endregion
 
 
         #region private eventhandlers
@@ -62,23 +64,7 @@ namespace StopWatch
 
         private void pbSettings_Click(object sender, EventArgs e)
         {
-            using (var form = new SettingsForm())
-            {
-                form.JiraBaseUrl = jiraClient.BaseUrl;
-                form.IssueCount = this.issueCount;
-                form.AlwaysOnTop = this.alwaysOnTop;
-
-                this.TopMost = false;
-
-                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    jiraClient.BaseUrl = form.JiraBaseUrl;
-                    this.issueCount = form.IssueCount;
-                    this.alwaysOnTop = form.AlwaysOnTop;
-
-                    InitializeIssueControls();
-                }
-            }
+            EditSettings();
         }
 
 
@@ -97,10 +83,16 @@ namespace StopWatch
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            if (this.firstRun)
+            {
+                firstRun = false;
+
+                EditSettings();
+                JiraLogin();
+            }
+
             if (this.username != "" && this.password != "")
                 this.jiraClient.Authenticate(this.username, this.password);
-            else
-                JiraLogin();
 
             InitializeIssueControls();
 
@@ -155,7 +147,7 @@ namespace StopWatch
             }
 
             // Resize form and reposition settings button
-            this.ClientSize = new Size(issues.Last().Width + 24, (this.issueCount) * issues.Last().Height + 22 + 12);
+            this.ClientSize = new Size(issues.Last().Width + 24, this.issueCount * issues.Last().Height + 46);
 
             pbSettings.Left = this.ClientSize.Width - 30;
             pbSettings.Top = this.ClientSize.Height - 30;
@@ -191,6 +183,7 @@ namespace StopWatch
             else
                 this.password = "";
             this.rememberCredentials = Properties.Settings.Default.RememberCredentials;
+            this.firstRun = Properties.Settings.Default.FirstRun;
         }
 
 
@@ -207,7 +200,30 @@ namespace StopWatch
             else
                 Properties.Settings.Default.Password = "";
             Properties.Settings.Default.RememberCredentials = this.rememberCredentials;
+            Properties.Settings.Default.FirstRun = this.firstRun;
             Properties.Settings.Default.Save();
+        }
+
+
+        private void EditSettings()
+        {
+            using (var form = new SettingsForm())
+            {
+                form.JiraBaseUrl = jiraClient.BaseUrl;
+                form.IssueCount = this.issueCount;
+                form.AlwaysOnTop = this.alwaysOnTop;
+
+                this.TopMost = false;
+
+                if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    jiraClient.BaseUrl = form.JiraBaseUrl;
+                    this.issueCount = form.IssueCount;
+                    this.alwaysOnTop = form.AlwaysOnTop;
+
+                    InitializeIssueControls();
+                }
+            }
         }
 
 
@@ -256,6 +272,7 @@ namespace StopWatch
         private string username;
         private string password;
         private bool rememberCredentials;
+        private bool firstRun;
 
         private System.Collections.Specialized.StringCollection issueKeys;
         #endregion
