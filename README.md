@@ -33,7 +33,7 @@ Press the green PLAY button next to your task-id. The time-tracking textbox will
 
 If you press PLAY on another task, the previous will automatically pause.
 
-The button to the right of the time box lets you post the time directly on Jira as a worklog along with a comment. If the posting is successful, the timer will automatically reset, otherwise the timer will not be changed.
+The button to the right of the time box lets you post the time directly on Jira as a worklog along with a comment. If the posting is successful, the timer will automatically reset, otherwise the timer will not be changed. **Note that since the smallest time unit in StopWatch is minutes, the button will be disabled until at least 1 minute has passed.**
 
 Click on the rightmost button to reset the time to 0m.
 
