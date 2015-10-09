@@ -2,7 +2,7 @@
 
 A tool for recording time spent on different Jira tasks.
 
-![](http://gehling.dk/jirastopwatch/screenshot2.png)
+![](http://gehling.dk/jirastopwatch/screenshot3.png)
 
 ### Features:
 
