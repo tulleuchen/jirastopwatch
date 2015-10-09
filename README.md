@@ -19,13 +19,9 @@ A tool for recording time spent on different Jira tasks.
 
 Feature-requests are more than welcome :-)
 
-## License
-
-Apache License version 2.0 - please read [LICENSE.txt](LICENSE.txt)
-
 ## Download
 
-You can download a setup file with the latest version of Jira StopWatch on [SourceForge](https://sourceforge.net/projects/jirastopwatch/files)
+A setup file with the latest release can be [downloaded here](https://github.com/carstengehling/jirastopwatch/releases/tag/1.0.5).
 
 ## Usage
 
@@ -43,6 +39,9 @@ Click on "Open" to open the task in your browser
 
 That's it!
 
+## License
+
+Apache License version 2.0 - please read [LICENSE.txt](LICENSE.txt)
 
 ## Feedback
 
