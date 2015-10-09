@@ -64,4 +64,6 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 
 1.1.0     2015-10-09     Changed all icons to https://icons8.com
                          New feature: Post worklog to Jira with a comment
+
+1.1.1     2015-10-09     Fixed problems with main window being "Always on top" and the applications other dialog boxes
 </pre>
