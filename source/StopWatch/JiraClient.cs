@@ -33,34 +33,10 @@ namespace StopWatch
 
         public bool Authenticate(string username, string password)
         {
-            var client = GetClient();
+            this.username = username;
+            this.password = password;
 
-            var request = new RestRequest("/rest/auth/1/session", Method.POST);
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {
-                username = username,
-                password = password
-            });
-            
-            IRestResponse response = client.Execute<Issue>(request);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                return false;
-
-            return true;
-        }
-
-
-        public string GetIssueSummary(string key)
-        {
-            var client = GetClient();
-
-            var request = new RestRequest(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
-
-            IRestResponse<Issue> response = client.Execute<Issue>(request);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-                return "";
-
-            return response.Data.Fields.Summary;
+            return ReAuthenticate();
         }
 
 
@@ -72,6 +48,31 @@ namespace StopWatch
             url += "browse/";
             url += key;
             System.Diagnostics.Process.Start(url);
+        }
+
+
+        public string GetIssueSummary(string key)
+        {
+            var client = GetClient();
+
+            var request = new RestRequest(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
+
+            IRestResponse<Issue> response;
+
+            response = client.Execute<Issue>(request);
+
+            // If login session has expired, try to login, and then re-execute the original request
+            if (response.StatusCode != System.Net.HttpStatusCode.Unauthorized) {
+              if (!ReAuthenticate())
+                return "";
+
+              response = client.Execute<Issue>(request);
+            }
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                return "";
+
+            return response.Data.Fields.Summary;
         }
 
 
@@ -89,7 +90,18 @@ namespace StopWatch
                 }
             );
 
-            IRestResponse<Issue> response = client.Execute<Issue>(request);
+            IRestResponse response;
+
+            response = client.Execute(request);
+
+            // If login session has expired, try to login, and then re-execute the original request
+            if (response.StatusCode != System.Net.HttpStatusCode.Unauthorized) {
+              if (!ReAuthenticate())
+                return false;
+
+              response = client.Execute(request);
+            }
+
             if (response.StatusCode != System.Net.HttpStatusCode.Created)
                 return false;
 
@@ -99,7 +111,26 @@ namespace StopWatch
 
 
         #region private methods
-        public RestClient GetClient()
+        private bool ReAuthenticate()
+        {
+            var client = GetClient();
+
+            var request = new RestRequest("/rest/auth/1/session", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(new {
+                username = this.username,
+                password = this.password
+            });
+
+            IRestResponse response = client.Execute<Issue>(request);
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                return false;
+
+            return true;
+        }
+
+
+        private RestClient GetClient()
         {
             RestClient client = new RestClient(BaseUrl);
             client.CookieContainer = this.cookieContainer;
@@ -110,6 +141,9 @@ namespace StopWatch
 
         #region private members
         private CookieContainer cookieContainer;
+
+        private string username;
+        private string password;
         #endregion
     }
 }
