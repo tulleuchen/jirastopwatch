@@ -48,11 +48,11 @@ That's it!
 
 Bug reports, feature requests etc. are welcome. Please use Github for this.
 
-## Other
+## Externals
 
-All icons on buttons were downloaded from https://icons8.com
+The application depend on [RestSharp](https://github.com/restsharp/RestSharp) for all communication with Jira.
 
-
+All icons on buttons were downloaded from [Icons8](https://icons8.com).
 
 ## Changelog
 
