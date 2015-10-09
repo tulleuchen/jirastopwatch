@@ -21,7 +21,7 @@ Feature-requests are more than welcome :-)
 
 ## Download
 
-A setup file with the latest release can be [downloaded here](https://github.com/carstengehling/jirastopwatch/releases/tag/1.0.5).
+A setup file with the latest release can be [downloaded here](https://github.com/carstengehling/jirastopwatch/releases).
 
 ## Usage
 
