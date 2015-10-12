@@ -144,7 +144,7 @@ namespace StopWatch
             this.tbTime.Location = new System.Drawing.Point(248, 2);
             this.tbTime.Name = "tbTime";
             this.tbTime.Size = new System.Drawing.Size(95, 28);
-            this.tbTime.TabIndex = 2;
+            this.tbTime.TabIndex = 3;
             // 
             // lblSummary
             // 
@@ -152,7 +152,7 @@ namespace StopWatch
             this.lblSummary.Location = new System.Drawing.Point(0, 33);
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Size = new System.Drawing.Size(503, 17);
-            this.lblSummary.TabIndex = 5;
+            this.lblSummary.TabIndex = 6;
             // 
             // btnPostAndReset
             // 
@@ -161,7 +161,7 @@ namespace StopWatch
             this.btnPostAndReset.Location = new System.Drawing.Point(350, 0);
             this.btnPostAndReset.Name = "btnPostAndReset";
             this.btnPostAndReset.Size = new System.Drawing.Size(32, 32);
-            this.btnPostAndReset.TabIndex = 7;
+            this.btnPostAndReset.TabIndex = 4;
             this.ttIssue.SetToolTip(this.btnPostAndReset, "Submit worklog to Jira and reset timer");
             this.btnPostAndReset.UseVisualStyleBackColor = true;
             this.btnPostAndReset.Click += new System.EventHandler(this.btnPostAndReset_Click);
@@ -173,7 +173,7 @@ namespace StopWatch
             this.btnReset.Location = new System.Drawing.Point(444, 0);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
-            this.btnReset.TabIndex = 4;
+            this.btnReset.TabIndex = 5;
             this.ttIssue.SetToolTip(this.btnReset, "Reset timer");
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
@@ -185,7 +185,7 @@ namespace StopWatch
             this.btnStartStop.Location = new System.Drawing.Point(212, 0);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(32, 32);
-            this.btnStartStop.TabIndex = 3;
+            this.btnStartStop.TabIndex = 2;
             this.ttIssue.SetToolTip(this.btnStartStop, "Start/stop timer");
             this.btnStartStop.UseVisualStyleBackColor = true;
             this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
