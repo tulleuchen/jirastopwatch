@@ -256,7 +256,6 @@ namespace StopWatch
 
 
         #region private members
-
         private List<IssueControl> issues;
 
         private Timer ticker;

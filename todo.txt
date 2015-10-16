@@ -1,12 +1,3 @@
-IssueControl.cs:
-* Open button should be disabled when issue key is empty
-
-JiraClient.cs:
-* Authentication(): , save username/password and extract code to a ReAuthenticate() method
-* GetIssueSummary() + PostWorklog():
-    On response 401 unauthorized, call ReAuthenticate() and try again.
-    If still 401, then exit
-
 IssueControl.cs
 * Create public property for ElapsedTime/Running/etc, to make it possible for MainForm to
   save/load times and state - maybe a state object? or a serialized string?
@@ -16,5 +7,7 @@ MainForm.cs
     No save
     Save (pauses all timers)
     Save and keep running (remembers start-time for running issue)
+
+* private member issues is redundant because of form.controls - change to a read-only dynamic property that returns a list of form.controls that are all of type IssueControl
 
 * Check and display Jira online status - with timed event and threaded task

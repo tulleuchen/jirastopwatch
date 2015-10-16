@@ -22,8 +22,7 @@ namespace StopWatch
 {
     internal class IssueControl : UserControl
     {
-        public string JiraBaseUrl { get; set; }
-
+        #region public members
         public string IssueKey
         {
             get
@@ -37,8 +36,13 @@ namespace StopWatch
                 UpdateSummary();
             }
         }
+        #endregion
 
+
+        #region public events
         public event EventHandler TimerStarted;
+        #endregion
+
 
         #region public methods
         public IssueControl(JiraClient jiraClient)
