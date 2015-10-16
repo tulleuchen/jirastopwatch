@@ -62,7 +62,7 @@ namespace StopWatch
             response = client.Execute<Issue>(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode != System.Net.HttpStatusCode.Unauthorized) {
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
               if (!ReAuthenticate())
                 return "";
 
@@ -95,7 +95,7 @@ namespace StopWatch
             response = client.Execute(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode != System.Net.HttpStatusCode.Unauthorized) {
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
               if (!ReAuthenticate())
                 return false;
 
