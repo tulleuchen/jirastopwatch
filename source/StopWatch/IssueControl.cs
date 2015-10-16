@@ -65,6 +65,7 @@ namespace StopWatch
                 tbTime.BackColor = SystemColors.Control;
             }
 
+            btnOpen.Enabled = tbJira.Text.Trim() != "";
             btnReset.Enabled = watchTimer.Running || watchTimer.TimeElapsed.Ticks > 0;
             btnPostAndReset.Enabled = watchTimer.TimeElapsed.TotalMinutes >= 1;
         }
