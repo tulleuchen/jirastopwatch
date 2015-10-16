@@ -30,7 +30,7 @@ namespace StopWatch
 
             this.jiraClient = new JiraClient();
 
-            this.issues = new List<IssueControl>();
+            //this.issues = new List<IssueControl>();
 
             LoadSettings();
 
@@ -47,12 +47,9 @@ namespace StopWatch
         {
             IssueControl senderCtrl = (IssueControl)sender;
 
-            this.issues.ForEach(
-                issue => {
-                    if (issue != senderCtrl)
-                        issue.Pause();
-                }
-            );
+            foreach (var issue in this.issues)
+                if (issue != senderCtrl)
+                    issue.Pause();
         }
 
 
@@ -73,9 +70,8 @@ namespace StopWatch
             // Copy issue keys to settings and save settings
             this.issueKeys.Clear();
 
-            this.issues.ForEach(
-                issue => this.issueKeys.Add(issue.IssueKey)
-            );
+            foreach (var issue in this.issues)
+                this.issueKeys.Add(issue.IssueKey);
 
             SaveSettings();
         }
@@ -97,11 +93,12 @@ namespace StopWatch
             InitializeIssueControls();
 
             // Add issuekeys from settings to issue controls
-            for (int i = 0; i < this.issues.Count; i++)
+            int i = 0;
+            foreach (var issue in this.issues)
             {
-                var issue = this.issues[i];
                 if (i < this.issueKeys.Count)
                     issue.IssueKey = this.issueKeys[i];
+                i++;
             }
 
             UpdateIssuesOutput();
@@ -122,28 +119,27 @@ namespace StopWatch
 
             // If we have too many issue controls, compared to this.issueCount
             // remove the ones not needed
-            while (this.issues.Count > this.issueCount)
+            while (this.issues.Count() > this.issueCount)
             {
                 var issue = this.issues.Last();
                 this.Controls.Remove(issue);
-                this.issues.Remove(issue);
             }
 
             // Create issue controls needed
-            while (this.issues.Count < this.issueCount)
+            while (this.issues.Count() < this.issueCount)
             {
                 var issue = new IssueControl(this.jiraClient);
                 issue.TimerStarted += issue_TimerStarted;
-                this.issues.Add(issue);
                 this.Controls.Add(issue);
             }
 
             // Position all issue controls
-            for (int i = 0; i < this.issues.Count; i++)
+            int i = 0;
+            foreach (var issue in this.issues)
             {
-                var issue = this.issues[i];
                 issue.Left = 12;
                 issue.Top = i * issue.Height + 12;
+                i++;
             }
 
             // Resize form and reposition settings button
@@ -164,9 +160,8 @@ namespace StopWatch
 
         private void UpdateIssuesOutput()
         {
-            this.issues.ForEach(
-                issue => issue.UpdateOutput()
-            );
+            foreach (var issue in this.issues)
+                issue.UpdateOutput();
         }
 
 
@@ -256,7 +251,13 @@ namespace StopWatch
 
 
         #region private members
-        private List<IssueControl> issues;
+        private IEnumerable<IssueControl> issues
+        {
+            get
+            {
+                return this.Controls.OfType<IssueControl>();
+            }
+        }
 
         private Timer ticker;
 

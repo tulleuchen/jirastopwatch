@@ -8,6 +8,4 @@ MainForm.cs
     Save (pauses all timers)
     Save and keep running (remembers start-time for running issue)
 
-* private member issues is redundant because of form.controls - change to a read-only dynamic property that returns a list of form.controls that are all of type IssueControl
-
 * Check and display Jira online status - with timed event and threaded task
