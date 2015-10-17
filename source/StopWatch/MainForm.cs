@@ -243,12 +243,14 @@ namespace StopWatch
                 form.JiraBaseUrl = jiraClient.BaseUrl;
                 form.IssueCount = this.issueCount;
                 form.AlwaysOnTop = this.alwaysOnTop;
+                form.SaveTimerState = this.saveTimerState;
 
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     jiraClient.BaseUrl = form.JiraBaseUrl;
                     this.issueCount = form.IssueCount;
                     this.alwaysOnTop = form.AlwaysOnTop;
+                    this.saveTimerState = form.SaveTimerState;
 
                     InitializeIssueControls();
                 }
@@ -301,6 +303,9 @@ namespace StopWatch
 
         private bool alwaysOnTop;
         private int issueCount;
+
+        private SaveTimerSetting saveTimerState;
+
         private string username;
         private string password;
         private bool rememberCredentials;
