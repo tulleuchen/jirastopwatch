@@ -55,6 +55,7 @@ namespace StopWatch
 
         void ticker_Tick(object sender, EventArgs e)
         {
+            UpdateConnectionStatus();
             UpdateIssuesOutput();
         }
 
@@ -101,6 +102,7 @@ namespace StopWatch
                 i++;
             }
 
+            UpdateConnectionStatus();
             UpdateIssuesOutput();
         }
 
@@ -151,6 +153,9 @@ namespace StopWatch
             pbLogin.Left = 8;
             pbLogin.Top = this.ClientSize.Height - 30;
 
+            lblConnectionHeader.Top = this.ClientSize.Height - 20;
+            lblConnectionStatus.Top = this.ClientSize.Height - 20;
+
             this.TopMost = this.alwaysOnTop;
 
             this.ResumeLayout(false);
@@ -164,6 +169,26 @@ namespace StopWatch
                 issue.UpdateOutput();
         }
 
+
+        private void UpdateConnectionStatus()
+        {
+            if (JiraConnected())
+            {
+                lblConnectionStatus.Text = "Connected";
+                lblConnectionStatus.ForeColor = Color.DarkGreen;
+            }
+            else
+            {
+                lblConnectionStatus.Text = "Not connected";
+                lblConnectionStatus.ForeColor = SystemColors.ControlText;
+            }
+        }
+
+
+        private bool JiraConnected()
+        {
+            return true;
+        }
 
         private void LoadSettings()
         {
