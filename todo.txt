@@ -7,5 +7,3 @@ MainForm.cs
     No save
     Save (pauses all timers)
     Save and keep running (remembers start-time for running issue)
-
-* Check and display Jira online status - with timed event and threaded task
