@@ -17,6 +17,7 @@ using RestSharp;
 using System;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace StopWatch
 {
@@ -50,6 +51,32 @@ namespace StopWatch
             System.Diagnostics.Process.Start(url);
         }
 
+
+        public bool SessionValid()
+        {
+            var client = GetClient();
+
+            var request = new RestRequest("/rest/auth/1/session", Method.GET);
+
+            IRestResponse response;
+
+            response = client.Execute(request);
+
+            // If login session has expired, try to login, and then re-execute the original request
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                if (!ReAuthenticate())
+                    return false;
+
+                response = client.Execute(request);
+            }
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                return false;
+
+            return true;
+        }
+        
 
         public string GetIssueSummary(string key)
         {

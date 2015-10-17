@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StopWatch
@@ -172,23 +173,33 @@ namespace StopWatch
 
         private void UpdateConnectionStatus()
         {
-            if (JiraConnected())
-            {
-                lblConnectionStatus.Text = "Connected";
-                lblConnectionStatus.ForeColor = Color.DarkGreen;
-            }
-            else
-            {
-                lblConnectionStatus.Text = "Not connected";
-                lblConnectionStatus.ForeColor = SystemColors.ControlText;
-            }
+            Task.Factory.StartNew(
+                () =>
+                {
+                    if (jiraClient.SessionValid())
+                    {
+                        this.Invoke(new Action(
+                            () =>
+                            {
+                                lblConnectionStatus.Text = "Connected";
+                                lblConnectionStatus.ForeColor = Color.DarkGreen;
+                            }
+                        ));
+                    }
+                    else
+                    {
+                        this.Invoke(new Action(
+                            () =>
+                            {
+                                lblConnectionStatus.Text = "Not connected";
+                                lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                            }
+                        ));
+                    }
+                }
+            );
         }
 
-
-        private bool JiraConnected()
-        {
-            return true;
-        }
 
         private void LoadSettings()
         {
