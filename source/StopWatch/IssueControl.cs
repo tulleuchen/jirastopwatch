@@ -36,6 +36,9 @@ namespace StopWatch
                 UpdateSummary();
             }
         }
+
+
+        public WatchTimer WatchTimer { get; private set; }
         #endregion
 
 
@@ -51,15 +54,15 @@ namespace StopWatch
             InitializeComponent();
 
             this.jiraClient = jiraClient;
-            this.watchTimer = new WatchTimer();
+            this.WatchTimer = new WatchTimer();
         }
 
 
         public void UpdateOutput()
         {
-            tbTime.Text = JiraHelpers.TimeSpanToJiraTime(watchTimer.TimeElapsed);
+            tbTime.Text = JiraHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
 
-            if (watchTimer.Running)
+            if (WatchTimer.Running)
             {
                 btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.pause26);
                 tbTime.BackColor = Color.PaleGreen;
@@ -70,14 +73,14 @@ namespace StopWatch
             }
 
             btnOpen.Enabled = tbJira.Text.Trim() != "";
-            btnReset.Enabled = watchTimer.Running || watchTimer.TimeElapsed.Ticks > 0;
-            btnPostAndReset.Enabled = watchTimer.TimeElapsed.TotalMinutes >= 1;
+            btnReset.Enabled = WatchTimer.Running || WatchTimer.TimeElapsed.Ticks > 0;
+            btnPostAndReset.Enabled = WatchTimer.TimeElapsed.TotalMinutes >= 1;
         }
 
 
         public void Pause()
         {
-            watchTimer.Pause();
+            WatchTimer.Pause();
             UpdateOutput();
         }
         #endregion
@@ -203,7 +206,7 @@ namespace StopWatch
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(32, 32);
             this.btnOpen.TabIndex = 1;
-            this.ttIssue.SetToolTip(this.btnOpen, "Open issue in browser");
+            this.ttIssue.SetToolTip(this.btnOpen, "Open issueControl in browser");
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
@@ -235,7 +238,7 @@ namespace StopWatch
 
         private void Reset()
         {
-            this.watchTimer.Reset();
+            this.WatchTimer.Reset();
             UpdateOutput();
         }
         #endregion
@@ -256,11 +259,11 @@ namespace StopWatch
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {
-            if (watchTimer.Running) {
-                this.watchTimer.Pause();
+            if (WatchTimer.Running) {
+                this.WatchTimer.Pause();
             }
             else {
-                this.watchTimer.Start();
+                this.WatchTimer.Start();
 
                 if (this.TimerStarted != null)
                     this.TimerStarted(this, e);
@@ -285,7 +288,7 @@ namespace StopWatch
                 if (worklogForm.ShowDialog(this) == DialogResult.OK)
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    if (jiraClient.PostWorklog(tbJira.Text, watchTimer.TimeElapsed, worklogForm.Comment))
+                    if (jiraClient.PostWorklog(tbJira.Text, WatchTimer.TimeElapsed, worklogForm.Comment))
                         Reset();
                     Cursor.Current = DefaultCursor;
                 }
@@ -303,7 +306,6 @@ namespace StopWatch
         private Button btnReset;
         private Label lblSummary;
 
-        private WatchTimer watchTimer;
         private ToolTip ttIssue;
         private System.ComponentModel.IContainer components;
         private Label lblSplitter;

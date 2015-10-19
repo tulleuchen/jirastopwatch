@@ -14,11 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
 using System.Windows.Forms;
+using System.Linq;
 
 namespace StopWatch
 {
+    public enum SaveTimerSetting
+    {
+        NoSave,
+        SavePause,
+        SaveRunActive
+    }
+
+
     public partial class SettingsForm : Form
     {
+        #region public members
         public string JiraBaseUrl
         {
             get
@@ -54,11 +64,32 @@ namespace StopWatch
                 cbAlwaysOnTop.Checked = value;
             }
         }
-                
+        #endregion
+
+
+        public SaveTimerSetting SaveTimerState
+        {
+            get
+            {
+                RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
+                return (SaveTimerSetting)choice.Tag;
+            }
+
+            set
+            {
+                RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => (SaveTimerSetting)x.Tag == value);
+                choice.Checked = true;
+            }
+        }
+
 
         public SettingsForm()
         {
             InitializeComponent();
+
+            rbNoSave.Tag = SaveTimerSetting.NoSave;
+            rbSavePause.Tag = SaveTimerSetting.SavePause;
+            rbSaveRunActive.Tag = SaveTimerSetting.SaveRunActive;
         }
     }
 }
