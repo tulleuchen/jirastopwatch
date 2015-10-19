@@ -1,0 +1,1 @@
+Move all application settings from MainForm into separate class
