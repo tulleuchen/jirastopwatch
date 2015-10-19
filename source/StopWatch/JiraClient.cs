@@ -82,7 +82,7 @@ namespace StopWatch
         {
             var client = GetClient();
 
-            var request = new RestRequest(String.Format("/rest/api/2/issueControl/{0}", key), Method.GET);
+            var request = new RestRequest(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
 
             IRestResponse<Issue> response;
 
@@ -107,7 +107,7 @@ namespace StopWatch
         {
             var client = GetClient();
 
-            var request = new RestRequest(String.Format("/rest/api/2/issueControl/{0}/worklog", key), Method.POST);
+            var request = new RestRequest(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
             request.RequestFormat = DataFormat.Json;
 
             request.AddBody(new
