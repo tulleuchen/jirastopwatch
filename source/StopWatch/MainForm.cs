@@ -31,7 +31,7 @@ namespace StopWatch
 
             this.jiraClient = new JiraClient();
 
-            //this.issues = new List<IssueControl>();
+            //this.issueControls = new List<IssueControl>();
 
             LoadSettings();
 
@@ -48,7 +48,7 @@ namespace StopWatch
         {
             IssueControl senderCtrl = (IssueControl)sender;
 
-            foreach (var issue in this.issues)
+            foreach (var issue in this.issueControls)
                 if (issue != senderCtrl)
                     issue.Pause();
         }
@@ -69,11 +69,8 @@ namespace StopWatch
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Copy issue keys to settings and save settings
-            this.issueKeys.Clear();
-
-            foreach (var issue in this.issues)
-                this.issueKeys.Add(issue.IssueKey);
+            // Copy issueControl keys and timer states to settings and save settings
+            CollectIssueKeysAndStates();
 
             SaveSettings();
         }
@@ -94,12 +91,26 @@ namespace StopWatch
 
             InitializeIssueControls();
 
-            // Add issuekeys from settings to issue controls
+            // Add issuekeys from settings to issueControl controls
             int i = 0;
-            foreach (var issue in this.issues)
+            foreach (var issueControl in this.issueControls)
             {
-                if (i < this.issueKeys.Count)
-                    issue.IssueKey = this.issueKeys[i];
+                if (i < this.issues.Count)
+                {
+                    string[] issueState = this.issues[i].Split(';');
+                    issueControl.IssueKey = issueState[0];
+
+                    if (saveTimerState != SaveTimerSetting.NoSave)
+                    {
+                        TimerState timerState = new TimerState
+                        {
+                            Running = saveTimerState == SaveTimerSetting.SavePause ? false : bool.Parse(issueState[1]),
+                            StartTime = DateTime.Parse(issueState[2]),
+                            TotalTime = TimeSpan.Parse(issueState[3])
+                        };
+                        issueControl.WatchTimer.SetState(timerState);
+                    }
+                }
                 i++;
             }
 
@@ -120,25 +131,25 @@ namespace StopWatch
         {
             this.SuspendLayout();
 
-            // If we have too many issue controls, compared to this.issueCount
+            // If we have too many issueControl controls, compared to this.issueCount
             // remove the ones not needed
-            while (this.issues.Count() > this.issueCount)
+            while (this.issueControls.Count() > this.issueCount)
             {
-                var issue = this.issues.Last();
+                var issue = this.issueControls.Last();
                 this.Controls.Remove(issue);
             }
 
-            // Create issue controls needed
-            while (this.issues.Count() < this.issueCount)
+            // Create issueControl controls needed
+            while (this.issueControls.Count() < this.issueCount)
             {
                 var issue = new IssueControl(this.jiraClient);
                 issue.TimerStarted += issue_TimerStarted;
                 this.Controls.Add(issue);
             }
 
-            // Position all issue controls
+            // Position all issueControl controls
             int i = 0;
-            foreach (var issue in this.issues)
+            foreach (var issue in this.issueControls)
             {
                 issue.Left = 12;
                 issue.Top = i * issue.Height + 12;
@@ -146,7 +157,7 @@ namespace StopWatch
             }
 
             // Resize form and reposition settings button
-            this.ClientSize = new Size(issues.Last().Width + 24, this.issueCount * issues.Last().Height + 46);
+            this.ClientSize = new Size(issueControls.Last().Width + 24, this.issueCount * issueControls.Last().Height + 46);
 
             pbSettings.Left = this.ClientSize.Width - 30;
             pbSettings.Top = this.ClientSize.Height - 30;
@@ -166,7 +177,7 @@ namespace StopWatch
 
         private void UpdateIssuesOutput()
         {
-            foreach (var issue in this.issues)
+            foreach (var issue in this.issueControls)
                 issue.UpdateOutput();
         }
 
@@ -207,7 +218,7 @@ namespace StopWatch
 
             this.alwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
             this.issueCount = Properties.Settings.Default.IssueCount;
-            this.issueKeys = Properties.Settings.Default.IssueKeys ?? new System.Collections.Specialized.StringCollection();
+            this.issues = Properties.Settings.Default.Issues ?? new System.Collections.Specialized.StringCollection();
             this.username = Properties.Settings.Default.Username;
             if (Properties.Settings.Default.Password != "")
                 this.password = DPAPI.Decrypt(Properties.Settings.Default.Password);
@@ -215,6 +226,7 @@ namespace StopWatch
                 this.password = "";
             this.rememberCredentials = Properties.Settings.Default.RememberCredentials;
             this.firstRun = Properties.Settings.Default.FirstRun;
+            this.saveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
         }
 
 
@@ -224,7 +236,7 @@ namespace StopWatch
 
             Properties.Settings.Default.AlwaysOnTop = this.alwaysOnTop;
             Properties.Settings.Default.IssueCount = this.issueCount;
-            Properties.Settings.Default.IssueKeys = this.issueKeys;
+            Properties.Settings.Default.Issues = this.issues;
             Properties.Settings.Default.Username = this.username;
             if (this.password != "")
                 Properties.Settings.Default.Password = DPAPI.Encrypt(this.password);
@@ -232,6 +244,8 @@ namespace StopWatch
                 Properties.Settings.Default.Password = "";
             Properties.Settings.Default.RememberCredentials = this.rememberCredentials;
             Properties.Settings.Default.FirstRun = this.firstRun;
+            Properties.Settings.Default.SaveTimerState = (int)this.saveTimerState;
+
             Properties.Settings.Default.Save();
         }
 
@@ -254,6 +268,27 @@ namespace StopWatch
 
                     InitializeIssueControls();
                 }
+            }
+        }
+
+
+        private void CollectIssueKeysAndStates()
+        {
+            this.issues.Clear();
+
+            foreach (var issueControl in this.issueControls)
+            {
+                TimerState timerState = issueControl.WatchTimer.GetState();
+
+                // Simple serialize all issueControl runtime data into string
+                string issueState = String.Format("{0};{1};{2};{3}",
+                    issueControl.IssueKey,
+                    timerState.Running,
+                    timerState.StartTime,
+                    timerState.TotalTime
+                );
+
+                this.issues.Add(issueState);
             }
         }
 
@@ -289,7 +324,7 @@ namespace StopWatch
 
 
         #region private members
-        private IEnumerable<IssueControl> issues
+        private IEnumerable<IssueControl> issueControls
         {
             get
             {
@@ -311,7 +346,7 @@ namespace StopWatch
         private bool rememberCredentials;
         private bool firstRun;
 
-        private System.Collections.Specialized.StringCollection issueKeys;
+        private System.Collections.Specialized.StringCollection issues;
         #endregion
     }
 }

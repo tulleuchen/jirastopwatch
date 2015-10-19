@@ -37,12 +37,12 @@ namespace StopWatch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection IssueKeys {
+        public global::System.Collections.Specialized.StringCollection Issues {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["IssueKeys"]));
+                return ((global::System.Collections.Specialized.StringCollection)(this["Issues"]));
             }
             set {
-                this["IssueKeys"] = value;
+                this["Issues"] = value;
             }
         }
         
@@ -115,6 +115,18 @@ namespace StopWatch.Properties {
             }
             set {
                 this["FirstRun"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SaveTimerState {
+            get {
+                return ((int)(this["SaveTimerState"]));
+            }
+            set {
+                this["SaveTimerState"] = value;
             }
         }
     }

@@ -17,6 +17,16 @@ using System;
 
 namespace StopWatch
 {
+    internal class TimerState
+    {
+        public bool Running { get; set; }
+
+        public TimeSpan TotalTime { get; set; }
+
+        public DateTime StartTime { get; set; }
+    }
+
+
     internal class WatchTimer
     {
         #region public members
@@ -32,6 +42,7 @@ namespace StopWatch
             Reset();
         }
 
+
         public void Start()
         {
             if (Running)
@@ -40,6 +51,7 @@ namespace StopWatch
             startTime = DateTime.Now;
             Running = true;
         }
+
 
         public void Pause()
         {
@@ -50,10 +62,30 @@ namespace StopWatch
             Running = false;
         }
 
+
         public void Reset()
         {
             totalTime = new TimeSpan();
             Running = false;
+        }
+
+
+        public TimerState GetState()
+        {
+            return new TimerState
+            {
+                Running = this.Running,
+                TotalTime = this.totalTime,
+                StartTime = this.startTime
+            };
+        }
+
+
+        public void SetState(TimerState state)
+        {
+            this.Running = state.Running;
+            this.totalTime = state.TotalTime;
+            this.startTime = state.StartTime;
         }
         #endregion
 
