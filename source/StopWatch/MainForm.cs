@@ -165,8 +165,8 @@ namespace StopWatch
             pbLogin.Left = 8;
             pbLogin.Top = this.ClientSize.Height - 30;
 
-            lblConnectionHeader.Top = this.ClientSize.Height - 20;
-            lblConnectionStatus.Top = this.ClientSize.Height - 20;
+            lblConnectionHeader.Top = this.ClientSize.Height - 24;
+            lblConnectionStatus.Top = this.ClientSize.Height - 24;
 
             this.TopMost = this.alwaysOnTop;
 
@@ -303,8 +303,6 @@ namespace StopWatch
 
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    this.jiraClient.Authenticate(form.Username, form.Password);
-
                     this.rememberCredentials = form.Remember;
                     if (this.rememberCredentials)
                     {
@@ -316,6 +314,9 @@ namespace StopWatch
                         this.username = "";
                         this.password = "";
                     }
+
+                    this.jiraClient.Authenticate(form.Username, form.Password);
+                    UpdateConnectionStatus();
                 }
             }
 

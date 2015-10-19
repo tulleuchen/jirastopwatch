@@ -140,7 +140,7 @@ namespace StopWatch
         #region private methods
         private bool ReAuthenticate()
         {
-            var client = GetClient();
+            var client = GetClient(true);
 
             var request = new RestRequest("/rest/auth/1/session", Method.POST);
             request.RequestFormat = DataFormat.Json;
@@ -157,8 +157,11 @@ namespace StopWatch
         }
 
 
-        private RestClient GetClient()
+        private RestClient GetClient(bool invalidateCookies = false)
         {
+            if (invalidateCookies)
+                this.cookieContainer = new CookieContainer();
+
             RestClient client = new RestClient(BaseUrl);
             client.CookieContainer = this.cookieContainer;
             return client;
