@@ -11,11 +11,11 @@ A tool for recording time spent on different Jira tasks.
 * Time is reported in Jira time-logging format (eg. 2h 31m) to easily copy/paste into time-logging
 * Jira issue keys are saved on program exit
 * Posting spent time into Jira as a worklog with comment (using Jira REST API)
+* Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
+* Automatic re-login, if Jira session has expired
 
 ## Planned features
 
-* Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
-* Automatic re-login, if Jira session has expired
 * Better visual feedback when posting worklog to Jira (to indicate success)
 
 Feature-requests are more than welcome :-)
@@ -67,4 +67,9 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
                          New feature: Post worklog to Jira with a comment
 
 1.1.1     2015-10-09     Fixed problems with main window being "Always on top" and the applications other dialog boxes
+
+1.2.0     2015-10-19     Save time-tracking state, so stopwatch continue to "run" after quitting program
+                         Automatic re-login, if Jira session has expired
+                         Visual Jira connection status
+                         Fixed tab-order on controls
 </pre>
