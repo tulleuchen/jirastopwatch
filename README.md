@@ -22,6 +22,12 @@ A tool for recording time spent on different Jira tasks.
 
 Feature-requests are more than welcome :-)
 
+## Mac OSX and Linux users
+
+Jira StopWatch has been compiled and tested to work on Linux Mint 17.0 with the [Xamarin packages](http://www.mono-project.com/download/#download-lin).
+
+Anyone with a MacOSX available: I would love to know if everything works out of the box.
+
 ## Download
 
 A setup file with the latest release can be [downloaded here](https://github.com/carstengehling/jirastopwatch/releases).
