@@ -1,1 +1,7 @@
 Move all application settings from MainForm into separate class
+
+Autocomplete issue-keys:
+  - When writing issue-key: Autocomplete from current JQL filter
+  - Choose current JQL filter from all of user's filters
+
+Bug: On startup (and changing login info) - if REST auth API is slow to respond, the application hangs because authentication is done in main thread

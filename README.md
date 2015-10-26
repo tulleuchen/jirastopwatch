@@ -16,6 +16,8 @@ A tool for recording time spent on different Jira tasks.
 
 ## Planned features
 
+* Adding issue keys with auto-complete/selecting from list - list provided by current JQL filter
+
 * Better visual feedback when posting worklog to Jira (to indicate success)
 
 Feature-requests are more than welcome :-)
