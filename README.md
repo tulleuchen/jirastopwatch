@@ -16,9 +16,17 @@ A tool for recording time spent on different Jira tasks.
 
 ## Planned features
 
+* Adding issue keys with auto-complete/selecting from list - list provided by current JQL filter
+
 * Better visual feedback when posting worklog to Jira (to indicate success)
 
 Feature-requests are more than welcome :-)
+
+## Mac OSX and Linux users
+
+Jira StopWatch has been compiled and tested to work on Linux Mint 17.0 with the [Xamarin packages](http://www.mono-project.com/download/#download-lin).
+
+Anyone with a MacOSX available: I would love to know if everything works out of the box.
 
 ## Download
 
