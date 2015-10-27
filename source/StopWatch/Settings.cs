@@ -28,6 +28,8 @@ namespace StopWatch
         public string Password;
         public bool RememberCredentials;
         public bool FirstRun;
+
+        public System.Collections.Specialized.StringCollection Issues;
         #endregion
 
 
@@ -51,6 +53,8 @@ namespace StopWatch
             this.RememberCredentials = Properties.Settings.Default.RememberCredentials;
             this.FirstRun = Properties.Settings.Default.FirstRun;
             this.SaveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
+
+            this.Issues = Properties.Settings.Default.Issues ?? new System.Collections.Specialized.StringCollection();
         }
 
 
@@ -68,6 +72,8 @@ namespace StopWatch
             Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
             Properties.Settings.Default.FirstRun = this.FirstRun;
             Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;
+
+            Properties.Settings.Default.Issues = this.Issues;
 
             Properties.Settings.Default.Save();
         }

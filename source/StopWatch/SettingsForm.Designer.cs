@@ -111,7 +111,7 @@
             this.btnOk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 27);
-            this.btnOk.TabIndex = 5;
+            this.btnOk.TabIndex = 7;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             // 
@@ -122,7 +122,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 27);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -133,7 +133,7 @@
             this.lblSaveTimerState.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSaveTimerState.Name = "lblSaveTimerState";
             this.lblSaveTimerState.Size = new System.Drawing.Size(117, 17);
-            this.lblSaveTimerState.TabIndex = 7;
+            this.lblSaveTimerState.TabIndex = 5;
             this.lblSaveTimerState.Text = "Save timer states";
             // 
             // rbNoSave
@@ -143,7 +143,7 @@
             this.rbNoSave.Margin = new System.Windows.Forms.Padding(4);
             this.rbNoSave.Name = "rbNoSave";
             this.rbNoSave.Size = new System.Drawing.Size(171, 21);
-            this.rbNoSave.TabIndex = 8;
+            this.rbNoSave.TabIndex = 0;
             this.rbNoSave.TabStop = true;
             this.rbNoSave.Text = "Reset all timers on exit";
             this.rbNoSave.UseVisualStyleBackColor = true;
@@ -158,7 +158,7 @@
             this.gbSaveTimerState.Name = "gbSaveTimerState";
             this.gbSaveTimerState.Padding = new System.Windows.Forms.Padding(4);
             this.gbSaveTimerState.Size = new System.Drawing.Size(312, 92);
-            this.gbSaveTimerState.TabIndex = 9;
+            this.gbSaveTimerState.TabIndex = 6;
             this.gbSaveTimerState.TabStop = false;
             // 
             // rbSaveRunActive
@@ -168,7 +168,7 @@
             this.rbSaveRunActive.Margin = new System.Windows.Forms.Padding(4);
             this.rbSaveRunActive.Name = "rbSaveRunActive";
             this.rbSaveRunActive.Size = new System.Drawing.Size(292, 21);
-            this.rbSaveRunActive.TabIndex = 10;
+            this.rbSaveRunActive.TabIndex = 2;
             this.rbSaveRunActive.TabStop = true;
             this.rbSaveRunActive.Text = "Save current times, active timer continues";
             this.rbSaveRunActive.UseVisualStyleBackColor = true;
@@ -180,7 +180,7 @@
             this.rbSavePause.Margin = new System.Windows.Forms.Padding(4);
             this.rbSavePause.Name = "rbSavePause";
             this.rbSavePause.Size = new System.Drawing.Size(270, 21);
-            this.rbSavePause.TabIndex = 9;
+            this.rbSavePause.TabIndex = 1;
             this.rbSavePause.TabStop = true;
             this.rbSavePause.Text = "Save current times, pause active timer";
             this.rbSavePause.UseVisualStyleBackColor = true;

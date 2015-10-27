@@ -214,14 +214,15 @@ namespace StopWatch
         private void LoadSettings()
         {
             this.settings.Load();
-            this.issues = Properties.Settings.Default.Issues ?? new System.Collections.Specialized.StringCollection();
+            this.issues = this.settings.Issues;
+            jiraClient.BaseUrl = this.settings.JiraBaseUrl;
         }
 
 
         private void SaveSettings()
         {
+            this.settings.Issues = this.issues;
             this.settings.Save();
-            Properties.Settings.Default.Issues = this.issues;
         }
 
 
@@ -231,6 +232,7 @@ namespace StopWatch
             {
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
+                    jiraClient.BaseUrl = this.settings.JiraBaseUrl;
                     InitializeIssueControls();
                 }
             }
