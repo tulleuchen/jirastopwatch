@@ -29,67 +29,44 @@ namespace StopWatch
     public partial class SettingsForm : Form
     {
         #region public members
-        public string JiraBaseUrl
-        {
-            get
-            {
-                return tbJiraBaseUrl.Text;
-            }
-            set
-            {
-                tbJiraBaseUrl.Text = value;
-            }
-        }
-                
-        public int IssueCount
-        {
-            get
-            {
-                return (int)numIssueCount.Value;
-            }
-            set
-            {
-                numIssueCount.Value = value;
-            }
-        }
-                
-        public bool AlwaysOnTop
-        {
-            get
-            {
-                return cbAlwaysOnTop.Checked;
-            }
-            set
-            {
-                cbAlwaysOnTop.Checked = value;
-            }
-        }
+        public Settings settings { get; private set; }
         #endregion
 
 
-        public SaveTimerSetting SaveTimerState
+        #region public methods
+        public SettingsForm(Settings settings)
         {
-            get
-            {
-                RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-                return (SaveTimerSetting)choice.Tag;
-            }
+            this.settings = settings;
 
-            set
-            {
-                RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => (SaveTimerSetting)x.Tag == value);
-                choice.Checked = true;
-            }
-        }
-
-
-        public SettingsForm()
-        {
             InitializeComponent();
 
             rbNoSave.Tag = SaveTimerSetting.NoSave;
             rbSavePause.Tag = SaveTimerSetting.SavePause;
             rbSaveRunActive.Tag = SaveTimerSetting.SaveRunActive;
+
+            tbJiraBaseUrl.Text = this.settings.JiraBaseUrl;
+            numIssueCount.Value = this.settings.IssueCount;
+            cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
+
+            RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => (SaveTimerSetting)x.Tag == settings.SaveTimerState);
+            choice.Checked = true;
         }
+        #endregion
+
+
+        #region private eventhandlers
+        private void SettingsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (DialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+                this.settings.JiraBaseUrl = tbJiraBaseUrl.Text;
+                this.settings.IssueCount = (int)numIssueCount.Value;
+                this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
+
+                RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
+                this.settings.SaveTimerState = (SaveTimerSetting)choice.Tag;
+            }
+        }
+        #endregion
     }
 }

@@ -140,7 +140,7 @@
             // 
             this.rbNoSave.AutoSize = true;
             this.rbNoSave.Location = new System.Drawing.Point(8, 10);
-            this.rbNoSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbNoSave.Margin = new System.Windows.Forms.Padding(4);
             this.rbNoSave.Name = "rbNoSave";
             this.rbNoSave.Size = new System.Drawing.Size(171, 21);
             this.rbNoSave.TabIndex = 8;
@@ -154,9 +154,9 @@
             this.gbSaveTimerState.Controls.Add(this.rbSavePause);
             this.gbSaveTimerState.Controls.Add(this.rbNoSave);
             this.gbSaveTimerState.Location = new System.Drawing.Point(137, 111);
-            this.gbSaveTimerState.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbSaveTimerState.Margin = new System.Windows.Forms.Padding(4);
             this.gbSaveTimerState.Name = "gbSaveTimerState";
-            this.gbSaveTimerState.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gbSaveTimerState.Padding = new System.Windows.Forms.Padding(4);
             this.gbSaveTimerState.Size = new System.Drawing.Size(312, 92);
             this.gbSaveTimerState.TabIndex = 9;
             this.gbSaveTimerState.TabStop = false;
@@ -165,7 +165,7 @@
             // 
             this.rbSaveRunActive.AutoSize = true;
             this.rbSaveRunActive.Location = new System.Drawing.Point(8, 66);
-            this.rbSaveRunActive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbSaveRunActive.Margin = new System.Windows.Forms.Padding(4);
             this.rbSaveRunActive.Name = "rbSaveRunActive";
             this.rbSaveRunActive.Size = new System.Drawing.Size(292, 21);
             this.rbSaveRunActive.TabIndex = 10;
@@ -177,7 +177,7 @@
             // 
             this.rbSavePause.AutoSize = true;
             this.rbSavePause.Location = new System.Drawing.Point(8, 38);
-            this.rbSavePause.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbSavePause.Margin = new System.Windows.Forms.Padding(4);
             this.rbSavePause.Name = "rbSavePause";
             this.rbSavePause.Size = new System.Drawing.Size(270, 21);
             this.rbSavePause.TabIndex = 9;
@@ -205,6 +205,7 @@
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "StopWatch Settings";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).EndInit();
             this.gbSaveTimerState.ResumeLayout(false);
             this.gbSaveTimerState.PerformLayout();

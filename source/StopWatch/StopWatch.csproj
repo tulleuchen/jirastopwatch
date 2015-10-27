@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DPApi.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="WorklogForm.cs">
       <SubType>Form</SubType>
     </Compile>

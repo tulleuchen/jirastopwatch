@@ -29,9 +29,8 @@ namespace StopWatch
         {
             InitializeComponent();
 
+            this.settings = new Settings();
             this.jiraClient = new JiraClient();
-
-            //this.issueControls = new List<IssueControl>();
 
             LoadSettings();
 
@@ -78,16 +77,16 @@ namespace StopWatch
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (this.firstRun)
+            if (this.settings.FirstRun)
             {
-                firstRun = false;
+                this.settings.FirstRun = false;
 
                 EditSettings();
                 JiraLogin();
             }
 
-            if (this.username != "" && this.password != "")
-                this.jiraClient.Authenticate(this.username, this.password);
+            if (this.settings.Username != "" && this.settings.Password != "")
+                this.jiraClient.Authenticate(this.settings.Username, this.settings.Password);
 
             InitializeIssueControls();
 
@@ -100,11 +99,11 @@ namespace StopWatch
                     string[] issueState = this.issues[i].Split(';');
                     issueControl.IssueKey = issueState[0];
 
-                    if (saveTimerState != SaveTimerSetting.NoSave)
+                    if (this.settings.SaveTimerState != SaveTimerSetting.NoSave)
                     {
                         TimerState timerState = new TimerState
                         {
-                            Running = saveTimerState == SaveTimerSetting.SavePause ? false : bool.Parse(issueState[1]),
+                            Running = this.settings.SaveTimerState == SaveTimerSetting.SavePause ? false : bool.Parse(issueState[1]),
                             StartTime = DateTime.Parse(issueState[2]),
                             TotalTime = TimeSpan.Parse(issueState[3])
                         };
@@ -131,16 +130,16 @@ namespace StopWatch
         {
             this.SuspendLayout();
 
-            // If we have too many issueControl controls, compared to this.issueCount
+            // If we have too many issueControl controls, compared to this.IssueCount
             // remove the ones not needed
-            while (this.issueControls.Count() > this.issueCount)
+            while (this.issueControls.Count() > this.settings.IssueCount)
             {
                 var issue = this.issueControls.Last();
                 this.Controls.Remove(issue);
             }
 
             // Create issueControl controls needed
-            while (this.issueControls.Count() < this.issueCount)
+            while (this.issueControls.Count() < this.settings.IssueCount)
             {
                 var issue = new IssueControl(this.jiraClient);
                 issue.TimerStarted += issue_TimerStarted;
@@ -157,7 +156,7 @@ namespace StopWatch
             }
 
             // Resize form and reposition settings button
-            this.ClientSize = new Size(issueControls.Last().Width + 24, this.issueCount * issueControls.Last().Height + 46);
+            this.ClientSize = new Size(issueControls.Last().Width + 24, this.settings.IssueCount * issueControls.Last().Height + 46);
 
             pbSettings.Left = this.ClientSize.Width - 30;
             pbSettings.Top = this.ClientSize.Height - 30;
@@ -168,7 +167,7 @@ namespace StopWatch
             lblConnectionHeader.Top = this.ClientSize.Height - 24;
             lblConnectionStatus.Top = this.ClientSize.Height - 24;
 
-            this.TopMost = this.alwaysOnTop;
+            this.TopMost = this.settings.AlwaysOnTop;
 
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -214,58 +213,24 @@ namespace StopWatch
 
         private void LoadSettings()
         {
-            jiraClient.BaseUrl = Properties.Settings.Default.JiraBaseUrl ?? "";
-
-            this.alwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
-            this.issueCount = Properties.Settings.Default.IssueCount;
+            this.settings.Load();
             this.issues = Properties.Settings.Default.Issues ?? new System.Collections.Specialized.StringCollection();
-            this.username = Properties.Settings.Default.Username;
-            if (Properties.Settings.Default.Password != "")
-                this.password = DPAPI.Decrypt(Properties.Settings.Default.Password);
-            else
-                this.password = "";
-            this.rememberCredentials = Properties.Settings.Default.RememberCredentials;
-            this.firstRun = Properties.Settings.Default.FirstRun;
-            this.saveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
         }
 
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.JiraBaseUrl = jiraClient.BaseUrl;
-
-            Properties.Settings.Default.AlwaysOnTop = this.alwaysOnTop;
-            Properties.Settings.Default.IssueCount = this.issueCount;
+            this.settings.Save();
             Properties.Settings.Default.Issues = this.issues;
-            Properties.Settings.Default.Username = this.username;
-            if (this.password != "")
-                Properties.Settings.Default.Password = DPAPI.Encrypt(this.password);
-            else
-                Properties.Settings.Default.Password = "";
-            Properties.Settings.Default.RememberCredentials = this.rememberCredentials;
-            Properties.Settings.Default.FirstRun = this.firstRun;
-            Properties.Settings.Default.SaveTimerState = (int)this.saveTimerState;
-
-            Properties.Settings.Default.Save();
         }
 
 
         private void EditSettings()
         {
-            using (var form = new SettingsForm())
+            using (var form = new SettingsForm(this.settings))
             {
-                form.JiraBaseUrl = jiraClient.BaseUrl;
-                form.IssueCount = this.issueCount;
-                form.AlwaysOnTop = this.alwaysOnTop;
-                form.SaveTimerState = this.saveTimerState;
-
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    jiraClient.BaseUrl = form.JiraBaseUrl;
-                    this.issueCount = form.IssueCount;
-                    this.alwaysOnTop = form.AlwaysOnTop;
-                    this.saveTimerState = form.SaveTimerState;
-
                     InitializeIssueControls();
                 }
             }
@@ -297,22 +262,22 @@ namespace StopWatch
         {
             using (var form = new LoginForm())
             {
-                form.Username = this.username;
-                form.Password = this.password;
-                form.Remember = this.rememberCredentials;
+                form.Username = this.settings.Username;
+                form.Password = this.settings.Password;
+                form.Remember = this.settings.RememberCredentials;
 
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    this.rememberCredentials = form.Remember;
-                    if (this.rememberCredentials)
+                    this.settings.RememberCredentials = form.Remember;
+                    if (this.settings.RememberCredentials)
                     {
-                        this.username = form.Username;
-                        this.password = form.Password;
+                        this.settings.Username = form.Username;
+                        this.settings.Password = form.Password;
                     }
                     else
                     {
-                        this.username = "";
-                        this.password = "";
+                        this.settings.Username = "";
+                        this.settings.Password = "";
                     }
 
                     this.jiraClient.Authenticate(form.Username, form.Password);
@@ -337,17 +302,9 @@ namespace StopWatch
 
         private JiraClient jiraClient;
 
-        private bool alwaysOnTop;
-        private int issueCount;
-
-        private SaveTimerSetting saveTimerState;
-
-        private string username;
-        private string password;
-        private bool rememberCredentials;
-        private bool firstRun;
-
         private System.Collections.Specialized.StringCollection issues;
+
+        private Settings settings;
         #endregion
     }
 }
