@@ -43,6 +43,9 @@ namespace StopWatch
 
         public void OpenIssueInBrowser(string key)
         {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return;
+
             string url = this.BaseUrl;
             if (url.Last() != '/')
                 url += "/";
@@ -54,6 +57,9 @@ namespace StopWatch
 
         public bool SessionValid()
         {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return false;
+
             var client = GetClient();
 
             var request = new RestRequest("/rest/auth/1/session", Method.GET);
@@ -80,6 +86,9 @@ namespace StopWatch
 
         public string GetIssueSummary(string key)
         {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return "";
+
             var client = GetClient();
 
             var request = new RestRequest(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
@@ -105,6 +114,9 @@ namespace StopWatch
 
         public bool PostWorklog(string key, TimeSpan time, string comment)
         {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return false;
+
             var client = GetClient();
 
             var request = new RestRequest(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
@@ -140,6 +152,9 @@ namespace StopWatch
         #region private methods
         private bool ReAuthenticate()
         {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return false;
+
             var client = GetClient(true);
 
             var request = new RestRequest("/rest/auth/1/session", Method.POST);
