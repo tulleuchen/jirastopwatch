@@ -84,9 +84,11 @@ namespace StopWatch
                 EditSettings();
                 JiraLogin();
             }
-
-            if (this.settings.Username != "" && this.settings.Password != "")
-                this.jiraClient.Authenticate(this.settings.Username, this.settings.Password);
+            else
+            {
+                if (this.settings.Username != "" && this.settings.Password != "")
+                    AuthenticateJira(this.settings.Username, this.settings.Password);
+            }
 
             InitializeIssueControls();
 
@@ -126,6 +128,17 @@ namespace StopWatch
 
 
         #region private methods
+        private void AuthenticateJira(string username, string password)
+        {
+            Task.Factory.StartNew(
+                () =>
+                {
+                    jiraClient.Authenticate(username, password);
+                    UpdateConnectionStatus();
+                }
+            );
+        }
+
         private void InitializeIssueControls()
         {
             this.SuspendLayout();
@@ -282,8 +295,7 @@ namespace StopWatch
                         this.settings.Password = "";
                     }
 
-                    this.jiraClient.Authenticate(form.Username, form.Password);
-                    UpdateConnectionStatus();
+                    AuthenticateJira(form.Username, form.Password);
                 }
             }
 
