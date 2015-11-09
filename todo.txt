@@ -1,3 +1,0 @@
-Autocomplete issue-keys:
-  - When writing issue-key: Autocomplete from current JQL filter
-  - Choose current JQL filter from all of user's filters

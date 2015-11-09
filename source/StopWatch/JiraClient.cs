@@ -15,6 +15,8 @@ limitations under the License.
 **************************************************************************/
 using RestSharp;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -25,19 +27,28 @@ namespace StopWatch
     {
         public string BaseUrl { get; set; }
 
+        public bool SessionValid { get; private set; }
+
         #region public methods
         public JiraClient()
         {
             this.cookieContainer = new CookieContainer();
+
+            SessionValid = false;
         }
 
 
         public bool Authenticate(string username, string password)
         {
+            SessionValid = false;
+
             this.username = username;
             this.password = password;
 
-            return ReAuthenticate();
+            if (!ReAuthenticate())
+                return false;
+
+            return true;
         }
 
 
@@ -55,8 +66,10 @@ namespace StopWatch
         }
 
 
-        public bool SessionValid()
+        public bool ValidateSession()
         {
+            SessionValid = false;
+
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return false;
 
@@ -80,9 +93,66 @@ namespace StopWatch
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
                 return false;
 
+            SessionValid = true;
+
             return true;
         }
+
+
+        public List<Filter> GetFavoriteFilters()
+        {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return null;
+
+            var client = GetClient();
+
+            var request = new RestRequest("/rest/api/2/filter/favourite", Method.GET);
+
+            IRestResponse<List<Filter>> response;
+
+            response = client.Execute<List<Filter>>(request);
+
+            // If login session has expired, try to login, and then re-execute the original request
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                if (!ReAuthenticate())
+                    return null;
+
+                response = client.Execute<List<Filter>>(request);
+            }
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                return null;
+
+            return response.Data;
+        }
         
+
+        public List<Issue> GetIssuesByJQL(string jql)
+        {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return null;
+
+            var client = GetClient();
+
+            var request = new RestRequest(String.Format("/rest/api/2/search?jql={0}", jql), Method.GET);
+
+            IRestResponse<SearchResult> response;
+            response = client.Execute<SearchResult>(request);
+
+            // If login session has expired, try to login, and then re-execute the original request
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+                if (!ReAuthenticate())
+                    return null;
+
+                response = client.Execute<SearchResult>(request);
+            }
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                return null;
+
+            return response.Data.Issues;
+        }
+
 
         public string GetIssueSummary(string key)
         {
@@ -94,15 +164,14 @@ namespace StopWatch
             var request = new RestRequest(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
 
             IRestResponse<Issue> response;
-
             response = client.Execute<Issue>(request);
 
             // If login session has expired, try to login, and then re-execute the original request
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
-              if (!ReAuthenticate())
-                return "";
+                if (!ReAuthenticate())
+                    return "";
 
-              response = client.Execute<Issue>(request);
+                response = client.Execute<Issue>(request);
             }
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
@@ -135,10 +204,10 @@ namespace StopWatch
 
             // If login session has expired, try to login, and then re-execute the original request
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
-              if (!ReAuthenticate())
-                return false;
+                if (!ReAuthenticate())
+                    return false;
 
-              response = client.Execute(request);
+                response = client.Execute(request);
             }
 
             if (response.StatusCode != System.Net.HttpStatusCode.Created)

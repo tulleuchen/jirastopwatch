@@ -14,6 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,18 +29,29 @@ namespace StopWatch
         {
             get
             {
-                return tbJira.Text;
+                return cbJira.Text;
             }
 
             set
             {
-                tbJira.Text = value;
+                cbJira.Text = value;
                 UpdateSummary();
             }
         }
 
 
         public WatchTimer WatchTimer { get; private set; }
+
+
+        public IEnumerable<Issue> AvailableIssues
+        {
+            set
+            {
+                cbJira.Items.Clear();
+                foreach (var issue in value)
+                    cbJira.Items.Add(new CBIssueItem(issue.Key, issue.Fields.Summary));
+            }
+        }
         #endregion
 
 
@@ -53,12 +66,21 @@ namespace StopWatch
         {
             InitializeComponent();
 
+            cbJira.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbJira.DropDownStyle = ComboBoxStyle.DropDown;
+            cbJira.DrawMode = DrawMode.OwnerDrawVariable;
+            cbJira.DrawItem += cbJira_DrawItem;
+            cbJira.MeasureItem += cbJira_MeasureItem;
+            cbJira.DisplayMember = "Key";
+            cbJira.ValueMember = "Key";
+
+
             this.jiraClient = jiraClient;
             this.WatchTimer = new WatchTimer();
         }
 
 
-        public void UpdateOutput()
+        public void UpdateOutput(bool updateSummary = false)
         {
             tbTime.Text = JiraHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
 
@@ -72,9 +94,12 @@ namespace StopWatch
                 tbTime.BackColor = SystemColors.Control;
             }
 
-            btnOpen.Enabled = tbJira.Text.Trim() != "";
+            btnOpen.Enabled = cbJira.Text.Trim() != "";
             btnReset.Enabled = WatchTimer.Running || WatchTimer.TimeElapsed.Ticks > 0;
             btnPostAndReset.Enabled = WatchTimer.TimeElapsed.TotalMinutes >= 1;
+
+            if (updateSummary)
+                UpdateSummary();
         }
 
 
@@ -89,12 +114,10 @@ namespace StopWatch
         #region private methods
         private void OpenJira(string issue)
         {
-            if (jiraClient == null)
-                return;
-            if (tbJira.Text == "")
+            if (cbJira.Text == "")
                 return;
 
-            jiraClient.OpenIssueInBrowser(tbJira.Text);
+            jiraClient.OpenIssueInBrowser(cbJira.Text);
         }
 
 
@@ -102,9 +125,9 @@ namespace StopWatch
         {
             lblSummary.Text = "";
 
-            if (jiraClient == null)
+            if (cbJira.Text == "")
                 return;
-            if (tbJira.Text == "")
+            if (!jiraClient.SessionValid)
                 return;
 
             Task.Factory.StartNew(
@@ -112,9 +135,9 @@ namespace StopWatch
                     string key = "";
                     string summary = "";
                     this.Invoke(new Action(
-                        () => key = tbJira.Text
+                        () => key = cbJira.Text
                     ));
-                    summary = jiraClient.GetIssueSummary(tbJira.Text);
+                    summary = jiraClient.GetIssueSummary(key);
                     this.Invoke(new Action(
                         () => lblSummary.Text = summary
                     ));
@@ -126,7 +149,7 @@ namespace StopWatch
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tbJira = new System.Windows.Forms.TextBox();
+            this.cbJira = new System.Windows.Forms.ComboBox();
             this.tbTime = new System.Windows.Forms.TextBox();
             this.lblSummary = new System.Windows.Forms.Label();
             this.ttIssue = new System.Windows.Forms.ToolTip(this.components);
@@ -137,14 +160,15 @@ namespace StopWatch
             this.lblSplitter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // tbJira
+            // cbJira
             // 
-            this.tbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbJira.Location = new System.Drawing.Point(0, 2);
-            this.tbJira.Name = "tbJira";
-            this.tbJira.Size = new System.Drawing.Size(155, 28);
-            this.tbJira.TabIndex = 0;
-            this.tbJira.Leave += new System.EventHandler(this.tbJira_Leave);
+            this.cbJira.DropDownWidth = 500;
+            this.cbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.6F);
+            this.cbJira.Location = new System.Drawing.Point(0, 2);
+            this.cbJira.Name = "cbJira";
+            this.cbJira.Size = new System.Drawing.Size(155, 30);
+            this.cbJira.TabIndex = 0;
+            this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
             // tbTime
             // 
@@ -227,7 +251,7 @@ namespace StopWatch
             this.Controls.Add(this.btnStartStop);
             this.Controls.Add(this.tbTime);
             this.Controls.Add(this.btnOpen);
-            this.Controls.Add(this.tbJira);
+            this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
             this.Size = new System.Drawing.Size(500, 58);
             this.ResumeLayout(false);
@@ -245,13 +269,53 @@ namespace StopWatch
 
 
         #region private eventhandlers
-        private void btnOpen_Click(object sender, EventArgs e)
+        void cbJira_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            OpenJira(tbJira.Text);
+            Font font = new Font(cbJira.Font.FontFamily, cbJira.Font.Size * 0.8f, cbJira.Font.Style);
+            Size size = TextRenderer.MeasureText(e.Graphics, "FOO", font);
+            e.ItemHeight = size.Height;
         }
 
 
-        private void tbJira_Leave(object sender, EventArgs e)
+        void cbJira_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // Draw the default background
+            e.DrawBackground();
+
+            CBIssueItem item = (CBIssueItem)cbJira.Items[e.Index];
+
+            // Create rectangles for the columns to display
+            Rectangle r1 = e.Bounds;
+            Rectangle r2 = e.Bounds;
+
+            r1.Width = 100;
+
+            r2.X = r1.Width;
+            r2.Width = 400;
+
+            Font font = new Font(e.Font.FontFamily, e.Font.Size * 0.8f, e.Font.Style);
+
+            // Draw the text on the first column
+            using (SolidBrush sb = new SolidBrush(e.ForeColor))
+                e.Graphics.DrawString(item.Key, font, sb, r1);
+
+            // Draw a line to isolate the columns 
+            using (Pen p = new Pen(Color.Black))
+                e.Graphics.DrawLine(p, r1.Right, 0, r1.Right, r1.Bottom);
+
+            // Draw the text on the second column
+            using (SolidBrush sb = new SolidBrush(e.ForeColor))
+                e.Graphics.DrawString(item.Summary, font, sb, r2);
+        }
+
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            OpenJira(cbJira.Text);
+        }
+
+
+        private void cbJira_Leave(object sender, EventArgs e)
         {
             UpdateSummary();
         }
@@ -280,15 +344,12 @@ namespace StopWatch
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
         {
-            if (jiraClient == null)
-                return;
-
             using (var worklogForm = new WorklogForm())
             {
                 if (worklogForm.ShowDialog(this) == DialogResult.OK)
                 {
                     Cursor.Current = Cursors.WaitCursor;
-                    if (jiraClient.PostWorklog(tbJira.Text, WatchTimer.TimeElapsed, worklogForm.Comment))
+                    if (jiraClient.PostWorklog(cbJira.Text, WatchTimer.TimeElapsed, worklogForm.Comment))
                         Reset();
                     Cursor.Current = DefaultCursor;
                 }
@@ -299,7 +360,7 @@ namespace StopWatch
 
 
         #region private members
-        private TextBox tbJira;
+        private ComboBox cbJira;
         private Button btnOpen;
         private TextBox tbTime;
         private Button btnStartStop;
@@ -312,6 +373,20 @@ namespace StopWatch
         private Button btnPostAndReset;
 
         private JiraClient jiraClient;
+        #endregion
+
+
+        #region private classes
+        // content item for the combo box
+        private class CBIssueItem {
+            public string Key { get; set; }
+            public string Summary { get; set; }
+
+            public CBIssueItem(string key, string summary) {
+                Key = key;
+                Summary = summary;
+            }
+        }
         #endregion
     }
 }

@@ -18,18 +18,20 @@ namespace StopWatch
     public class Settings
     {
         #region public members
-        public string JiraBaseUrl;
-        public bool AlwaysOnTop;
-        public int IssueCount;
+        public string JiraBaseUrl { get; set; }
+        public bool AlwaysOnTop { get; set; }
+        public int IssueCount { get; set; }
 
-        public SaveTimerSetting SaveTimerState;
+        public SaveTimerSetting SaveTimerState { get; set; }
 
-        public string Username;
-        public string Password;
-        public bool RememberCredentials;
-        public bool FirstRun;
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public bool RememberCredentials { get; set; }
+        public bool FirstRun { get; set; }
 
-        public System.Collections.Specialized.StringCollection Issues;
+        public int CurrentFilter { get; set; }
+
+        public System.Collections.Specialized.StringCollection Issues { get; set; }
         #endregion
 
 
@@ -54,6 +56,8 @@ namespace StopWatch
             this.FirstRun = Properties.Settings.Default.FirstRun;
             this.SaveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
 
+            this.CurrentFilter = Properties.Settings.Default.CurrentFilter;
+
             this.Issues = Properties.Settings.Default.Issues ?? new System.Collections.Specialized.StringCollection();
         }
 
@@ -72,6 +76,8 @@ namespace StopWatch
             Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
             Properties.Settings.Default.FirstRun = this.FirstRun;
             Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;
+
+            Properties.Settings.Default.CurrentFilter = this.CurrentFilter;
 
             Properties.Settings.Default.Issues = this.Issues;
 
