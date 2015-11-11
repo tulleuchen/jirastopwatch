@@ -2,7 +2,7 @@
 
 A tool for recording time spent on different Jira tasks.
 
-![](http://gehling.dk/jirastopwatch/screenshot3.png)
+![](http://gehling.dk/jirastopwatch/screenshot4.png)
 
 ## Features:
 
@@ -13,10 +13,9 @@ A tool for recording time spent on different Jira tasks.
 * Posting spent time into Jira as a worklog with comment (using Jira REST API)
 * Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
 * Automatic re-login, if Jira session has expired
+* Select issue keys from list of available issues - this list is controlled by choosing a JQL filter
 
 ## Planned features
-
-* Adding issue keys with auto-complete/selecting from list - list provided by current JQL filter
 
 * Better visual feedback when posting worklog to Jira (to indicate success)
 
@@ -80,4 +79,6 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
                          Automatic re-login, if Jira session has expired
                          Visual Jira connection status
                          Fixed tab-order on controls
+
+1.3.0     2015-11-11     Issues can now be selected from a list of available issues  - this list is controlled by selecting between your favourite JQL filters
 </pre>
