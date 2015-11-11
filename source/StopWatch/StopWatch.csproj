@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DPApi.cs" />
+    <Compile Include="JiraApi\SearchResult.cs" />
+    <Compile Include="JiraApi\Filter.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="WorklogForm.cs">
       <SubType>Form</SubType>

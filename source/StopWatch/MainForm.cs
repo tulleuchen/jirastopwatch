@@ -15,6 +15,7 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,15 +30,18 @@ namespace StopWatch
         {
             InitializeComponent();
 
-            this.settings = new Settings();
-            this.jiraClient = new JiraClient();
+            settings = new Settings();
+            jiraClient = new JiraClient();
+
+            cbFilters.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFilters.DisplayMember = "Name";
 
             LoadSettings();
 
             ticker = new Timer();
-            ticker.Interval = 5000;
+            // First run should be almost immediately after start
+            ticker.Interval = firstDelay;
             ticker.Tick += ticker_Tick;
-            ticker.Start();
         }
         #endregion
 
@@ -55,8 +59,14 @@ namespace StopWatch
 
         void ticker_Tick(object sender, EventArgs e)
         {
-            UpdateConnectionStatus();
-            UpdateIssuesOutput();
+            bool firstTick = ticker.Interval == firstDelay;
+
+            ticker.Interval = defaultDelay;
+
+            if (IsJiraEnabled)
+                UpdateJiraRelatedData(firstTick);
+            else
+                UpdateIssuesOutput(firstTick);
         }
 
 
@@ -86,7 +96,7 @@ namespace StopWatch
             }
             else
             {
-                if (this.settings.Username != "" && this.settings.Password != "")
+                if (IsJiraEnabled)
                     AuthenticateJira(this.settings.Username, this.settings.Password);
             }
 
@@ -115,14 +125,40 @@ namespace StopWatch
                 i++;
             }
 
-            UpdateConnectionStatus();
-            UpdateIssuesOutput();
+            ticker.Start();
         }
 
 
         private void pbLogin_Click(object sender, EventArgs e)
         {
             JiraLogin();
+        }
+
+
+        private void cbFilters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = (CBFilterItem)cbFilters.SelectedItem;
+            this.settings.CurrentFilter = item.Id;
+
+            string jql = item.Jql;
+
+            Task.Factory.StartNew(
+                () =>
+                {
+                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql);
+
+                    if (availableIssues == null)
+                        return;
+
+                    this.Invoke(new Action(
+                        () =>
+                        {
+                            foreach (var issueControl in this.issueControls)
+                                issueControl.AvailableIssues = availableIssues;
+                        }
+                    ));
+                }
+            );
         }
         #endregion
 
@@ -134,10 +170,10 @@ namespace StopWatch
                 () =>
                 {
                     jiraClient.Authenticate(username, password);
-                    UpdateConnectionStatus();
                 }
             );
         }
+
 
         private void InitializeIssueControls()
         {
@@ -180,6 +216,12 @@ namespace StopWatch
             lblConnectionHeader.Top = this.ClientSize.Height - 24;
             lblConnectionStatus.Top = this.ClientSize.Height - 24;
 
+            lblActiveFilter.Left = this.ClientSize.Width - 320;
+            lblActiveFilter.Top = this.ClientSize.Height - 24;
+
+            cbFilters.Left = this.ClientSize.Width - 280;
+            cbFilters.Top = this.ClientSize.Height - 28;
+
             this.TopMost = this.settings.AlwaysOnTop;
 
             this.ResumeLayout(false);
@@ -187,25 +229,29 @@ namespace StopWatch
         }
 
 
-        private void UpdateIssuesOutput()
+        private void UpdateIssuesOutput(bool updateSummary = false)
         {
             foreach (var issue in this.issueControls)
-                issue.UpdateOutput();
+                issue.UpdateOutput(updateSummary);
         }
 
 
-        private void UpdateConnectionStatus()
+        private void UpdateJiraRelatedData(bool firstTick)
         {
             Task.Factory.StartNew(
                 () =>
                 {
-                    if (jiraClient.SessionValid())
+                    if (jiraClient.SessionValid || jiraClient.ValidateSession())
                     {
                         this.Invoke(new Action(
                             () =>
                             {
                                 lblConnectionStatus.Text = "Connected";
                                 lblConnectionStatus.ForeColor = Color.DarkGreen;
+
+                                LoadFilterList();
+
+                                UpdateIssuesOutput(firstTick);
                             }
                         ));
                     }
@@ -298,12 +344,55 @@ namespace StopWatch
                     AuthenticateJira(form.Username, form.Password);
                 }
             }
+        }
 
+
+        private void LoadFilterList()
+        {
+            Task.Factory.StartNew(
+                () =>
+                {
+                    List<Filter> filters = jiraClient.GetFavoriteFilters();
+                    if (filters == null)
+                        return;
+
+                    this.Invoke(new Action(
+                        () =>
+                        {
+                            CBFilterItem currentItem = null;
+
+                            cbFilters.Items.Clear();
+                            foreach (var filter in filters)
+                            {
+                                var item = new CBFilterItem(filter.Id, filter.Name, filter.Jql);
+                                cbFilters.Items.Add(item);
+                                if (item.Id == this.settings.CurrentFilter)
+                                   currentItem = item;
+                            }
+
+                            if (currentItem != null)
+                                cbFilters.SelectedItem = currentItem;
+                        }
+                    ));
+                }
+            );
         }
         #endregion
 
 
         #region private members
+        private bool IsJiraEnabled
+        {
+            get
+            {
+                return !(
+                    string.IsNullOrWhiteSpace(settings.JiraBaseUrl) ||
+                    string.IsNullOrWhiteSpace(settings.Username) ||
+                    string.IsNullOrWhiteSpace(settings.Password)
+                );
+            }
+        }
+
         private IEnumerable<IssueControl> issueControls
         {
             get
@@ -320,5 +409,33 @@ namespace StopWatch
 
         private Settings settings;
         #endregion
+
+
+        #region private consts
+        private const int firstDelay = 500;
+        private const int defaultDelay = 30000;
+        #endregion
+
+
+        #region private classes
+        // content item for the combo box
+        #endregion
     }
+
+        public class CBFilterItem {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Jql { get; set; }
+
+            public CBFilterItem(int id, string name, string jql) {
+                Id = id;
+                Name = name;
+                Jql = jql;
+            }
+
+            //public string ToString()
+            //{
+                //return Name;
+            //}
+        }
 }

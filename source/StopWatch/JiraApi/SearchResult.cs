@@ -13,11 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
+using System.Collections.Generic;
+
 namespace StopWatch
 {
-    internal class Issue
+    internal class SearchResult
     {
-        public string Key { get; set; }
-        public IssueFields Fields { get; set; }
+        public List<Issue> Issues { get; set; }
     }
 }

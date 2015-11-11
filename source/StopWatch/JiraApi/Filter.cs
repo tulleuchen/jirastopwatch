@@ -15,9 +15,10 @@ limitations under the License.
 **************************************************************************/
 namespace StopWatch
 {
-    internal class Issue
+    internal class Filter
     {
-        public string Key { get; set; }
-        public IssueFields Fields { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Jql { get; set; }
     }
 }

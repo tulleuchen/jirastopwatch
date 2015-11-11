@@ -33,6 +33,8 @@
             this.pbSettings = new System.Windows.Forms.PictureBox();
             this.lblConnectionHeader = new System.Windows.Forms.Label();
             this.lblConnectionStatus = new System.Windows.Forms.Label();
+            this.cbFilters = new System.Windows.Forms.ComboBox();
+            this.lblActiveFilter = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.SuspendLayout();
@@ -67,25 +69,46 @@
             this.lblConnectionHeader.Location = new System.Drawing.Point(37, 120);
             this.lblConnectionHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblConnectionHeader.Name = "lblConnectionHeader";
-            this.lblConnectionHeader.Size = new System.Drawing.Size(77, 17);
+            this.lblConnectionHeader.Size = new System.Drawing.Size(35, 17);
             this.lblConnectionHeader.TabIndex = 2;
-            this.lblConnectionHeader.Text = "Jira status:";
+            this.lblConnectionHeader.Text = "Jira:";
             // 
             // lblConnectionStatus
             // 
             this.lblConnectionStatus.AutoSize = true;
-            this.lblConnectionStatus.Location = new System.Drawing.Point(112, 120);
+            this.lblConnectionStatus.Location = new System.Drawing.Point(71, 120);
             this.lblConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblConnectionStatus.Name = "lblConnectionStatus";
             this.lblConnectionStatus.Size = new System.Drawing.Size(14, 17);
             this.lblConnectionStatus.TabIndex = 3;
             this.lblConnectionStatus.Text = "x";
             // 
+            // cbFilters
+            // 
+            this.cbFilters.FormattingEnabled = true;
+            this.cbFilters.Location = new System.Drawing.Point(335, 113);
+            this.cbFilters.Name = "cbFilters";
+            this.cbFilters.Size = new System.Drawing.Size(200, 24);
+            this.cbFilters.TabIndex = 4;
+            this.cbFilters.SelectedIndexChanged += new System.EventHandler(this.cbFilters_SelectedIndexChanged);
+            // 
+            // lblActiveFilter
+            // 
+            this.lblActiveFilter.AutoSize = true;
+            this.lblActiveFilter.Location = new System.Drawing.Point(255, 116);
+            this.lblActiveFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActiveFilter.Name = "lblActiveFilter";
+            this.lblActiveFilter.Size = new System.Drawing.Size(39, 17);
+            this.lblActiveFilter.TabIndex = 5;
+            this.lblActiveFilter.Text = "Filter";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 146);
+            this.Controls.Add(this.lblActiveFilter);
+            this.Controls.Add(this.cbFilters);
             this.Controls.Add(this.lblConnectionStatus);
             this.Controls.Add(this.lblConnectionHeader);
             this.Controls.Add(this.pbLogin);
@@ -112,6 +135,8 @@
         private System.Windows.Forms.PictureBox pbLogin;
         private System.Windows.Forms.Label lblConnectionHeader;
         private System.Windows.Forms.Label lblConnectionStatus;
+        private System.Windows.Forms.ComboBox cbFilters;
+        private System.Windows.Forms.Label lblActiveFilter;
 
     }
 }
