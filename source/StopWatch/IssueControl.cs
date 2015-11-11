@@ -71,6 +71,7 @@ namespace StopWatch
             cbJira.DrawMode = DrawMode.OwnerDrawVariable;
             cbJira.DrawItem += cbJira_DrawItem;
             cbJira.MeasureItem += cbJira_MeasureItem;
+            cbJira.SelectedIndexChanged += cbJira_SelectedIndexChanged;
             cbJira.DisplayMember = "Key";
             cbJira.ValueMember = "Key";
 
@@ -306,6 +307,12 @@ namespace StopWatch
             // Draw the text on the second column
             using (SolidBrush sb = new SolidBrush(e.ForeColor))
                 e.Graphics.DrawString(item.Summary, font, sb, r2);
+        }
+
+
+        void cbJira_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSummary();
         }
 
 
