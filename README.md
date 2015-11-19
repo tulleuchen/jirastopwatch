@@ -33,6 +33,8 @@ A setup file with the latest release can be [downloaded here](https://github.com
 
 ## Usage
 
+Watch the tutorial screencast: [https://vimeo.com/146107370](https://vimeo.com/146107370)
+
 After install, start the application and click the settings icon (gears icon). Enter the real base URL for your Jira server and press OK. Then click on the padlock to login to Jira.
 
 Now write a Jira task id in one of the white textboxes. When you leave the textbox, the task description will be fetched from your Jira server and displayed below the textbox. Repeat this for the tasks you are currently working on.
