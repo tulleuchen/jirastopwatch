@@ -4364,7 +4364,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]StopWatch.exe</td><td/></row>
 		<row><td>ProductCode</td><td>{855AA192-7458-4B33-954C-8B9708CD2ABC}</td><td/></row>
 		<row><td>ProductName</td><td>JIRA StopWatch</td><td/></row>
-		<row><td>ProductVersion</td><td>1.3.0</td><td/></row>
+		<row><td>ProductVersion</td><td>1.3.1</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
