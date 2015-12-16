@@ -164,24 +164,25 @@ namespace StopWatch
             // cbJira
             // 
             this.cbJira.DropDownWidth = 500;
-            this.cbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.6F);
+            this.cbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.cbJira.Location = new System.Drawing.Point(0, 2);
             this.cbJira.Name = "cbJira";
-            this.cbJira.Size = new System.Drawing.Size(155, 30);
+            this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
             // tbTime
             // 
-            this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.3F);
             this.tbTime.Location = new System.Drawing.Point(248, 2);
             this.tbTime.Name = "tbTime";
             this.tbTime.Size = new System.Drawing.Size(95, 28);
             this.tbTime.TabIndex = 3;
+            this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblSummary
             // 
-            this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSummary.Location = new System.Drawing.Point(0, 33);
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Size = new System.Drawing.Size(503, 17);

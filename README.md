@@ -83,4 +83,6 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
                          Fixed tab-order on controls
 
 1.3.0     2015-11-11     Issues can now be selected from a list of available issues  - this list is controlled by selecting between your favourite JQL filters
+
+1.3.1     2015-12-16     Cosmetic UI tweaks. My computer was running with a default zoom-level of 125%, which meant that things did not look correct on default zoom level.
 </pre>

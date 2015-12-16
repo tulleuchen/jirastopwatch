@@ -207,14 +207,14 @@ namespace StopWatch
             // Resize form and reposition settings button
             this.ClientSize = new Size(issueControls.Last().Width + 24, this.settings.IssueCount * issueControls.Last().Height + 46);
 
-            pbSettings.Left = this.ClientSize.Width - 30;
-            pbSettings.Top = this.ClientSize.Height - 30;
+            pbSettings.Left = this.ClientSize.Width - 28;
+            pbSettings.Top = this.ClientSize.Height - 28;
 
             pbLogin.Left = 8;
-            pbLogin.Top = this.ClientSize.Height - 30;
+            pbLogin.Top = this.ClientSize.Height - 28;
 
-            lblConnectionHeader.Top = this.ClientSize.Height - 24;
-            lblConnectionStatus.Top = this.ClientSize.Height - 24;
+            lblConnectionHeader.Top = this.ClientSize.Height - 22;
+            lblConnectionStatus.Top = this.ClientSize.Height - 22;
 
             lblActiveFilter.Left = this.ClientSize.Width - 320;
             lblActiveFilter.Top = this.ClientSize.Height - 24;

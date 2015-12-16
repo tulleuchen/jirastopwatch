@@ -43,8 +43,8 @@
             // 
             this.pbLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbLogin.Image = global::StopWatch.Properties.Resources.login22;
-            this.pbLogin.Location = new System.Drawing.Point(12, 113);
-            this.pbLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pbLogin.Location = new System.Drawing.Point(9, 92);
+            this.pbLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbLogin.Name = "pbLogin";
             this.pbLogin.Size = new System.Drawing.Size(22, 22);
             this.pbLogin.TabIndex = 1;
@@ -55,8 +55,8 @@
             // 
             this.pbSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbSettings.Image = global::StopWatch.Properties.Resources.settings22;
-            this.pbSettings.Location = new System.Drawing.Point(589, 113);
-            this.pbSettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pbSettings.Location = new System.Drawing.Point(442, 92);
+            this.pbSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbSettings.Name = "pbSettings";
             this.pbSettings.Size = new System.Drawing.Size(22, 22);
             this.pbSettings.TabIndex = 0;
@@ -66,37 +66,39 @@
             // lblConnectionHeader
             // 
             this.lblConnectionHeader.AutoSize = true;
-            this.lblConnectionHeader.Location = new System.Drawing.Point(37, 120);
-            this.lblConnectionHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblConnectionHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lblConnectionHeader.Location = new System.Drawing.Point(28, 98);
             this.lblConnectionHeader.Name = "lblConnectionHeader";
-            this.lblConnectionHeader.Size = new System.Drawing.Size(35, 17);
+            this.lblConnectionHeader.Size = new System.Drawing.Size(30, 15);
             this.lblConnectionHeader.TabIndex = 2;
             this.lblConnectionHeader.Text = "Jira:";
             // 
             // lblConnectionStatus
             // 
             this.lblConnectionStatus.AutoSize = true;
-            this.lblConnectionStatus.Location = new System.Drawing.Point(71, 120);
-            this.lblConnectionStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblConnectionStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lblConnectionStatus.Location = new System.Drawing.Point(53, 98);
             this.lblConnectionStatus.Name = "lblConnectionStatus";
-            this.lblConnectionStatus.Size = new System.Drawing.Size(14, 17);
+            this.lblConnectionStatus.Size = new System.Drawing.Size(13, 15);
             this.lblConnectionStatus.TabIndex = 3;
             this.lblConnectionStatus.Text = "x";
             // 
             // cbFilters
             // 
+            this.cbFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cbFilters.FormattingEnabled = true;
-            this.cbFilters.Location = new System.Drawing.Point(335, 113);
+            this.cbFilters.Location = new System.Drawing.Point(251, 92);
+            this.cbFilters.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbFilters.Name = "cbFilters";
-            this.cbFilters.Size = new System.Drawing.Size(200, 24);
+            this.cbFilters.Size = new System.Drawing.Size(151, 24);
             this.cbFilters.TabIndex = 4;
             this.cbFilters.SelectedIndexChanged += new System.EventHandler(this.cbFilters_SelectedIndexChanged);
             // 
             // lblActiveFilter
             // 
             this.lblActiveFilter.AutoSize = true;
-            this.lblActiveFilter.Location = new System.Drawing.Point(255, 116);
-            this.lblActiveFilter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActiveFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblActiveFilter.Location = new System.Drawing.Point(191, 94);
             this.lblActiveFilter.Name = "lblActiveFilter";
             this.lblActiveFilter.Size = new System.Drawing.Size(39, 17);
             this.lblActiveFilter.TabIndex = 5;
@@ -104,9 +106,9 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 146);
+            this.ClientSize = new System.Drawing.Size(468, 119);
             this.Controls.Add(this.lblActiveFilter);
             this.Controls.Add(this.cbFilters);
             this.Controls.Add(this.lblConnectionStatus);
@@ -115,7 +117,7 @@
             this.Controls.Add(this.pbSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "JIRA StopWatch";
