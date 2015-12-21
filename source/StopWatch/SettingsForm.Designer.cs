@@ -47,32 +47,34 @@
             // lblJiraBaseUrl
             // 
             this.lblJiraBaseUrl.AutoSize = true;
-            this.lblJiraBaseUrl.Location = new System.Drawing.Point(12, 9);
+            this.lblJiraBaseUrl.Location = new System.Drawing.Point(9, 7);
+            this.lblJiraBaseUrl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblJiraBaseUrl.Name = "lblJiraBaseUrl";
-            this.lblJiraBaseUrl.Size = new System.Drawing.Size(92, 17);
+            this.lblJiraBaseUrl.Size = new System.Drawing.Size(70, 13);
             this.lblJiraBaseUrl.TabIndex = 0;
             this.lblJiraBaseUrl.Text = "JIRA base url";
             // 
             // tbJiraBaseUrl
             // 
-            this.tbJiraBaseUrl.Location = new System.Drawing.Point(145, 6);
-            this.tbJiraBaseUrl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbJiraBaseUrl.Location = new System.Drawing.Point(113, 5);
+            this.tbJiraBaseUrl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tbJiraBaseUrl.Name = "tbJiraBaseUrl";
-            this.tbJiraBaseUrl.Size = new System.Drawing.Size(353, 22);
+            this.tbJiraBaseUrl.Size = new System.Drawing.Size(255, 20);
             this.tbJiraBaseUrl.TabIndex = 1;
             // 
             // lblIssueCount
             // 
-            this.lblIssueCount.Location = new System.Drawing.Point(12, 43);
+            this.lblIssueCount.Location = new System.Drawing.Point(9, 33);
+            this.lblIssueCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIssueCount.Name = "lblIssueCount";
-            this.lblIssueCount.Size = new System.Drawing.Size(127, 39);
+            this.lblIssueCount.Size = new System.Drawing.Size(107, 34);
             this.lblIssueCount.TabIndex = 2;
             this.lblIssueCount.Text = "# issueControls displayed (max. 20)";
             // 
             // numIssueCount
             // 
-            this.numIssueCount.Location = new System.Drawing.Point(145, 41);
-            this.numIssueCount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numIssueCount.Location = new System.Drawing.Point(113, 36);
+            this.numIssueCount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numIssueCount.Maximum = new decimal(new int[] {
             20,
             0,
@@ -84,7 +86,7 @@
             0,
             0});
             this.numIssueCount.Name = "numIssueCount";
-            this.numIssueCount.Size = new System.Drawing.Size(47, 22);
+            this.numIssueCount.Size = new System.Drawing.Size(35, 20);
             this.numIssueCount.TabIndex = 3;
             this.numIssueCount.Value = new decimal(new int[] {
             1,
@@ -95,10 +97,10 @@
             // cbAlwaysOnTop
             // 
             this.cbAlwaysOnTop.AutoSize = true;
-            this.cbAlwaysOnTop.Location = new System.Drawing.Point(145, 84);
-            this.cbAlwaysOnTop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbAlwaysOnTop.Location = new System.Drawing.Point(113, 68);
+            this.cbAlwaysOnTop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
-            this.cbAlwaysOnTop.Size = new System.Drawing.Size(201, 21);
+            this.cbAlwaysOnTop.Size = new System.Drawing.Size(158, 17);
             this.cbAlwaysOnTop.TabIndex = 4;
             this.cbAlwaysOnTop.Text = "Always keep window on top";
             this.cbAlwaysOnTop.UseVisualStyleBackColor = true;
@@ -107,10 +109,10 @@
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(344, 222);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnOk.Location = new System.Drawing.Point(258, 180);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(75, 27);
+            this.btnOk.Size = new System.Drawing.Size(56, 22);
             this.btnOk.TabIndex = 7;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -118,10 +120,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(425, 222);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnCancel.Location = new System.Drawing.Point(319, 180);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 27);
+            this.btnCancel.Size = new System.Drawing.Size(56, 22);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -129,20 +131,18 @@
             // lblSaveTimerState
             // 
             this.lblSaveTimerState.AutoSize = true;
-            this.lblSaveTimerState.Location = new System.Drawing.Point(12, 121);
-            this.lblSaveTimerState.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSaveTimerState.Location = new System.Drawing.Point(9, 100);
             this.lblSaveTimerState.Name = "lblSaveTimerState";
-            this.lblSaveTimerState.Size = new System.Drawing.Size(117, 17);
+            this.lblSaveTimerState.Size = new System.Drawing.Size(88, 13);
             this.lblSaveTimerState.TabIndex = 5;
             this.lblSaveTimerState.Text = "Save timer states";
             // 
             // rbNoSave
             // 
             this.rbNoSave.AutoSize = true;
-            this.rbNoSave.Location = new System.Drawing.Point(8, 10);
-            this.rbNoSave.Margin = new System.Windows.Forms.Padding(4);
+            this.rbNoSave.Location = new System.Drawing.Point(6, 8);
             this.rbNoSave.Name = "rbNoSave";
-            this.rbNoSave.Size = new System.Drawing.Size(171, 21);
+            this.rbNoSave.Size = new System.Drawing.Size(130, 17);
             this.rbNoSave.TabIndex = 0;
             this.rbNoSave.TabStop = true;
             this.rbNoSave.Text = "Reset all timers on exit";
@@ -153,21 +153,18 @@
             this.gbSaveTimerState.Controls.Add(this.rbSaveRunActive);
             this.gbSaveTimerState.Controls.Add(this.rbSavePause);
             this.gbSaveTimerState.Controls.Add(this.rbNoSave);
-            this.gbSaveTimerState.Location = new System.Drawing.Point(137, 111);
-            this.gbSaveTimerState.Margin = new System.Windows.Forms.Padding(4);
+            this.gbSaveTimerState.Location = new System.Drawing.Point(113, 90);
             this.gbSaveTimerState.Name = "gbSaveTimerState";
-            this.gbSaveTimerState.Padding = new System.Windows.Forms.Padding(4);
-            this.gbSaveTimerState.Size = new System.Drawing.Size(312, 92);
+            this.gbSaveTimerState.Size = new System.Drawing.Size(234, 75);
             this.gbSaveTimerState.TabIndex = 6;
             this.gbSaveTimerState.TabStop = false;
             // 
             // rbSaveRunActive
             // 
             this.rbSaveRunActive.AutoSize = true;
-            this.rbSaveRunActive.Location = new System.Drawing.Point(8, 66);
-            this.rbSaveRunActive.Margin = new System.Windows.Forms.Padding(4);
+            this.rbSaveRunActive.Location = new System.Drawing.Point(6, 54);
             this.rbSaveRunActive.Name = "rbSaveRunActive";
-            this.rbSaveRunActive.Size = new System.Drawing.Size(292, 21);
+            this.rbSaveRunActive.Size = new System.Drawing.Size(222, 17);
             this.rbSaveRunActive.TabIndex = 2;
             this.rbSaveRunActive.TabStop = true;
             this.rbSaveRunActive.Text = "Save current times, active timer continues";
@@ -176,10 +173,9 @@
             // rbSavePause
             // 
             this.rbSavePause.AutoSize = true;
-            this.rbSavePause.Location = new System.Drawing.Point(8, 38);
-            this.rbSavePause.Margin = new System.Windows.Forms.Padding(4);
+            this.rbSavePause.Location = new System.Drawing.Point(6, 31);
             this.rbSavePause.Name = "rbSavePause";
-            this.rbSavePause.Size = new System.Drawing.Size(270, 21);
+            this.rbSavePause.Size = new System.Drawing.Size(205, 17);
             this.rbSavePause.TabIndex = 1;
             this.rbSavePause.TabStop = true;
             this.rbSavePause.Text = "Save current times, pause active timer";
@@ -188,10 +184,10 @@
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(511, 262);
+            this.ClientSize = new System.Drawing.Size(383, 213);
             this.Controls.Add(this.gbSaveTimerState);
             this.Controls.Add(this.lblSaveTimerState);
             this.Controls.Add(this.btnOk);
@@ -201,7 +197,7 @@
             this.Controls.Add(this.lblIssueCount);
             this.Controls.Add(this.tbJiraBaseUrl);
             this.Controls.Add(this.lblJiraBaseUrl);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "StopWatch Settings";
