@@ -195,12 +195,13 @@ namespace StopWatch
                 this.Controls.Add(issue);
             }
 
-            // Position all issueControl controls
+            // Position all issueControl controls and set TimerEditable
             int i = 0;
             foreach (var issue in this.issueControls)
             {
                 issue.Left = 12;
                 issue.Top = i * issue.Height + 12;
+                issue.TimerEditable = this.settings.TimerEditable;
                 i++;
             }
 

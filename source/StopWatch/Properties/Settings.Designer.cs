@@ -141,5 +141,17 @@ namespace StopWatch.Properties {
                 this["CurrentFilter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TimerEditable {
+            get {
+                return ((bool)(this["TimerEditable"]));
+            }
+            set {
+                this["TimerEditable"] = value;
+            }
+        }
     }
 }

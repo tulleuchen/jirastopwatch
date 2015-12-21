@@ -40,6 +40,7 @@
             this.gbSaveTimerState = new System.Windows.Forms.GroupBox();
             this.rbSaveRunActive = new System.Windows.Forms.RadioButton();
             this.rbSavePause = new System.Windows.Forms.RadioButton();
+            this.cbTimerEditable = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
             this.gbSaveTimerState.SuspendLayout();
             this.SuspendLayout();
@@ -57,9 +58,9 @@
             // tbJiraBaseUrl
             // 
             this.tbJiraBaseUrl.Location = new System.Drawing.Point(113, 5);
-            this.tbJiraBaseUrl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbJiraBaseUrl.Margin = new System.Windows.Forms.Padding(2);
             this.tbJiraBaseUrl.Name = "tbJiraBaseUrl";
-            this.tbJiraBaseUrl.Size = new System.Drawing.Size(255, 20);
+            this.tbJiraBaseUrl.Size = new System.Drawing.Size(259, 20);
             this.tbJiraBaseUrl.TabIndex = 1;
             // 
             // lblIssueCount
@@ -74,7 +75,7 @@
             // numIssueCount
             // 
             this.numIssueCount.Location = new System.Drawing.Point(113, 36);
-            this.numIssueCount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numIssueCount.Margin = new System.Windows.Forms.Padding(2);
             this.numIssueCount.Maximum = new decimal(new int[] {
             20,
             0,
@@ -98,7 +99,7 @@
             // 
             this.cbAlwaysOnTop.AutoSize = true;
             this.cbAlwaysOnTop.Location = new System.Drawing.Point(113, 68);
-            this.cbAlwaysOnTop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbAlwaysOnTop.Margin = new System.Windows.Forms.Padding(2);
             this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
             this.cbAlwaysOnTop.Size = new System.Drawing.Size(158, 17);
             this.cbAlwaysOnTop.TabIndex = 4;
@@ -109,8 +110,8 @@
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(258, 180);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOk.Location = new System.Drawing.Point(255, 219);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
             this.btnOk.TabIndex = 7;
@@ -120,8 +121,8 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(319, 180);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Location = new System.Drawing.Point(316, 219);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
             this.btnCancel.TabIndex = 8;
@@ -181,13 +182,25 @@
             this.rbSavePause.Text = "Save current times, pause active timer";
             this.rbSavePause.UseVisualStyleBackColor = true;
             // 
+            // cbTimerEditable
+            // 
+            this.cbTimerEditable.AutoSize = true;
+            this.cbTimerEditable.Location = new System.Drawing.Point(113, 179);
+            this.cbTimerEditable.Margin = new System.Windows.Forms.Padding(2);
+            this.cbTimerEditable.Name = "cbTimerEditable";
+            this.cbTimerEditable.Size = new System.Drawing.Size(130, 17);
+            this.cbTimerEditable.TabIndex = 9;
+            this.cbTimerEditable.Text = "Enable editing of timer";
+            this.cbTimerEditable.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 213);
+            this.ClientSize = new System.Drawing.Size(383, 252);
+            this.Controls.Add(this.cbTimerEditable);
             this.Controls.Add(this.gbSaveTimerState);
             this.Controls.Add(this.lblSaveTimerState);
             this.Controls.Add(this.btnOk);
@@ -197,7 +210,7 @@
             this.Controls.Add(this.lblIssueCount);
             this.Controls.Add(this.tbJiraBaseUrl);
             this.Controls.Add(this.lblJiraBaseUrl);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "StopWatch Settings";
@@ -224,5 +237,6 @@
         private System.Windows.Forms.GroupBox gbSaveTimerState;
         private System.Windows.Forms.RadioButton rbSaveRunActive;
         private System.Windows.Forms.RadioButton rbSavePause;
+        private System.Windows.Forms.CheckBox cbTimerEditable;
     }
 }

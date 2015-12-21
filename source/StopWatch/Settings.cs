@@ -21,6 +21,7 @@ namespace StopWatch
         public string JiraBaseUrl { get; set; }
         public bool AlwaysOnTop { get; set; }
         public int IssueCount { get; set; }
+        public bool TimerEditable { get; set; }
 
         public SaveTimerSetting SaveTimerState { get; set; }
 
@@ -45,6 +46,7 @@ namespace StopWatch
         {
             this.JiraBaseUrl = Properties.Settings.Default.JiraBaseUrl ?? "";
 
+            this.TimerEditable = Properties.Settings.Default.TimerEditable;
             this.AlwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
             this.IssueCount = Properties.Settings.Default.IssueCount;
             this.Username = Properties.Settings.Default.Username;
@@ -66,6 +68,7 @@ namespace StopWatch
         {
             Properties.Settings.Default.JiraBaseUrl = this.JiraBaseUrl;
 
+            Properties.Settings.Default.TimerEditable = this.TimerEditable;
             Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
             Properties.Settings.Default.IssueCount = this.IssueCount;
             Properties.Settings.Default.Username = this.Username;

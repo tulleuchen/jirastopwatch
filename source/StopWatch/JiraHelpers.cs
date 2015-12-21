@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace StopWatch
@@ -29,6 +30,22 @@ namespace StopWatch
                 return String.Format("{0:%h}h {0:%m}m", ts);
 
             return String.Format("{0:%m}m", ts);
+        }
+
+        public static TimeSpan JiraTimeToTimeSpan(string time)
+        {
+            int hours = 0;
+            int minutes = 0;
+
+            var matchHours = new Regex(@"(\d+)h", RegexOptions.IgnoreCase).Match(time);
+            if (matchHours.Success)
+                int.TryParse(matchHours.Groups[1].Value, out hours);
+
+            var matchMinutes = new Regex(@"(\d+)m", RegexOptions.IgnoreCase).Match(time);
+            if (matchMinutes.Success)
+                int.TryParse(matchMinutes.Groups[1].Value, out minutes);
+
+            return new TimeSpan(hours, minutes, 0);
         }
     }
 }

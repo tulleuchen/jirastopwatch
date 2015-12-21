@@ -52,6 +52,15 @@ namespace StopWatch
                     cbJira.Items.Add(new CBIssueItem(issue.Key, issue.Fields.Summary));
             }
         }
+
+
+        public bool TimerEditable
+        {
+            set
+            {
+                tbTime.ReadOnly = !value;
+            }
+        }
         #endregion
 
 
@@ -75,6 +84,7 @@ namespace StopWatch
             cbJira.DisplayMember = "Key";
             cbJira.ValueMember = "Key";
 
+            ignoreTextChange = false;
 
             this.jiraClient = jiraClient;
             this.WatchTimer = new WatchTimer();
@@ -83,7 +93,9 @@ namespace StopWatch
 
         public void UpdateOutput(bool updateSummary = false)
         {
+            ignoreTextChange = true;
             tbTime.Text = JiraHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
+            ignoreTextChange = false;
 
             if (WatchTimer.Running)
             {
@@ -179,6 +191,7 @@ namespace StopWatch
             this.tbTime.Size = new System.Drawing.Size(95, 28);
             this.tbTime.TabIndex = 3;
             this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbTime.TextChanged += new System.EventHandler(this.tbTime_TextChanged);
             // 
             // lblSummary
             // 
@@ -364,6 +377,23 @@ namespace StopWatch
             }
 
         }
+
+
+        private void tbTime_TextChanged(object sender, EventArgs e)
+        {
+            // Ignore if programatically changing value (from timer)
+            if (ignoreTextChange)
+                return;
+
+            TimeSpan time = JiraHelpers.JiraTimeToTimeSpan(tbTime.Text);
+            if (time.TotalMilliseconds == 0)
+                return;
+
+            TimerState state = WatchTimer.GetState();
+            state.TotalTime = time;
+            state.StartTime = DateTime.Now;
+            WatchTimer.SetState(state);
+        }
         #endregion
 
 
@@ -381,6 +411,8 @@ namespace StopWatch
         private Button btnPostAndReset;
 
         private JiraClient jiraClient;
+
+        private bool ignoreTextChange;
         #endregion
 
 
