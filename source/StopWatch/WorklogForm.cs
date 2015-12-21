@@ -39,9 +39,15 @@ namespace StopWatch
 
 
         #region public methods
-        public WorklogForm()
+        public WorklogForm(string comment)
         {
             InitializeComponent();
+
+            if (!String.IsNullOrEmpty(comment))
+            {
+                tbComment.Text = String.Format("{0}{0}{1}", Environment.NewLine, comment);
+                tbComment.SelectionStart = 0;
+            }
         }
         #endregion
 

@@ -137,6 +137,8 @@
     <None Include="icons\reset24.png" />
     <None Include="icons\openbrowser26.png" />
     <None Include="icons\posttime26.png" />
+    <None Include="Resources\posttimenote26.bmp" />
+    <Content Include="icons\posttimenote26.png" />
     <Content Include="StopWatch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

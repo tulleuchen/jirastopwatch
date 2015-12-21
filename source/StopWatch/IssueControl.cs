@@ -86,6 +86,8 @@ namespace StopWatch
 
             ignoreTextChange = false;
 
+            comment = null;
+
             this.jiraClient = jiraClient;
             this.WatchTimer = new WatchTimer();
         }
@@ -106,6 +108,11 @@ namespace StopWatch
                 btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.play26);
                 tbTime.BackColor = SystemColors.Control;
             }
+
+            if (string.IsNullOrEmpty(comment))
+                btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttime26;
+            else
+                btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttimenote26;
 
             btnOpen.Enabled = cbJira.Text.Trim() != "";
             btnReset.Enabled = WatchTimer.Running || WatchTimer.TimeElapsed.Ticks > 0;
@@ -277,6 +284,7 @@ namespace StopWatch
 
         private void Reset()
         {
+            comment = null;
             this.WatchTimer.Reset();
             UpdateOutput();
         }
@@ -365,14 +373,21 @@ namespace StopWatch
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
         {
-            using (var worklogForm = new WorklogForm())
+            using (var worklogForm = new WorklogForm(comment))
             {
-                if (worklogForm.ShowDialog(this) == DialogResult.OK)
+                var formResult = worklogForm.ShowDialog(this);
+                if (formResult == DialogResult.OK)
                 {
+                    comment = worklogForm.Comment.Trim();
                     Cursor.Current = Cursors.WaitCursor;
-                    if (jiraClient.PostWorklog(cbJira.Text, WatchTimer.TimeElapsed, worklogForm.Comment))
+                    if (jiraClient.PostWorklog(cbJira.Text, WatchTimer.TimeElapsed, comment))
                         Reset();
                     Cursor.Current = DefaultCursor;
+                }
+                else if (formResult == DialogResult.Yes)
+                {
+                    comment = string.Format("{0}:{1}{2}", DateTime.Now.ToString("g"), Environment.NewLine, worklogForm.Comment.Trim());
+                    UpdateOutput();
                 }
             }
 
@@ -413,6 +428,8 @@ namespace StopWatch
         private JiraClient jiraClient;
 
         private bool ignoreTextChange;
+
+        private string comment;
         #endregion
 
 
