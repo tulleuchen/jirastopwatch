@@ -15,6 +15,7 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -34,18 +35,29 @@ namespace StopWatch
 
         public static TimeSpan JiraTimeToTimeSpan(string time)
         {
-            int hours = 0;
+            string s;
+            decimal t;
             int minutes = 0;
+            Match m;
+            
+            m = new Regex(@"(\d+(\.|,\d{1,2})?)m", RegexOptions.IgnoreCase).Match(time);
+            if (m.Success)
+            {
+                s = m.Groups[1].Value.Replace(",", ".");
+                if (decimal.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out t))
+                    minutes += (int)t;
+            }
 
-            var matchHours = new Regex(@"(\d+)h", RegexOptions.IgnoreCase).Match(time);
-            if (matchHours.Success)
-                int.TryParse(matchHours.Groups[1].Value, out hours);
+            m = new Regex(@"(\d+(\.|,\d{1,2})?)h", RegexOptions.IgnoreCase).Match(time);
+            if (m.Success)
+            {
+                s = m.Groups[1].Value.Replace(",", ".");
+                if (decimal.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out t))
+                    minutes += (int)(t * 60);
+            }
 
-            var matchMinutes = new Regex(@"(\d+)m", RegexOptions.IgnoreCase).Match(time);
-            if (matchMinutes.Success)
-                int.TryParse(matchMinutes.Groups[1].Value, out minutes);
-
-            return new TimeSpan(hours, minutes, 0);
+            return new TimeSpan(minutes / 60, minutes % 60, 0);
         }
     }
 }
+
