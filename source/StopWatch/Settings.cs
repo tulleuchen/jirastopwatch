@@ -67,7 +67,7 @@ namespace StopWatch
 
             this.CurrentFilter = Properties.Settings.Default.CurrentFilter;
 
-            this.PersistedIssues = ReadIssues(Properties.Settings.Default.Issues);
+            this.PersistedIssues = ReadIssues(Properties.Settings.Default.PersistedIssues);
         }
 
 
@@ -89,7 +89,7 @@ namespace StopWatch
 
             Properties.Settings.Default.CurrentFilter = this.CurrentFilter;
 
-            Properties.Settings.Default.Issues = WriteIssues(this.PersistedIssues);
+            Properties.Settings.Default.PersistedIssues = WriteIssues(this.PersistedIssues);
 
             Properties.Settings.Default.Save();
         }
@@ -99,7 +99,7 @@ namespace StopWatch
         #region private methods
         public List<PersistedIssue> ReadIssues(string data)
         {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.Issues))
+            if (string.IsNullOrEmpty(Properties.Settings.Default.PersistedIssues))
                 return new List<PersistedIssue>();
 
             using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(data)))

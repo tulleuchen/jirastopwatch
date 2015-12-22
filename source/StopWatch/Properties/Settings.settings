@@ -5,7 +5,7 @@
     <Setting Name="IssueCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">6</Value>
     </Setting>
-    <Setting Name="Issues" Type="System.String" Scope="User">
+    <Setting Name="PersistedIssues" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AlwaysOnTop" Type="System.Boolean" Scope="User">
