@@ -44,7 +44,7 @@
             this.lblComment.Name = "lblComment";
             this.lblComment.Size = new System.Drawing.Size(205, 13);
             this.lblComment.TabIndex = 0;
-            this.lblComment.Text = "Add a comment to your work log (optional)";
+            this.lblComment.Text = "Add a Comment to your work log (optional)";
             // 
             // tbComment
             // 

@@ -37,9 +37,10 @@ namespace StopWatch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection Issues {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Issues {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Issues"]));
+                return ((string)(this["Issues"]));
             }
             set {
                 this["Issues"] = value;

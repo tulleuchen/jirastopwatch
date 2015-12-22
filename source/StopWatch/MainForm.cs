@@ -15,7 +15,6 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -106,20 +105,21 @@ namespace StopWatch
             int i = 0;
             foreach (var issueControl in this.issueControls)
             {
-                if (i < this.issues.Count)
+                if (i < settings.PersistedIssues.Count)
                 {
-                    string[] issueState = this.issues[i].Split(';');
-                    issueControl.IssueKey = issueState[0];
+                    var persistedIssue = settings.PersistedIssues[i];
+                    issueControl.IssueKey = persistedIssue.Key;
 
                     if (this.settings.SaveTimerState != SaveTimerSetting.NoSave)
                     {
                         TimerState timerState = new TimerState
                         {
-                            Running = this.settings.SaveTimerState == SaveTimerSetting.SavePause ? false : bool.Parse(issueState[1]),
-                            StartTime = DateTime.Parse(issueState[2]),
-                            TotalTime = TimeSpan.Parse(issueState[3])
+                            Running = this.settings.SaveTimerState == SaveTimerSetting.SavePause ? false : persistedIssue.TimerRunning,
+                            StartTime = persistedIssue.StartTime,
+                            TotalTime = persistedIssue.TotalTime
                         };
                         issueControl.WatchTimer.SetState(timerState);
+                        issueControl.Comment = persistedIssue.Comment;
                     }
                 }
                 i++;
@@ -274,14 +274,12 @@ namespace StopWatch
         private void LoadSettings()
         {
             this.settings.Load();
-            this.issues = this.settings.Issues;
             jiraClient.BaseUrl = this.settings.JiraBaseUrl;
         }
 
 
         private void SaveSettings()
         {
-            this.settings.Issues = this.issues;
             this.settings.Save();
         }
 
@@ -301,21 +299,22 @@ namespace StopWatch
 
         private void CollectIssueKeysAndStates()
         {
-            this.issues.Clear();
+            settings.PersistedIssues.Clear();
 
             foreach (var issueControl in this.issueControls)
             {
                 TimerState timerState = issueControl.WatchTimer.GetState();
 
-                // Simple serialize all issueControl runtime data into string
-                string issueState = String.Format("{0};{1};{2};{3}",
-                    issueControl.IssueKey,
-                    timerState.Running,
-                    timerState.StartTime,
-                    timerState.TotalTime
-                );
+                var persistedIssue = new PersistedIssue
+                {
+                    Key = issueControl.IssueKey,
+                    TimerRunning = timerState.Running,
+                    StartTime = timerState.StartTime,
+                    TotalTime = timerState.TotalTime,
+                    Comment = issueControl.Comment
+                };
 
-                this.issues.Add(issueState);
+                settings.PersistedIssues.Add(persistedIssue);
             }
         }
 
@@ -406,8 +405,6 @@ namespace StopWatch
 
         private JiraClient jiraClient;
 
-        private System.Collections.Specialized.StringCollection issues;
-
         private Settings settings;
         #endregion
 
@@ -416,27 +413,18 @@ namespace StopWatch
         private const int firstDelay = 500;
         private const int defaultDelay = 30000;
         #endregion
-
-
-        #region private classes
-        // content item for the combo box
-        #endregion
     }
 
-        public class CBFilterItem {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Jql { get; set; }
+    // content item for the combo box
+    public class CBFilterItem {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Jql { get; set; }
 
-            public CBFilterItem(int id, string name, string jql) {
-                Id = id;
-                Name = name;
-                Jql = jql;
-            }
-
-            //public string ToString()
-            //{
-                //return Name;
-            //}
+        public CBFilterItem(int id, string name, string jql) {
+            Id = id;
+            Name = name;
+            Jql = jql;
         }
+    }
 }

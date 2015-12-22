@@ -15,7 +15,6 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -61,6 +60,8 @@ namespace StopWatch
                 tbTime.ReadOnly = !value;
             }
         }
+
+        public string Comment { get; set; }
         #endregion
 
 
@@ -86,7 +87,7 @@ namespace StopWatch
 
             ignoreTextChange = false;
 
-            comment = null;
+            Comment = null;
 
             this.jiraClient = jiraClient;
             this.WatchTimer = new WatchTimer();
@@ -109,7 +110,7 @@ namespace StopWatch
                 tbTime.BackColor = SystemColors.Control;
             }
 
-            if (string.IsNullOrEmpty(comment))
+            if (string.IsNullOrEmpty(Comment))
                 btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttime26;
             else
                 btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttimenote26;
@@ -284,7 +285,7 @@ namespace StopWatch
 
         private void Reset()
         {
-            comment = null;
+            Comment = null;
             this.WatchTimer.Reset();
             UpdateOutput();
         }
@@ -373,20 +374,20 @@ namespace StopWatch
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
         {
-            using (var worklogForm = new WorklogForm(comment))
+            using (var worklogForm = new WorklogForm(Comment))
             {
                 var formResult = worklogForm.ShowDialog(this);
                 if (formResult == DialogResult.OK)
                 {
-                    comment = worklogForm.Comment.Trim();
+                    Comment = worklogForm.Comment.Trim();
                     Cursor.Current = Cursors.WaitCursor;
-                    if (jiraClient.PostWorklog(cbJira.Text, WatchTimer.TimeElapsed, comment))
+                    if (jiraClient.PostWorklog(cbJira.Text, WatchTimer.TimeElapsed, Comment))
                         Reset();
                     Cursor.Current = DefaultCursor;
                 }
                 else if (formResult == DialogResult.Yes)
                 {
-                    comment = string.Format("{0}:{1}{2}", DateTime.Now.ToString("g"), Environment.NewLine, worklogForm.Comment.Trim());
+                    Comment = string.Format("{0}:{1}{2}", DateTime.Now.ToString("g"), Environment.NewLine, worklogForm.Comment.Trim());
                     UpdateOutput();
                 }
             }
@@ -428,8 +429,6 @@ namespace StopWatch
         private JiraClient jiraClient;
 
         private bool ignoreTextChange;
-
-        private string comment;
         #endregion
 
 

@@ -16,10 +16,8 @@ limitations under the License.
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace StopWatch
 {

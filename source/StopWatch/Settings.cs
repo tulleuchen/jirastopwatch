@@ -13,9 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 namespace StopWatch
 {
-    public class Settings
+    internal class Settings
     {
         #region public members
         public string JiraBaseUrl { get; set; }
@@ -32,13 +37,15 @@ namespace StopWatch
 
         public int CurrentFilter { get; set; }
 
-        public System.Collections.Specialized.StringCollection Issues { get; set; }
+        //public System.Collections.Specialized.StringCollection PersistedIssues { get; set; }
+        public List<PersistedIssue> PersistedIssues { get; private set; }
         #endregion
 
 
         #region public methods
         public Settings()
         {
+            this.PersistedIssues = new List<PersistedIssue>();
         }
 
 
@@ -60,7 +67,7 @@ namespace StopWatch
 
             this.CurrentFilter = Properties.Settings.Default.CurrentFilter;
 
-            this.Issues = Properties.Settings.Default.Issues ?? new System.Collections.Specialized.StringCollection();
+            this.PersistedIssues = ReadIssues(Properties.Settings.Default.Issues);
         }
 
 
@@ -82,10 +89,45 @@ namespace StopWatch
 
             Properties.Settings.Default.CurrentFilter = this.CurrentFilter;
 
-            Properties.Settings.Default.Issues = this.Issues;
+            Properties.Settings.Default.Issues = WriteIssues(this.PersistedIssues);
 
             Properties.Settings.Default.Save();
         }
+        #endregion
+
+
+        #region private methods
+        public List<PersistedIssue> ReadIssues(string data)
+        {
+            if (string.IsNullOrEmpty(Properties.Settings.Default.Issues))
+                return new List<PersistedIssue>();
+
+            using (MemoryStream ms = new MemoryStream(Convert.FromBase64String(data)))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                return (List<PersistedIssue>)bf.Deserialize(ms);
+            }
+
+        }
+
+
+        public string WriteIssues(List<PersistedIssue> issues)
+        {
+            string s;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(ms, issues);
+                ms.Position = 0;
+                byte[] buffer = new byte[(int)ms.Length];
+                ms.Read(buffer, 0, buffer.Length);
+                s = Convert.ToBase64String(buffer);
+            }
+
+            return s;
+        }
+
         #endregion
     }
 }

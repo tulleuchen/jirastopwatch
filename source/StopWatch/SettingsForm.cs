@@ -13,8 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
-using System.Windows.Forms;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace StopWatch
 {
@@ -26,7 +26,7 @@ namespace StopWatch
     }
 
 
-    public partial class SettingsForm : Form
+    internal partial class SettingsForm : Form
     {
         #region public members
         public Settings settings { get; private set; }

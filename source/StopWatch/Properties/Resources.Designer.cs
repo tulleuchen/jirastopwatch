@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StopWatch.Properties {
-    using System;
-    
-    
+namespace StopWatch.Properties
+{
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
