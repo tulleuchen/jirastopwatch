@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.lblJiraBaseUrl = new System.Windows.Forms.Label();
             this.tbJiraBaseUrl = new System.Windows.Forms.TextBox();
             this.lblIssueCount = new System.Windows.Forms.Label();
@@ -210,6 +211,7 @@
             this.Controls.Add(this.lblIssueCount);
             this.Controls.Add(this.tbJiraBaseUrl);
             this.Controls.Add(this.lblJiraBaseUrl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
