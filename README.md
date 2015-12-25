@@ -1,6 +1,6 @@
 ﻿## Summary
 
-A tool for recording time spent on different Jira tasks.
+A Windows desktop tool for recording time spent on different Jira tasks.
 
 ![](http://gehling.dk/jirastopwatch/screenshot4.png)
 
@@ -14,10 +14,6 @@ A tool for recording time spent on different Jira tasks.
 * Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
 * Automatic re-login, if Jira session has expired
 * Select issue keys from list of available issues - this list is controlled by choosing a JQL filter
-
-## Planned features
-
-* Better visual feedback when posting worklog to Jira (to indicate success)
 
 Feature-requests are more than welcome :-)
 
@@ -67,22 +63,41 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 
 <pre>
 1.0.1     2015-09-25     First release with setup program
+
 1.0.2     2015-09-28     Integration with Jira: Async load issue summary
+
 1.0.3     2015-09-28     Remember login credentials with DPAPI
+
 1.0.4     2015-09-30     Clear summary label when issue key is empty
+
 1.0.5     2015-10-07     Nicer buttons + tooltips
 
 1.1.0     2015-10-09     Changed all icons to https://icons8.com
+
                          New feature: Post worklog to Jira with a comment
 
-1.1.1     2015-10-09     Fixed problems with main window being "Always on top" and the applications other dialog boxes
+1.1.1     2015-10-09     Fixed problems with main window being "Always on top" and the applications
+                         other dialog boxes
 
 1.2.0     2015-10-19     Save time-tracking state, so stopwatch continue to "run" after quitting program
+
                          Automatic re-login, if Jira session has expired
+
                          Visual Jira connection status
+
                          Fixed tab-order on controls
 
-1.3.0     2015-11-11     Issues can now be selected from a list of available issues  - this list is controlled by selecting between your favourite JQL filters
+1.3.0     2015-11-11     Issues can now be selected from a list of available issues  - this list is
+                         controlled by selecting between your favourite JQL filters
 
-1.3.1     2015-12-16     Cosmetic UI tweaks. My computer was running with a default zoom-level of 125%, which meant that things did not look correct on default zoom level.
+1.3.1     2015-12-16     Cosmetic UI tweaks. My computer was running with a default zoom-level of 125%,
+                         which meant that things did not look correct on default zoom level.
+
+1.4.0     2015-12-25     Worklog comments can now be saved without posting to Jira immediately.  Useful
+                         if your task takes a long time and you want to note down your progress while
+						 waiting to submit the worklog until the end.
+
+						 New option to enable timers to be editable. Useful if you forgot to start the
+						 timer when starting work. Times can be entered both Jira style like 1h 15m and
+						 the "classic" way like 1.25h
 </pre>
