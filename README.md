@@ -100,4 +100,7 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 						 New option to enable timers to be editable. Useful if you forgot to start the
 						 timer when starting work. Times can be entered both Jira style like 1h 15m and
 						 the "classic" way like 1.25h
+
+						 Thanks goes to [Seth Feldkamp](https://github.com/sfeldkamp) for the ideas to
+						 both features and for testing.
 </pre>
