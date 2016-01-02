@@ -69,7 +69,15 @@ namespace StopWatch
                 this.settings.SaveTimerState = (SaveTimerSetting)choice.Tag;
             }
         }
-        #endregion
 
+
+        private void btnAbout_Click(object sender, System.EventArgs e)
+        {
+            using (var aboutForm = new AboutForm())
+            {
+                aboutForm.ShowDialog();
+            }
+        }
+        #endregion
     }
 }

@@ -103,4 +103,6 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 
 						 Thanks goes to [Seth Feldkamp](https://github.com/sfeldkamp) for the ideas to
 						 both features and for testing.
+
+1.4.1     2016-01-02     Added About dialog
 </pre>

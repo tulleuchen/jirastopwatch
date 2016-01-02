@@ -42,6 +42,7 @@
             this.rbSaveRunActive = new System.Windows.Forms.RadioButton();
             this.rbSavePause = new System.Windows.Forms.RadioButton();
             this.cbTimerEditable = new System.Windows.Forms.CheckBox();
+            this.btnAbout = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
             this.gbSaveTimerState.SuspendLayout();
             this.SuspendLayout();
@@ -194,6 +195,17 @@
             this.cbTimerEditable.Text = "Enable editing of timer";
             this.cbTimerEditable.UseVisualStyleBackColor = true;
             // 
+            // btnAbout
+            // 
+            this.btnAbout.Location = new System.Drawing.Point(11, 219);
+            this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(56, 22);
+            this.btnAbout.TabIndex = 10;
+            this.btnAbout.Text = "About...";
+            this.btnAbout.UseVisualStyleBackColor = true;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -201,6 +213,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(383, 252);
+            this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.cbTimerEditable);
             this.Controls.Add(this.gbSaveTimerState);
             this.Controls.Add(this.lblSaveTimerState);
@@ -240,5 +253,6 @@
         private System.Windows.Forms.RadioButton rbSaveRunActive;
         private System.Windows.Forms.RadioButton rbSavePause;
         private System.Windows.Forms.CheckBox cbTimerEditable;
+        private System.Windows.Forms.Button btnAbout;
     }
 }

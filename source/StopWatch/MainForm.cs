@@ -71,7 +71,11 @@ namespace StopWatch
 
         private void pbSettings_Click(object sender, EventArgs e)
         {
+            if (settings.AlwaysOnTop)
+                this.TopMost = false;
             EditSettings();
+            if (settings.AlwaysOnTop)
+                this.TopMost = settings.AlwaysOnTop;
         }
 
 
@@ -131,7 +135,11 @@ namespace StopWatch
 
         private void pbLogin_Click(object sender, EventArgs e)
         {
+            if (settings.AlwaysOnTop)
+                this.TopMost = false;
             JiraLogin();
+            if (settings.AlwaysOnTop)
+                this.TopMost = settings.AlwaysOnTop;
         }
 
 
