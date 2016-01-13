@@ -25,6 +25,8 @@ namespace StopWatch
         #region public members
         public string JiraBaseUrl { get; set; }
         public bool AlwaysOnTop { get; set; }
+        public bool MinimizeToTray { get; set; }
+        public bool PauseActiveTimer { get; set; }
         public int IssueCount { get; set; }
         public bool TimerEditable { get; set; }
 
@@ -55,6 +57,8 @@ namespace StopWatch
 
             this.TimerEditable = Properties.Settings.Default.TimerEditable;
             this.AlwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
+            this.MinimizeToTray = Properties.Settings.Default.MinimizeToTray;
+            this.PauseActiveTimer = Properties.Settings.Default.PauseActiveTimer;
             this.IssueCount = Properties.Settings.Default.IssueCount;
             this.Username = Properties.Settings.Default.Username;
             if (Properties.Settings.Default.Password != "")
@@ -77,6 +81,8 @@ namespace StopWatch
 
             Properties.Settings.Default.TimerEditable = this.TimerEditable;
             Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
+            Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
+            Properties.Settings.Default.PauseActiveTimer = this.PauseActiveTimer;
             Properties.Settings.Default.IssueCount = this.IssueCount;
             Properties.Settings.Default.Username = this.Username;
             if (this.Password != "")
