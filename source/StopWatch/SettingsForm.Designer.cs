@@ -43,6 +43,8 @@
             this.rbSavePause = new System.Windows.Forms.RadioButton();
             this.cbTimerEditable = new System.Windows.Forms.CheckBox();
             this.btnAbout = new System.Windows.Forms.Button();
+            this.cbMinimizeToTray = new System.Windows.Forms.CheckBox();
+            this.cbPauseActiveTimer = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
             this.gbSaveTimerState.SuspendLayout();
             this.SuspendLayout();
@@ -112,7 +114,7 @@
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(255, 219);
+            this.btnOk.Location = new System.Drawing.Point(255, 261);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
@@ -123,7 +125,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(316, 219);
+            this.btnCancel.Location = new System.Drawing.Point(316, 261);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
@@ -134,7 +136,7 @@
             // lblSaveTimerState
             // 
             this.lblSaveTimerState.AutoSize = true;
-            this.lblSaveTimerState.Location = new System.Drawing.Point(9, 100);
+            this.lblSaveTimerState.Location = new System.Drawing.Point(9, 142);
             this.lblSaveTimerState.Name = "lblSaveTimerState";
             this.lblSaveTimerState.Size = new System.Drawing.Size(88, 13);
             this.lblSaveTimerState.TabIndex = 5;
@@ -156,7 +158,7 @@
             this.gbSaveTimerState.Controls.Add(this.rbSaveRunActive);
             this.gbSaveTimerState.Controls.Add(this.rbSavePause);
             this.gbSaveTimerState.Controls.Add(this.rbNoSave);
-            this.gbSaveTimerState.Location = new System.Drawing.Point(113, 90);
+            this.gbSaveTimerState.Location = new System.Drawing.Point(113, 132);
             this.gbSaveTimerState.Name = "gbSaveTimerState";
             this.gbSaveTimerState.Size = new System.Drawing.Size(234, 75);
             this.gbSaveTimerState.TabIndex = 6;
@@ -187,7 +189,7 @@
             // cbTimerEditable
             // 
             this.cbTimerEditable.AutoSize = true;
-            this.cbTimerEditable.Location = new System.Drawing.Point(113, 179);
+            this.cbTimerEditable.Location = new System.Drawing.Point(113, 221);
             this.cbTimerEditable.Margin = new System.Windows.Forms.Padding(2);
             this.cbTimerEditable.Name = "cbTimerEditable";
             this.cbTimerEditable.Size = new System.Drawing.Size(130, 17);
@@ -197,7 +199,7 @@
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(11, 219);
+            this.btnAbout.Location = new System.Drawing.Point(11, 261);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(56, 22);
@@ -206,13 +208,37 @@
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
+            // cbMinimizeToTray
+            // 
+            this.cbMinimizeToTray.AutoSize = true;
+            this.cbMinimizeToTray.Location = new System.Drawing.Point(113, 89);
+            this.cbMinimizeToTray.Margin = new System.Windows.Forms.Padding(2);
+            this.cbMinimizeToTray.Name = "cbMinimizeToTray";
+            this.cbMinimizeToTray.Size = new System.Drawing.Size(98, 17);
+            this.cbMinimizeToTray.TabIndex = 11;
+            this.cbMinimizeToTray.Text = "Minimize to tray";
+            this.cbMinimizeToTray.UseVisualStyleBackColor = true;
+            // 
+            // cbPauseActiveTimer
+            // 
+            this.cbPauseActiveTimer.AutoSize = true;
+            this.cbPauseActiveTimer.Location = new System.Drawing.Point(113, 110);
+            this.cbPauseActiveTimer.Margin = new System.Windows.Forms.Padding(2);
+            this.cbPauseActiveTimer.Name = "cbPauseActiveTimer";
+            this.cbPauseActiveTimer.Size = new System.Drawing.Size(157, 17);
+            this.cbPauseActiveTimer.TabIndex = 12;
+            this.cbPauseActiveTimer.Text = "Pause active timer at logout";
+            this.cbPauseActiveTimer.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 252);
+            this.ClientSize = new System.Drawing.Size(383, 295);
+            this.Controls.Add(this.cbPauseActiveTimer);
+            this.Controls.Add(this.cbMinimizeToTray);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.cbTimerEditable);
             this.Controls.Add(this.gbSaveTimerState);
@@ -254,5 +280,7 @@
         private System.Windows.Forms.RadioButton rbSavePause;
         private System.Windows.Forms.CheckBox cbTimerEditable;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.CheckBox cbPauseActiveTimer;
+        private System.Windows.Forms.CheckBox cbMinimizeToTray;
     }
 }

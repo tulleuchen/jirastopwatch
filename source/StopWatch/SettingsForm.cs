@@ -47,6 +47,8 @@ namespace StopWatch
             tbJiraBaseUrl.Text = this.settings.JiraBaseUrl;
             numIssueCount.Value = this.settings.IssueCount;
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
+            cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
+            cbPauseActiveTimer.Checked = this.settings.PauseActiveTimer;
             cbTimerEditable.Checked = this.settings.TimerEditable;
 
             RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => (SaveTimerSetting)x.Tag == settings.SaveTimerState);
@@ -63,6 +65,8 @@ namespace StopWatch
                 this.settings.JiraBaseUrl = tbJiraBaseUrl.Text;
                 this.settings.IssueCount = (int)numIssueCount.Value;
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
+                this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
+                this.settings.PauseActiveTimer = cbPauseActiveTimer.Checked;
                 this.settings.TimerEditable = cbTimerEditable.Checked;
 
                 RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);

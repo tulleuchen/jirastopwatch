@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pbLogin = new System.Windows.Forms.PictureBox();
             this.pbSettings = new System.Windows.Forms.PictureBox();
@@ -35,6 +36,7 @@
             this.lblConnectionStatus = new System.Windows.Forms.Label();
             this.cbFilters = new System.Windows.Forms.ComboBox();
             this.lblActiveFilter = new System.Windows.Forms.Label();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +46,7 @@
             this.pbLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbLogin.Image = global::StopWatch.Properties.Resources.login22;
             this.pbLogin.Location = new System.Drawing.Point(9, 92);
-            this.pbLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbLogin.Margin = new System.Windows.Forms.Padding(2);
             this.pbLogin.Name = "pbLogin";
             this.pbLogin.Size = new System.Drawing.Size(22, 22);
             this.pbLogin.TabIndex = 1;
@@ -56,7 +58,7 @@
             this.pbSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbSettings.Image = global::StopWatch.Properties.Resources.settings22;
             this.pbSettings.Location = new System.Drawing.Point(442, 92);
-            this.pbSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbSettings.Margin = new System.Windows.Forms.Padding(2);
             this.pbSettings.Name = "pbSettings";
             this.pbSettings.Size = new System.Drawing.Size(22, 22);
             this.pbSettings.TabIndex = 0;
@@ -88,7 +90,7 @@
             this.cbFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cbFilters.FormattingEnabled = true;
             this.cbFilters.Location = new System.Drawing.Point(251, 92);
-            this.cbFilters.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbFilters.Margin = new System.Windows.Forms.Padding(2);
             this.cbFilters.Name = "cbFilters";
             this.cbFilters.Size = new System.Drawing.Size(151, 24);
             this.cbFilters.TabIndex = 4;
@@ -104,6 +106,12 @@
             this.lblActiveFilter.TabIndex = 5;
             this.lblActiveFilter.Text = "Filter";
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "JIRA StopWatch";
+            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -117,13 +125,14 @@
             this.Controls.Add(this.pbSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "JIRA StopWatch";
             this.TopMost = true;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.ResumeLayout(false);
@@ -139,7 +148,7 @@
         private System.Windows.Forms.Label lblConnectionStatus;
         private System.Windows.Forms.ComboBox cbFilters;
         private System.Windows.Forms.Label lblActiveFilter;
-
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 

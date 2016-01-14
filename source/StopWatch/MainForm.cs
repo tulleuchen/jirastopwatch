@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace StopWatch
 {
@@ -41,6 +42,8 @@ namespace StopWatch
             // First run should be almost immediately after start
             ticker.Interval = firstDelay;
             ticker.Tick += ticker_Tick;
+
+            Microsoft.Win32.SystemEvents.SessionSwitch += new Microsoft.Win32.SessionSwitchEventHandler(SystemEvents_SessionSwitch);
         }
         #endregion
 
@@ -167,6 +170,44 @@ namespace StopWatch
                     ));
                 }
             );
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (this.settings.MinimizeToTray && WindowState == FormWindowState.Minimized)
+            {
+                this.notifyIcon.Visible = true;
+                this.Hide();
+            }
+            else if (WindowState == FormWindowState.Normal)
+            {
+                this.notifyIcon.Visible = false;
+            }
+        }
+
+        private void notifyIcon_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        #endregion
+
+
+        #region system eventhandlers
+        static void SystemEvents_SessionSwitch(object sender, Microsoft.Win32.SessionSwitchEventArgs e)
+        {
+            MainForm mainForm = (MainForm)Application.OpenForms[0];
+
+            if (mainForm.settings.PauseActiveTimer && e.Reason == SessionSwitchReason.SessionLock)
+            {
+                foreach (var issue in mainForm.issueControls)
+                        issue.Pause();
+            }
+            else if (e.Reason == SessionSwitchReason.SessionUnlock)
+            {
+                //I returned to my desk
+            }
         }
         #endregion
 
