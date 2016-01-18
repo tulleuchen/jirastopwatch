@@ -124,6 +124,13 @@ namespace StopWatch
         }
 
 
+        public void Start()
+        {
+            WatchTimer.Start();
+            UpdateOutput();
+        }
+
+
         public void Pause()
         {
             WatchTimer.Pause();

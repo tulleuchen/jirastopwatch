@@ -19,7 +19,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace StopWatch
 {
@@ -42,8 +41,33 @@ namespace StopWatch
             // First run should be almost immediately after start
             ticker.Interval = firstDelay;
             ticker.Tick += ticker_Tick;
+        }
 
-            Microsoft.Win32.SystemEvents.SessionSwitch += new Microsoft.Win32.SessionSwitchEventHandler(SystemEvents_SessionSwitch);
+
+        public void HandleSessionLock()
+        {
+            if (!settings.PauseActiveTimer)
+                return;
+
+            foreach (var issue in issueControls)
+            {
+                if (issue.WatchTimer.Running)
+                {
+                    lastRunningIssue = issue;
+                    issue.InvokeIfRequired(() => issue.Pause());
+                    return;
+                }
+            }
+        }
+
+
+        public void HandleSessionUnlock()
+        {
+            if (lastRunningIssue != null)
+            {
+                lastRunningIssue.InvokeIfRequired(() => lastRunningIssue.Start());
+                lastRunningIssue = null;
+            }
         }
         #endregion
 
@@ -189,25 +213,6 @@ namespace StopWatch
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
-        }
-
-        #endregion
-
-
-        #region system eventhandlers
-        static void SystemEvents_SessionSwitch(object sender, Microsoft.Win32.SessionSwitchEventArgs e)
-        {
-            MainForm mainForm = (MainForm)Application.OpenForms[0];
-
-            if (mainForm.settings.PauseActiveTimer && e.Reason == SessionSwitchReason.SessionLock)
-            {
-                foreach (var issue in mainForm.issueControls)
-                        issue.Pause();
-            }
-            else if (e.Reason == SessionSwitchReason.SessionUnlock)
-            {
-                //I returned to my desk
-            }
         }
         #endregion
 
@@ -455,6 +460,8 @@ namespace StopWatch
         private JiraClient jiraClient;
 
         private Settings settings;
+
+        private IssueControl lastRunningIssue = null;
         #endregion
 
 

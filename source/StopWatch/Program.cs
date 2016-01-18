@@ -15,6 +15,7 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace StopWatch
 {
@@ -28,7 +29,23 @@ namespace StopWatch
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Microsoft.Win32.SystemEvents.SessionSwitch += new Microsoft.Win32.SessionSwitchEventHandler(SystemEvents_SessionSwitch);
+
             Application.Run(new MainForm());
         }
+
+
+        #region system eventhandlers
+        static void SystemEvents_SessionSwitch(object sender, Microsoft.Win32.SessionSwitchEventArgs e)
+        {
+            MainForm form = (MainForm)Application.OpenForms[0];
+
+            if (e.Reason == SessionSwitchReason.SessionLock)
+                form.HandleSessionLock();
+            else if (e.Reason == SessionSwitchReason.SessionUnlock)
+                form.HandleSessionUnlock();
+        }
+        #endregion
     }
 }
