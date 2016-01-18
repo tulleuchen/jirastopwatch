@@ -162,13 +162,13 @@ namespace StopWatch
                 () => {
                     string key = "";
                     string summary = "";
-                    this.Invoke(new Action(
+                    this.InvokeIfRequired(
                         () => key = cbJira.Text
-                    ));
+                    );
                     summary = jiraClient.GetIssueSummary(key);
-                    this.Invoke(new Action(
+                    this.InvokeIfRequired(
                         () => lblSummary.Text = summary
-                    ));
+                    );
                 }
             );
         }

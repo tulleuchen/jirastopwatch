@@ -54,7 +54,9 @@ namespace StopWatch
                 if (issue.WatchTimer.Running)
                 {
                     lastRunningIssue = issue;
-                    issue.InvokeIfRequired(() => issue.Pause());
+                    issue.InvokeIfRequired(
+                        () => issue.Pause()
+                    );
                     return;
                 }
             }
@@ -65,7 +67,9 @@ namespace StopWatch
         {
             if (lastRunningIssue != null)
             {
-                lastRunningIssue.InvokeIfRequired(() => lastRunningIssue.Start());
+                lastRunningIssue.InvokeIfRequired(
+                    () => lastRunningIssue.Start()
+                );
                 lastRunningIssue = null;
             }
         }
@@ -185,13 +189,13 @@ namespace StopWatch
                     if (availableIssues == null)
                         return;
 
-                    this.Invoke(new Action(
+                    this.InvokeIfRequired(
                         () =>
                         {
                             foreach (var issueControl in this.issueControls)
                                 issueControl.AvailableIssues = availableIssues;
                         }
-                    ));
+                    );
                 }
             );
         }
@@ -298,7 +302,7 @@ namespace StopWatch
                 {
                     if (jiraClient.SessionValid || jiraClient.ValidateSession())
                     {
-                        this.Invoke(new Action(
+                        this.InvokeIfRequired(
                             () =>
                             {
                                 lblConnectionStatus.Text = "Connected";
@@ -308,17 +312,17 @@ namespace StopWatch
 
                                 UpdateIssuesOutput(firstTick);
                             }
-                        ));
+                        );
                     }
                     else
                     {
-                        this.Invoke(new Action(
+                        this.InvokeIfRequired(
                             () =>
                             {
                                 lblConnectionStatus.Text = "Not connected";
                                 lblConnectionStatus.ForeColor = SystemColors.ControlText;
                             }
-                        ));
+                        );
                     }
                 }
             );
@@ -410,7 +414,7 @@ namespace StopWatch
                     if (filters == null)
                         return;
 
-                    this.Invoke(new Action(
+                    this.InvokeIfRequired(
                         () =>
                         {
                             CBFilterItem currentItem = null;
@@ -427,7 +431,7 @@ namespace StopWatch
                             if (currentItem != null)
                                 cbFilters.SelectedItem = currentItem;
                         }
-                    ));
+                    );
                 }
             );
         }
