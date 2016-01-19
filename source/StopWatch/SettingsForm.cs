@@ -18,12 +18,6 @@ using System.Windows.Forms;
 
 namespace StopWatch
 {
-    public enum SaveTimerSetting
-    {
-        NoSave,
-        SavePause,
-        SaveRunActive
-    }
 
 
     internal partial class SettingsForm : Form
@@ -40,19 +34,31 @@ namespace StopWatch
 
             InitializeComponent();
 
-            rbNoSave.Tag = SaveTimerSetting.NoSave;
-            rbSavePause.Tag = SaveTimerSetting.SavePause;
-            rbSaveRunActive.Tag = SaveTimerSetting.SaveRunActive;
-
             tbJiraBaseUrl.Text = this.settings.JiraBaseUrl;
             numIssueCount.Value = this.settings.IssueCount;
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
             cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
-            cbPauseActiveTimer.Checked = this.settings.PauseActiveTimer;
             cbTimerEditable.Checked = this.settings.TimerEditable;
 
-            RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => (SaveTimerSetting)x.Tag == settings.SaveTimerState);
-            choice.Checked = true;
+            cbSaveTimerState.DisplayMember = "Text";
+            cbSaveTimerState.ValueMember = "Value";
+            cbSaveTimerState.DataSource = new[]
+            {
+                new { Text = "Reset all timers on exit", Value = SaveTimerSetting.NoSave },
+                new { Text = "Save current timetracking, pause active timer", Value = SaveTimerSetting.SavePause },
+                new { Text = "Save current timetracking, active timer continues", Value = SaveTimerSetting.SaveRunActive }
+            };
+            cbSaveTimerState.SelectedValue = this.settings.SaveTimerState;
+
+            cbPauseOnSessionLock.DisplayMember = "Text";
+            cbPauseOnSessionLock.ValueMember = "Value";
+            cbPauseOnSessionLock.DataSource = new[]
+            {
+                new { Text = "No pause", Value = PauseAndResumeSetting.NoPause },
+                new { Text = "Pause active timer", Value = PauseAndResumeSetting.Pause },
+                new { Text = "Pause and resume on unlock", Value = PauseAndResumeSetting.PauseAndResume }
+            };
+            cbPauseOnSessionLock.SelectedValue = this.settings.PauseOnSessionLock;
         }
         #endregion
 
@@ -66,11 +72,10 @@ namespace StopWatch
                 this.settings.IssueCount = (int)numIssueCount.Value;
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
                 this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
-                this.settings.PauseActiveTimer = cbPauseActiveTimer.Checked;
                 this.settings.TimerEditable = cbTimerEditable.Checked;
 
-                RadioButton choice = gbSaveTimerState.Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-                this.settings.SaveTimerState = (SaveTimerSetting)choice.Tag;
+                this.settings.SaveTimerState = (SaveTimerSetting)cbSaveTimerState.SelectedValue;
+                this.settings.PauseOnSessionLock = (PauseAndResumeSetting)cbPauseOnSessionLock.SelectedValue;
             }
         }
 

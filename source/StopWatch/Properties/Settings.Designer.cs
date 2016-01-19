@@ -169,13 +169,13 @@ namespace StopWatch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PauseActiveTimer {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int PauseOnSessionLock {
             get {
-                return ((bool)(this["PauseActiveTimer"]));
+                return ((int)(this["PauseOnSessionLock"]));
             }
             set {
-                this["PauseActiveTimer"] = value;
+                this["PauseOnSessionLock"] = value;
             }
         }
     }

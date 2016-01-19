@@ -46,7 +46,7 @@ namespace StopWatch
 
         public void HandleSessionLock()
         {
-            if (!settings.PauseActiveTimer)
+            if (settings.PauseOnSessionLock == PauseAndResumeSetting.NoPause)
                 return;
 
             foreach (var issue in issueControls)
@@ -65,6 +65,9 @@ namespace StopWatch
 
         public void HandleSessionUnlock()
         {
+            if (settings.PauseOnSessionLock != PauseAndResumeSetting.PauseAndResume)
+                return;
+
             if (lastRunningIssue != null)
             {
                 lastRunningIssue.InvokeIfRequired(

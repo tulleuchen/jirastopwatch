@@ -20,17 +20,31 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace StopWatch
 {
+    public enum SaveTimerSetting
+    {
+        NoSave,
+        SavePause,
+        SaveRunActive
+    }
+
+    public enum PauseAndResumeSetting
+    {
+        NoPause,
+        Pause,
+        PauseAndResume
+    }
+
     internal class Settings
     {
         #region public members
         public string JiraBaseUrl { get; set; }
         public bool AlwaysOnTop { get; set; }
         public bool MinimizeToTray { get; set; }
-        public bool PauseActiveTimer { get; set; }
         public int IssueCount { get; set; }
         public bool TimerEditable { get; set; }
 
         public SaveTimerSetting SaveTimerState { get; set; }
+        public PauseAndResumeSetting PauseOnSessionLock { get; set; } 
 
         public string Username { get; set; }
         public string Password { get; set; }
@@ -39,7 +53,6 @@ namespace StopWatch
 
         public int CurrentFilter { get; set; }
 
-        //public System.Collections.Specialized.StringCollection PersistedIssues { get; set; }
         public List<PersistedIssue> PersistedIssues { get; private set; }
         #endregion
 
@@ -58,7 +71,6 @@ namespace StopWatch
             this.TimerEditable = Properties.Settings.Default.TimerEditable;
             this.AlwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
             this.MinimizeToTray = Properties.Settings.Default.MinimizeToTray;
-            this.PauseActiveTimer = Properties.Settings.Default.PauseActiveTimer;
             this.IssueCount = Properties.Settings.Default.IssueCount;
             this.Username = Properties.Settings.Default.Username;
             if (Properties.Settings.Default.Password != "")
@@ -68,6 +80,7 @@ namespace StopWatch
             this.RememberCredentials = Properties.Settings.Default.RememberCredentials;
             this.FirstRun = Properties.Settings.Default.FirstRun;
             this.SaveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
+            this.PauseOnSessionLock = (PauseAndResumeSetting)Properties.Settings.Default.PauseOnSessionLock;
 
             this.CurrentFilter = Properties.Settings.Default.CurrentFilter;
 
@@ -82,7 +95,6 @@ namespace StopWatch
             Properties.Settings.Default.TimerEditable = this.TimerEditable;
             Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
             Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
-            Properties.Settings.Default.PauseActiveTimer = this.PauseActiveTimer;
             Properties.Settings.Default.IssueCount = this.IssueCount;
             Properties.Settings.Default.Username = this.Username;
             if (this.Password != "")
@@ -92,6 +104,7 @@ namespace StopWatch
             Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
             Properties.Settings.Default.FirstRun = this.FirstRun;
             Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;
+            Properties.Settings.Default.PauseOnSessionLock = (int)this.PauseOnSessionLock;
 
             Properties.Settings.Default.CurrentFilter = this.CurrentFilter;
 

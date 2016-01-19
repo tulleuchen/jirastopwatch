@@ -37,16 +37,16 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblSaveTimerState = new System.Windows.Forms.Label();
-            this.rbNoSave = new System.Windows.Forms.RadioButton();
-            this.gbSaveTimerState = new System.Windows.Forms.GroupBox();
-            this.rbSaveRunActive = new System.Windows.Forms.RadioButton();
-            this.rbSavePause = new System.Windows.Forms.RadioButton();
             this.cbTimerEditable = new System.Windows.Forms.CheckBox();
             this.btnAbout = new System.Windows.Forms.Button();
             this.cbMinimizeToTray = new System.Windows.Forms.CheckBox();
-            this.cbPauseActiveTimer = new System.Windows.Forms.CheckBox();
+            this.cbSaveTimerState = new System.Windows.Forms.ComboBox();
+            this.lblPauseOnSessionLock = new System.Windows.Forms.Label();
+            this.cbPauseOnSessionLock = new System.Windows.Forms.ComboBox();
+            this.splitter3 = new System.Windows.Forms.Label();
+            this.splitter2 = new System.Windows.Forms.Label();
+            this.splitter1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
-            this.gbSaveTimerState.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblJiraBaseUrl
@@ -69,7 +69,7 @@
             // 
             // lblIssueCount
             // 
-            this.lblIssueCount.Location = new System.Drawing.Point(9, 33);
+            this.lblIssueCount.Location = new System.Drawing.Point(9, 48);
             this.lblIssueCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIssueCount.Name = "lblIssueCount";
             this.lblIssueCount.Size = new System.Drawing.Size(107, 34);
@@ -78,7 +78,7 @@
             // 
             // numIssueCount
             // 
-            this.numIssueCount.Location = new System.Drawing.Point(113, 36);
+            this.numIssueCount.Location = new System.Drawing.Point(114, 48);
             this.numIssueCount.Margin = new System.Windows.Forms.Padding(2);
             this.numIssueCount.Maximum = new decimal(new int[] {
             20,
@@ -102,7 +102,7 @@
             // cbAlwaysOnTop
             // 
             this.cbAlwaysOnTop.AutoSize = true;
-            this.cbAlwaysOnTop.Location = new System.Drawing.Point(113, 68);
+            this.cbAlwaysOnTop.Location = new System.Drawing.Point(113, 84);
             this.cbAlwaysOnTop.Margin = new System.Windows.Forms.Padding(2);
             this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
             this.cbAlwaysOnTop.Size = new System.Drawing.Size(158, 17);
@@ -135,61 +135,16 @@
             // 
             // lblSaveTimerState
             // 
-            this.lblSaveTimerState.AutoSize = true;
-            this.lblSaveTimerState.Location = new System.Drawing.Point(9, 142);
+            this.lblSaveTimerState.Location = new System.Drawing.Point(9, 145);
             this.lblSaveTimerState.Name = "lblSaveTimerState";
-            this.lblSaveTimerState.Size = new System.Drawing.Size(88, 13);
+            this.lblSaveTimerState.Size = new System.Drawing.Size(98, 38);
             this.lblSaveTimerState.TabIndex = 5;
-            this.lblSaveTimerState.Text = "Save timer states";
-            // 
-            // rbNoSave
-            // 
-            this.rbNoSave.AutoSize = true;
-            this.rbNoSave.Location = new System.Drawing.Point(6, 8);
-            this.rbNoSave.Name = "rbNoSave";
-            this.rbNoSave.Size = new System.Drawing.Size(130, 17);
-            this.rbNoSave.TabIndex = 0;
-            this.rbNoSave.TabStop = true;
-            this.rbNoSave.Text = "Reset all timers on exit";
-            this.rbNoSave.UseVisualStyleBackColor = true;
-            // 
-            // gbSaveTimerState
-            // 
-            this.gbSaveTimerState.Controls.Add(this.rbSaveRunActive);
-            this.gbSaveTimerState.Controls.Add(this.rbSavePause);
-            this.gbSaveTimerState.Controls.Add(this.rbNoSave);
-            this.gbSaveTimerState.Location = new System.Drawing.Point(113, 132);
-            this.gbSaveTimerState.Name = "gbSaveTimerState";
-            this.gbSaveTimerState.Size = new System.Drawing.Size(234, 75);
-            this.gbSaveTimerState.TabIndex = 6;
-            this.gbSaveTimerState.TabStop = false;
-            // 
-            // rbSaveRunActive
-            // 
-            this.rbSaveRunActive.AutoSize = true;
-            this.rbSaveRunActive.Location = new System.Drawing.Point(6, 54);
-            this.rbSaveRunActive.Name = "rbSaveRunActive";
-            this.rbSaveRunActive.Size = new System.Drawing.Size(222, 17);
-            this.rbSaveRunActive.TabIndex = 2;
-            this.rbSaveRunActive.TabStop = true;
-            this.rbSaveRunActive.Text = "Save current times, active timer continues";
-            this.rbSaveRunActive.UseVisualStyleBackColor = true;
-            // 
-            // rbSavePause
-            // 
-            this.rbSavePause.AutoSize = true;
-            this.rbSavePause.Location = new System.Drawing.Point(6, 31);
-            this.rbSavePause.Name = "rbSavePause";
-            this.rbSavePause.Size = new System.Drawing.Size(205, 17);
-            this.rbSavePause.TabIndex = 1;
-            this.rbSavePause.TabStop = true;
-            this.rbSavePause.Text = "Save current times, pause active timer";
-            this.rbSavePause.UseVisualStyleBackColor = true;
+            this.lblSaveTimerState.Text = "Save timer states on program exit";
             // 
             // cbTimerEditable
             // 
             this.cbTimerEditable.AutoSize = true;
-            this.cbTimerEditable.Location = new System.Drawing.Point(113, 221);
+            this.cbTimerEditable.Location = new System.Drawing.Point(114, 217);
             this.cbTimerEditable.Margin = new System.Windows.Forms.Padding(2);
             this.cbTimerEditable.Name = "cbTimerEditable";
             this.cbTimerEditable.Size = new System.Drawing.Size(130, 17);
@@ -211,7 +166,7 @@
             // cbMinimizeToTray
             // 
             this.cbMinimizeToTray.AutoSize = true;
-            this.cbMinimizeToTray.Location = new System.Drawing.Point(113, 89);
+            this.cbMinimizeToTray.Location = new System.Drawing.Point(113, 105);
             this.cbMinimizeToTray.Margin = new System.Windows.Forms.Padding(2);
             this.cbMinimizeToTray.Name = "cbMinimizeToTray";
             this.cbMinimizeToTray.Size = new System.Drawing.Size(98, 17);
@@ -219,16 +174,55 @@
             this.cbMinimizeToTray.Text = "Minimize to tray";
             this.cbMinimizeToTray.UseVisualStyleBackColor = true;
             // 
-            // cbPauseActiveTimer
+            // cbSaveTimerState
             // 
-            this.cbPauseActiveTimer.AutoSize = true;
-            this.cbPauseActiveTimer.Location = new System.Drawing.Point(113, 110);
-            this.cbPauseActiveTimer.Margin = new System.Windows.Forms.Padding(2);
-            this.cbPauseActiveTimer.Name = "cbPauseActiveTimer";
-            this.cbPauseActiveTimer.Size = new System.Drawing.Size(157, 17);
-            this.cbPauseActiveTimer.TabIndex = 12;
-            this.cbPauseActiveTimer.Text = "Pause active timer at logout";
-            this.cbPauseActiveTimer.UseVisualStyleBackColor = true;
+            this.cbSaveTimerState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbSaveTimerState.FormattingEnabled = true;
+            this.cbSaveTimerState.Location = new System.Drawing.Point(113, 145);
+            this.cbSaveTimerState.Name = "cbSaveTimerState";
+            this.cbSaveTimerState.Size = new System.Drawing.Size(258, 21);
+            this.cbSaveTimerState.TabIndex = 13;
+            // 
+            // lblPauseOnSessionLock
+            // 
+            this.lblPauseOnSessionLock.Location = new System.Drawing.Point(9, 183);
+            this.lblPauseOnSessionLock.Name = "lblPauseOnSessionLock";
+            this.lblPauseOnSessionLock.Size = new System.Drawing.Size(98, 38);
+            this.lblPauseOnSessionLock.TabIndex = 13;
+            this.lblPauseOnSessionLock.Text = "Pause timer on session lock";
+            // 
+            // cbPauseOnSessionLock
+            // 
+            this.cbPauseOnSessionLock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPauseOnSessionLock.FormattingEnabled = true;
+            this.cbPauseOnSessionLock.Location = new System.Drawing.Point(113, 180);
+            this.cbPauseOnSessionLock.Name = "cbPauseOnSessionLock";
+            this.cbPauseOnSessionLock.Size = new System.Drawing.Size(258, 21);
+            this.cbPauseOnSessionLock.TabIndex = 14;
+            // 
+            // splitter3
+            // 
+            this.splitter3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitter3.Location = new System.Drawing.Point(12, 250);
+            this.splitter3.Name = "splitter3";
+            this.splitter3.Size = new System.Drawing.Size(360, 2);
+            this.splitter3.TabIndex = 16;
+            // 
+            // splitter2
+            // 
+            this.splitter2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitter2.Location = new System.Drawing.Point(12, 131);
+            this.splitter2.Name = "splitter2";
+            this.splitter2.Size = new System.Drawing.Size(360, 2);
+            this.splitter2.TabIndex = 15;
+            // 
+            // splitter1
+            // 
+            this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitter1.Location = new System.Drawing.Point(12, 37);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(360, 2);
+            this.splitter1.TabIndex = 14;
             // 
             // SettingsForm
             // 
@@ -237,11 +231,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(383, 295);
-            this.Controls.Add(this.cbPauseActiveTimer);
+            this.Controls.Add(this.cbPauseOnSessionLock);
+            this.Controls.Add(this.splitter3);
+            this.Controls.Add(this.cbSaveTimerState);
+            this.Controls.Add(this.splitter2);
+            this.Controls.Add(this.splitter1);
+            this.Controls.Add(this.lblPauseOnSessionLock);
             this.Controls.Add(this.cbMinimizeToTray);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.cbTimerEditable);
-            this.Controls.Add(this.gbSaveTimerState);
             this.Controls.Add(this.lblSaveTimerState);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
@@ -257,8 +255,6 @@
             this.Text = "StopWatch Settings";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingsForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).EndInit();
-            this.gbSaveTimerState.ResumeLayout(false);
-            this.gbSaveTimerState.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,13 +270,14 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblSaveTimerState;
-        private System.Windows.Forms.RadioButton rbNoSave;
-        private System.Windows.Forms.GroupBox gbSaveTimerState;
-        private System.Windows.Forms.RadioButton rbSaveRunActive;
-        private System.Windows.Forms.RadioButton rbSavePause;
         private System.Windows.Forms.CheckBox cbTimerEditable;
         private System.Windows.Forms.Button btnAbout;
-        private System.Windows.Forms.CheckBox cbPauseActiveTimer;
         private System.Windows.Forms.CheckBox cbMinimizeToTray;
+        private System.Windows.Forms.ComboBox cbSaveTimerState;
+        private System.Windows.Forms.ComboBox cbPauseOnSessionLock;
+        private System.Windows.Forms.Label lblPauseOnSessionLock;
+        private System.Windows.Forms.Label splitter3;
+        private System.Windows.Forms.Label splitter2;
+        private System.Windows.Forms.Label splitter1;
     }
 }
