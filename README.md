@@ -62,36 +62,7 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
-1.0.1     2015-09-25     First release with setup program
-
-1.0.2     2015-09-28     Integration with Jira: Async load issue summary
-
-1.0.3     2015-09-28     Remember login credentials with DPAPI
-
-1.0.4     2015-09-30     Clear summary label when issue key is empty
-
-1.0.5     2015-10-07     Nicer buttons + tooltips
-
-1.1.0     2015-10-09     Changed all icons to https://icons8.com
-
-                         New feature: Post worklog to Jira with a comment
-
-1.1.1     2015-10-09     Fixed problems with main window being "Always on top" and the applications
-                         other dialog boxes
-
-1.2.0     2015-10-19     Save time-tracking state, so stopwatch continue to "run" after quitting program
-
-                         Automatic re-login, if Jira session has expired
-
-                         Visual Jira connection status
-
-                         Fixed tab-order on controls
-
-1.3.0     2015-11-11     Issues can now be selected from a list of available issues  - this list is
-                         controlled by selecting between your favourite JQL filters
-
-1.3.1     2015-12-16     Cosmetic UI tweaks. My computer was running with a default zoom-level of 125%,
-                         which meant that things did not look correct on default zoom level.
+1.4.1     2016-01-02     Added About dialog
 
 1.4.0     2015-12-25     Worklog comments can now be saved without posting to Jira immediately.  Useful
                          if your task takes a long time and you want to note down your progress while
@@ -104,5 +75,34 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 						 Thanks goes to [Seth Feldkamp](https://github.com/sfeldkamp) for the ideas to
 						 both features and for testing.
 
-1.4.1     2016-01-02     Added About dialog
+1.3.1     2015-12-16     Cosmetic UI tweaks. My computer was running with a default zoom-level of 125%,
+                         which meant that things did not look correct on default zoom level.
+
+1.3.0     2015-11-11     Issues can now be selected from a list of available issues  - this list is
+                         controlled by selecting between your favourite JQL filters
+
+1.2.0     2015-10-19     Save time-tracking state, so stopwatch continue to "run" after quitting program
+
+                         Automatic re-login, if Jira session has expired
+
+                         Visual Jira connection status
+
+                         Fixed tab-order on controls
+
+1.1.1     2015-10-09     Fixed problems with main window being "Always on top" and the applications
+                         other dialog boxes
+
+1.1.0     2015-10-09     Changed all icons to https://icons8.com
+
+                         New feature: Post worklog to Jira with a comment
+
+1.0.5     2015-10-07     Nicer buttons + tooltips
+
+1.0.4     2015-09-30     Clear summary label when issue key is empty
+
+1.0.3     2015-09-28     Remember login credentials with DPAPI
+
+1.0.2     2015-09-28     Integration with Jira: Async load issue summary
+
+1.0.1     2015-09-25     First release with setup program
 </pre>
