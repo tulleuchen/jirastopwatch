@@ -408,6 +408,7 @@ namespace StopWatch
             if (ignoreTextChange)
                 return;
 
+            // Validate time input
             TimeSpan time = JiraHelpers.JiraTimeToTimeSpan(tbTime.Text);
             if (time.TotalMilliseconds == 0)
                 return;
@@ -416,6 +417,8 @@ namespace StopWatch
             state.TotalTime = time;
             state.StartTime = DateTime.Now;
             WatchTimer.SetState(state);
+
+            UpdateOutput();
         }
         #endregion
 
