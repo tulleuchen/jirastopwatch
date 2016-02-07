@@ -228,6 +228,14 @@ namespace StopWatch
             Task.Factory.StartNew(
                 () =>
                 {
+                    this.InvokeIfRequired(
+                        () =>
+                        {
+                            lblConnectionStatus.Text = "Connecting...";
+                            lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                        }
+                    );
+
                     if (jiraClient.Authenticate(username, password))
                         UpdateIssuesOutput(true);
                     UpdateJiraRelatedData(true);
