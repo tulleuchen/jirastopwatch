@@ -96,10 +96,8 @@ namespace StopWatch
 
             ticker.Interval = defaultDelay;
 
-            if (IsJiraEnabled)
-                UpdateJiraRelatedData(firstTick);
-            else
-                UpdateIssuesOutput(firstTick);
+            UpdateJiraRelatedData(firstTick);
+            UpdateIssuesOutput(firstTick);
         }
 
 
@@ -303,6 +301,18 @@ namespace StopWatch
             Task.Factory.StartNew(
                 () =>
                 {
+                    if (!IsJiraEnabled)
+                    {
+                        this.InvokeIfRequired(
+                            () =>
+                            {
+                                lblConnectionStatus.Text = "Not setup yet";
+                                lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                            }
+                        );
+                        return;
+                    }
+
                     if (jiraClient.SessionValid || jiraClient.ValidateSession())
                     {
                         this.InvokeIfRequired(
@@ -316,17 +326,16 @@ namespace StopWatch
                                 UpdateIssuesOutput(firstTick);
                             }
                         );
+                        return;
                     }
-                    else
-                    {
-                        this.InvokeIfRequired(
-                            () =>
-                            {
-                                lblConnectionStatus.Text = "Not connected";
-                                lblConnectionStatus.ForeColor = SystemColors.ControlText;
-                            }
-                        );
-                    }
+
+                    this.InvokeIfRequired(
+                        () =>
+                        {
+                            lblConnectionStatus.Text = "Not connected";
+                            lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                        }
+                    );
                 }
             );
         }
