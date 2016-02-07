@@ -135,7 +135,7 @@
             // 
             // lblSaveTimerState
             // 
-            this.lblSaveTimerState.Location = new System.Drawing.Point(9, 145);
+            this.lblSaveTimerState.Location = new System.Drawing.Point(9, 143);
             this.lblSaveTimerState.Name = "lblSaveTimerState";
             this.lblSaveTimerState.Size = new System.Drawing.Size(98, 38);
             this.lblSaveTimerState.TabIndex = 5;
@@ -185,7 +185,7 @@
             // 
             // lblPauseOnSessionLock
             // 
-            this.lblPauseOnSessionLock.Location = new System.Drawing.Point(9, 183);
+            this.lblPauseOnSessionLock.Location = new System.Drawing.Point(9, 181);
             this.lblPauseOnSessionLock.Name = "lblPauseOnSessionLock";
             this.lblPauseOnSessionLock.Size = new System.Drawing.Size(98, 38);
             this.lblPauseOnSessionLock.TabIndex = 13;
@@ -195,9 +195,9 @@
             // 
             this.cbPauseOnSessionLock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPauseOnSessionLock.FormattingEnabled = true;
-            this.cbPauseOnSessionLock.Location = new System.Drawing.Point(113, 180);
+            this.cbPauseOnSessionLock.Location = new System.Drawing.Point(113, 183);
             this.cbPauseOnSessionLock.Name = "cbPauseOnSessionLock";
-            this.cbPauseOnSessionLock.Size = new System.Drawing.Size(258, 21);
+            this.cbPauseOnSessionLock.Size = new System.Drawing.Size(176, 21);
             this.cbPauseOnSessionLock.TabIndex = 14;
             // 
             // splitter3
