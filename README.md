@@ -6,24 +6,28 @@ A Windows desktop tool for recording time spent on different Jira tasks.
 
 ## Features:
 
+### Easy time tracking of Jira issues
+
+* Switch time tracking between issues with just one click
 * Configure how many time-tracking slots you want available
-* Integration to Jira REST API: Fetch task description when task-key has been entered (requires login)
-* Time is reported in Jira time-logging format (eg. 2h 31m) to easily copy/paste into time-logging
+* Time can be manually edited (eg. if you forgot to start the timer when starting work)
+* Optionally pause timer when locking your PC
+
+### Integration with Jira REST API
+
+* Select issue keys from a list based on one of your favorite JQL filters or type it manually
+* Displays issue description when key has been selected or entered manually
+* Post spent time into Jira as a worklog with comment
+
+### Automatically save program state on exit
+
 * Jira issue keys are saved on program exit
-* Posting spent time into Jira as a worklog with comment (using Jira REST API)
-* Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
-* Automatic re-login, if Jira session has expired
-* Select issue keys from list of available issues - this list is controlled by choosing a JQL filter
+* Optionally remember login credentials
+* Optionally save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
 
 Feature-requests are more than welcome :-)
 
-## Mac OSX and Linux users
-
-Jira StopWatch has been compiled and tested to work on Linux Mint 17.0 with the [Xamarin packages](http://www.mono-project.com/download/#download-lin).
-
-Anyone with a MacOSX available: I would love to know if everything works out of the box.
-
-## Download
+## Download & installation
 
 A setup file with the latest release can be [downloaded here](https://github.com/carstengehling/jirastopwatch/releases).
 
@@ -33,17 +37,23 @@ Watch the tutorial screencast: [https://vimeo.com/146107370](https://vimeo.com/1
 
 After install, start the application and click the settings icon (gears icon). Enter the real base URL for your Jira server and press OK. Then click on the padlock to login to Jira.
 
-Now write a Jira task id in one of the white textboxes. When you leave the textbox, the task description will be fetched from your Jira server and displayed below the textbox. Repeat this for the tasks you are currently working on.
+Now you can either write Jira issue id's manually into the the textbox. Or you can choose one of your favorite JQL filters in the drop-down list in the bottom of the windows, and afterwards select Jia issues from drop-down lists.
 
-Press the green PLAY button next to your task-id. The time-tracking textbox will now turn green, and after the first minute has passed, the time elapsed will change from "0m" to "1m".
+Press the green PLAY button next to the issue, that you want to work on. The time-tracking textbox will now turn green, and after the first minute has passed, the time elapsed will change from "0m" to "1m".
 
-If you press PLAY on another task, the previous will automatically pause.
+If you press PLAY on another task, the previous timer will automatically pause.
 
-The button to the right of the time box lets you post the time directly on Jira as a worklog along with a comment. If the posting is successful, the timer will automatically reset, otherwise the timer will not be changed. **Note that since the smallest time unit in StopWatch is minutes, the button will be disabled until at least 1 minute has passed.**
+The button to the right of the time box lets you post the time directly on Jira as a worklog along with a comment. If the posting is successful, the timer will automatically reset, otherwise the timer will not be changed.
 
-Click on the rightmost button to reset the time to 0m.
+The rightmost button on each row reset the timer to 0m.
 
 That's pretty much it!
+
+## Mac OSX and Linux users
+
+Jira StopWatch has been compiled and tested to work on Linux Mint 17.0 with the [Xamarin packages](http://www.mono-project.com/download/#download-lin).
+
+Anyone with a MacOSX available: I would love to know if everything works out of the box.
 
 ## License
 
@@ -62,6 +72,12 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+1.5.0     2016-02-07     Option for pausing timer when locking your PC (eg. for lunch breaks)
+
+                         Application can now be minimized to the system tray
+
+                         Several bugfixes - for details see the [commit history](https://github.com/carstengehling/jirastopwatch/compare/1.4.1...58c9570)
+
 1.4.1     2016-01-02     Added About dialog
 
 1.4.0     2015-12-25     Worklog comments can now be saved without posting to Jira immediately.  Useful
@@ -70,7 +86,7 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 
 						 New option to enable timers to be editable. Useful if you forgot to start the
 						 timer when starting work. Times can be entered both Jira style like 1h 15m and
-						 the "classic" way like 1.25h
+						 the "classic" way like 1.25h.
 
 						 Thanks goes to [Seth Feldkamp](https://github.com/sfeldkamp) for the ideas to
 						 both features and for testing.
