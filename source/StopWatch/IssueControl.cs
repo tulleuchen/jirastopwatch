@@ -354,7 +354,7 @@ namespace StopWatch
 
         private void cbJira_Leave(object sender, EventArgs e)
         {
-            UpdateSummary();
+            UpdateOutput();
         }
 
 
