@@ -228,7 +228,9 @@ namespace StopWatch
             Task.Factory.StartNew(
                 () =>
                 {
-                    jiraClient.Authenticate(username, password);
+                    if (jiraClient.Authenticate(username, password))
+                        UpdateIssuesOutput(true);
+                    UpdateJiraRelatedData(true);
                 }
             );
         }
@@ -400,18 +402,11 @@ namespace StopWatch
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     this.settings.RememberCredentials = form.Remember;
-                    if (this.settings.RememberCredentials)
-                    {
-                        this.settings.Username = form.Username;
-                        this.settings.Password = form.Password;
-                    }
-                    else
-                    {
-                        this.settings.Username = "";
-                        this.settings.Password = "";
-                    }
+                    this.settings.Username = form.Username;
+                    this.settings.Password = form.Password;
 
-                    AuthenticateJira(form.Username, form.Password);
+                    if (IsJiraEnabled)
+                        AuthenticateJira(this.settings.Username, this.settings.Password);
                 }
             }
         }

@@ -96,12 +96,22 @@ namespace StopWatch
             Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
             Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
             Properties.Settings.Default.IssueCount = this.IssueCount;
-            Properties.Settings.Default.Username = this.Username;
-            if (this.Password != "")
-                Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
-            else
-                Properties.Settings.Default.Password = "";
+
             Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
+            if (this.RememberCredentials)
+            {
+                Properties.Settings.Default.Username = this.Username;
+                if (this.Password != "")
+                    Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
+                else
+                    Properties.Settings.Default.Password = "";
+            }
+            else
+            {
+                Properties.Settings.Default.Username = "";
+                Properties.Settings.Default.Password = "";
+            }
+
             Properties.Settings.Default.FirstRun = this.FirstRun;
             Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;
             Properties.Settings.Default.PauseOnSessionLock = (int)this.PauseOnSessionLock;
