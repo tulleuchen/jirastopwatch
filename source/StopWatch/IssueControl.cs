@@ -342,7 +342,7 @@ namespace StopWatch
 
         void cbJira_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSummary();
+            UpdateOutput(true);
         }
 
 
@@ -354,7 +354,7 @@ namespace StopWatch
 
         private void cbJira_Leave(object sender, EventArgs e)
         {
-            UpdateOutput();
+            UpdateOutput(true);
         }
 
 
