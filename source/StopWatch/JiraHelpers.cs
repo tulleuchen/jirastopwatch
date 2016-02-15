@@ -29,28 +29,42 @@ namespace StopWatch
             return String.Format("{0:%m}m", ts);
         }
 
+
         public static TimeSpan JiraTimeToTimeSpan(string time)
         {
             string s;
             decimal t;
             int minutes = 0;
-            Match m;
-            
-            m = new Regex(@"(\d+(\.|,\d{1,2})?)m", RegexOptions.IgnoreCase).Match(time);
-            if (m.Success)
-            {
-                s = m.Groups[1].Value.Replace(",", ".");
-                if (decimal.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out t))
-                    minutes += (int)t;
-            }
+            bool validFormat = true;
 
-            m = new Regex(@"(\d+(\.|,\d{1,2})?)h", RegexOptions.IgnoreCase).Match(time);
-            if (m.Success)
+            foreach (string timePart in time.Split(' '))
             {
-                s = m.Groups[1].Value.Replace(",", ".");
-                if (decimal.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out t))
+                s = timePart.Trim().ToUpper();
+
+                if (s == "")
+                    continue;
+
+                if (!s.Contains("M") && !s.Contains("H"))
+                {
+                    validFormat = false;
+                    break;
+                }
+
+                if (!decimal.TryParse(s.Replace("M", "").Replace("H", "").Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out t))
+                {
+                    validFormat = false;
+                    break;
+                }
+
+                if (s.Contains("M"))
+                    minutes += (int)t;
+
+                if (s.Contains("H"))
                     minutes += (int)(t * 60);
             }
+
+            if (!validFormat)
+                return new TimeSpan(0);
 
             return new TimeSpan(minutes / 60, minutes % 60, 0);
         }
