@@ -203,6 +203,11 @@ namespace StopWatch
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
+            // Mono for MacOSX and Linux do not implement the notifyIcon
+            // so ignore this feature if we are not running on Windows
+            if (!CrossPlatformHelpers.IsWindowsEnvironment())
+                return;
+
             if (this.settings.MinimizeToTray && WindowState == FormWindowState.Minimized)
             {
                 this.notifyIcon.Visible = true;

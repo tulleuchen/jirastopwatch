@@ -57,6 +57,7 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CrossPlatformHelpers.cs" />
     <Compile Include="DPApi.cs" />
     <Compile Include="InvokeExtensions.cs" />
     <Compile Include="PersistedIssue.cs" />
