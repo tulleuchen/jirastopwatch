@@ -30,7 +30,7 @@ namespace StopWatch
             InitializeComponent();
 
             settings = new Settings();
-            jiraClient = new JiraClient();
+            jiraClient = new JiraClient(new RestClientFactory(), new RestRequestFactory());
 
             cbFilters.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFilters.DisplayMember = "Name";

@@ -97,7 +97,7 @@ namespace StopWatch
         public void UpdateOutput(bool updateSummary = false)
         {
             ignoreTextChange = true;
-            tbTime.Text = JiraHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
+            tbTime.Text = JiraTimeHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
             ignoreTextChange = false;
 
             if (WatchTimer.Running)
@@ -409,7 +409,7 @@ namespace StopWatch
                 return;
 
             // Validate time input
-            TimeSpan time = JiraHelpers.JiraTimeToTimeSpan(tbTime.Text);
+            TimeSpan time = JiraTimeHelpers.JiraTimeToTimeSpan(tbTime.Text);
             if (time.TotalMilliseconds == 0)
                 return;
 

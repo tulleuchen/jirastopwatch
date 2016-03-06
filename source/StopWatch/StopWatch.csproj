@@ -54,6 +54,10 @@
     <Compile Include="CrossPlatformHelpers.cs" />
     <Compile Include="DPApi.cs" />
     <Compile Include="InvokeExtensions.cs" />
+    <Compile Include="RestSharp\RestRequestFactory.cs" />
+    <Compile Include="RestSharp\RestClientFactory.cs" />
+    <Compile Include="RestSharp\IRestClientFactory.cs" />
+    <Compile Include="RestSharp\IRestRequestFactory.cs" />
     <Compile Include="PersistedIssue.cs" />
     <Compile Include="JiraApi\SearchResult.cs" />
     <Compile Include="JiraApi\Filter.cs" />
@@ -70,7 +74,7 @@
     </Compile>
     <Compile Include="JiraApi\IssueFields.cs" />
     <Compile Include="JiraClient.cs" />
-    <Compile Include="JiraHelpers.cs" />
+    <Compile Include="JiraTimeHelpers.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

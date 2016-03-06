@@ -67,7 +67,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="JiraHelpersTest.cs" />
+    <Compile Include="JiraTimeHelpersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

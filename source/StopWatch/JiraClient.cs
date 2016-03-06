@@ -28,9 +28,10 @@ namespace StopWatch
         public bool SessionValid { get; private set; }
 
         #region public methods
-        public JiraClient()
+        public JiraClient(IRestClientFactory restClientFactory, IRestRequestFactory restRequestFactory)
         {
-            this.cookieContainer = new CookieContainer();
+            this.restClientFactory = restClientFactory;
+            this.restRequestFactory = restRequestFactory;
 
             SessionValid = false;
         }
@@ -71,16 +72,16 @@ namespace StopWatch
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return false;
 
-            var client = GetClient();
+            var client = restClientFactory.Create(BaseUrl);
 
-            var request = new RestRequest("/rest/auth/1/session", Method.GET);
+            var request = restRequestFactory.Create("/rest/auth/1/session", Method.GET);
 
             IRestResponse response;
 
             response = client.Execute(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 if (!ReAuthenticate())
                     return false;
@@ -88,7 +89,7 @@ namespace StopWatch
                 response = client.Execute(request);
             }
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
                 return false;
 
             SessionValid = true;
@@ -102,23 +103,23 @@ namespace StopWatch
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return null;
 
-            var client = GetClient();
+            var client = restClientFactory.Create(BaseUrl);
 
-            var request = new RestRequest("/rest/api/2/filter/favourite", Method.GET);
+            var request = restRequestFactory.Create("/rest/api/2/filter/favourite", Method.GET);
 
             IRestResponse<List<Filter>> response;
 
             response = client.Execute<List<Filter>>(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+            if (response.StatusCode == HttpStatusCode.Unauthorized) {
                 if (!ReAuthenticate())
                     return null;
 
                 response = client.Execute<List<Filter>>(request);
             }
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
                 return null;
 
             return response.Data;
@@ -130,22 +131,22 @@ namespace StopWatch
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return null;
 
-            var client = GetClient();
+            var client = restClientFactory.Create(BaseUrl);
 
-            var request = new RestRequest(String.Format("/rest/api/2/search?jql={0}", jql), Method.GET);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/search?jql={0}", jql), Method.GET);
 
             IRestResponse<SearchResult> response;
             response = client.Execute<SearchResult>(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+            if (response.StatusCode == HttpStatusCode.Unauthorized) {
                 if (!ReAuthenticate())
                     return null;
 
                 response = client.Execute<SearchResult>(request);
             }
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
                 return null;
 
             return response.Data.Issues;
@@ -157,22 +158,22 @@ namespace StopWatch
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return "";
 
-            var client = GetClient();
+            var client = restClientFactory.Create(BaseUrl);
 
-            var request = new RestRequest(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
 
             IRestResponse<Issue> response;
             response = client.Execute<Issue>(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+            if (response.StatusCode == HttpStatusCode.Unauthorized) {
                 if (!ReAuthenticate())
                     return "";
 
                 response = client.Execute<Issue>(request);
             }
 
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
                 return "";
 
             return response.Data.Fields.Summary;
@@ -184,14 +185,14 @@ namespace StopWatch
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return false;
 
-            var client = GetClient();
+            var client = restClientFactory.Create(BaseUrl);
 
-            var request = new RestRequest(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
             request.RequestFormat = DataFormat.Json;
 
             request.AddBody(new
                 {
-                    timeSpent = JiraHelpers.TimeSpanToJiraTime(time),
+                    timeSpent = JiraTimeHelpers.TimeSpanToJiraTime(time),
                     comment = comment
                 }
             );
@@ -201,14 +202,49 @@ namespace StopWatch
             response = client.Execute(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
+            if (response.StatusCode == HttpStatusCode.Unauthorized) {
                 if (!ReAuthenticate())
                     return false;
 
                 response = client.Execute(request);
             }
 
-            if (response.StatusCode != System.Net.HttpStatusCode.Created)
+            if (response.StatusCode != HttpStatusCode.Created)
+                return false;
+
+            return true;
+        }
+
+
+        public bool PostComment(string key, string comment)
+        {
+            if (string.IsNullOrEmpty(this.BaseUrl))
+                return false;
+
+            var client = restClientFactory.Create(BaseUrl);
+
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
+            request.RequestFormat = DataFormat.Json;
+
+            request.AddBody(new
+                {
+                    body = comment
+                }
+            );
+
+            IRestResponse response;
+
+            response = client.Execute(request);
+
+            // If login session has expired, try to login, and then re-execute the original request
+            if (response.StatusCode == HttpStatusCode.Unauthorized) {
+                if (!ReAuthenticate())
+                    return false;
+
+                response = client.Execute(request);
+            }
+
+            if (response.StatusCode != HttpStatusCode.Created)
                 return false;
 
             return true;
@@ -222,9 +258,9 @@ namespace StopWatch
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return false;
 
-            var client = GetClient(true);
+            var client = restClientFactory.Create(BaseUrl, true);
 
-            var request = new RestRequest("/rest/auth/1/session", Method.POST);
+            var request = restRequestFactory.Create("/rest/auth/1/session", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new {
                 username = this.username,
@@ -232,30 +268,20 @@ namespace StopWatch
             });
 
             IRestResponse response = client.Execute<Issue>(request);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode != HttpStatusCode.OK)
                 return false;
 
             return true;
-        }
-
-
-        private RestClient GetClient(bool invalidateCookies = false)
-        {
-            if (invalidateCookies)
-                this.cookieContainer = new CookieContainer();
-
-            RestClient client = new RestClient(BaseUrl);
-            client.CookieContainer = this.cookieContainer;
-            return client;
         }
         #endregion
 
 
         #region private members
-        private CookieContainer cookieContainer;
-
         private string username;
         private string password;
+
+        private IRestClientFactory restClientFactory;
+        private IRestRequestFactory restRequestFactory;
         #endregion
     }
 }

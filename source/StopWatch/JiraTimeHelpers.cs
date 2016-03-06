@@ -19,7 +19,7 @@ using System.Text.RegularExpressions;
 
 namespace StopWatch
 {
-    static public class JiraHelpers
+    static public class JiraTimeHelpers
     {
         public static string TimeSpanToJiraTime(TimeSpan ts)
         {
