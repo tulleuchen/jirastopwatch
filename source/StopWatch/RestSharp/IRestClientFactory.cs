@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StopWatch
 {
-    interface IRestClientFactory
+    internal interface IRestClientFactory
     {
         IRestClient Create(string baseUrl, bool invalidateCookies = false);
     }

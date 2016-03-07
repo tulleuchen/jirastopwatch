@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StopWatch
 {
-    interface IRestRequestFactory
+    internal interface IRestRequestFactory
     {
         IRestRequest Create(string url, Method method);
     }

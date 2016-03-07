@@ -267,7 +267,7 @@ namespace StopWatch
                 password = this.password
             });
 
-            IRestResponse response = client.Execute<Issue>(request);
+            IRestResponse response = client.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
                 return false;
 
