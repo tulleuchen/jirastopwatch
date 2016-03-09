@@ -54,10 +54,12 @@
     <Compile Include="CrossPlatformHelpers.cs" />
     <Compile Include="DPApi.cs" />
     <Compile Include="InvokeExtensions.cs" />
-    <Compile Include="RestSharp\RestRequestFactory.cs" />
-    <Compile Include="RestSharp\RestClientFactory.cs" />
-    <Compile Include="RestSharp\IRestClientFactory.cs" />
-    <Compile Include="RestSharp\IRestRequestFactory.cs" />
+    <Compile Include="Jira\IJiraApiRequester.cs" />
+    <Compile Include="Jira\JiraApiRequester.cs" />
+    <Compile Include="Jira\RestRequestFactory.cs" />
+    <Compile Include="Jira\RestClientFactory.cs" />
+    <Compile Include="Jira\IRestClientFactory.cs" />
+    <Compile Include="Jira\IRestRequestFactory.cs" />
     <Compile Include="PersistedIssue.cs" />
     <Compile Include="JiraApi\SearchResult.cs" />
     <Compile Include="JiraApi\Filter.cs" />
@@ -73,7 +75,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="JiraApi\IssueFields.cs" />
-    <Compile Include="JiraClient.cs" />
+    <Compile Include="Jira\JiraClient.cs" />
     <Compile Include="JiraTimeHelpers.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
