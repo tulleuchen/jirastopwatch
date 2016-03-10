@@ -56,6 +56,7 @@
     <Compile Include="InvokeExtensions.cs" />
     <Compile Include="Jira\IJiraApiRequester.cs" />
     <Compile Include="Jira\JiraApiRequester.cs" />
+    <Compile Include="Jira\JiraApiRequestFactory.cs" />
     <Compile Include="Jira\RestRequestFactory.cs" />
     <Compile Include="Jira\RestClientFactory.cs" />
     <Compile Include="Jira\IRestClientFactory.cs" />

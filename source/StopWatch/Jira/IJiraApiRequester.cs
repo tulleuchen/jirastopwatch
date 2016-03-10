@@ -9,7 +9,9 @@ namespace StopWatch
 {
     interface IJiraApiRequester
     {
-        public T DoAuthenticatedRequest<T>(IRestRequest request);
+        bool Authenticate(string username, string password);
 
+        T DoAuthenticatedRequest<T>(IRestRequest request)
+            where T : new();
     }
 }

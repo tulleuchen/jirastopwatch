@@ -37,8 +37,8 @@
 
 
 
-            jiraClient = new JiraClient(clientFactoryMock.Object, requestFactoryMock.Object);
-            jiraClient.BaseUrl = "http://api.example.com";
+            //jiraClient = new JiraClient(clientFactoryMock.Object, requestFactoryMock.Object);
+            //jiraClient.BaseUrl = "http://api.example.com";
         }
 
         [Test, Description("Authenticate returns true on successful authentication")]
@@ -92,7 +92,6 @@
         }
 
 
-        protected T <T>(IRestRequest request)
 
 
         [Test, Description("DoAuthenticatedRequest: On OK, it will not try to ReAuthenticate")]
@@ -102,7 +101,7 @@
             {
                 StatusCode = HttpStatusCode.OK
             });
-            jiraClient.();
+            //jiraClient.();
             requestFactoryMock.Verify(m => m.Create("/rest/auth/1/session", Method.POST), Times.Never);
         }
 

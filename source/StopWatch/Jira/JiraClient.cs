@@ -28,10 +28,11 @@ namespace StopWatch
         public bool SessionValid { get; private set; }
 
         #region public methods
-        public JiraClient(IRestClientFactory restClientFactory, IRestRequestFactory restRequestFactory)
+        public JiraClient(IJiraApiRequester requester)
+        //public JiraClient(IRestClientFactory restClientFactory, IRestRequestFactory restRequestFactory)
         {
-            this.restClientFactory = restClientFactory;
-            this.restRequestFactory = restRequestFactory;
+            //this.restClientFactory = restClientFactory;
+            //this.restRequestFactory = restRequestFactory;
 
             SessionValid = false;
         }
@@ -76,7 +77,7 @@ namespace StopWatch
             var client = restClientFactory.Create(BaseUrl);
             */
 
-            var request = restRequestFactory.Create("/rest/auth/1/session", Method.GET);
+            //var request = restRequestFactory.Create("/rest/auth/1/session", Method.GET);
 
             /*
             IRestResponse response;
@@ -96,8 +97,8 @@ namespace StopWatch
                 return false;
             */
 
-            if (DoAuthenticatedRequest(request) == null)
-                return false;
+            //if (DoAuthenticatedRequest(request) == null)
+                //return false;
 
             SessionValid = true;
 
@@ -107,6 +108,7 @@ namespace StopWatch
 
         public List<Filter> GetFavoriteFilters()
         {
+            /*
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return null;
 
@@ -130,11 +132,14 @@ namespace StopWatch
                 return null;
 
             return response.Data;
+            */
+            return null;
         }
         
 
         public List<Issue> GetIssuesByJQL(string jql)
         {
+            /*
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return null;
 
@@ -157,11 +162,14 @@ namespace StopWatch
                 return null;
 
             return response.Data.Issues;
+            */
+            return null;
         }
 
 
         public string GetIssueSummary(string key)
         {
+            /*
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return "";
 
@@ -184,11 +192,14 @@ namespace StopWatch
                 return "";
 
             return response.Data.Fields.Summary;
+            */
+            return null;
         }
 
 
         public bool PostWorklog(string key, TimeSpan time, string comment)
         {
+            /*
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return false;
 
@@ -220,11 +231,14 @@ namespace StopWatch
                 return false;
 
             return true;
+            */
+            return false;
         }
 
 
         public bool PostComment(string key, string comment)
         {
+            /*
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return false;
 
@@ -255,6 +269,8 @@ namespace StopWatch
                 return false;
 
             return true;
+            */
+            return false;
         }
         #endregion
 
@@ -268,6 +284,7 @@ namespace StopWatch
         protected T DoAuthenticatedRequest<T>(IRestRequest request)
             where T : new()
         {
+            /*
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return default(T);
 
@@ -287,11 +304,14 @@ namespace StopWatch
                 return default(T);
 
             return response.Data;
+            */
+            return default(T);
         }
 
 
         protected bool ReAuthenticate()
         {
+            /*
             if (string.IsNullOrEmpty(this.BaseUrl))
                 return false;
 
@@ -309,6 +329,8 @@ namespace StopWatch
                 return false;
 
             return true;
+            */
+            return false;
         }
         #endregion
 
@@ -317,8 +339,6 @@ namespace StopWatch
         private string username;
         private string password;
 
-        private IRestClientFactory restClientFactory;
-        private IRestRequestFactory restRequestFactory;
         #endregion
     }
 }
