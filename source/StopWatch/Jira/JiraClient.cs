@@ -100,138 +100,59 @@ namespace StopWatch
 
         public List<Issue> GetIssuesByJQL(string jql)
         {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return null;
-
-            var client = restClientFactory.Create(BaseUrl);
-
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/search?jql={0}", jql), Method.GET);
-
-            IRestResponse<SearchResult> response;
-            response = client.Execute<SearchResult>(request);
-
-            // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized) {
-                if (!ReAuthenticate())
-                    return null;
-
-                response = client.Execute<SearchResult>(request);
+            var request = jiraApiRequestFactory.CreateGetIssuesByJQLRequest(jql);
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<List<Issue>>(request);
             }
-
-            if (response.StatusCode != HttpStatusCode.OK)
+            catch (RequestDeniedException)
+            {
                 return null;
-
-            return response.Data.Issues;
-            */
-            return null;
+            }
         }
 
 
         public string GetIssueSummary(string key)
         {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return "";
-
-            var client = restClientFactory.Create(BaseUrl);
-
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
-
-            IRestResponse<Issue> response;
-            response = client.Execute<Issue>(request);
-
-            // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized) {
-                if (!ReAuthenticate())
-                    return "";
-
-                response = client.Execute<Issue>(request);
+            var request = jiraApiRequestFactory.CreateGetIssueSummaryRequest(key);
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<Issue>(request).Fields.Summary;
             }
-
-            if (response.StatusCode != HttpStatusCode.OK)
+            catch (RequestDeniedException)
+            {
                 return "";
-
-            return response.Data.Fields.Summary;
-            */
-            return null;
+            }
         }
 
 
         public bool PostWorklog(string key, TimeSpan time, string comment)
         {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return false;
-
-            var client = restClientFactory.Create(BaseUrl);
-
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
-            request.RequestFormat = DataFormat.Json;
-
-            request.AddBody(new
-                {
-                    timeSpent = JiraTimeHelpers.TimeSpanToJiraTime(time),
-                    comment = comment
-                }
-            );
-
-            IRestResponse response;
-
-            response = client.Execute(request);
-
-            // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized) {
-                if (!ReAuthenticate())
-                    return false;
-
-                response = client.Execute(request);
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, time, comment);
+            try
+            {
+                jiraApiRequester.DoAuthenticatedRequest<object>(request);
+                return true;
             }
-
-            if (response.StatusCode != HttpStatusCode.Created)
+            catch (RequestDeniedException)
+            {
                 return false;
-
-            return true;
-            */
-            return false;
+            }
         }
 
 
         public bool PostComment(string key, string comment)
         {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return false;
-
-            var client = restClientFactory.Create(BaseUrl);
-
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
-            request.RequestFormat = DataFormat.Json;
-
-            request.AddBody(new
-                {
-                    body = comment
-                }
-            );
-
-            IRestResponse response;
-
-            response = client.Execute(request);
-
-            // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized) {
-                if (!ReAuthenticate())
-                    return false;
-
-                response = client.Execute(request);
+            var request = jiraApiRequestFactory.CreatePostCommentRequest(key, comment);
+            try
+            {
+                jiraApiRequester.DoAuthenticatedRequest<object>(request);
+                return true;
             }
-
-            if (response.StatusCode != HttpStatusCode.Created)
+            catch (RequestDeniedException)
+            {
                 return false;
-
-            return true;
-            */
-            return false;
+            }
         }
         #endregion
 
