@@ -15,7 +15,6 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace StopWatch
 {

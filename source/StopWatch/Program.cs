@@ -1,4 +1,5 @@
-﻿/**************************************************************************
+﻿using Microsoft.Win32;
+/**************************************************************************
 Copyright 2015 Carsten Gehling
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +16,6 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace StopWatch
 {

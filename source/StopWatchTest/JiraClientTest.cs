@@ -5,7 +5,6 @@
     using RestSharp;
     using StopWatch;
     using System.Collections.Generic;
-    using System.Net;
 
     [TestFixture]
     public class JiraClientTest
