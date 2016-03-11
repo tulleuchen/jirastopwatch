@@ -145,7 +145,7 @@ namespace StopWatch
             if (cbJira.Text == "")
                 return;
 
-            jiraClient.OpenIssueInBrowser(cbJira.Text);
+            //jiraClient.OpenIssueInBrowser(cbJira.Text);
         }
 
 

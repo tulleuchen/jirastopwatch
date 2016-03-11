@@ -9,6 +9,6 @@ namespace StopWatch
 {
     internal interface IRestClientFactory
     {
-        IRestClient Create(string baseUrl, bool invalidateCookies = false);
+        IRestClient Create(bool invalidateCookies = false);
     }
 }

@@ -75,6 +75,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="JiraApiRequesterTest.cs" />
     <Compile Include="JiraApiRequestFactoryTest.cs" />
     <Compile Include="JiraClientTest.cs" />
     <Compile Include="JiraTimeHelpersTest.cs" />

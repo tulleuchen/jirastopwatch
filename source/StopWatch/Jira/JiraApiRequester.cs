@@ -2,76 +2,72 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StopWatch
 {
+    internal class RequestDeniedException : Exception
+    {
+    }
+
+
     internal class JiraApiRequester : IJiraApiRequester
     {
-
-        public JiraApiRequester(IRestClientFactory restClientFactory, IRestRequestFactory restRequestFactory)
+        public JiraApiRequester(IRestClientFactory restClientFactory, IJiraApiRequestFactory jiraApiRequestFactory)
         {
             this.restClientFactory = restClientFactory;
-            this.restRequestFactory = restRequestFactory;
-        }
-
-
-        public IRestRequest CreateRequest(string url, Method method)
-        {
-            return restRequestFactory.Create(url, method);
-        }
-
-
-        public bool Authenticate(string username, string password)
-        {
-            this.username = username;
-            this.password = password;
-
-            if (!ReAuthenticate())
-                return false;
-
-            return true;
+            this.jiraApiRequestFactory = jiraApiRequestFactory;
         }
 
 
         public T DoAuthenticatedRequest<T>(IRestRequest request)
             where T : new()
         {
+            IRestClient client = restClientFactory.Create();
 
-            return default(T);
+            IRestResponse<T> response = client.Execute<T>(request);
+
+            // If login session has expired, try to login, and then re-execute the original request
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                if (!ReAuthenticate())
+                    throw new RequestDeniedException();
+
+                response = client.Execute<T>(request);
+            }
+
+            if (response.StatusCode != HttpStatusCode.OK)
+                throw new RequestDeniedException();
+
+            return response.Data;
         }
 
 
         protected bool ReAuthenticate()
         {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
+            IRestRequest request;
+
+            try
+            {
+                request = jiraApiRequestFactory.CreateReAuthenticateRequest();
+            }
+            catch (AuthenticateNotYetCalledException)
+            {
                 return false;
+            }
 
-            var client = restClientFactory.Create(BaseUrl, true);
-
-            var request = restRequestFactory.Create("/rest/auth/1/session", Method.POST);
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {
-                username = this.username,
-                password = this.password
-            });
-
+            var client = restClientFactory.Create(true);
             IRestResponse response = client.Execute(request);
             if (response.StatusCode != HttpStatusCode.OK)
                 return false;
 
             return true;
-            */
-            return true;
         }
 
 
         private IRestClientFactory restClientFactory;
-        private IRestRequestFactory restRequestFactory;
-
-        private string username;
-        private string password;
+        private IJiraApiRequestFactory jiraApiRequestFactory;
     }
 }

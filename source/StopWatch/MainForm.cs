@@ -31,7 +31,8 @@ namespace StopWatch
 
             settings = new Settings();
             //jiraClient = new JiraClient(new RestClientFactory(), new RestRequestFactory());
-            jiraClient = new JiraClient(new JiraApiRequester(new RestClientFactory(), new RestRequestFactory()));
+            //jiraClient = new JiraClient(new JiraApiRequester(new RestClientFactory("http://example.com"), new RestRequestFactory()));
+            jiraClient = null;
 
             cbFilters.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFilters.DisplayMember = "Name";
@@ -360,7 +361,7 @@ namespace StopWatch
         private void LoadSettings()
         {
             this.settings.Load();
-            jiraClient.BaseUrl = this.settings.JiraBaseUrl;
+            //jiraClient.BaseUrl = this.settings.JiraBaseUrl;
         }
 
 
@@ -376,7 +377,7 @@ namespace StopWatch
             {
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    jiraClient.BaseUrl = this.settings.JiraBaseUrl;
+                    //jiraClient.BaseUrl = this.settings.JiraBaseUrl;
                     InitializeIssueControls();
                 }
             }

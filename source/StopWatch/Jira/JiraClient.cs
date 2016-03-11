@@ -23,35 +23,19 @@ namespace StopWatch
 {
     internal class JiraClient
     {
-        public string BaseUrl { get; set; }
-
         public bool SessionValid { get; private set; }
 
         #region public methods
-        public JiraClient(IJiraApiRequester requester)
-        //public JiraClient(IRestClientFactory restClientFactory, IRestRequestFactory restRequestFactory)
+        public JiraClient(IJiraApiRequestFactory jiraApiRequestFactory, IJiraApiRequester jiraApiRequester)
         {
-            //this.restClientFactory = restClientFactory;
-            //this.restRequestFactory = restRequestFactory;
+            this.jiraApiRequestFactory = jiraApiRequestFactory;
+            this.jiraApiRequester = jiraApiRequester;
 
             SessionValid = false;
         }
 
 
-        public bool Authenticate(string username, string password)
-        {
-            SessionValid = false;
-
-            this.username = username;
-            this.password = password;
-
-            if (!ReAuthenticate())
-                return false;
-
-            return true;
-        }
-
-
+        /*
         public void OpenIssueInBrowser(string key)
         {
             if (string.IsNullOrEmpty(this.BaseUrl))
@@ -64,76 +48,55 @@ namespace StopWatch
             url += key;
             System.Diagnostics.Process.Start(url);
         }
+        */
+
+
+        public bool Authenticate(string username, string password)
+        {
+            SessionValid = false;
+
+            var request = jiraApiRequestFactory.CreateAuthenticateRequest(username, password);
+            try
+            {
+                jiraApiRequester.DoAuthenticatedRequest<object>(request);
+                return true;
+            }
+            catch (RequestDeniedException)
+            {
+                return false;
+            }
+        }
 
 
         public bool ValidateSession()
         {
             SessionValid = false;
 
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return false;
-
-            var client = restClientFactory.Create(BaseUrl);
-            */
-
-            //var request = restRequestFactory.Create("/rest/auth/1/session", Method.GET);
-
-            /*
-            IRestResponse response;
-
-            response = client.Execute(request);
-
-            // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            var request = jiraApiRequestFactory.CreateValidateSessionRequest();
+            try
             {
-                if (!ReAuthenticate())
-                    return false;
-
-                response = client.Execute(request);
+                jiraApiRequester.DoAuthenticatedRequest<object>(request);
+                SessionValid = true;
+                return true;
             }
-
-            if (response.StatusCode != HttpStatusCode.OK)
+            catch (RequestDeniedException)
+            {
                 return false;
-            */
-
-            //if (DoAuthenticatedRequest(request) == null)
-                //return false;
-
-            SessionValid = true;
-
-            return true;
+            }
         }
 
 
         public List<Filter> GetFavoriteFilters()
         {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return null;
-
-            var client = restClientFactory.Create(BaseUrl);
-
-            var request = restRequestFactory.Create("/rest/api/2/filter/favourite", Method.GET);
-
-            IRestResponse<List<Filter>> response;
-
-            response = client.Execute<List<Filter>>(request);
-
-            // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized) {
-                if (!ReAuthenticate())
-                    return null;
-
-                response = client.Execute<List<Filter>>(request);
+            var request = jiraApiRequestFactory.CreateGetFavoriteFiltersRequest();
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<List<Filter>>(request);
             }
-
-            if (response.StatusCode != HttpStatusCode.OK)
+            catch (RequestDeniedException)
+            {
                 return null;
-
-            return response.Data;
-            */
-            return null;
+            }
         }
         
 
@@ -336,9 +299,8 @@ namespace StopWatch
 
 
         #region private members
-        private string username;
-        private string password;
-
+        private IJiraApiRequestFactory jiraApiRequestFactory;
+        private IJiraApiRequester jiraApiRequester;
         #endregion
     }
 }

@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace StopWatch
 {
-    class JiraApiRequestFactory
+    internal class AuthenticateNotYetCalledException : Exception
+    {
+    }
+
+    internal class JiraApiRequestFactory
     {
         #region public methods
         public JiraApiRequestFactory(IRestRequestFactory restRequestFactory)
         {
             this.restRequestFactory = restRequestFactory;
+            this.username = "";
+            this.password = "";
         }
 
 
@@ -60,7 +66,7 @@ namespace StopWatch
 
         public IRestRequest CreatePostCommentRequest(string key, string comment)
         {
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/comment", key), Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new
                 {
@@ -81,11 +87,22 @@ namespace StopWatch
             });
             return request;
         }
+
+        public IRestRequest CreateReAuthenticateRequest()
+        {
+            if (string.IsNullOrEmpty(this.username))
+                throw new AuthenticateNotYetCalledException();
+
+            return CreateAuthenticateRequest(this.username, this.password);
+        }
         #endregion
 
 
         #region private members
         private IRestRequestFactory restRequestFactory;
+
+        private string username;
+        private string password;
         #endregion
     }
 }

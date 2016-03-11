@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StopWatchTest
+﻿namespace StopWatchTest
 {
     using Moq;
     using NUnit.Framework;
@@ -129,6 +123,19 @@ namespace StopWatchTest
                     password = password
                 }).GetHashCode()
             )));
+        }
+
+
+        [Test]
+        public void CreateReAuthenticateRequest_IfAuthenticateHasNotBeenCalled_ThrowsException()
+        {
+            Assert.Throws<AuthenticateNotYetCalledException>(() => jiraApiRequestFactory.CreateReAuthenticateRequest());
+        }
+
+
+        [Test]
+        public void CreateReAuthenticateRequest_IfAuthenticateHasBeenCalled_CreatesValidRequest()
+        {
         }
     }
 }
