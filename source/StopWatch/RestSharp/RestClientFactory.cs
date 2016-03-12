@@ -5,9 +5,11 @@ namespace StopWatch
 {
     internal class RestClientFactory : IRestClientFactory
     {
-        public RestClientFactory(string baseUrl)
+        public string BaseUrl { get; set; }
+
+        public RestClientFactory()
         {
-            this.baseUrl = baseUrl;
+            BaseUrl = "";
             this.cookieContainer = new CookieContainer();
         }
 
@@ -15,15 +17,13 @@ namespace StopWatch
         public IRestClient Create(bool invalidateCookies = false)
         {
             if (invalidateCookies)
-                this.cookieContainer = new CookieContainer();
+                cookieContainer = new CookieContainer();
 
-            RestClient client = new RestClient(this.baseUrl);
-            client.CookieContainer = this.cookieContainer;
+            RestClient client = new RestClient(BaseUrl);
+            client.CookieContainer = cookieContainer;
             return client;
         }
 
         private CookieContainer cookieContainer;
-
-        private string baseUrl;
     }
 }

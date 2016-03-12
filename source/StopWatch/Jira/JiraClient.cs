@@ -33,22 +33,6 @@ namespace StopWatch
         }
 
 
-        /*
-        public void OpenIssueInBrowser(string key)
-        {
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return;
-
-            string url = this.BaseUrl;
-            if (url.Last() != '/')
-                url += "/";
-            url += "browse/";
-            url += key;
-            System.Diagnostics.Process.Start(url);
-        }
-        */
-
-
         public bool Authenticate(string username, string password)
         {
             SessionValid = false;

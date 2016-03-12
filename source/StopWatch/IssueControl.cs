@@ -71,7 +71,7 @@ namespace StopWatch
 
 
         #region public methods
-        public IssueControl(JiraClient jiraClient)
+        public IssueControl(JiraClient jiraClient, IRestClientFactory restClientFactory)
             : base()
         {
             InitializeComponent();
@@ -90,6 +90,7 @@ namespace StopWatch
             Comment = null;
 
             this.jiraClient = jiraClient;
+            this.restClientFactory = restClientFactory;
             this.WatchTimer = new WatchTimer();
         }
 
@@ -145,7 +146,7 @@ namespace StopWatch
             if (cbJira.Text == "")
                 return;
 
-            //jiraClient.OpenIssueInBrowser(cbJira.Text);
+            OpenIssueInBrowser(cbJira.Text);
         }
 
 
@@ -296,6 +297,20 @@ namespace StopWatch
             this.WatchTimer.Reset();
             UpdateOutput();
         }
+
+
+        public void OpenIssueInBrowser(string key)
+        {
+            if (string.IsNullOrEmpty(restClientFactory.BaseUrl))
+                return;
+
+            string url = restClientFactory.BaseUrl;
+            if (!url.EndsWith("/"))
+                url += "/";
+            url += "browse/";
+            url += key;
+            System.Diagnostics.Process.Start(url);
+        }
         #endregion
 
 
@@ -437,6 +452,7 @@ namespace StopWatch
         private Button btnPostAndReset;
 
         private JiraClient jiraClient;
+        private IRestClientFactory restClientFactory;
 
         private bool ignoreTextChange;
         #endregion

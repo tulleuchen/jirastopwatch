@@ -30,9 +30,13 @@ namespace StopWatch
             InitializeComponent();
 
             settings = new Settings();
-            //jiraClient = new JiraClient(new RestClientFactory(), new RestRequestFactory());
-            //jiraClient = new JiraClient(new JiraApiRequester(new RestClientFactory("http://example.com"), new RestRequestFactory()));
-            jiraClient = null;
+
+            restRequestFactory = new RestRequestFactory();
+            jiraApiRequestFactory = new JiraApiRequestFactory(restRequestFactory);
+            restClientFactory = new RestClientFactory();
+            jiraApiRequester = new JiraApiRequester(restClientFactory, jiraApiRequestFactory);
+
+            jiraClient = new JiraClient(jiraApiRequestFactory, jiraApiRequester);
 
             cbFilters.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFilters.DisplayMember = "Name";
@@ -266,7 +270,7 @@ namespace StopWatch
             // Create issueControl controls needed
             while (this.issueControls.Count() < this.settings.IssueCount)
             {
-                var issue = new IssueControl(this.jiraClient);
+                var issue = new IssueControl(this.jiraClient, this.restClientFactory);
                 issue.TimerStarted += issue_TimerStarted;
                 this.Controls.Add(issue);
             }
@@ -361,7 +365,7 @@ namespace StopWatch
         private void LoadSettings()
         {
             this.settings.Load();
-            //jiraClient.BaseUrl = this.settings.JiraBaseUrl;
+            restClientFactory.BaseUrl = this.settings.JiraBaseUrl;
         }
 
 
@@ -377,7 +381,7 @@ namespace StopWatch
             {
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    //jiraClient.BaseUrl = this.settings.JiraBaseUrl;
+                    restClientFactory.BaseUrl = this.settings.JiraBaseUrl;
                     InitializeIssueControls();
                 }
             }
@@ -483,6 +487,10 @@ namespace StopWatch
 
         private Timer ticker;
 
+        private JiraApiRequestFactory jiraApiRequestFactory;
+        private RestRequestFactory restRequestFactory;
+        private JiraApiRequester jiraApiRequester;
+        private RestClientFactory restClientFactory;
         private JiraClient jiraClient;
 
         private Settings settings;
