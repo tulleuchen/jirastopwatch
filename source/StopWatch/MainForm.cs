@@ -248,8 +248,13 @@ namespace StopWatch
                     );
 
                     if (jiraClient.Authenticate(username, password))
-                        UpdateIssuesOutput(true);
-                    UpdateJiraRelatedData(true);
+                        this.InvokeIfRequired(
+                            () => UpdateIssuesOutput(true)
+                        );
+
+                    this.InvokeIfRequired(
+                        () => UpdateJiraRelatedData(true)
+                    );
                 }
             );
         }
