@@ -191,7 +191,7 @@ namespace StopWatch
             Task.Factory.StartNew(
                 () =>
                 {
-                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql);
+                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
 
                     if (availableIssues == null)
                         return;

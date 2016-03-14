@@ -85,11 +85,14 @@
         [Test, Description("GetIssuesByJQL: On success it returns a list of type filter")]
         public void GetIssuesByJQL_OnSuccess_It_Returns_List_Of_Issues()
         {
-            List<Issue> returnData = new List<Issue>();
-            returnData.Add(new Issue { Key = "FOO-1", Fields = new IssueFields { Summary = "Summary for FOO-1" } });
-            returnData.Add(new Issue { Key = "FOO-2", Fields = new IssueFields { Summary = "Summary for FOO-2" } });
+            SearchResult returnData = new SearchResult
+            {
+                Issues = new List<Issue>()
+            };
+            returnData.Issues.Add(new Issue { Key = "FOO-1", Fields = new IssueFields { Summary = "Summary for FOO-1" } });
+            returnData.Issues.Add(new Issue { Key = "FOO-2", Fields = new IssueFields { Summary = "Summary for FOO-2" } });
 
-            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<List<Issue>>(It.IsAny<IRestRequest>())).Returns(returnData);
+            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<SearchResult>(It.IsAny<IRestRequest>())).Returns(returnData);
 
             Assert.That(jiraClient.GetIssuesByJQL("testjql"), Is.EqualTo(returnData));
         }

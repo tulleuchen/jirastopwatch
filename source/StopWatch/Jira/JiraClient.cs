@@ -82,12 +82,12 @@ namespace StopWatch
         }
         
 
-        public List<Issue> GetIssuesByJQL(string jql)
+        public SearchResult GetIssuesByJQL(string jql)
         {
             var request = jiraApiRequestFactory.CreateGetIssuesByJQLRequest(jql);
             try
             {
-                return jiraApiRequester.DoAuthenticatedRequest<List<Issue>>(request);
+                return jiraApiRequester.DoAuthenticatedRequest<SearchResult>(request);
             }
             catch (RequestDeniedException)
             {
