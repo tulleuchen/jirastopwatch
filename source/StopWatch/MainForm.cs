@@ -88,6 +88,9 @@ namespace StopWatch
         #region private eventhandlers
         void issue_TimerStarted(object sender, EventArgs e)
         {
+            if (settings.AllowMultipleTimers)
+                return;
+
             IssueControl senderCtrl = (IssueControl)sender;
 
             foreach (var issue in this.issueControls)

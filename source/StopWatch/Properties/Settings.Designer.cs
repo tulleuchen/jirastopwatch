@@ -178,5 +178,17 @@ namespace StopWatch.Properties {
                 this["PauseOnSessionLock"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AllowMultipleTimers {
+            get {
+                return ((bool)(this["AllowMultipleTimers"]));
+            }
+            set {
+                this["AllowMultipleTimers"] = value;
+            }
+        }
     }
 }

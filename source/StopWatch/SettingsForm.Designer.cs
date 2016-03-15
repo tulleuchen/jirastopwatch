@@ -46,6 +46,7 @@
             this.splitter3 = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Label();
+            this.cbAllowMultipleTimers = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,7 +115,7 @@
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(255, 261);
+            this.btnOk.Location = new System.Drawing.Point(255, 292);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
@@ -125,7 +126,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(316, 261);
+            this.btnCancel.Location = new System.Drawing.Point(316, 292);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
@@ -154,7 +155,7 @@
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(11, 261);
+            this.btnAbout.Location = new System.Drawing.Point(11, 292);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(56, 22);
@@ -203,7 +204,7 @@
             // splitter3
             // 
             this.splitter3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitter3.Location = new System.Drawing.Point(12, 250);
+            this.splitter3.Location = new System.Drawing.Point(12, 281);
             this.splitter3.Name = "splitter3";
             this.splitter3.Size = new System.Drawing.Size(360, 2);
             this.splitter3.TabIndex = 16;
@@ -224,13 +225,25 @@
             this.splitter1.Size = new System.Drawing.Size(360, 2);
             this.splitter1.TabIndex = 14;
             // 
+            // cbAllowMultipleTimers
+            // 
+            this.cbAllowMultipleTimers.AutoSize = true;
+            this.cbAllowMultipleTimers.Location = new System.Drawing.Point(114, 238);
+            this.cbAllowMultipleTimers.Margin = new System.Windows.Forms.Padding(2);
+            this.cbAllowMultipleTimers.Name = "cbAllowMultipleTimers";
+            this.cbAllowMultipleTimers.Size = new System.Drawing.Size(228, 17);
+            this.cbAllowMultipleTimers.TabIndex = 17;
+            this.cbAllowMultipleTimers.Text = "Allow running multiple timers simultaneously";
+            this.cbAllowMultipleTimers.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 295);
+            this.ClientSize = new System.Drawing.Size(383, 325);
+            this.Controls.Add(this.cbAllowMultipleTimers);
             this.Controls.Add(this.cbPauseOnSessionLock);
             this.Controls.Add(this.splitter3);
             this.Controls.Add(this.cbSaveTimerState);
@@ -279,5 +292,6 @@
         private System.Windows.Forms.Label splitter3;
         private System.Windows.Forms.Label splitter2;
         private System.Windows.Forms.Label splitter1;
+        private System.Windows.Forms.CheckBox cbAllowMultipleTimers;
     }
 }
