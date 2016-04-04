@@ -63,6 +63,16 @@ namespace StopWatch
                 new { Text = "Pause and resume on unlock", Value = PauseAndResumeSetting.PauseAndResume }
             };
             cbPauseOnSessionLock.SelectedValue = this.settings.PauseOnSessionLock;
+
+            cbPostWorklogComment.DisplayMember = "Text";
+            cbPostWorklogComment.ValueMember = "Value";
+            cbPostWorklogComment.DataSource = new[]
+            {
+                new { Text = "Post as part of worklog", Value = WorklogCommentSetting.WorklogOnly },
+                new { Text = "Post as a true comment", Value = WorklogCommentSetting.CommentOnly },
+                new { Text = "Post as both worklog and comment", Value = WorklogCommentSetting.WorklogAndComment }
+            };
+            cbPostWorklogComment.SelectedValue = this.settings.PostWorklogComment;
         }
         #endregion
 
@@ -81,6 +91,7 @@ namespace StopWatch
 
                 this.settings.SaveTimerState = (SaveTimerSetting)cbSaveTimerState.SelectedValue;
                 this.settings.PauseOnSessionLock = (PauseAndResumeSetting)cbPauseOnSessionLock.SelectedValue;
+                this.settings.PostWorklogComment = (WorklogCommentSetting)cbPostWorklogComment.SelectedValue;
             }
         }
 

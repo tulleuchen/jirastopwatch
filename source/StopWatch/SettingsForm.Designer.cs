@@ -47,6 +47,8 @@
             this.splitter2 = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Label();
             this.cbAllowMultipleTimers = new System.Windows.Forms.CheckBox();
+            this.cbPostWorklogComment = new System.Windows.Forms.ComboBox();
+            this.lblPostWorklogComment = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -115,7 +117,7 @@
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(255, 292);
+            this.btnOk.Location = new System.Drawing.Point(255, 347);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
@@ -126,7 +128,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(316, 292);
+            this.btnCancel.Location = new System.Drawing.Point(316, 347);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
@@ -155,7 +157,7 @@
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(11, 292);
+            this.btnAbout.Location = new System.Drawing.Point(11, 347);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(56, 22);
@@ -204,7 +206,7 @@
             // splitter3
             // 
             this.splitter3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitter3.Location = new System.Drawing.Point(12, 281);
+            this.splitter3.Location = new System.Drawing.Point(12, 336);
             this.splitter3.Name = "splitter3";
             this.splitter3.Size = new System.Drawing.Size(360, 2);
             this.splitter3.TabIndex = 16;
@@ -236,13 +238,32 @@
             this.cbAllowMultipleTimers.Text = "Allow running multiple timers simultaneously";
             this.cbAllowMultipleTimers.UseVisualStyleBackColor = true;
             // 
+            // cbPostWorklogComment
+            // 
+            this.cbPostWorklogComment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPostWorklogComment.FormattingEnabled = true;
+            this.cbPostWorklogComment.Location = new System.Drawing.Point(113, 267);
+            this.cbPostWorklogComment.Name = "cbPostWorklogComment";
+            this.cbPostWorklogComment.Size = new System.Drawing.Size(176, 21);
+            this.cbPostWorklogComment.TabIndex = 19;
+            // 
+            // lblPostWorklogComment
+            // 
+            this.lblPostWorklogComment.Location = new System.Drawing.Point(9, 265);
+            this.lblPostWorklogComment.Name = "lblPostWorklogComment";
+            this.lblPostWorklogComment.Size = new System.Drawing.Size(98, 38);
+            this.lblPostWorklogComment.TabIndex = 18;
+            this.lblPostWorklogComment.Text = "How to post the worklog comment";
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 325);
+            this.ClientSize = new System.Drawing.Size(383, 408);
+            this.Controls.Add(this.cbPostWorklogComment);
+            this.Controls.Add(this.lblPostWorklogComment);
             this.Controls.Add(this.cbAllowMultipleTimers);
             this.Controls.Add(this.cbPauseOnSessionLock);
             this.Controls.Add(this.splitter3);
@@ -293,5 +314,7 @@
         private System.Windows.Forms.Label splitter2;
         private System.Windows.Forms.Label splitter1;
         private System.Windows.Forms.CheckBox cbAllowMultipleTimers;
+        private System.Windows.Forms.ComboBox cbPostWorklogComment;
+        private System.Windows.Forms.Label lblPostWorklogComment;
     }
 }

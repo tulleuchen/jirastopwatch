@@ -34,6 +34,13 @@ namespace StopWatch
         PauseAndResume
     }
 
+    public enum WorklogCommentSetting
+    {
+        WorklogOnly,
+        CommentOnly,
+        WorklogAndComment
+    }
+
     internal class Settings
     {
         #region public members
@@ -45,7 +52,8 @@ namespace StopWatch
         public bool AllowMultipleTimers { get; set; }
 
         public SaveTimerSetting SaveTimerState { get; set; }
-        public PauseAndResumeSetting PauseOnSessionLock { get; set; } 
+        public PauseAndResumeSetting PauseOnSessionLock { get; set; }
+        public WorklogCommentSetting PostWorklogComment { get; set; }
 
         public string Username { get; set; }
         public string Password { get; set; }
@@ -82,6 +90,7 @@ namespace StopWatch
             this.FirstRun = Properties.Settings.Default.FirstRun;
             this.SaveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
             this.PauseOnSessionLock = (PauseAndResumeSetting)Properties.Settings.Default.PauseOnSessionLock;
+            this.PostWorklogComment = (WorklogCommentSetting)Properties.Settings.Default.PostWorklogComment;
 
             this.CurrentFilter = Properties.Settings.Default.CurrentFilter;
 
@@ -118,6 +127,7 @@ namespace StopWatch
             Properties.Settings.Default.FirstRun = this.FirstRun;
             Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;
             Properties.Settings.Default.PauseOnSessionLock = (int)this.PauseOnSessionLock;
+            Properties.Settings.Default.PostWorklogComment = (int)this.PostWorklogComment;
 
             Properties.Settings.Default.CurrentFilter = this.CurrentFilter;
 
