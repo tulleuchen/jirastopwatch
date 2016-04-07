@@ -452,7 +452,8 @@ namespace StopWatch
                     bool postSuccesful = true;
 
                     // First post comment in Comment-track - and clear the comment string, if it should only be posted here
-                    if (settings.PostWorklogComment != WorklogCommentSetting.WorklogOnly)
+                    // Only actually post in Comment-track if text is not empty
+                    if (settings.PostWorklogComment != WorklogCommentSetting.WorklogOnly && !string.IsNullOrEmpty(comment))
                     {
                         postSuccesful = jiraClient.PostComment(key, comment);
                         if (postSuccesful && settings.PostWorklogComment == WorklogCommentSetting.CommentOnly)
