@@ -244,7 +244,7 @@
             this.cbPostWorklogComment.FormattingEnabled = true;
             this.cbPostWorklogComment.Location = new System.Drawing.Point(113, 267);
             this.cbPostWorklogComment.Name = "cbPostWorklogComment";
-            this.cbPostWorklogComment.Size = new System.Drawing.Size(176, 21);
+            this.cbPostWorklogComment.Size = new System.Drawing.Size(198, 21);
             this.cbPostWorklogComment.TabIndex = 19;
             // 
             // lblPostWorklogComment
