@@ -69,7 +69,7 @@ namespace StopWatch
             cbPostWorklogComment.DataSource = new[]
             {
                 new { Text = "Post as part of worklog", Value = WorklogCommentSetting.WorklogOnly },
-                new { Text = "Post as a true comment", Value = WorklogCommentSetting.CommentOnly },
+                new { Text = "Post only as a comment", Value = WorklogCommentSetting.CommentOnly },
                 new { Text = "Post as both worklog and comment", Value = WorklogCommentSetting.WorklogAndComment }
             };
             cbPostWorklogComment.SelectedValue = this.settings.PostWorklogComment;
