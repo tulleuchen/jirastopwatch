@@ -278,7 +278,7 @@ namespace StopWatch
             // Create issueControl controls needed
             while (this.issueControls.Count() < this.settings.IssueCount)
             {
-                var issue = new IssueControl(this.jiraClient, this.restClientFactory);
+                var issue = new IssueControl(this.jiraClient, this.settings);
                 issue.TimerStarted += issue_TimerStarted;
                 this.Controls.Add(issue);
             }

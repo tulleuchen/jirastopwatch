@@ -71,7 +71,7 @@ namespace StopWatch
 
 
         #region public methods
-        public IssueControl(JiraClient jiraClient, IRestClientFactory restClientFactory)
+        public IssueControl(JiraClient jiraClient, Settings settings)
             : base()
         {
             InitializeComponent();
@@ -89,8 +89,9 @@ namespace StopWatch
 
             Comment = null;
 
+            this.settings = settings;
+
             this.jiraClient = jiraClient;
-            this.restClientFactory = restClientFactory;
             this.WatchTimer = new WatchTimer();
         }
 
@@ -301,10 +302,10 @@ namespace StopWatch
 
         public void OpenIssueInBrowser(string key)
         {
-            if (string.IsNullOrEmpty(restClientFactory.BaseUrl))
+            if (string.IsNullOrEmpty(this.settings.JiraBaseUrl))
                 return;
 
-            string url = restClientFactory.BaseUrl;
+            string url = this.settings.JiraBaseUrl;
             if (!url.EndsWith("/"))
                 url += "/";
             url += "browse/";
@@ -402,10 +403,8 @@ namespace StopWatch
                 if (formResult == DialogResult.OK)
                 {
                     Comment = worklogForm.Comment.Trim();
-                    Cursor.Current = Cursors.WaitCursor;
-                    if (jiraClient.PostWorklog(cbJira.Text, WatchTimer.TimeElapsed, Comment))
-                        Reset();
-                    Cursor.Current = DefaultCursor;
+
+                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment);
                 }
                 else if (formResult == DialogResult.Yes)
                 {
@@ -413,7 +412,6 @@ namespace StopWatch
                     UpdateOutput();
                 }
             }
-
         }
 
 
@@ -438,6 +436,53 @@ namespace StopWatch
         #endregion
 
 
+        #region private methods
+        private void PostAndReset(string key, TimeSpan timeElapsed, string comment)
+        {
+            Task.Factory.StartNew(
+                () =>
+                {
+                    this.InvokeIfRequired(
+                        () => {
+                            btnPostAndReset.Enabled = false;
+                            Cursor.Current = Cursors.WaitCursor;
+                        }
+                    );
+
+                    bool postSuccesful = true;
+
+                    // First post comment in Comment-track - and clear the comment string, if it should only be posted here
+                    // Only actually post in Comment-track if text is not empty
+                    if (settings.PostWorklogComment != WorklogCommentSetting.WorklogOnly && !string.IsNullOrEmpty(comment))
+                    {
+                        postSuccesful = jiraClient.PostComment(key, comment);
+                        if (postSuccesful && settings.PostWorklogComment == WorklogCommentSetting.CommentOnly)
+                            comment = "";
+                    }
+
+                    // Now post the WorkLog with timeElapsed - and comment unless it was reset
+                    if (postSuccesful)
+                        postSuccesful = jiraClient.PostWorklog(key, timeElapsed, comment);
+
+                    if (postSuccesful)
+                    {
+                        this.InvokeIfRequired(
+                            () => Reset()
+                        );
+                    }
+
+                    this.InvokeIfRequired(
+                        () => {
+                            btnPostAndReset.Enabled = true;
+                            Cursor.Current = DefaultCursor;
+                        }
+                    );
+                }
+            );
+        }
+        #endregion
+
+
         #region private members
         private ComboBox cbJira;
         private Button btnOpen;
@@ -452,7 +497,8 @@ namespace StopWatch
         private Button btnPostAndReset;
 
         private JiraClient jiraClient;
-        private IRestClientFactory restClientFactory;
+
+        private Settings settings;
 
         private bool ignoreTextChange;
         #endregion
