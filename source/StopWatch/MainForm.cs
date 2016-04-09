@@ -99,6 +99,12 @@ namespace StopWatch
         }
 
 
+        void Issue_TimerReset(object sender, EventArgs e)
+        {
+            UpdateTotalTime();
+        }
+
+
         void ticker_Tick(object sender, EventArgs e)
         {
             bool firstTick = ticker.Interval == firstDelay;
@@ -280,6 +286,7 @@ namespace StopWatch
             {
                 var issue = new IssueControl(this.jiraClient, this.settings);
                 issue.TimerStarted += issue_TimerStarted;
+                issue.TimerReset += Issue_TimerReset;
                 this.Controls.Add(issue);
             }
 
@@ -305,11 +312,17 @@ namespace StopWatch
             lblConnectionHeader.Top = this.ClientSize.Height - 22;
             lblConnectionStatus.Top = this.ClientSize.Height - 22;
 
-            lblActiveFilter.Left = this.ClientSize.Width - 320;
+            lblActiveFilter.Left = this.ClientSize.Width - 360;
             lblActiveFilter.Top = this.ClientSize.Height - 24;
 
-            cbFilters.Left = this.ClientSize.Width - 280;
+            cbFilters.Left = this.ClientSize.Width - 320;
             cbFilters.Top = this.ClientSize.Height - 28;
+
+            lblTotalTime.Left = this.ClientSize.Width - 160;
+            lblTotalTime.Top = this.ClientSize.Height - 24;
+
+            tbTotalTime.Left = this.ClientSize.Width - 120;
+            tbTotalTime.Top = this.ClientSize.Height - 27;
 
             this.TopMost = this.settings.AlwaysOnTop;
 
@@ -322,6 +335,16 @@ namespace StopWatch
         {
             foreach (var issue in this.issueControls)
                 issue.UpdateOutput(updateSummary);
+            UpdateTotalTime();
+        }
+
+
+        private void UpdateTotalTime()
+        {
+            TimeSpan totalTime = new TimeSpan();
+            foreach (var issue in this.issueControls)
+                totalTime += issue.WatchTimer.TimeElapsed;
+            tbTotalTime.Text = JiraTimeHelpers.TimeSpanToJiraTime(totalTime);
         }
 
 

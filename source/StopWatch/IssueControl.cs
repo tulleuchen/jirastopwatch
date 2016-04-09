@@ -67,6 +67,8 @@ namespace StopWatch
 
         #region public events
         public event EventHandler TimerStarted;
+
+        public event EventHandler TimerReset;
         #endregion
 
 
@@ -297,6 +299,9 @@ namespace StopWatch
             Comment = null;
             this.WatchTimer.Reset();
             UpdateOutput();
+
+            if (this.TimerReset != null)
+                this.TimerReset(this, new EventArgs());
         }
 
 

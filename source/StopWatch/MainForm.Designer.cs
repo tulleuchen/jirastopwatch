@@ -37,6 +37,8 @@
             this.cbFilters = new System.Windows.Forms.ComboBox();
             this.lblActiveFilter = new System.Windows.Forms.Label();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.lblTotalTime = new System.Windows.Forms.Label();
+            this.tbTotalTime = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.SuspendLayout();
@@ -89,7 +91,7 @@
             // 
             this.cbFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cbFilters.FormattingEnabled = true;
-            this.cbFilters.Location = new System.Drawing.Point(251, 92);
+            this.cbFilters.Location = new System.Drawing.Point(164, 92);
             this.cbFilters.Margin = new System.Windows.Forms.Padding(2);
             this.cbFilters.Name = "cbFilters";
             this.cbFilters.Size = new System.Drawing.Size(151, 24);
@@ -100,7 +102,7 @@
             // 
             this.lblActiveFilter.AutoSize = true;
             this.lblActiveFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblActiveFilter.Location = new System.Drawing.Point(191, 94);
+            this.lblActiveFilter.Location = new System.Drawing.Point(104, 94);
             this.lblActiveFilter.Name = "lblActiveFilter";
             this.lblActiveFilter.Size = new System.Drawing.Size(39, 17);
             this.lblActiveFilter.TabIndex = 5;
@@ -112,11 +114,34 @@
             this.notifyIcon.Text = "JIRA StopWatch";
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
+            // lblTotalTime
+            // 
+            this.lblTotalTime.AutoSize = true;
+            this.lblTotalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblTotalTime.Location = new System.Drawing.Point(320, 93);
+            this.lblTotalTime.Name = "lblTotalTime";
+            this.lblTotalTime.Size = new System.Drawing.Size(40, 17);
+            this.lblTotalTime.TabIndex = 6;
+            this.lblTotalTime.Text = "Total";
+            // 
+            // tbTotalTime
+            // 
+            this.tbTotalTime.BackColor = System.Drawing.SystemColors.Window;
+            this.tbTotalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbTotalTime.Location = new System.Drawing.Point(366, 91);
+            this.tbTotalTime.Name = "tbTotalTime";
+            this.tbTotalTime.ReadOnly = true;
+            this.tbTotalTime.Size = new System.Drawing.Size(64, 22);
+            this.tbTotalTime.TabIndex = 8;
+            this.tbTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 119);
+            this.Controls.Add(this.tbTotalTime);
+            this.Controls.Add(this.lblTotalTime);
             this.Controls.Add(this.lblActiveFilter);
             this.Controls.Add(this.cbFilters);
             this.Controls.Add(this.lblConnectionStatus);
@@ -149,6 +174,8 @@
         private System.Windows.Forms.ComboBox cbFilters;
         private System.Windows.Forms.Label lblActiveFilter;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.Label lblTotalTime;
+        private System.Windows.Forms.TextBox tbTotalTime;
     }
 }
 
