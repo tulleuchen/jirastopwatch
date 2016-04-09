@@ -1,1 +1,0 @@
-Option to allow worklog comment to also be posted as a normal comment

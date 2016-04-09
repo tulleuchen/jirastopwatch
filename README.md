@@ -1,4 +1,4 @@
-﻿## Summary
+## Summary
 
 A Windows desktop tool for recording time spent on different Jira tasks.
 
@@ -17,7 +17,7 @@ A Windows desktop tool for recording time spent on different Jira tasks.
 
 * Select issue keys from a list based on one of your favorite JQL filters or type it manually
 * Displays issue description when key has been selected or entered manually
-* Post spent time into Jira as a worklog with comment
+* Post spent time into Jira as a worklog with comments
 
 ### Automatically save program state on exit
 
@@ -72,11 +72,25 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+1.6.0     2016-04-09     New features:
+                           - Allow multiple timers to run at the same time
+                           - Choose if worklog text should be posted on worklog track or comment track
+                           - Display total time in bottom of window
+
+                         Bugfixes:
+                          - Issue description was not updated when manually typing an issue key or deleting a key
+                          - notifyIcon is not available on Mono, so on non-Windows platforms, disable all minimze-to-tray code
+                          - Fixed thread UI issue
+
+                         Remade project structure to make crossplatform building easier
+
+                         Refactoring of internal Jira communication (including NUnit test-coverage)
+
 1.5.0     2016-02-07     Option for pausing timer when locking your PC (eg. for lunch breaks)
 
                          Application can now be minimized to the system tray
 
-                         Several bugfixes - for details see the [commit history](https://github.com/carstengehling/jirastopwatch/compare/1.4.1...58c9570)
+                         Several bugfixes - for details see the commit history
 
 1.4.1     2016-01-02     Added About dialog
 
