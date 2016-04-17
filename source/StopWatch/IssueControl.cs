@@ -81,6 +81,7 @@ namespace StopWatch
             cbJira.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cbJira.DropDownStyle = ComboBoxStyle.DropDown;
             cbJira.DrawMode = DrawMode.OwnerDrawVariable;
+            cbJira.IntegralHeight = false;
             cbJira.DrawItem += cbJira_DrawItem;
             cbJira.MeasureItem += cbJira_MeasureItem;
             cbJira.SelectedIndexChanged += cbJira_SelectedIndexChanged;
