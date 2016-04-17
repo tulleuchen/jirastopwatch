@@ -190,31 +190,18 @@ namespace StopWatch
         }
 
 
+        private void cbFilters_DropDown(object sender, EventArgs e)
+        {
+            LoadFilters();
+        }
+
+
         private void cbFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             var item = (CBFilterItem)cbFilters.SelectedItem;
             this.settings.CurrentFilter = item.Id;
-
-            string jql = item.Jql;
-
-            Task.Factory.StartNew(
-                () =>
-                {
-                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
-
-                    if (availableIssues == null)
-                        return;
-
-                    this.InvokeIfRequired(
-                        () =>
-                        {
-                            foreach (var issueControl in this.issueControls)
-                                issueControl.AvailableIssues = availableIssues;
-                        }
-                    );
-                }
-            );
         }
+
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
@@ -373,7 +360,8 @@ namespace StopWatch
                                 lblConnectionStatus.Text = "Connected";
                                 lblConnectionStatus.ForeColor = Color.DarkGreen;
 
-                                LoadFilterList();
+                                if (firstTick)
+                                    LoadFilters();
 
                                 UpdateIssuesOutput(firstTick);
                             }
@@ -462,7 +450,7 @@ namespace StopWatch
         }
 
 
-        private void LoadFilterList()
+        private void LoadFilters()
         {
             Task.Factory.StartNew(
                 () =>

@@ -96,6 +96,7 @@
             this.cbFilters.Name = "cbFilters";
             this.cbFilters.Size = new System.Drawing.Size(151, 24);
             this.cbFilters.TabIndex = 4;
+            this.cbFilters.DropDown += new System.EventHandler(this.cbFilters_DropDown);
             this.cbFilters.SelectedIndexChanged += new System.EventHandler(this.cbFilters_SelectedIndexChanged);
             // 
             // lblActiveFilter

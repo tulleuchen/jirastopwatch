@@ -200,6 +200,7 @@ namespace StopWatch
             this.cbJira.Name = "cbJira";
             this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
+            this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
             // tbTime
@@ -367,6 +368,12 @@ namespace StopWatch
         }
 
 
+        private void cbJira_DropDown(object sender, EventArgs e)
+        {
+            LoadIssues();
+        }
+
+
         private void btnOpen_Click(object sender, EventArgs e)
         {
             OpenJira(cbJira.Text);
@@ -480,6 +487,40 @@ namespace StopWatch
                         () => {
                             btnPostAndReset.Enabled = true;
                             Cursor.Current = DefaultCursor;
+                        }
+                    );
+                }
+            );
+        }
+
+
+        private void LoadIssues()
+        {
+            // TODO: This + the datasource for cbFilters should be moved into a controller layer
+
+            var ctrlList = (Parent as MainForm).Controls.Find("cbFilters", false);
+            if (ctrlList.Length == 0)
+                return;
+
+            var cbFilters = ctrlList[0] as ComboBox;
+            if (cbFilters.SelectedIndex < 0)
+                return;
+
+            string jql = (cbFilters.SelectedItem as CBFilterItem).Jql;
+
+            Task.Factory.StartNew(
+                () =>
+                {
+                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
+
+                    if (availableIssues == null)
+                        return;
+
+                    this.InvokeIfRequired(
+                        () =>
+                        {
+                            AvailableIssues = availableIssues;
+                            cbJira.Invalidate();
                         }
                     );
                 }
