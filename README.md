@@ -72,21 +72,29 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+1.6.1     2016-04-18     Changed filter- and issue-loading from Jira API, to only happen
+                         when comboboxes are opened, instead of every 30 seconds as before.
+
 1.6.0     2016-04-09     New features:
                            - Allow multiple timers to run at the same time
-                           - Choose if worklog text should be posted on worklog track or comment track
+                           - Choose if worklog text should be posted on worklog track or
+                             comment track
                            - Display total time in bottom of window
 
                          Bugfixes:
-                          - Issue description was not updated when manually typing an issue key or deleting a key
-                          - notifyIcon is not available on Mono, so on non-Windows platforms, disable all minimze-to-tray code
+                          - Issue description was not updated when manually typing an
+                            issue key or deleting a key
+                          - notifyIcon is not available on Mono, so on non-Windows
+                            platforms, disable all minimze-to-tray code
                           - Fixed thread UI issue
 
                          Remade project structure to make crossplatform building easier
 
-                         Refactoring of internal Jira communication (including NUnit test-coverage)
+                         Refactoring of internal Jira communication (including NUnit
+                         test-coverage)
 
-1.5.0     2016-02-07     Option for pausing timer when locking your PC (eg. for lunch breaks)
+1.5.0     2016-02-07     Option for pausing timer when locking your PC 
+                         (eg. for lunch breaks)
 
                          Application can now be minimized to the system tray
 
