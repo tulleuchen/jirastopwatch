@@ -78,15 +78,6 @@ namespace StopWatch
         {
             InitializeComponent();
 
-            cbJira.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cbJira.DropDownStyle = ComboBoxStyle.DropDown;
-            cbJira.DrawMode = DrawMode.OwnerDrawVariable;
-            cbJira.DrawItem += cbJira_DrawItem;
-            cbJira.MeasureItem += cbJira_MeasureItem;
-            cbJira.SelectedIndexChanged += cbJira_SelectedIndexChanged;
-            cbJira.DisplayMember = "Key";
-            cbJira.ValueMember = "Key";
-
             ignoreTextChange = false;
 
             Comment = null;
@@ -200,7 +191,19 @@ namespace StopWatch
             this.cbJira.Name = "cbJira";
             this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
+            this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
+            this.cbJira.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            this.cbJira.DropDownStyle = ComboBoxStyle.DropDown;
+            this.cbJira.DrawMode = DrawMode.OwnerDrawVariable;
+            this.cbJira.IntegralHeight = false;
+            this.cbJira.DropDownHeight = 90;
+            this.cbJira.DrawItem += cbJira_DrawItem;
+            this.cbJira.MeasureItem += cbJira_MeasureItem;
+            this.cbJira.SelectedIndexChanged += cbJira_SelectedIndexChanged;
+            this.cbJira.DisplayMember = "Key";
+            this.cbJira.ValueMember = "Key";
+
             // 
             // tbTime
             // 
@@ -358,12 +361,23 @@ namespace StopWatch
             // Draw the text on the second column
             using (SolidBrush sb = new SolidBrush(e.ForeColor))
                 e.Graphics.DrawString(item.Summary, font, sb, r2);
+
+            // Draw a line to isolate the columns 
+            using (Pen p = new Pen(Color.Black))
+                e.Graphics.DrawLine(p, r1.Right, 0, r1.Right, 140);
+
         }
 
 
         void cbJira_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateOutput(true);
+        }
+
+
+        private void cbJira_DropDown(object sender, EventArgs e)
+        {
+            LoadIssues();
         }
 
 
@@ -480,6 +494,41 @@ namespace StopWatch
                         () => {
                             btnPostAndReset.Enabled = true;
                             Cursor.Current = DefaultCursor;
+                        }
+                    );
+                }
+            );
+        }
+
+
+        private void LoadIssues()
+        {
+            // TODO: This + the datasource for cbFilters should be moved into a controller layer
+
+            var ctrlList = (Parent as MainForm).Controls.Find("cbFilters", false);
+            if (ctrlList.Length == 0)
+                return;
+
+            var cbFilters = ctrlList[0] as ComboBox;
+            if (cbFilters.SelectedIndex < 0)
+                return;
+
+            string jql = (cbFilters.SelectedItem as CBFilterItem).Jql;
+
+            Task.Factory.StartNew(
+                () =>
+                {
+                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
+
+                    if (availableIssues == null)
+                        return;
+
+                    this.InvokeIfRequired(
+                        () =>
+                        {
+                            AvailableIssues = availableIssues;
+                            cbJira.DropDownHeight = 120;
+                            cbJira.Invalidate();
                         }
                     );
                 }
