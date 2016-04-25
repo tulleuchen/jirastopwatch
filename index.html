@@ -1,98 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Justified Nav Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/ie10.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/app.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <title>Jira StopWatch by carstengehling</title>
   </head>
 
   <body>
-    <div id="container">
-      <div class="inner">
 
-        <header>
-          <h1>Jira StopWatch</h1>
-          <h2>Not MORE timetracking - just EASIER timetracking</h2>
-        </header>
+    <div class="container">
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/carstengehling/jirastopwatch/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/carstengehling/jirastopwatch/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/carstengehling/jirastopwatch" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <p>A tool for recording time spent on different Jira tasks.</p>
-
-<p><img src="http://gehling.dk/jirastopwatch/screenshot4.png" alt=""></p>
-
-<h2>
-<a id="screencast" class="anchor" href="#screencast" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screencast</h2>
-
-<p><a href="https://vimeo.com/146107370">Watch tutorial screencast on Vimeo</a></p>
-
-<p><a href="https://vimeo.com/146107370"><img src="https://i.vimeocdn.com/video/544473926_295x166.webp" alt="Tutorial screencast"></a></p>
-
-<h2>
-<a id="get-it-here" class="anchor" href="#get-it-here" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get it here</h2>
-
-<p>Download <a href="https://github.com/carstengehling/jirastopwatch/releases/latest">latest version here</a></p>
-
-<h2>
-<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features:</h2>
-
-<ul>
-<li>Configure how many time-tracking slots you want available</li>
-<li>Integration to Jira REST API: Fetch task description when task-key has been entered (requires login)</li>
-<li>Time is reported in Jira time-logging format (eg. 2h 31m) to easily copy/paste into time-logging</li>
-<li>Jira issue keys are saved on program exit</li>
-<li>Posting spent time into Jira as a worklog with comment (using Jira REST API)</li>
-<li>Save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)</li>
-<li>Automatic re-login, if Jira session has expired</li>
-<li>Select issue keys from list of available issues - this list is controlled by choosing a JQL filter</li>
-</ul>
-
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
-
-<p>Apache License version 2.0 - please read <a href="http://www.apache.org/licenses/LICENSE-2.0">LICENSE.txt</a></p>
-
-<p><img align="left" hspace="4" src="https://pbs.twimg.com/profile_images/2455588274/0ds72xx37jujpcedenxu_normal.jpeg"> Jira StopWatch is charityware. If you like the product, please consider supporting <a href="http://www.autism.org.uk/global">a local autism organisation of your choice</a>. </p>
-
-<h2>
-<a id="feedback" class="anchor" href="#feedback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Feedback</h2>
-
-<p>Bug reports, feature requests etc. are welcome. Please use <a href="https://github.com/carstengehling/jirastopwatch">Github</a> for this.</p>
-
-<p>Or contact me at <a href="mailto:carsten@sarum.dk">carsten@sarum.dk</a></p>
-        </section>
-
-        <footer>
-          Jira StopWatch is maintained by <a href="https://github.com/carstengehling">carstengehling</a><br>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-                  <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-24830361-4");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
+      <div class="masthead">
+        <h3 class="text-muted">
+          <img src="img/logo.png"/>
+          Jira StopWatch
+        </h3>
       </div>
+
+      <div class="jumbotron">
+        <h1>
+          Not <i>more</i> timetracking
+          <br/>
+          just <i>easier</i> timetracking
+        </h1>
+        <p class="lead">
+          Jira StopWatch is a desktop tool for recording time spent on different Jira issues.
+          It is fully integrated with Jira, for automatic fetching issues and submitting worklogs.
+        </p>
+        <p>
+          <a class="btn btn-lg btn-success" href="https://github.com/carstengehling/jirastopwatch/releases/latest" role="button">
+            <span class="glyphicon glyphicon-download-alt"></span>
+            Download latest version (v. 1.6.1)
+          </a>
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+          <img src="img/screen1.png" class="img-responsive img-smaller" />
+          <h2>Track multiple Jira issues</h2>
+          <p>Configure how many time-tracking slots you want available.</p>
+          <p>Time is reported in Jira time-logging format. (eg. 2h 31m)</p>
+          <p>Jira issue keys are saved on program exit - including time tracking state.</p>
+        </div>
+        <div class="col-lg-4">
+          <img src="img/screen2.png" class="img-responsive img-smaller" />
+          <h2>Easy issue selection</h2>
+          <p>Select issue keys from list of available issues, based on JQL filter.</p>
+          <p>Switch between all your favorite JQL filters.</p>
+       </div>
+        <div class="col-lg-4">
+          <img src="img/screen3.png" class="img-responsive img-smaller" />
+          <h2>Easy worklog posting</h2>
+          <p>Posting spent time into Jira as a worklog with comment.</p>
+          <p>Worklog comments can be saved with timestamp for later posting.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <hr/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Features in detail</h2>
+
+          <h3>Easy time tracking of Jira issues</h3>
+          <ul>
+          <li>Switch time tracking between issues with just one click</li>
+          <li>Configure how many time-tracking slots you want available</li>
+          <li>Time can be manually edited (eg. if you forgot to start the timer when starting work)</li>
+          <li>Optionally pause timer when locking your PC</li>
+          </ul>
+
+          <h3>Integration with Jira REST API</h3>
+          <ul>
+          <li>Select issue keys from a list based on one of your favorite JQL filters or type it manually</li>
+          <li>Displays issue description when key has been selected or entered manually</li>
+          <li>Post spent time into Jira as a worklog with comments</li>
+          </ul>
+
+          <h3>Automatically save program state on exit</h3>
+          <ul>
+          <li>Jira issue keys are saved on program exit</li>
+          <li>Optionally remember login credentials</li>
+          <li>Optionally save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-6">
+          <h2>Tutorial screencast</h2>
+          <iframe src="https://player.vimeo.com/video/146107370" width="640" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          <p><a href="https://vimeo.com/146107370">Jira StopWatch tutorial</a> from <a href="https://vimeo.com/user4096975">Carsten Gehling</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>License</h2>
+          <p>Apache License version 2.0 - please read <a href="http://www.apache.org/licenses/LICENSE-2.0">LICENSE.txt</a></p>
+          <p>
+            <img align="left" hspace="4" src="https://pbs.twimg.com/profile_images/2455588274/0ds72xx37jujpcedenxu_normal.jpeg">
+            Jira StopWatch is charityware. If you like the product, please consider supporting <a href="http://www.autism.org.uk/global">a local autism organisation of your choice</a>.
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <h2>Feedback</h2>
+          <p>Bug reports, feature requests etc. are welcome. Please use <a href="https://github.com/carstengehling/jirastopwatch">Github</a> for this.</p>
+          <p>Or contact me at <a href="mailto:carsten@sarum.dk">carsten@sarum.dk</a></p>
+        </div>
+      </div>
+
+
+
+
+
+      <footer class="footer">
+        <p>&copy; 2016 Carsten Gehling</p>
+      </footer>
     </div>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10.js"></script>
   </body>
 </html>
+
