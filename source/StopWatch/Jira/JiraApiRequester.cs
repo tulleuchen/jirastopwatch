@@ -26,7 +26,7 @@ namespace StopWatch
             IRestResponse<T> response = client.Execute<T>(request);
 
             // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.BadRequest)
             {
                 if (!ReAuthenticate())
                     throw new RequestDeniedException();

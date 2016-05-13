@@ -106,6 +106,7 @@
         {
             string username = "Marvin";
             string password = "IThinkItMakesMeHappy";
+
             var request = jiraApiRequestFactory.CreateAuthenticateRequest(username, password);
 
             requestFactoryMock.Verify(m => m.Create("/rest/auth/1/session", Method.POST));
@@ -131,6 +132,22 @@
         [Test]
         public void CreateReAuthenticateRequest_IfAuthenticateHasBeenCalled_CreatesValidRequest()
         {
+            string username = "Marvin";
+            string password = "IThinkItMakesMeHappy";
+
+            jiraApiRequestFactory.CreateAuthenticateRequest(username, password);
+            var request = jiraApiRequestFactory.CreateReAuthenticateRequest();
+
+            requestFactoryMock.Verify(m => m.Create("/rest/auth/1/session", Method.POST));
+
+            requestMock.VerifySet(m => m.RequestFormat = DataFormat.Json);
+
+            requestMock.Verify(m => m.AddBody(It.Is<object>(o =>
+                o.GetHashCode() == (new {
+                    username = username,
+                    password = password
+                }).GetHashCode()
+            )));
         }
     }
 }
