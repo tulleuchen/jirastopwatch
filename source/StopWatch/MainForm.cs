@@ -210,7 +210,10 @@ namespace StopWatch
             if (!CrossPlatformHelpers.IsWindowsEnvironment())
                 return;
 
-            if (this.settings.MinimizeToTray && WindowState == FormWindowState.Minimized)
+            if (!this.settings.MinimizeToTray)
+                return;
+
+            if (WindowState == FormWindowState.Minimized)
             {
                 this.notifyIcon.Visible = true;
                 this.Hide();
