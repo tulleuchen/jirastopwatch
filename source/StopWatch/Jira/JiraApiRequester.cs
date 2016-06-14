@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using System;
 using System.Net;
+using System.Threading;
 
 namespace StopWatch
 {
@@ -30,6 +31,9 @@ namespace StopWatch
             {
                 if (!ReAuthenticate())
                     throw new RequestDeniedException();
+
+                // Jira needs a short delay afther ReAuthentication, before actual requests can be made
+                Thread.Sleep(500);
 
                 response = client.Execute<T>(request);
             }
