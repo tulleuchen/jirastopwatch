@@ -76,6 +76,32 @@
         }
 
 
+        [Test, Description("DoAuthenticatedRequest: On BadRequest, it tries to ReAuthenticate")]
+        public void DoAuthenticatedRequest_OnBadRequest_It_Tries_To_ReAuhthenticate()
+        {
+            bool authenticated = false;
+
+            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() =>
+                new RestResponse<TestPocoClass>()
+                {
+                    StatusCode = authenticated ?  HttpStatusCode.OK : HttpStatusCode.BadRequest
+                }
+            );
+
+            clientMock.Setup(c => c.Execute(It.IsAny<IRestRequest>())).Returns(() => {
+                authenticated = true;
+                return new RestResponse()
+                {
+                    StatusCode = HttpStatusCode.OK
+                };
+            });
+
+            var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(new Mock<IRestRequest>().Object);
+
+            jiraApiRequestFactoryMock.Verify(m => m.CreateReAuthenticateRequest(), Times.Once);
+        }
+
+
         [Test, Description("DoAuthenticatedRequest: On unauthorized after ReAuthenticate, it throws an exception")]
         public void DoAuthenticatedRequest_OnUnauthorized_After_ReAuhthenticate_It_Throws_An_Exception()
         {

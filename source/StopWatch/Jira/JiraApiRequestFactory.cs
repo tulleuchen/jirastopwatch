@@ -75,11 +75,14 @@ namespace StopWatch
 
         public IRestRequest CreateAuthenticateRequest(string username, string password)
         {
+            this.username = username;
+            this.password = password;
+
             var request = restRequestFactory.Create("/rest/auth/1/session", Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new {
-                username = username,
-                password = password
+                username = this.username,
+                password = this.password
             });
             return request;
         }
