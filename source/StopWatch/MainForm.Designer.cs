@@ -39,6 +39,7 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.lblTotalTime = new System.Windows.Forms.Label();
             this.tbTotalTime = new System.Windows.Forms.TextBox();
+            this.pMain = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.SuspendLayout();
@@ -136,11 +137,21 @@
             this.tbTotalTime.TabIndex = 8;
             this.tbTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // pMain
+            // 
+            this.pMain.AutoScroll = true;
+            this.pMain.Location = new System.Drawing.Point(0, 0);
+            this.pMain.Margin = new System.Windows.Forms.Padding(0);
+            this.pMain.Name = "pMain";
+            this.pMain.Size = new System.Drawing.Size(383, 70);
+            this.pMain.TabIndex = 9;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(468, 119);
+            this.Controls.Add(this.pMain);
             this.Controls.Add(this.tbTotalTime);
             this.Controls.Add(this.lblTotalTime);
             this.Controls.Add(this.lblActiveFilter);
@@ -177,6 +188,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.Label lblTotalTime;
         private System.Windows.Forms.TextBox tbTotalTime;
+        private System.Windows.Forms.Panel pMain;
     }
 }
 

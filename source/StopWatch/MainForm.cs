@@ -210,7 +210,10 @@ namespace StopWatch
             if (!CrossPlatformHelpers.IsWindowsEnvironment())
                 return;
 
-            if (this.settings.MinimizeToTray && WindowState == FormWindowState.Minimized)
+            if (!this.settings.MinimizeToTray)
+                return;
+
+            if (WindowState == FormWindowState.Minimized)
             {
                 this.notifyIcon.Visible = true;
                 this.Hide();
@@ -265,7 +268,7 @@ namespace StopWatch
             while (this.issueControls.Count() > this.settings.IssueCount)
             {
                 var issue = this.issueControls.Last();
-                this.Controls.Remove(issue);
+                this.pMain.Controls.Remove(issue);
             }
 
             // Create issueControl controls needed
@@ -274,7 +277,7 @@ namespace StopWatch
                 var issue = new IssueControl(this.jiraClient, this.settings);
                 issue.TimerStarted += issue_TimerStarted;
                 issue.TimerReset += Issue_TimerReset;
-                this.Controls.Add(issue);
+                this.pMain.Controls.Add(issue);
             }
 
             // Position all issueControl controls and set TimerEditable
@@ -287,8 +290,19 @@ namespace StopWatch
                 i++;
             }
 
-            // Resize form and reposition settings button
-            this.ClientSize = new Size(issueControls.Last().Width + 24, this.settings.IssueCount * issueControls.Last().Height + 46);
+            pMain.Width = issueControls.Last().Width + 44;
+
+
+            this.ClientSize = new Size(issueControls.Last().Width + 44, this.settings.IssueCount * issueControls.Last().Height + 50);
+
+            if (this.Height > Screen.PrimaryScreen.WorkingArea.Height)
+                this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+
+            if (this.Bottom > Screen.PrimaryScreen.WorkingArea.Height)
+                this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
+
+
+            pMain.Height = ClientSize.Height - 34;
 
             pbSettings.Left = this.ClientSize.Width - 28;
             pbSettings.Top = this.ClientSize.Height - 28;
@@ -500,7 +514,7 @@ namespace StopWatch
         {
             get
             {
-                return this.Controls.OfType<IssueControl>();
+                return this.pMain.Controls.OfType<IssueControl>();
             }
         }
 

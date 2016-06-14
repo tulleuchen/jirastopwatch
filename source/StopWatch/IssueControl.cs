@@ -185,25 +185,22 @@ namespace StopWatch
             // 
             // cbJira
             // 
+            this.cbJira.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbJira.DisplayMember = "Key";
+            this.cbJira.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.cbJira.DropDownHeight = 90;
             this.cbJira.DropDownWidth = 500;
             this.cbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.cbJira.IntegralHeight = false;
             this.cbJira.Location = new System.Drawing.Point(0, 2);
             this.cbJira.Name = "cbJira";
             this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
-            this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
-            this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
-            this.cbJira.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            this.cbJira.DropDownStyle = ComboBoxStyle.DropDown;
-            this.cbJira.DrawMode = DrawMode.OwnerDrawVariable;
-            this.cbJira.IntegralHeight = false;
-            this.cbJira.DropDownHeight = 90;
-            this.cbJira.DrawItem += cbJira_DrawItem;
-            this.cbJira.MeasureItem += cbJira_MeasureItem;
-            this.cbJira.SelectedIndexChanged += cbJira_SelectedIndexChanged;
-            this.cbJira.DisplayMember = "Key";
             this.cbJira.ValueMember = "Key";
-
+            this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
+            this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
+            this.cbJira.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyUp);
+            this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
             // tbTime
             // 
@@ -220,7 +217,7 @@ namespace StopWatch
             this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSummary.Location = new System.Drawing.Point(0, 33);
             this.lblSummary.Name = "lblSummary";
-            this.lblSummary.Size = new System.Drawing.Size(503, 17);
+            this.lblSummary.Size = new System.Drawing.Size(457, 17);
             this.lblSummary.TabIndex = 6;
             // 
             // btnPostAndReset
@@ -239,7 +236,7 @@ namespace StopWatch
             // 
             this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReset.Image = global::StopWatch.Properties.Resources.reset24;
-            this.btnReset.Location = new System.Drawing.Point(444, 0);
+            this.btnReset.Location = new System.Drawing.Point(425, 0);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 5;
@@ -290,7 +287,7 @@ namespace StopWatch
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
-            this.Size = new System.Drawing.Size(500, 58);
+            this.Size = new System.Drawing.Size(458, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -390,6 +387,13 @@ namespace StopWatch
         private void cbJira_Leave(object sender, EventArgs e)
         {
             UpdateOutput(true);
+        }
+
+
+        private void cbJira_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                UpdateOutput(true);
         }
 
 
