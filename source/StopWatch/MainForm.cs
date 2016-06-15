@@ -286,7 +286,6 @@ namespace StopWatch
             {
                 issue.Left = 12;
                 issue.Top = i * issue.Height + 12;
-                issue.TimerEditable = this.settings.TimerEditable;
                 i++;
             }
 

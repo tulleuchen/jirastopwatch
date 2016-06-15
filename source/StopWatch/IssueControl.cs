@@ -53,14 +53,6 @@ namespace StopWatch
         }
 
 
-        public bool TimerEditable
-        {
-            set
-            {
-                tbTime.ReadOnly = !value;
-            }
-        }
-
         public string Comment { get; set; }
         #endregion
 
@@ -207,10 +199,11 @@ namespace StopWatch
             this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.3F);
             this.tbTime.Location = new System.Drawing.Point(248, 2);
             this.tbTime.Name = "tbTime";
+            this.tbTime.ReadOnly = true;
             this.tbTime.Size = new System.Drawing.Size(95, 28);
             this.tbTime.TabIndex = 3;
             this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.tbTime.TextChanged += new System.EventHandler(this.tbTime_TextChanged);
+            this.tbTime.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tbTime_MouseDoubleClick);
             // 
             // lblSummary
             // 
@@ -455,6 +448,24 @@ namespace StopWatch
             WatchTimer.SetState(state);
 
             UpdateOutput();
+        }
+
+
+        private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            using (var editTimeForm = new EditTimeForm(WatchTimer.GetState().TotalTime))
+            {
+                var formResult = editTimeForm.ShowDialog(this);
+                if (formResult == DialogResult.OK)
+                {
+                    Comment = worklogForm.Comment.Trim();
+                    TimerState state = WatchTimer.GetState();
+                    state.TotalTime = time;
+                    state.StartTime = DateTime.Now;
+                    WatchTimer.SetState(state);
+
+            UpdateOutput();
+
         }
         #endregion
 
