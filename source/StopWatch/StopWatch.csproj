@@ -41,8 +41,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutForm.cs">
@@ -53,6 +55,12 @@
     </Compile>
     <Compile Include="CrossPlatformHelpers.cs" />
     <Compile Include="DPApi.cs" />
+    <Compile Include="EditTimeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditTimeForm.Designer.cs">
+      <DependentUpon>EditTimeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InvokeExtensions.cs" />
     <Compile Include="Jira\IJiraApiRequester.cs" />
     <Compile Include="Jira\IJiraApiRequestFactory.cs" />
@@ -102,6 +110,9 @@
     <Compile Include="WatchTimer.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditTimeForm.resx">
+      <DependentUpon>EditTimeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorklogForm.resx">
       <DependentUpon>WorklogForm.cs</DependentUpon>

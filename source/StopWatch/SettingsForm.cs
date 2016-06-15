@@ -41,7 +41,6 @@ namespace StopWatch
             numIssueCount.Value = this.settings.IssueCount;
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
             cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
-            cbTimerEditable.Checked = this.settings.TimerEditable;
             cbAllowMultipleTimers.Checked = this.settings.AllowMultipleTimers;
 
             cbSaveTimerState.DisplayMember = "Text";
@@ -86,7 +85,6 @@ namespace StopWatch
                 this.settings.IssueCount = (int)numIssueCount.Value;
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
                 this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
-                this.settings.TimerEditable = cbTimerEditable.Checked;
                 this.settings.AllowMultipleTimers = cbAllowMultipleTimers.Checked;
 
                 this.settings.SaveTimerState = (SaveTimerSetting)cbSaveTimerState.SelectedValue;

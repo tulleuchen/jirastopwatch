@@ -48,7 +48,6 @@ namespace StopWatch
         public bool AlwaysOnTop { get; set; }
         public bool MinimizeToTray { get; set; }
         public int IssueCount { get; set; }
-        public bool TimerEditable { get; set; }
         public bool AllowMultipleTimers { get; set; }
 
         public SaveTimerSetting SaveTimerState { get; set; }
@@ -77,7 +76,6 @@ namespace StopWatch
         {
             this.JiraBaseUrl = Properties.Settings.Default.JiraBaseUrl ?? "";
 
-            this.TimerEditable = Properties.Settings.Default.TimerEditable;
             this.AlwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
             this.MinimizeToTray = Properties.Settings.Default.MinimizeToTray;
             this.IssueCount = Properties.Settings.Default.IssueCount;
@@ -104,7 +102,6 @@ namespace StopWatch
         {
             Properties.Settings.Default.JiraBaseUrl = this.JiraBaseUrl;
 
-            Properties.Settings.Default.TimerEditable = this.TimerEditable;
             Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
             Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
             Properties.Settings.Default.IssueCount = this.IssueCount;

@@ -37,7 +37,6 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblSaveTimerState = new System.Windows.Forms.Label();
-            this.cbTimerEditable = new System.Windows.Forms.CheckBox();
             this.btnAbout = new System.Windows.Forms.Button();
             this.cbMinimizeToTray = new System.Windows.Forms.CheckBox();
             this.cbSaveTimerState = new System.Windows.Forms.ComboBox();
@@ -117,7 +116,7 @@
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(255, 347);
+            this.btnOk.Location = new System.Drawing.Point(255, 298);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
@@ -128,7 +127,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(316, 347);
+            this.btnCancel.Location = new System.Drawing.Point(316, 298);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
@@ -144,20 +143,9 @@
             this.lblSaveTimerState.TabIndex = 5;
             this.lblSaveTimerState.Text = "Save timer states on program exit";
             // 
-            // cbTimerEditable
-            // 
-            this.cbTimerEditable.AutoSize = true;
-            this.cbTimerEditable.Location = new System.Drawing.Point(114, 217);
-            this.cbTimerEditable.Margin = new System.Windows.Forms.Padding(2);
-            this.cbTimerEditable.Name = "cbTimerEditable";
-            this.cbTimerEditable.Size = new System.Drawing.Size(130, 17);
-            this.cbTimerEditable.TabIndex = 9;
-            this.cbTimerEditable.Text = "Enable editing of timer";
-            this.cbTimerEditable.UseVisualStyleBackColor = true;
-            // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(11, 347);
+            this.btnAbout.Location = new System.Drawing.Point(11, 298);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(56, 22);
@@ -206,7 +194,7 @@
             // splitter3
             // 
             this.splitter3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitter3.Location = new System.Drawing.Point(12, 336);
+            this.splitter3.Location = new System.Drawing.Point(12, 287);
             this.splitter3.Name = "splitter3";
             this.splitter3.Size = new System.Drawing.Size(360, 2);
             this.splitter3.TabIndex = 16;
@@ -230,7 +218,7 @@
             // cbAllowMultipleTimers
             // 
             this.cbAllowMultipleTimers.AutoSize = true;
-            this.cbAllowMultipleTimers.Location = new System.Drawing.Point(114, 238);
+            this.cbAllowMultipleTimers.Location = new System.Drawing.Point(114, 221);
             this.cbAllowMultipleTimers.Margin = new System.Windows.Forms.Padding(2);
             this.cbAllowMultipleTimers.Name = "cbAllowMultipleTimers";
             this.cbAllowMultipleTimers.Size = new System.Drawing.Size(228, 17);
@@ -242,14 +230,14 @@
             // 
             this.cbPostWorklogComment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPostWorklogComment.FormattingEnabled = true;
-            this.cbPostWorklogComment.Location = new System.Drawing.Point(113, 267);
+            this.cbPostWorklogComment.Location = new System.Drawing.Point(113, 250);
             this.cbPostWorklogComment.Name = "cbPostWorklogComment";
             this.cbPostWorklogComment.Size = new System.Drawing.Size(198, 21);
             this.cbPostWorklogComment.TabIndex = 19;
             // 
             // lblPostWorklogComment
             // 
-            this.lblPostWorklogComment.Location = new System.Drawing.Point(9, 265);
+            this.lblPostWorklogComment.Location = new System.Drawing.Point(9, 248);
             this.lblPostWorklogComment.Name = "lblPostWorklogComment";
             this.lblPostWorklogComment.Size = new System.Drawing.Size(98, 38);
             this.lblPostWorklogComment.TabIndex = 18;
@@ -261,7 +249,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 408);
+            this.ClientSize = new System.Drawing.Size(383, 330);
             this.Controls.Add(this.cbPostWorklogComment);
             this.Controls.Add(this.lblPostWorklogComment);
             this.Controls.Add(this.cbAllowMultipleTimers);
@@ -273,7 +261,6 @@
             this.Controls.Add(this.lblPauseOnSessionLock);
             this.Controls.Add(this.cbMinimizeToTray);
             this.Controls.Add(this.btnAbout);
-            this.Controls.Add(this.cbTimerEditable);
             this.Controls.Add(this.lblSaveTimerState);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
@@ -304,7 +291,6 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblSaveTimerState;
-        private System.Windows.Forms.CheckBox cbTimerEditable;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.CheckBox cbMinimizeToTray;
         private System.Windows.Forms.ComboBox cbSaveTimerState;
