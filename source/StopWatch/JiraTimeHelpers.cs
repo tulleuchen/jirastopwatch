@@ -29,7 +29,7 @@ namespace StopWatch
         }
 
 
-        public static TimeSpan JiraTimeToTimeSpan(string time)
+        public static TimeSpan? JiraTimeToTimeSpan(string time)
         {
             string s;
             decimal t;
@@ -63,7 +63,7 @@ namespace StopWatch
             }
 
             if (!validFormat)
-                return new TimeSpan(0);
+                return null;
 
             return new TimeSpan(minutes / 60, minutes % 60, 0);
         }

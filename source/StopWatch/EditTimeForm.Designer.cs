@@ -41,10 +41,10 @@
             this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.3F);
             this.tbTime.Location = new System.Drawing.Point(14, 25);
             this.tbTime.Name = "tbTime";
-            this.tbTime.ReadOnly = true;
             this.tbTime.Size = new System.Drawing.Size(133, 28);
             this.tbTime.TabIndex = 4;
             this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbTime.TextChanged += new System.EventHandler(this.tbTime_TextChanged);
             // 
             // btnOk
             // 
@@ -57,6 +57,7 @@
             this.btnOk.TabIndex = 6;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
@@ -91,8 +92,10 @@
             // 
             // EditTimeForm
             // 
+            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(159, 137);
             this.Controls.Add(this.lblHint);
             this.Controls.Add(this.btnOk);

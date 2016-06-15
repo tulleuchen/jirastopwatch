@@ -70,8 +70,6 @@ namespace StopWatch
         {
             InitializeComponent();
 
-            ignoreTextChange = false;
-
             Comment = null;
 
             this.settings = settings;
@@ -83,9 +81,7 @@ namespace StopWatch
 
         public void UpdateOutput(bool updateSummary = false)
         {
-            ignoreTextChange = true;
             tbTime.Text = JiraTimeHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
-            ignoreTextChange = false;
 
             if (WatchTimer.Running)
             {
@@ -191,7 +187,7 @@ namespace StopWatch
             this.cbJira.ValueMember = "Key";
             this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
-            this.cbJira.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyUp);
+            this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
             // tbTime
@@ -203,6 +199,7 @@ namespace StopWatch
             this.tbTime.Size = new System.Drawing.Size(95, 28);
             this.tbTime.TabIndex = 3;
             this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbTime_KeyDown);
             this.tbTime.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tbTime_MouseDoubleClick);
             // 
             // lblSummary
@@ -383,7 +380,7 @@ namespace StopWatch
         }
 
 
-        private void cbJira_KeyUp(object sender, KeyEventArgs e)
+        private void cbJira_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 UpdateOutput(true);
@@ -431,41 +428,17 @@ namespace StopWatch
         }
 
 
-        private void tbTime_TextChanged(object sender, EventArgs e)
+        private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            // Ignore if programatically changing value (from timer)
-            if (ignoreTextChange)
-                return;
+            EditTime();
 
-            // Validate time input
-            TimeSpan time = JiraTimeHelpers.JiraTimeToTimeSpan(tbTime.Text);
-            if (time.TotalMilliseconds == 0)
-                return;
-
-            TimerState state = WatchTimer.GetState();
-            state.TotalTime = time;
-            state.StartTime = DateTime.Now;
-            WatchTimer.SetState(state);
-
-            UpdateOutput();
         }
 
 
-        private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void tbTime_KeyDown(object sender, KeyEventArgs e)
         {
-            using (var editTimeForm = new EditTimeForm(WatchTimer.GetState().TotalTime))
-            {
-                var formResult = editTimeForm.ShowDialog(this);
-                if (formResult == DialogResult.OK)
-                {
-                    Comment = worklogForm.Comment.Trim();
-                    TimerState state = WatchTimer.GetState();
-                    state.TotalTime = time;
-                    state.StartTime = DateTime.Now;
-                    WatchTimer.SetState(state);
-
-            UpdateOutput();
-
+            if (e.KeyCode == Keys.Enter)
+                EditTime();
         }
         #endregion
 
@@ -549,6 +522,23 @@ namespace StopWatch
                 }
             );
         }
+
+
+        private void EditTime()
+        {
+            using (var editTimeForm = new EditTimeForm(WatchTimer.GetState().TotalTime))
+            {
+                if (editTimeForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    TimerState state = WatchTimer.GetState();
+                    state.TotalTime = editTimeForm.Time;
+                    state.StartTime = DateTime.Now;
+                    WatchTimer.SetState(state);
+
+                    UpdateOutput();
+                }
+            }
+        }
         #endregion
 
 
@@ -568,8 +558,6 @@ namespace StopWatch
         private JiraClient jiraClient;
 
         private Settings settings;
-
-        private bool ignoreTextChange;
         #endregion
 
 
