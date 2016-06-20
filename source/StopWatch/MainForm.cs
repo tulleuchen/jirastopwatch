@@ -493,6 +493,32 @@ namespace StopWatch
                 }
             );
         }
+
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == NativeMethods.WM_SHOWME)
+                ShowOnTop();
+
+            base.WndProc(ref m);
+        }
+
+
+        private void ShowOnTop()
+        {
+            if (WindowState == FormWindowState.Minimized) {
+                Show();
+                WindowState = FormWindowState.Normal;
+                notifyIcon.Visible = false;
+            }
+
+            // get our current "TopMost" value (ours will always be false though)
+            // make our form jump to the top of everything
+            // set it back to whatever it was
+            bool top = TopMost;
+            TopMost = true;
+            TopMost = top;
+        }
         #endregion
 
 

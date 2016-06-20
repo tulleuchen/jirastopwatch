@@ -66,6 +66,7 @@
     <Compile Include="Jira\IJiraApiRequestFactory.cs" />
     <Compile Include="Jira\JiraApiRequester.cs" />
     <Compile Include="Jira\JiraApiRequestFactory.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="RestSharp\RestRequestFactory.cs" />
     <Compile Include="RestSharp\RestClientFactory.cs" />
     <Compile Include="RestSharp\IRestClientFactory.cs" />
