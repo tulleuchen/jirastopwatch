@@ -189,6 +189,8 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
+            this.cbJira.MeasureItem += this.cbJira_MeasureItem;
+            this.cbJira.DrawItem += cbJira_DrawItem;
             // 
             // tbTime
             // 
@@ -280,7 +282,6 @@ namespace StopWatch
             this.Size = new System.Drawing.Size(458, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
 
@@ -492,8 +493,7 @@ namespace StopWatch
         private void LoadIssues()
         {
             // TODO: This + the datasource for cbFilters should be moved into a controller layer
-
-            var ctrlList = (Parent as MainForm).Controls.Find("cbFilters", false);
+            var ctrlList = (Application.OpenForms[0] as MainForm).Controls.Find("cbFilters", false);
             if (ctrlList.Length == 0)
                 return;
 
