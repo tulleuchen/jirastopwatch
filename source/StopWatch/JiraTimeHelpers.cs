@@ -15,6 +15,7 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace StopWatch
 {
@@ -22,6 +23,9 @@ namespace StopWatch
     {
         public static string TimeSpanToJiraTime(TimeSpan ts)
         {
+            if (ts.Days > 0)
+                return String.Format("{0:%d}d {0:%h}h {0:%m}m", ts);
+
             if (ts.Hours > 0)
                 return String.Format("{0:%h}h {0:%m}m", ts);
 
@@ -36,20 +40,24 @@ namespace StopWatch
             int minutes = 0;
             bool validFormat = true;
 
-            foreach (string timePart in time.Split(' '))
+            time = time.Trim();
+
+            MatchCollection matches = new Regex(@"([0-9,\.]+[dhm] *?)+?", RegexOptions.IgnoreCase).Matches(time);
+            if (matches.Count == 0)
+                return null;
+
+            foreach (Match match in matches)
             {
-                s = timePart.Trim().ToUpper();
+                s = match.Value.ToUpper();
+                s = s.Trim();
 
-                if (s == "")
-                    continue;
-
-                if (!s.Contains("M") && !s.Contains("H"))
+                if (!s.Contains("M") && !s.Contains("H") && !s.Contains("D"))
                 {
                     validFormat = false;
                     break;
                 }
 
-                if (!decimal.TryParse(s.Replace("M", "").Replace("H", "").Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out t))
+                if (!decimal.TryParse(s.Replace("M", "").Replace("H", "").Replace("D", "").Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out t))
                 {
                     validFormat = false;
                     break;
@@ -60,6 +68,9 @@ namespace StopWatch
 
                 if (s.Contains("H"))
                     minutes += (int)(t * 60);
+
+                if (s.Contains("D"))
+                    minutes += (int)(t * 60 * 24);
             }
 
             if (!validFormat)

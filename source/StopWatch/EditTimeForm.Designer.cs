@@ -103,6 +103,7 @@
             this.Controls.Add(this.lblHeader);
             this.Controls.Add(this.tbTime);
             this.Name = "EditTimeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Timer";
             this.ResumeLayout(false);
             this.PerformLayout();
