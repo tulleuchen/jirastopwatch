@@ -130,10 +130,10 @@
             // 
             this.tbTotalTime.BackColor = System.Drawing.SystemColors.Window;
             this.tbTotalTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTotalTime.Location = new System.Drawing.Point(366, 91);
+            this.tbTotalTime.Location = new System.Drawing.Point(360, 91);
             this.tbTotalTime.Name = "tbTotalTime";
             this.tbTotalTime.ReadOnly = true;
-            this.tbTotalTime.Size = new System.Drawing.Size(64, 22);
+            this.tbTotalTime.Size = new System.Drawing.Size(77, 22);
             this.tbTotalTime.TabIndex = 8;
             this.tbTotalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 

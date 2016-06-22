@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>StopWatch.ico</ApplicationIcon>
+    <ApplicationIcon>icons\StopWatch.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RestSharp">
@@ -155,17 +155,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="StopWatchLight.ico" />
     <None Include="icons\play26.png" />
     <None Include="icons\pause26.png" />
-    <None Include="icons\return24.png" />
     <None Include="icons\login22.png" />
     <None Include="icons\settings22.png" />
-    <None Include="icons\login26.png" />
     <None Include="icons\reset24.png" />
     <None Include="icons\openbrowser26.png" />
     <None Include="icons\posttime26.png" />
     <None Include="Resources\posttimenote26.bmp" />
     <Content Include="icons\posttimenote26.png" />
+    <None Include="icons\StopWatch.ico" />
+    <None Include="icons\StopWatchLight.ico" />
+    <None Include="icons\StopWatch.png" />
+    <None Include="icons\StopWatchPng.png" />
     <Content Include="StopWatch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

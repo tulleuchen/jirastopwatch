@@ -60,10 +60,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::StopWatch.Properties.Resources.StopWatch;
+            this.pictureBox1.Image = global::StopWatch.Properties.Resources.StopWatchPng;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(37, 39);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 

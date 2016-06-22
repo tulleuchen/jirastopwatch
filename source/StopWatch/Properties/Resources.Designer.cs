@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StopWatch.Properties
-{
-
-
+namespace StopWatch.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -141,11 +141,31 @@ namespace StopWatch.Properties
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap StopWatch {
+        internal static System.Drawing.Icon StopWatch {
             get {
                 object obj = ResourceManager.GetObject("StopWatch", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon StopWatchLight {
+            get {
+                object obj = ResourceManager.GetObject("StopWatchLight", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StopWatchPng {
+            get {
+                object obj = ResourceManager.GetObject("StopWatchPng", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

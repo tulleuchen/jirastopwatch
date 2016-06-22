@@ -189,8 +189,6 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
-            this.cbJira.MeasureItem += this.cbJira_MeasureItem;
-            this.cbJira.DrawItem += cbJira_DrawItem;
             // 
             // tbTime
             // 
@@ -198,7 +196,7 @@ namespace StopWatch
             this.tbTime.Location = new System.Drawing.Point(248, 2);
             this.tbTime.Name = "tbTime";
             this.tbTime.ReadOnly = true;
-            this.tbTime.Size = new System.Drawing.Size(95, 28);
+            this.tbTime.Size = new System.Drawing.Size(107, 28);
             this.tbTime.TabIndex = 3;
             this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbTime_KeyDown);
@@ -216,7 +214,7 @@ namespace StopWatch
             // 
             this.btnPostAndReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPostAndReset.Image = global::StopWatch.Properties.Resources.posttime26;
-            this.btnPostAndReset.Location = new System.Drawing.Point(350, 0);
+            this.btnPostAndReset.Location = new System.Drawing.Point(361, 0);
             this.btnPostAndReset.Name = "btnPostAndReset";
             this.btnPostAndReset.Size = new System.Drawing.Size(32, 32);
             this.btnPostAndReset.TabIndex = 4;
@@ -282,6 +280,7 @@ namespace StopWatch
             this.Size = new System.Drawing.Size(458, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
 
