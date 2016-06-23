@@ -33,8 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>stopwatchicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RestSharp">
@@ -158,6 +157,7 @@
   <ItemGroup>
     <None Include="icons\stopwatchimg.png" />
     <None Include="icons\stopwatchicon.ico" />
+    <Content Include="stopwatchicon.ico" />
     <Content Include="StopWatchLight.ico" />
     <None Include="icons\play26.png" />
     <None Include="icons\pause26.png" />
