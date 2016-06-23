@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons\StopWatch.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RestSharp">
@@ -67,6 +68,11 @@
     <Compile Include="Jira\JiraApiRequester.cs" />
     <Compile Include="Jira\JiraApiRequestFactory.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RestSharp\RestRequestFactory.cs" />
     <Compile Include="RestSharp\RestClientFactory.cs" />
     <Compile Include="RestSharp\IRestClientFactory.cs" />
@@ -129,14 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -165,10 +166,6 @@
     <None Include="icons\posttime26.png" />
     <None Include="Resources\posttimenote26.bmp" />
     <Content Include="icons\posttimenote26.png" />
-    <None Include="icons\StopWatch.ico" />
-    <None Include="icons\StopWatchLight.ico" />
-    <None Include="icons\StopWatch.png" />
-    <None Include="icons\StopWatchPng.png" />
     <Content Include="StopWatch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
