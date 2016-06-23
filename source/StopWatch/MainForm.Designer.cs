@@ -112,7 +112,6 @@
             // 
             // notifyIcon
             // 
-            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "JIRA StopWatch";
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
@@ -161,7 +160,6 @@
             this.Controls.Add(this.pbLogin);
             this.Controls.Add(this.pbSettings);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "MainForm";
