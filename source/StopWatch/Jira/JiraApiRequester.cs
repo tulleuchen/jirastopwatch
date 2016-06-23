@@ -22,9 +22,7 @@ namespace StopWatch
         public T DoAuthenticatedRequest<T>(IRestRequest request)
             where T : new()
         {
-            IRestClient client = restClientFactory.Create();
-
-            IRestResponse<T> response = client.Execute<T>(request);
+            IRestResponse<T> response = restClientFactory.Create().Execute<T>(request);
 
             // If login session has expired, try to login, and then re-execute the original request
             if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.BadRequest)
@@ -32,10 +30,7 @@ namespace StopWatch
                 if (!ReAuthenticate())
                     throw new RequestDeniedException();
 
-                // Jira needs a short delay afther ReAuthentication, before actual requests can be made
-                Thread.Sleep(500);
-
-                response = client.Execute<T>(request);
+                response = restClientFactory.Create().Execute<T>(request);
             }
 
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
