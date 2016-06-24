@@ -306,7 +306,7 @@ namespace StopWatch
             if (!url.EndsWith("/"))
                 url += "/";
             url += "browse/";
-            url += key;
+            url += key.Trim();
             System.Diagnostics.Process.Start(url);
         }
         #endregion

@@ -41,14 +41,14 @@ namespace StopWatch
 
         public IRestRequest CreateGetIssueSummaryRequest(string key)
         {
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}", key), Method.GET);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}", key.Trim()), Method.GET);
             return request;
         }
 
 
         public IRestRequest CreatePostWorklogRequest(string key, TimeSpan time, string comment)
         {
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key.Trim()), Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new
                 {
@@ -62,7 +62,7 @@ namespace StopWatch
 
         public IRestRequest CreatePostCommentRequest(string key, string comment)
         {
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/comment", key), Method.POST);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/comment", key.Trim()), Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new
                 {

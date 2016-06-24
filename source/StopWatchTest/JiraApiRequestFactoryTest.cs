@@ -62,6 +62,15 @@
 
 
         [Test]
+        public void CreateGetIssueSummaryRequest_RemoveLeadingAndTrailingSpacesFromIssueKey()
+        {
+            string key = "   FOO-42   ";
+            var request = jiraApiRequestFactory.CreateGetIssueSummaryRequest(key);
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}", key.Trim()), Method.GET));
+        }
+
+
+        [Test]
         public void CreatePostWorklogRequest_CreatesValidRequest()
         {
             string key = "FOO-42";
@@ -83,6 +92,18 @@
 
 
         [Test]
+        public void CreatePostWorklogRequest_RemoveLeadingAndTrailingSpacesFromIssueKey()
+        {
+            string key = "   FOO-42   ";
+            TimeSpan time = new TimeSpan(1, 2, 0);
+            string comment = "Sorry for the inconvenience...";
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, time, comment);
+
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/worklog", key.Trim()), Method.POST));
+        }
+
+
+        [Test]
         public void CreatePostCommentRequest_CreatesValidRequest()
         {
             string key = "FOO-42";
@@ -98,6 +119,17 @@
                     body = comment
                 }).GetHashCode()
             )));
+        }
+
+
+        [Test]
+        public void CreatePostCommentRequest_RemoveLeadingAndTrailingSpacesFromIssueKey()
+        {
+            string key = "   FOO-42   ";
+            string comment = "Sorry for the inconvenience...";
+            var request = jiraApiRequestFactory.CreatePostCommentRequest(key, comment);
+
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/comment", key.Trim()), Method.POST));
         }
 
 
