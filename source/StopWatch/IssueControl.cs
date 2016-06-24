@@ -527,14 +527,11 @@ namespace StopWatch
 
         private void EditTime()
         {
-            using (var editTimeForm = new EditTimeForm(WatchTimer.GetState().TotalTime))
+            using (var editTimeForm = new EditTimeForm(WatchTimer.TimeElapsed))
             {
                 if (editTimeForm.ShowDialog(this) == DialogResult.OK)
                 {
-                    TimerState state = WatchTimer.GetState();
-                    state.TotalTime = editTimeForm.Time;
-                    state.StartTime = DateTime.Now;
-                    WatchTimer.SetState(state);
+                    WatchTimer.TimeElapsed = editTimeForm.Time;
 
                     UpdateOutput();
                 }

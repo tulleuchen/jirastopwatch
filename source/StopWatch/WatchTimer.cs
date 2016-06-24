@@ -30,7 +30,24 @@ namespace StopWatch
     internal class WatchTimer
     {
         #region public members
-        public TimeSpan TimeElapsed { get { return timeElapsed(); } }
+        public TimeSpan TimeElapsed
+        {
+            get
+            {
+                if (!Running)
+                    return totalTime;
+
+                return totalTime + (DateTime.Now - startTime);
+            }
+
+            set
+            {
+                TimerState state = GetState();
+                state.TotalTime = value;
+                state.StartTime = DateTime.Now;
+                SetState(state);
+            }
+        }
 
         public bool Running { get; private set; }
         #endregion
@@ -89,16 +106,6 @@ namespace StopWatch
         }
         #endregion
 
-
-        #region private methods
-        private TimeSpan timeElapsed()
-        {
-            if (!Running)
-                return totalTime;
-
-            return totalTime + (DateTime.Now - startTime);
-        }
-        #endregion
 
         #region private members
         private DateTime startTime;
