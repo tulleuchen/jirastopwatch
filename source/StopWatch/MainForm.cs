@@ -29,9 +29,6 @@ namespace StopWatch
         {
             InitializeComponent();
 
-            this.Icon = Properties.Resources.stopwatchicon;
-            this.notifyIcon.Icon = Properties.Resources.stopwatchicon;
-
             settings = new Settings();
 
             restRequestFactory = new RestRequestFactory();

@@ -113,6 +113,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.tbComment);
             this.Controls.Add(this.lblComment);
+            this.Icon = Properties.Resources.stopwatchicon;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "WorklogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

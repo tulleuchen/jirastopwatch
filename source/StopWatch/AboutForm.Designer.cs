@@ -115,7 +115,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblLicense);
             this.Controls.Add(this.lblNameVersion);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Properties.Resources.stopwatchicon;
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About Jira StopWatch";

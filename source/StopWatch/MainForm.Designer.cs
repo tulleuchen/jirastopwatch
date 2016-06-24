@@ -112,6 +112,7 @@
             // 
             // notifyIcon
             // 
+            this.notifyIcon.Icon = Properties.Resources.stopwatchicon;
             this.notifyIcon.Text = "JIRA StopWatch";
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
@@ -159,6 +160,7 @@
             this.Controls.Add(this.lblConnectionHeader);
             this.Controls.Add(this.pbLogin);
             this.Controls.Add(this.pbSettings);
+            this.Icon = Properties.Resources.stopwatchicon;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;

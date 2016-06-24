@@ -158,7 +158,6 @@
     <None Include="icons\stopwatchimg.png" />
     <None Include="icons\stopwatchicon.ico" />
     <Content Include="stopwatchicon.ico" />
-    <Content Include="StopWatchLight.ico" />
     <None Include="icons\play26.png" />
     <None Include="icons\pause26.png" />
     <None Include="icons\login22.png" />
@@ -168,7 +167,6 @@
     <None Include="icons\posttime26.png" />
     <None Include="Resources\posttimenote26.bmp" />
     <Content Include="icons\posttimenote26.png" />
-    <Content Include="StopWatch.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

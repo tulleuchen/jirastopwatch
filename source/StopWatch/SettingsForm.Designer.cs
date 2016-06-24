@@ -269,7 +269,7 @@
             this.Controls.Add(this.lblIssueCount);
             this.Controls.Add(this.tbJiraBaseUrl);
             this.Controls.Add(this.lblJiraBaseUrl);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Properties.Resources.stopwatchicon;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
