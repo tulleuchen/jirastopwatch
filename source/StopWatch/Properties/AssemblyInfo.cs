@@ -51,5 +51,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.7.0.0")]
 [assembly: AssemblyInformationalVersion("1.7.0")]
 
-[assembly:InternalsVisibleTo("StopWatchTest")]
+[assembly: InternalsVisibleTo("StopWatchTest")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
