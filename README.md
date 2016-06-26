@@ -72,6 +72,29 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+1.7.0     2016-06-25     New features/improvement
+                           - Edit timer is now always enabled - you edit by double-clicking
+                             the time field. 
+                           - StopWatch now only runs single instance - it detects at startup
+                             if another instance is running, and brings it into focus.
+                           - New icon that is visible on dark Windows 10 taskbar theme.
+                           - Timers now also support days - eg. 2d 13h 34m
+
+                         Bugfixes:
+                           - After version 1.6.1 the Jira session might  timeout. If this
+                             happens, StopWatch will now automatically re-authenticate and
+                             retry the requests. 
+                           - When you activate many timers, the StopWatch window might be
+                             too big for the screen. Now the window will not be higher than
+                             desktop size, and instead a scrollbar gives access to the
+                             remaining issues. 
+                           - Minimize to tray sometimes did not show the system tray icon.
+                           - Dropdown box with issue list only updated the description below
+                             when leaving the field. Now it happens on selection + on <enter>
+                             if you manually write a key.
+                           - Requests to Jira API did not work, if the issue key had leading
+                             spaces eg. " OPS-14". This has been fixed.
+
 1.6.1     2016-04-18     Changed filter- and issue-loading from Jira API, to only happen
                          when comboboxes are opened, instead of every 30 seconds as before.
 
