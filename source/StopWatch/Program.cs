@@ -15,6 +15,7 @@ limitations under the License.
 **************************************************************************/
 using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -32,6 +33,9 @@ namespace StopWatch
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+
+                Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
                 Microsoft.Win32.SystemEvents.SessionSwitch += new Microsoft.Win32.SessionSwitchEventHandler(SystemEvents_SessionSwitch);
 
@@ -59,6 +63,30 @@ namespace StopWatch
                 form.HandleSessionLock();
             else if (e.Reason == SessionSwitchReason.SessionUnlock)
                 form.HandleSessionUnlock();
+        }
+
+
+        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            var filename = Path.Combine(Application.UserAppDataPath, "errortrace.log");
+
+            File.AppendAllText(filename, string.Format("{0}: {1}", DateTime.Now, "Unhandled Thread Exception"));
+            File.AppendAllText(filename, string.Format("{0}: {1}", DateTime.Now, e.Exception.Message));
+            File.AppendAllText(filename, string.Format("{0}: {1}", DateTime.Now, e.Exception.StackTrace));
+
+            MessageBox.Show(string.Format("An unhandled thread exception occurred. See more details in the logfile:\n\n{0}", filename), "Unhandled Thread Exception");
+        }
+
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var filename = Path.Combine(Application.UserAppDataPath, "errortrace.log");
+
+            File.AppendAllText(filename, string.Format("{0}: {1}", DateTime.Now, "Unhandled UI Exception"));
+            File.AppendAllText(filename, string.Format("{0}: {1}", DateTime.Now, (e.ExceptionObject as Exception).Message));
+            File.AppendAllText(filename, string.Format("{0}: {1}", DateTime.Now, (e.ExceptionObject as Exception).StackTrace));
+
+            MessageBox.Show(string.Format("An unhandled UI exception occurred. See more details in the logfile:\n\n{0}", filename), "Unhandled UI Exception");
         }
         #endregion
     }
