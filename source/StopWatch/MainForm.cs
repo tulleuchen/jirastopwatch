@@ -27,21 +27,23 @@ namespace StopWatch
         #region public methods
         public MainForm()
         {
-            InitializeComponent();
-
             settings = new Settings();
+            settings.Load();
 
             restRequestFactory = new RestRequestFactory();
             jiraApiRequestFactory = new JiraApiRequestFactory(restRequestFactory);
+
             restClientFactory = new RestClientFactory();
+            restClientFactory.BaseUrl = this.settings.JiraBaseUrl;
+
             jiraApiRequester = new JiraApiRequester(restClientFactory, jiraApiRequestFactory);
 
             jiraClient = new JiraClient(jiraApiRequestFactory, jiraApiRequester);
 
+            InitializeComponent();
+
             cbFilters.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFilters.DisplayMember = "Name";
-
-            LoadSettings();
 
             ticker = new Timer();
             // First run should be almost immediately after start
@@ -391,13 +393,6 @@ namespace StopWatch
                     );
                 }
             );
-        }
-
-
-        private void LoadSettings()
-        {
-            this.settings.Load();
-            restClientFactory.BaseUrl = this.settings.JiraBaseUrl;
         }
 
 
