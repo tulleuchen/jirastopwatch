@@ -74,9 +74,10 @@
         public void CreatePostWorklogRequest_CreatesValidRequest()
         {
             string key = "FOO-42";
+            var started = new DateTimeOffset(2016, 07, 26, 1, 44, 15, TimeSpan.Zero);
             TimeSpan time = new TimeSpan(1, 2, 0);
             string comment = "Sorry for the inconvenience...";
-            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, time, comment);
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment);
 
             requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST));
 
@@ -85,6 +86,7 @@
             requestMock.Verify(m => m.AddBody(It.Is<object>(o =>
                 o.GetHashCode() == (new {
                     timeSpent = JiraTimeHelpers.TimeSpanToJiraTime(time),
+                    started = "2016-07-26T01:44:15.000+0000",
                     comment = comment
                 }).GetHashCode()
             )));
@@ -95,13 +97,13 @@
         public void CreatePostWorklogRequest_RemoveLeadingAndTrailingSpacesFromIssueKey()
         {
             string key = "   FOO-42   ";
+            var started = new DateTimeOffset(2016, 07, 26, 1, 44, 15, TimeSpan.Zero);
             TimeSpan time = new TimeSpan(1, 2, 0);
             string comment = "Sorry for the inconvenience...";
-            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, time, comment);
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment);
 
             requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/worklog", key.Trim()), Method.POST));
         }
-
 
         [Test]
         public void CreatePostCommentRequest_CreatesValidRequest()
