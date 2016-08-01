@@ -61,13 +61,14 @@ namespace StopWatch
         }
 
 
-        public IRestRequest CreatePostWorklogRequest(string key, TimeSpan time, string comment)
+        public IRestRequest CreatePostWorklogRequest(string key, DateTimeOffset started, TimeSpan time, string comment)
         {
             var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key.Trim()), Method.POST);
             request.RequestFormat = DataFormat.Json;
             request.AddBody(new
                 {
                     timeSpent = JiraTimeHelpers.TimeSpanToJiraTime(time),
+                    started = JiraTimeHelpers.DateTimeToJiraDateTime(started),
                     comment = comment
                 }
             );
