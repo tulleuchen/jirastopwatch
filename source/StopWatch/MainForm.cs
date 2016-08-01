@@ -339,7 +339,7 @@ namespace StopWatch
                         this.InvokeIfRequired(
                             () =>
                             {
-                                lblConnectionStatus.Text = "Not setup yet";
+                                lblConnectionStatus.Text = "Not connected";
                                 lblConnectionStatus.ForeColor = SystemColors.ControlText;
                             }
                         );
