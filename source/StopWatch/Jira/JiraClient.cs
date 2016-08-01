@@ -112,7 +112,8 @@ namespace StopWatch
 
         public bool PostWorklog(string key, TimeSpan time, string comment)
         {
-            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, time, comment);
+            var started = DateTimeOffset.UtcNow.Subtract(time);
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment);
             try
             {
                 jiraApiRequester.DoAuthenticatedRequest<object>(request);

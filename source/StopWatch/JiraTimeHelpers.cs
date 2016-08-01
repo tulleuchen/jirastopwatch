@@ -21,6 +21,12 @@ namespace StopWatch
 {
     static public class JiraTimeHelpers
     {
+        public static string DateTimeToJiraDateTime(DateTimeOffset date)
+        {
+            string formatted = date.ToString("yyyy-MM-dd\\THH:mm:ss.fffzzzz");
+            return formatted.Substring(0, formatted.Length - 3) + formatted.Substring(formatted.Length - 2);
+        }
+
         public static string TimeSpanToJiraTime(TimeSpan ts)
         {
             if (ts.Days > 0)

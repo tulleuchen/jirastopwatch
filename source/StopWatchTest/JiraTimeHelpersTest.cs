@@ -9,6 +9,14 @@
     public class JiraTimeHelpersTest
     {
         [Test]
+        public void DateTimeToJiraDateTime_HandlesTimeZones()
+        {
+            Assert.That(JiraTimeHelpers.DateTimeToJiraDateTime(new DateTimeOffset(2015, 09, 20, 16, 40, 51, TimeSpan.Zero)), Is.EqualTo("2015-09-20T16:40:51.000+0000"));
+            Assert.That(JiraTimeHelpers.DateTimeToJiraDateTime(new DateTimeOffset(2015, 09, 20, 16, 40, 51, TimeSpan.FromHours(1))), Is.EqualTo("2015-09-20T16:40:51.000+0100"));
+            Assert.That(JiraTimeHelpers.DateTimeToJiraDateTime(new DateTimeOffset(2015, 09, 20, 16, 40, 51, TimeSpan.FromMinutes(9 * 60 + 30))), Is.EqualTo("2015-09-20T16:40:51.000+0930"));
+        }
+
+        [Test]
         public void TimeSpanToJira_FormatsDaysHoursMinutes()
         {
             Assert.That(JiraTimeHelpers.TimeSpanToJiraTime(new TimeSpan(12, 7, 0)), Is.EqualTo("12h 7m"));
