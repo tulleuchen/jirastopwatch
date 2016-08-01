@@ -189,8 +189,6 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
-            this.cbJira.MeasureItem += this.cbJira_MeasureItem;
-            this.cbJira.DrawItem += this.cbJira_DrawItem;
             // 
             // tbTime
             // 
@@ -228,7 +226,7 @@ namespace StopWatch
             // 
             this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReset.Image = global::StopWatch.Properties.Resources.reset24;
-            this.btnReset.Location = new System.Drawing.Point(425, 0);
+            this.btnReset.Location = new System.Drawing.Point(414, 0);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 5;
