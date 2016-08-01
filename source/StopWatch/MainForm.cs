@@ -115,6 +115,8 @@ namespace StopWatch
 
             UpdateJiraRelatedData(firstTick);
             UpdateIssuesOutput(firstTick);
+
+            SaceSettingsAndIssueStates();
         }
 
 
@@ -130,10 +132,7 @@ namespace StopWatch
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Copy issueControl keys and timer states to settings and save settings
-            CollectIssueKeysAndStates();
-
-            SaveSettings();
+            SaceSettingsAndIssueStates();
         }
 
 
@@ -375,12 +374,6 @@ namespace StopWatch
         }
 
 
-        private void SaveSettings()
-        {
-            this.settings.Save();
-        }
-
-
         private void EditSettings()
         {
             using (var form = new SettingsForm(this.settings))
@@ -394,7 +387,7 @@ namespace StopWatch
         }
 
 
-        private void CollectIssueKeysAndStates()
+        private void SaceSettingsAndIssueStates()
         {
             settings.PersistedIssues.Clear();
 
@@ -413,6 +406,8 @@ namespace StopWatch
 
                 settings.PersistedIssues.Add(persistedIssue);
             }
+
+            this.settings.Save();
         }
 
 
