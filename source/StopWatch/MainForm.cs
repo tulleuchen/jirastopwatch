@@ -293,8 +293,7 @@ namespace StopWatch
 
             pMain.Width = issueControls.Last().Width + 44;
 
-
-            this.ClientSize = new Size(issueControls.Last().Width + 44, this.settings.IssueCount * issueControls.Last().Height + 50);
+            this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + 50);
 
             if (this.Height > Screen.PrimaryScreen.WorkingArea.Height)
                 this.Height = Screen.PrimaryScreen.WorkingArea.Height;
@@ -304,27 +303,7 @@ namespace StopWatch
 
 
             pMain.Height = ClientSize.Height - 34;
-
-            pbSettings.Left = this.ClientSize.Width - 28;
-            pbSettings.Top = this.ClientSize.Height - 28;
-
-            pbLogin.Left = 8;
-            pbLogin.Top = this.ClientSize.Height - 28;
-
-            lblConnectionHeader.Top = this.ClientSize.Height - 22;
-            lblConnectionStatus.Top = this.ClientSize.Height - 22;
-
-            lblActiveFilter.Left = this.ClientSize.Width - 360;
-            lblActiveFilter.Top = this.ClientSize.Height - 24;
-
-            cbFilters.Left = this.ClientSize.Width - 320;
-            cbFilters.Top = this.ClientSize.Height - 28;
-
-            lblTotalTime.Left = this.ClientSize.Width - 160;
-            lblTotalTime.Top = this.ClientSize.Height - 24;
-
-            tbTotalTime.Left = this.ClientSize.Width - 120;
-            tbTotalTime.Top = this.ClientSize.Height - 27;
+            pBottom.Top = ClientSize.Height - 34;
 
             this.TopMost = this.settings.AlwaysOnTop;
 
