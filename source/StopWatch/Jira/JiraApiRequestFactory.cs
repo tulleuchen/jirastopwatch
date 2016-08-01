@@ -49,7 +49,7 @@ namespace StopWatch
 
         public IRestRequest CreateGetIssuesByJQLRequest(string jql)
         {
-            var request = restRequestFactory.Create(String.Format("/rest/api/2/search?jql={0}", jql), Method.GET);
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/search?jql={0}&maxResults=200", jql), Method.GET);
             return request;
         }
 

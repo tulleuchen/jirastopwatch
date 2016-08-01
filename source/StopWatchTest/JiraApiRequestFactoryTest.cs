@@ -48,7 +48,7 @@
         {
             string jql = "status%3Dopen";
             var request = jiraApiRequestFactory.CreateGetIssuesByJQLRequest(jql);
-            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/search?jql={0}", jql), Method.GET));
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/search?jql={0}&maxResults=200", jql), Method.GET));
         }
 
 
