@@ -492,7 +492,7 @@ namespace StopWatch
         private void LoadIssues()
         {
             // TODO: This + the datasource for cbFilters should be moved into a controller layer
-            var ctrlList = (Application.OpenForms[0] as MainForm).Controls.Find("cbFilters", false);
+            var ctrlList = (Application.OpenForms[0] as MainForm).Controls.Find("cbFilters", true);
             if (ctrlList.Length == 0)
                 return;
 
