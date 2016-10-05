@@ -339,7 +339,7 @@ namespace StopWatch
 
             r1.Width = keyWidth;
 
-            r2.X = r1.Width;
+            r2.X = r1.Width + 5;
             r2.Width = 500 - keyWidth;
 
             Font font = new Font(e.Font.FontFamily, e.Font.Size * 0.8f, e.Font.Style);
