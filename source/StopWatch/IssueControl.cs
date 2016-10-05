@@ -315,9 +315,14 @@ namespace StopWatch
         #region private eventhandlers
         void cbJira_MeasureItem(object sender, MeasureItemEventArgs e)
         {
+            if (e.Index == 0)
+                keyWidth = 0;
+            CBIssueItem item = (CBIssueItem)cbJira.Items[e.Index];
             Font font = new Font(cbJira.Font.FontFamily, cbJira.Font.Size * 0.8f, cbJira.Font.Style);
-            Size size = TextRenderer.MeasureText(e.Graphics, "FOO", font);
+            Size size = TextRenderer.MeasureText(e.Graphics, item.Key, font);
             e.ItemHeight = size.Height;
+            if (keyWidth < size.Width)
+                keyWidth = size.Width;
         }
 
 
@@ -332,10 +337,10 @@ namespace StopWatch
             Rectangle r1 = e.Bounds;
             Rectangle r2 = e.Bounds;
 
-            r1.Width = 100;
+            r1.Width = keyWidth;
 
             r2.X = r1.Width;
-            r2.Width = 400;
+            r2.Width = 500 - keyWidth;
 
             Font font = new Font(e.Font.FontFamily, e.Font.Size * 0.8f, e.Font.Style);
 
@@ -556,6 +561,8 @@ namespace StopWatch
         private JiraClient jiraClient;
 
         private Settings settings;
+
+        private int keyWidth;
         #endregion
 
 
