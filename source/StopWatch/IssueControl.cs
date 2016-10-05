@@ -189,6 +189,8 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
+            this.cbJira.MeasureItem += this.cbJira_MeasureItem;
+            this.cbJira.DrawItem += this.cbJira_DrawItem;
             // 
             // tbTime
             // 
