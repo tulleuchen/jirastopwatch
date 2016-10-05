@@ -194,7 +194,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:StopWatch, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:StopWatch, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_50F3BB70243F4243B4B1324E58EFC858"
@@ -308,15 +308,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Jira StopWatch"
-        "ProductCode" = "8:{82C3F27D-2776-40D3-A237-22E235D85231}"
-        "PackageCode" = "8:{818DC636-B638-4D44-ADE9-3E3243D22C21}"
+        "ProductCode" = "8:{F903F9E1-7F4C-47BE-BEDB-24D5F5A0D9C6}"
+        "PackageCode" = "8:{EF4F604B-E1B1-415B-89AC-66CFF3913D28}"
         "UpgradeCode" = "8:{292249F1-B39F-4CA1-AA94-28FA5DA3CFFB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.7.0"
+        "ProductVersion" = "8:1.8.0"
         "Manufacturer" = "8:Carsten Gehling"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

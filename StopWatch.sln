@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopWatch", "source\StopWatch\StopWatch.csproj", "{B7C11B2A-F064-4BA4-BD87-954197D7FF35}"
 EndProject
@@ -10,7 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE.rtf = LICENSE.rtf
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
-		todo.txt = todo.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopWatchTest", "source\StopWatchTest\StopWatchTest.csproj", "{7F60E6E6-B488-4A6E-868B-796E3A42F552}"

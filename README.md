@@ -72,7 +72,24 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
-1.7.0     2016-06-25     New features/improvement
+1.8.0     2016-10-05     New features/improvement:
+                           - When submitting worklog, StartTime will also be set. The value
+						     will be equal to "now minus logged work-time".
+							 Kudos to [Lee Houghton](https://github.com/asztal)
+							 for making this PR.
+						   - UI now handles Windows' zoom settings much better.
+						   - Timers and settings are now saved continously instead of only
+						     at program exit. So no data loss if you get power-outs or PC crash.
+						   - Issue dropdown box will now retrieve up to 200 issues, instead of
+						     the API-default of 50.
+							 
+                         Bugfixes:
+						   - Fixed random startup crashes.
+						   - If issue keys are very long, they could be cropped in the dropdown
+						     box. This has been fixed, so the key column width adapts to the
+							 widest key.
+                      
+1.7.0     2016-06-25     New features/improvement:
                            - Edit timer is now always enabled - you edit by double-clicking
                              the time field. 
                            - StopWatch now only runs single instance - it detects at startup
