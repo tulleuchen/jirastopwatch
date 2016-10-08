@@ -91,6 +91,8 @@ namespace StopWatch
         /// Update method for the estimate
         /// </summary>
         private EstimateUpdateMethods _estimateUpdateMethod = EstimateUpdateMethods.Auto;
+        private bool tbSetToInvalid = false;
+        private bool tbReduceByInvalid = false;
 
         #endregion
 
@@ -100,9 +102,23 @@ namespace StopWatch
             submit_if_ctrl_enter(e);
         }
 
+        private void tbSetTo_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (tbSetToInvalid)
+            {
+                ValidateTimeInput(tbSetTo, false);
+            }
+        }
         private void tbSetTo_KeyDown(object sender, KeyEventArgs e)
         {
             submit_if_ctrl_enter(e);
+        }
+        private void tbReduceBy_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (tbReduceByInvalid)
+            {
+                ValidateTimeInput(tbReduceBy, false);
+            }
         }
         private void tbReduceBy_KeyDown(object sender, KeyEventArgs e)
         {
@@ -214,17 +230,19 @@ namespace StopWatch
         private bool ValidateAllInputs()
         {
             Boolean AllValid = true;
+            tbSetToInvalid = false;
+            tbReduceByInvalid = false;
             switch(estimateUpdateMethod) {
                 case EstimateUpdateMethods.SetTo: 
                     if (!ValidateTimeInput(tbSetTo, true))
                     {
-                        AllValid = false;
+                        AllValid = false;                        
                     }
                     break;
                 case EstimateUpdateMethods.ManualDecrease:
                     if (!ValidateTimeInput(tbReduceBy, true))
                     {
-                        AllValid = false;
+                        AllValid = false;                        
                     }
                     break;
             }
@@ -239,6 +257,7 @@ namespace StopWatch
         /// <returns></returns>
         private bool ValidateTimeInput(TextBox tb, bool FocusIfInvalid)
         {
+            bool fieldIsValid;
             if (tb.Enabled)
             {
                 if (string.IsNullOrWhiteSpace(tb.Text))
@@ -248,7 +267,7 @@ namespace StopWatch
                     {
                         tb.Select();
                     }
-                    return false;
+                    fieldIsValid = false;
                 }
                 else
                 {
@@ -260,18 +279,29 @@ namespace StopWatch
                         {
                             tb.Select(0, tb.Text.Length);
                         }
-                        return false;
+                        fieldIsValid = false;
                     }
                     else{
                         tb.BackColor = SystemColors.Window;
-                        return true;
+                        fieldIsValid = true;
                     }
                 }
             } 
             else 
             {
-                return true;
-            }            
+                fieldIsValid = true;
+            }
+
+            switch(tb.Name)
+            {
+                case "tbSetTo":
+                    tbSetToInvalid = !fieldIsValid;
+                    break;
+                case "tbReduceBy":
+                    tbReduceByInvalid = !fieldIsValid;
+                    break;
+            }
+            return fieldIsValid;
         }
         #endregion
     }

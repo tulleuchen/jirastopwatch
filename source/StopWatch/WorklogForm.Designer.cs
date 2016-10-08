@@ -188,6 +188,7 @@ namespace StopWatch
             this.tbSetTo.Size = new System.Drawing.Size(133, 20);
             this.tbSetTo.TabIndex = 6;
             this.tbSetTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSetTo_KeyDown);
+            this.tbSetTo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbSetTo_KeyUp);
             this.tbSetTo.Validating += new System.ComponentModel.CancelEventHandler(this.tbSetTo_Validating);
             // 
             // rdEstimateAdjustManualDecrease
@@ -210,6 +211,7 @@ namespace StopWatch
             this.tbReduceBy.Size = new System.Drawing.Size(133, 20);
             this.tbReduceBy.TabIndex = 7;
             this.tbReduceBy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyDown);
+            this.tbReduceBy.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyUp);
             this.tbReduceBy.Validating += new System.ComponentModel.CancelEventHandler(this.tbReduceBy_Validating);
             // 
             // WorklogForm
