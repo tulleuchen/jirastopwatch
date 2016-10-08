@@ -551,6 +551,8 @@ namespace StopWatch
                 var formResult = worklogForm.ShowDialog(this);
                 if (formResult == DialogResult.OK)
                 {
+                    EstimateUpdateMethods estimateUpdateMethod = worklogForm.estimateUpdateMethod;
+                    String estimateUpdateValue = worklogForm.EstimateValue;
                     Comment = worklogForm.Comment.Trim();
                     EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
                     EstimateUpdateValue = worklogForm.EstimateValue;
