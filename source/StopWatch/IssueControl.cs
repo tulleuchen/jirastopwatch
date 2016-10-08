@@ -422,9 +422,11 @@ namespace StopWatch
                 var formResult = worklogForm.ShowDialog(this);
                 if (formResult == DialogResult.OK)
                 {
+                    EstimateUpdateMethods estimateUpdateMethod = worklogForm.estimateUpdateMethod;
+                    String estimateUpdateValue = worklogForm.EstimateValue;
                     Comment = worklogForm.Comment.Trim();
 
-                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment);
+                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment, estimateUpdateMethod, estimateUpdateValue);
                 }
                 else if (formResult == DialogResult.Yes)
                 {
@@ -451,7 +453,7 @@ namespace StopWatch
 
 
         #region private methods
-        private void PostAndReset(string key, TimeSpan timeElapsed, string comment)
+        private void PostAndReset(string key, TimeSpan timeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {
             Task.Factory.StartNew(
                 () =>
@@ -476,7 +478,7 @@ namespace StopWatch
 
                     // Now post the WorkLog with timeElapsed - and comment unless it was reset
                     if (postSuccesful)
-                        postSuccesful = jiraClient.PostWorklog(key, timeElapsed, comment);
+                        postSuccesful = jiraClient.PostWorklog(key, timeElapsed, comment, estimateUpdateMethod, estimateUpdateValue);
 
                     if (postSuccesful)
                     {

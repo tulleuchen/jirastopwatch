@@ -28,6 +28,30 @@ namespace StopWatch
                 return tbComment.Text;
             }
         }
+        public EstimateUpdateMethods estimateUpdateMethod
+        {
+            get
+            {
+                return _estimateUpdateMethod;
+            }
+        }
+        public string EstimateValue
+        {
+            get
+            {
+                switch(this.estimateUpdateMethod)
+                {
+                    case EstimateUpdateMethods.SetTo:                       
+                        return this.tbSetTo.Text;
+                    case EstimateUpdateMethods.ManualDecrease:
+                        return this.tbReduceBy.Text;
+                    case EstimateUpdateMethods.Auto:
+                    case EstimateUpdateMethods.Leave:
+                    default:
+                        return null;                        
+                }
+            }
+        }
         #endregion
 
 
@@ -44,9 +68,47 @@ namespace StopWatch
         }
         #endregion
 
+        #region private fields
+        
+        /// <summary>
+        /// Update method for the estimate
+        /// </summary>
+        private EstimateUpdateMethods _estimateUpdateMethod = EstimateUpdateMethods.Auto;
+
+        #endregion
 
         #region private eventhandlers
         private void tbComment_KeyDown(object sender, KeyEventArgs e)
+        {
+            submit_if_ctrl_enter(e);
+        }
+
+        private void tbSetTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            submit_if_ctrl_enter(e);
+        }
+        private void tbReduceBy_KeyDown(object sender, KeyEventArgs e)
+        {
+            submit_if_ctrl_enter(e);
+        }
+        private void rdEstimateAdjustAuto_KeyDown(object sender, KeyEventArgs e)
+        {
+            submit_if_ctrl_enter(e);
+        }
+        private void rdEstimateAdjustLeave_KeyDown(object sender, KeyEventArgs e)
+        {
+            submit_if_ctrl_enter(e);
+        }
+        private void rdEstimateAdjustSetTo_KeyDown(object sender, KeyEventArgs e)
+        {
+            submit_if_ctrl_enter(e);
+        }
+        private void rdEstimateAdjustManualDecrease_KeyDown(object sender, KeyEventArgs e)
+        {
+            submit_if_ctrl_enter(e);
+        }
+
+        private void submit_if_ctrl_enter(KeyEventArgs e)
         {
             if (e.KeyData == (Keys.Control | Keys.Enter))
             {
@@ -54,6 +116,38 @@ namespace StopWatch
                 Close();
             }
         }
-        #endregion
+
+        private void estimateUpdateMethod_changed(object sender, EventArgs e)
+        {
+            RadioButton button = sender as RadioButton;
+            if (button != null && button.Checked)
+            {
+                switch (button.Name)
+                {
+                    case "rdEstimateAdjustAuto":
+                        this._estimateUpdateMethod = EstimateUpdateMethods.Auto;
+                        this.tbSetTo.Enabled = false;
+                        this.tbReduceBy.Enabled = false;
+                        break;
+                    case "rdEstimateAdjustLeave":
+                        this._estimateUpdateMethod = EstimateUpdateMethods.Leave;
+                        this.tbSetTo.Enabled = false;
+                        this.tbReduceBy.Enabled = false;
+                        break;
+                    case "rdEstimateAdjustSetTo":
+                        this._estimateUpdateMethod = EstimateUpdateMethods.SetTo;
+                        this.tbSetTo.Enabled = true;
+                        this.tbReduceBy.Enabled = false;
+                        break;
+                    case "rdEstimateAdjustManualDecrease":
+                        this._estimateUpdateMethod = EstimateUpdateMethods.ManualDecrease;
+                        this.tbSetTo.Enabled = false;
+                        this.tbReduceBy.Enabled = true;
+                        break;
+                }
+            }
+        }
+
+        #endregion       
     }
 }

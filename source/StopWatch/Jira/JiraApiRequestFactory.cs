@@ -61,7 +61,7 @@ namespace StopWatch
         }
 
 
-        public IRestRequest CreatePostWorklogRequest(string key, DateTimeOffset started, TimeSpan time, string comment)
+        public IRestRequest CreatePostWorklogRequest(string key, DateTimeOffset started, TimeSpan time, string comment, EstimateUpdateMethods adjustmentMethod, string adjustmentValue)
         {
             var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/worklog", key.Trim()), Method.POST);
             request.RequestFormat = DataFormat.Json;
@@ -72,6 +72,22 @@ namespace StopWatch
                     comment = comment
                 }
             );
+            switch(adjustmentMethod) {
+                case EstimateUpdateMethods.Leave:
+                    request.AddQueryParameter("adjustEstimate", "leave");
+                    break;
+                case EstimateUpdateMethods.SetTo:
+                    request.AddQueryParameter("adjustEstimate", "new");
+                    request.AddQueryParameter("newEstimate", adjustmentValue);
+                    break;
+                case EstimateUpdateMethods.ManualDecrease:
+                    request.AddQueryParameter("adjustEstimate", "manual");
+                    request.AddQueryParameter("reduceBy", adjustmentValue);
+                    break;
+                case EstimateUpdateMethods.Auto:
+                    request.AddQueryParameter("adjustEstimate", "auto");
+                    break;
+            }
             return request;
         }
 

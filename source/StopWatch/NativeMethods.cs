@@ -29,5 +29,15 @@ namespace StopWatch
 
         [DllImport("user32")]
         public static extern int RegisterWindowMessage(string message);
+
+
+    }
+
+    public enum EstimateUpdateMethods
+    {
+        Auto,
+        Leave,
+        SetTo,
+        ManualDecrease
     }
 }
