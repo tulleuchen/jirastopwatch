@@ -126,17 +126,19 @@ namespace StopWatch
         }
         private void tbSetTo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!ValidateTimeInput(tbSetTo))
-            {
-                e.Cancel = true;                
-            }
+            // Valdiate but do not set the cancel event
+            // The reason for this is thats etting the cancel event means you can't leave the field,
+            // even to choose a different estimate adjustment option.
+            // So valiate (so the colour updates) but do not cancel
+            ValidateTimeInput(tbSetTo, false);
         }
         private void tbReduceBy_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!ValidateTimeInput(tbReduceBy))
-            {
-                e.Cancel = true;
-            }
+            // Valdiate but do not set the cancel event
+            // The reason for this is thats etting the cancel event means you can't leave the field,
+            // even to choose a different estimate adjustment option.
+            // So valiate (so the colour updates) but do not cancel
+            ValidateTimeInput(tbReduceBy, false);
         }
 
         private void submit_if_ctrl_enter(KeyEventArgs e)
@@ -162,22 +164,28 @@ namespace StopWatch
                     case "rdEstimateAdjustAuto":
                         this._estimateUpdateMethod = EstimateUpdateMethods.Auto;
                         this.tbSetTo.Enabled = false;
+                        this.tbSetTo.BackColor = SystemColors.Window;
                         this.tbReduceBy.Enabled = false;
+                        this.tbReduceBy.BackColor = SystemColors.Window;
                         break;
                     case "rdEstimateAdjustLeave":
                         this._estimateUpdateMethod = EstimateUpdateMethods.Leave;
                         this.tbSetTo.Enabled = false;
+                        this.tbSetTo.BackColor = SystemColors.Window;
                         this.tbReduceBy.Enabled = false;
+                        this.tbReduceBy.BackColor = SystemColors.Window;
                         break;
                     case "rdEstimateAdjustSetTo":
                         this._estimateUpdateMethod = EstimateUpdateMethods.SetTo;
                         this.tbSetTo.Enabled = true;
                         this.tbReduceBy.Enabled = false;
+                        this.tbReduceBy.BackColor = SystemColors.Window;
                         break;
                     case "rdEstimateAdjustManualDecrease":
                         this._estimateUpdateMethod = EstimateUpdateMethods.ManualDecrease;
                         this.tbSetTo.Enabled = false;
-                        this.tbReduceBy.Enabled = true;
+                        this.tbSetTo.BackColor = SystemColors.Window;
+                        this.tbReduceBy.Enabled = true;                        
                         break;
                 }
             }
@@ -208,13 +216,13 @@ namespace StopWatch
             Boolean AllValid = true;
             switch(estimateUpdateMethod) {
                 case EstimateUpdateMethods.SetTo: 
-                    if (!ValidateTimeInput(tbSetTo))
+                    if (!ValidateTimeInput(tbSetTo, true))
                     {
                         AllValid = false;
                     }
                     break;
                 case EstimateUpdateMethods.ManualDecrease:
-                    if (!ValidateTimeInput(tbReduceBy))
+                    if (!ValidateTimeInput(tbReduceBy, true))
                     {
                         AllValid = false;
                     }
@@ -229,14 +237,17 @@ namespace StopWatch
         /// </summary>
         /// <param name="tb"></param>
         /// <returns></returns>
-        private bool ValidateTimeInput(TextBox tb)
+        private bool ValidateTimeInput(TextBox tb, bool FocusIfInvalid)
         {
             if (tb.Enabled)
             {
                 if (string.IsNullOrWhiteSpace(tb.Text))
                 {
                     tb.BackColor = Color.Tomato;
-                    tb.Select();
+                    if (FocusIfInvalid)
+                    {
+                        tb.Select();
+                    }
                     return false;
                 }
                 else
@@ -245,7 +256,10 @@ namespace StopWatch
                     if (time == null)
                     {
                         tb.BackColor = Color.Tomato;
-                        tb.Select(0, tb.Text.Length);
+                        if (FocusIfInvalid)
+                        {
+                            tb.Select(0, tb.Text.Length);
+                        }
                         return false;
                     }
                     else{
