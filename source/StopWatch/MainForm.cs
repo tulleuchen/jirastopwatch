@@ -172,6 +172,8 @@ namespace StopWatch
                         };
                         issueControl.WatchTimer.SetState(timerState);
                         issueControl.Comment = persistedIssue.Comment;
+                        issueControl.EstimateUpdateMethod = persistedIssue.EstimateUpdateMethod;
+                        issueControl.EstimateUpdateValue = persistedIssue.EstimateUpdateValue;
                     }
                 }
                 i++;
@@ -401,7 +403,9 @@ namespace StopWatch
                     TimerRunning = timerState.Running,
                     StartTime = timerState.StartTime,
                     TotalTime = timerState.TotalTime,
-                    Comment = issueControl.Comment
+                    Comment = issueControl.Comment,
+                    EstimateUpdateMethod = issueControl.EstimateUpdateMethod,
+                    EstimateUpdateValue = issueControl.EstimateUpdateValue
                 };
 
                 settings.PersistedIssues.Add(persistedIssue);

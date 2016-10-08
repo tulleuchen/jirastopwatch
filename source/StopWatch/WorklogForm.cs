@@ -56,7 +56,7 @@ namespace StopWatch
 
 
         #region public methods
-        public WorklogForm(string comment)
+        public WorklogForm(string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {
             InitializeComponent();
 
@@ -64,6 +64,22 @@ namespace StopWatch
             {
                 tbComment.Text = String.Format("{0}{0}{1}", Environment.NewLine, comment);
                 tbComment.SelectionStart = 0;
+            }
+            switch( estimateUpdateMethod ) {
+                case EstimateUpdateMethods.Auto:
+                    rdEstimateAdjustAuto.Checked = true;
+                    break;
+                case EstimateUpdateMethods.Leave:
+                    rdEstimateAdjustLeave.Checked = true;
+                    break;
+                case EstimateUpdateMethods.SetTo:
+                    rdEstimateAdjustSetTo.Checked = true;
+                    tbSetTo.Text = estimateUpdateValue;
+                    break;
+                case EstimateUpdateMethods.ManualDecrease:
+                    rdEstimateAdjustManualDecrease.Checked = true;
+                    tbReduceBy.Text = estimateUpdateValue;
+                    break;
             }
         }
         #endregion

@@ -54,6 +54,8 @@ namespace StopWatch
 
 
         public string Comment { get; set; }
+        public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
+        public string EstimateUpdateValue { get; set; }
         #endregion
 
 
@@ -71,6 +73,8 @@ namespace StopWatch
             InitializeComponent();
 
             Comment = null;
+            EstimateUpdateMethod = EstimateUpdateMethods.Auto;
+            EstimateUpdateValue = null;
 
             this.settings = settings;
 
@@ -289,6 +293,8 @@ namespace StopWatch
         private void Reset()
         {
             Comment = null;
+            EstimateUpdateMethod = EstimateUpdateMethods.Auto;
+            EstimateUpdateValue = null;
             this.WatchTimer.Reset();
             UpdateOutput();
 
@@ -417,20 +423,22 @@ namespace StopWatch
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
         {
-            using (var worklogForm = new WorklogForm(Comment))
+            using (var worklogForm = new WorklogForm(Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
                 var formResult = worklogForm.ShowDialog(this);
                 if (formResult == DialogResult.OK)
                 {
-                    EstimateUpdateMethods estimateUpdateMethod = worklogForm.estimateUpdateMethod;
-                    String estimateUpdateValue = worklogForm.EstimateValue;
                     Comment = worklogForm.Comment.Trim();
+                    EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
+                    EstimateUpdateValue = worklogForm.EstimateValue;
 
-                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment, estimateUpdateMethod, estimateUpdateValue);
+                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
                 else if (formResult == DialogResult.Yes)
                 {
                     Comment = string.Format("{0}:{1}{2}", DateTime.Now.ToString("g"), Environment.NewLine, worklogForm.Comment.Trim());
+                    EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
+                    EstimateUpdateValue = worklogForm.EstimateValue;
                     UpdateOutput();
                 }
             }
