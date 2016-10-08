@@ -15,6 +15,7 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace StopWatch
 {
@@ -123,13 +124,31 @@ namespace StopWatch
         {
             submit_if_ctrl_enter(e);
         }
+        private void tbSetTo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!ValidateTimeInput(tbSetTo))
+            {
+                e.Cancel = true;                
+            }
+        }
+        private void tbReduceBy_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!ValidateTimeInput(tbReduceBy))
+            {
+                e.Cancel = true;
+            }
+        }
 
         private void submit_if_ctrl_enter(KeyEventArgs e)
         {
             if (e.KeyData == (Keys.Control | Keys.Enter))
             {
                 DialogResult = DialogResult.OK;
-                Close();
+                post_time_and_close();
+                if (DialogResult == DialogResult.OK)
+                {
+                    Close();
+                }
             }
         }
 
@@ -164,6 +183,82 @@ namespace StopWatch
             }
         }
 
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            post_time_and_close();
+        }
+
+        private void post_time_and_close()
+        {
+            if (!ValidateAllInputs())
+            {
+                DialogResult = DialogResult.None;
+                return;
+            }            
+        }
         #endregion       
+
+        #region private utility methods
+        /// <summary>
+        /// Validates the required inputs.  Returns
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateAllInputs()
+        {
+            Boolean AllValid = true;
+            switch(estimateUpdateMethod) {
+                case EstimateUpdateMethods.SetTo: 
+                    if (!ValidateTimeInput(tbSetTo))
+                    {
+                        AllValid = false;
+                    }
+                    break;
+                case EstimateUpdateMethods.ManualDecrease:
+                    if (!ValidateTimeInput(tbReduceBy))
+                    {
+                        AllValid = false;
+                    }
+                    break;
+            }
+
+            return AllValid;
+        }
+        /// <summary>
+        /// Checks if the time entered in the submitted textbox is valid
+        /// Marks it as invalid if it is not
+        /// </summary>
+        /// <param name="tb"></param>
+        /// <returns></returns>
+        private bool ValidateTimeInput(TextBox tb)
+        {
+            if (tb.Enabled)
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.BackColor = Color.Tomato;
+                    tb.Select();
+                    return false;
+                }
+                else
+                {
+                    TimeSpan? time = JiraTimeHelpers.JiraTimeToTimeSpan(tb.Text);
+                    if (time == null)
+                    {
+                        tb.BackColor = Color.Tomato;
+                        tb.Select(0, tb.Text.Length);
+                        return false;
+                    }
+                    else{
+                        tb.BackColor = SystemColors.Window;
+                        return true;
+                    }
+                }
+            } 
+            else 
+            {
+                return true;
+            }            
+        }
+        #endregion
     }
 }
