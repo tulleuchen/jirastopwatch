@@ -208,9 +208,9 @@ namespace StopWatch
             this.rdEstimateAdjustLeave.AutoSize = true;
             this.rdEstimateAdjustLeave.Location = new System.Drawing.Point(8, 39);
             this.rdEstimateAdjustLeave.Name = "rdEstimateAdjustLeave";
-            this.rdEstimateAdjustLeave.Size = new System.Drawing.Size(85, 17);
+            this.rdEstimateAdjustLeave.Size = new System.Drawing.Size(114, 17);
             this.rdEstimateAdjustLeave.TabIndex = 3;
-            this.rdEstimateAdjustLeave.Text = "&Leave Alone";
+            this.rdEstimateAdjustLeave.Text = "&Leave Unchanged";
             this.rdEstimateAdjustLeave.UseVisualStyleBackColor = true;
             this.rdEstimateAdjustLeave.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
             this.rdEstimateAdjustLeave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustLeave_KeyDown);
@@ -251,10 +251,10 @@ namespace StopWatch
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.RadioButton rdEstimateAdjustAuto;
         private System.Windows.Forms.GroupBox gbRemainingEstimate;
-        private System.Windows.Forms.RadioButton rdEstimateAdjustLeave;
         private RadioButton rdEstimateAdjustManualDecrease;
         private RadioButton rdEstimateAdjustSetTo;
         private TextBox tbSetTo;
         private TextBox tbReduceBy;
+        public RadioButton rdEstimateAdjustLeave;
     }
 }

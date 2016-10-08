@@ -60,6 +60,12 @@ namespace StopWatch
             return request;
         }
 
+        public IRestRequest CreateGetIssueTimetrackingRequest(string key)
+        {
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}?fields=timetracking", key.Trim()), Method.GET);
+            return request;
+        }
+
 
         public IRestRequest CreatePostWorklogRequest(string key, DateTimeOffset started, TimeSpan time, string comment, EstimateUpdateMethods adjustmentMethod, string adjustmentValue)
         {

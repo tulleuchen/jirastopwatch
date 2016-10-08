@@ -160,6 +160,43 @@ namespace StopWatch
             );
         }
 
+        private void UpdateRemainingEstimate(WorklogForm  worklogForm)
+        {
+            RemainingEstimate = "";
+            RemainingEstimateSeconds = -1;
+
+            if (cbJira.Text == "")
+                return;
+            if (!jiraClient.SessionValid)
+                return;
+
+            Task.Factory.StartNew(
+                () =>
+                {
+                    string key = "";
+                    TimetrackingFields timetracking = null;
+                    this.InvokeIfRequired(
+                        () => key = cbJira.Text
+                    );
+                    timetracking = jiraClient.GetIssueTimetracking(key);
+                    this.InvokeIfRequired(
+                        () => RemainingEstimate = timetracking.RemainingEstimate
+                    );
+                    this.InvokeIfRequired(
+                        () => RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
+                    );
+                    if (worklogForm != null)
+                    {
+                        this.InvokeIfRequired(
+                            () => worklogForm.RemainingEstimate = timetracking.RemainingEstimate
+                        );
+                        this.InvokeIfRequired(
+                            () => worklogForm.RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
+                        );                        
+                    }
+                }
+            );
+        }
 
         private void InitializeComponent()
         {
@@ -423,8 +460,9 @@ namespace StopWatch
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
         {
-            using (var worklogForm = new WorklogForm(settings.AllowManualEstimateAdjustments, Comment, EstimateUpdateMethod, EstimateUpdateValue))
+            using (var worklogForm = new WorklogForm(WatchTimer.TimeElapsed, settings.AllowManualEstimateAdjustments, Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
+                UpdateRemainingEstimate(worklogForm);
                 var formResult = worklogForm.ShowDialog(this);
                 if (formResult == DialogResult.OK)
                 {
@@ -573,6 +611,9 @@ namespace StopWatch
         private Settings settings;
 
         private int keyWidth;
+
+        private string RemainingEstimate;
+        private int RemainingEstimateSeconds;
         #endregion
 
 

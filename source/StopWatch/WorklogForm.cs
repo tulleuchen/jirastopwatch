@@ -67,22 +67,48 @@ namespace StopWatch
                 }
             }
         }
+
+        public string RemainingEstimate
+        {
+            get
+            {
+                return _RemainingEstimate;
+            }
+            set
+            {
+                _RemainingEstimate = value;
+                RemainingEstimateUpdated();
+            }
+        }
+
+        public int RemainingEstimateSeconds
+        {
+            get
+            {
+                return _RemainingEstimateSeconds;
+            }
+            set
+            {
+                _RemainingEstimateSeconds = value;
+                RemainingEstimateUpdated();
+            }
+        }
         #endregion
 
 
         #region public methods
-        public WorklogForm(bool AllowManualEstimateAdjustments, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
-        {
+        public WorklogForm(TimeSpan TimeElapsed, bool AllowManualEstimateAdjustments, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
+        {            
             this.AllowManualEstimateAdjustments = AllowManualEstimateAdjustments;
+            this.TimeElapsed = TimeElapsed;
             InitializeComponent();
-
             if (!String.IsNullOrEmpty(comment))
             {
                 tbComment.Text = String.Format("{0}{0}{1}", Environment.NewLine, comment);
                 tbComment.SelectionStart = 0;
             }
             if (this.AllowManualEstimateAdjustments)
-            {
+            {                
                 this.gbRemainingEstimate.Visible = true;
                 switch( estimateUpdateMethod ) {
                     case EstimateUpdateMethods.Auto:
@@ -134,7 +160,9 @@ namespace StopWatch
         private bool tbSetToInvalid = false;
         private bool tbReduceByInvalid = false;
         private bool AllowManualEstimateAdjustments;
-
+        private string _RemainingEstimate;
+        private int _RemainingEstimateSeconds;
+        private TimeSpan TimeElapsed;
         #endregion
 
         #region private eventhandlers
@@ -264,6 +292,45 @@ namespace StopWatch
         #endregion       
 
         #region private utility methods
+
+        private void RemainingEstimateUpdated()
+        {
+            if (string.IsNullOrWhiteSpace(RemainingEstimate))
+            {
+                rdEstimateAdjustLeave.Text = "&Leave Unchanged bar";
+            }
+            else
+            {
+                rdEstimateAdjustLeave.Text = string.Format("&Leave As {0}", _RemainingEstimate);
+            }
+
+            if( TimeElapsed != null && RemainingEstimateSeconds > 0){
+                rdEstimateAdjustAuto.Text = string.Format("Adjust &Automatically (to {0})", calculatedAdjustedRemainingEstimate());
+            }else {
+                rdEstimateAdjustAuto.Text = "Adjust &Automatically";
+            }
+        }
+
+        private string calculatedAdjustedRemainingEstimate()
+        {
+            
+            int AdjustedRemainingSeconds = RemainingEstimateSeconds - (int)Math.Floor(TimeElapsed.TotalSeconds);
+            if (AdjustedRemainingSeconds > 0)
+            {
+                TimeSpan AdjustedRemaining = new TimeSpan(0, 0, AdjustedRemainingSeconds);
+                return JiraTimeHelpers.TimeSpanToJiraTime(AdjustedRemaining);
+            }
+            else
+            {
+                return "0m";
+            }
+        }
+
+        private void foo(string text)
+        {
+
+        }
+
         /// <summary>
         /// Validates the required inputs.  Returns
         /// </summary>
