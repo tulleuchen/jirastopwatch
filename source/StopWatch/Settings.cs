@@ -49,6 +49,7 @@ namespace StopWatch
         public bool MinimizeToTray { get; set; }
         public int IssueCount { get; set; }
         public bool AllowMultipleTimers { get; set; }
+        public bool AllowManualEstimateAdjustments { get; set; }
 
         public SaveTimerSetting SaveTimerState { get; set; }
         public PauseAndResumeSetting PauseOnSessionLock { get; set; }
@@ -95,6 +96,8 @@ namespace StopWatch
             this.PersistedIssues = ReadIssues(Properties.Settings.Default.PersistedIssues);
 
             this.AllowMultipleTimers = Properties.Settings.Default.AllowMultipleTimers;
+
+            this.AllowManualEstimateAdjustments = Properties.Settings.Default.AllowManualEstimateAdjustments;
         }
 
 
@@ -131,6 +134,8 @@ namespace StopWatch
             Properties.Settings.Default.PersistedIssues = WriteIssues(this.PersistedIssues);
 
             Properties.Settings.Default.AllowMultipleTimers = this.AllowMultipleTimers;
+
+            Properties.Settings.Default.AllowManualEstimateAdjustments = this.AllowManualEstimateAdjustments;
 
             Properties.Settings.Default.Save();
         }

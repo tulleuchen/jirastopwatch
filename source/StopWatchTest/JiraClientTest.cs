@@ -136,7 +136,7 @@
         {
             jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<object>(It.IsAny<IRestRequest>())).Returns(new object());
 
-            Assert.That(jiraClient.PostWorklog("DG-42", new TimeSpan(1, 20, 0), "Time is an illusion"), Is.True);
+            Assert.That(jiraClient.PostWorklog("DG-42", new TimeSpan(1, 20, 0), "Time is an illusion", EstimateUpdateMethods.Auto, null), Is.True);
         }
 
 
@@ -144,7 +144,7 @@
         public void PostWorklog_OnFailure_It_Returns_False()
         {
             jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<object>(It.IsAny<IRestRequest>())).Throws<RequestDeniedException>();
-            Assert.That(jiraClient.PostWorklog("DG-42", new TimeSpan(2, 10, 0), "Lunchtime doubly so"), Is.False);
+            Assert.That(jiraClient.PostWorklog("DG-42", new TimeSpan(2, 10, 0), "Lunchtime doubly so", EstimateUpdateMethods.Auto, null), Is.False);
         }
 
 

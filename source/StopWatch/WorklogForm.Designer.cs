@@ -53,11 +53,11 @@ namespace StopWatch
             this.btnSave = new System.Windows.Forms.Button();
             this.rdEstimateAdjustAuto = new System.Windows.Forms.RadioButton();
             this.gbRemainingEstimate = new System.Windows.Forms.GroupBox();
+            this.tbReduceBy = new System.Windows.Forms.TextBox();
             this.tbSetTo = new System.Windows.Forms.TextBox();
             this.rdEstimateAdjustManualDecrease = new System.Windows.Forms.RadioButton();
             this.rdEstimateAdjustSetTo = new System.Windows.Forms.RadioButton();
             this.rdEstimateAdjustLeave = new System.Windows.Forms.RadioButton();
-            this.tbReduceBy = new System.Windows.Forms.TextBox();
             this.gbRemainingEstimate.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,21 +127,6 @@ namespace StopWatch
             this.btnSave.Text = "Sa&ve for later";
             this.btnSave.UseVisualStyleBackColor = true;
             // 
-            // gbRemainingEstimate
-            // 
-            this.gbRemainingEstimate.Controls.Add(this.tbReduceBy);
-            this.gbRemainingEstimate.Controls.Add(this.tbSetTo);
-            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustManualDecrease);
-            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustSetTo);
-            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustLeave);
-            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustAuto);
-            this.gbRemainingEstimate.Location = new System.Drawing.Point(14, 174);
-            this.gbRemainingEstimate.Name = "gbRemainingEstimate";
-            this.gbRemainingEstimate.Size = new System.Drawing.Size(299, 113);
-            this.gbRemainingEstimate.TabIndex = 2;
-            this.gbRemainingEstimate.TabStop = false;
-            this.gbRemainingEstimate.Text = "Remaining Estimate";            
-            // 
             // rdEstimateAdjustAuto
             // 
             this.rdEstimateAdjustAuto.AutoSize = true;
@@ -156,29 +141,32 @@ namespace StopWatch
             this.rdEstimateAdjustAuto.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
             this.rdEstimateAdjustAuto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustAuto_KeyDown);
             // 
-            // rdEstimateAdjustLeave
+            // gbRemainingEstimate
             // 
-            this.rdEstimateAdjustLeave.AutoSize = true;
-            this.rdEstimateAdjustLeave.Location = new System.Drawing.Point(8, 39);
-            this.rdEstimateAdjustLeave.Name = "rdEstimateAdjustLeave";
-            this.rdEstimateAdjustLeave.Size = new System.Drawing.Size(85, 17);
-            this.rdEstimateAdjustLeave.TabIndex = 3;
-            this.rdEstimateAdjustLeave.Text = "&Leave Alone";
-            this.rdEstimateAdjustLeave.UseVisualStyleBackColor = true;
-            this.rdEstimateAdjustLeave.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
-            this.rdEstimateAdjustLeave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustLeave_KeyDown);
+            this.gbRemainingEstimate.Controls.Add(this.tbReduceBy);
+            this.gbRemainingEstimate.Controls.Add(this.tbSetTo);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustManualDecrease);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustSetTo);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustLeave);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustAuto);
+            this.gbRemainingEstimate.Location = new System.Drawing.Point(14, 174);
+            this.gbRemainingEstimate.Name = "gbRemainingEstimate";
+            this.gbRemainingEstimate.Size = new System.Drawing.Size(299, 113);
+            this.gbRemainingEstimate.TabIndex = 2;
+            this.gbRemainingEstimate.TabStop = false;
+            this.gbRemainingEstimate.Text = "Remaining Estimate";
+            this.gbRemainingEstimate.Visible = false;
             // 
-            // rdEstimateAdjustSetTo
+            // tbReduceBy
             // 
-            this.rdEstimateAdjustSetTo.AutoSize = true;
-            this.rdEstimateAdjustSetTo.Location = new System.Drawing.Point(8, 64);
-            this.rdEstimateAdjustSetTo.Name = "rdEstimateAdjustSetTo";
-            this.rdEstimateAdjustSetTo.Size = new System.Drawing.Size(57, 17);
-            this.rdEstimateAdjustSetTo.TabIndex = 4;
-            this.rdEstimateAdjustSetTo.Text = "&Set To";
-            this.rdEstimateAdjustSetTo.UseVisualStyleBackColor = true;
-            this.rdEstimateAdjustSetTo.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
-            this.rdEstimateAdjustSetTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustSetTo_KeyDown);
+            this.tbReduceBy.Enabled = false;
+            this.tbReduceBy.Location = new System.Drawing.Point(160, 87);
+            this.tbReduceBy.Name = "tbReduceBy";
+            this.tbReduceBy.Size = new System.Drawing.Size(133, 20);
+            this.tbReduceBy.TabIndex = 7;
+            this.tbReduceBy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyDown);
+            this.tbReduceBy.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyUp);
+            this.tbReduceBy.Validating += new System.ComponentModel.CancelEventHandler(this.tbReduceBy_Validating);
             // 
             // tbSetTo
             // 
@@ -203,21 +191,35 @@ namespace StopWatch
             this.rdEstimateAdjustManualDecrease.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
             this.rdEstimateAdjustManualDecrease.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustManualDecrease_KeyDown);
             // 
-            // tbReduceBy
+            // rdEstimateAdjustSetTo
             // 
-            this.tbReduceBy.Enabled = false;
-            this.tbReduceBy.Location = new System.Drawing.Point(160, 87);
-            this.tbReduceBy.Name = "tbReduceBy";
-            this.tbReduceBy.Size = new System.Drawing.Size(133, 20);
-            this.tbReduceBy.TabIndex = 7;
-            this.tbReduceBy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyDown);
-            this.tbReduceBy.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyUp);
-            this.tbReduceBy.Validating += new System.ComponentModel.CancelEventHandler(this.tbReduceBy_Validating);
+            this.rdEstimateAdjustSetTo.AutoSize = true;
+            this.rdEstimateAdjustSetTo.Location = new System.Drawing.Point(8, 64);
+            this.rdEstimateAdjustSetTo.Name = "rdEstimateAdjustSetTo";
+            this.rdEstimateAdjustSetTo.Size = new System.Drawing.Size(57, 17);
+            this.rdEstimateAdjustSetTo.TabIndex = 4;
+            this.rdEstimateAdjustSetTo.Text = "&Set To";
+            this.rdEstimateAdjustSetTo.UseVisualStyleBackColor = true;
+            this.rdEstimateAdjustSetTo.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
+            this.rdEstimateAdjustSetTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustSetTo_KeyDown);
+            // 
+            // rdEstimateAdjustLeave
+            // 
+            this.rdEstimateAdjustLeave.AutoSize = true;
+            this.rdEstimateAdjustLeave.Location = new System.Drawing.Point(8, 39);
+            this.rdEstimateAdjustLeave.Name = "rdEstimateAdjustLeave";
+            this.rdEstimateAdjustLeave.Size = new System.Drawing.Size(85, 17);
+            this.rdEstimateAdjustLeave.TabIndex = 3;
+            this.rdEstimateAdjustLeave.Text = "&Leave Alone";
+            this.rdEstimateAdjustLeave.UseVisualStyleBackColor = true;
+            this.rdEstimateAdjustLeave.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
+            this.rdEstimateAdjustLeave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustLeave_KeyDown);
             // 
             // WorklogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(321, 341);
             this.Controls.Add(this.gbRemainingEstimate);
