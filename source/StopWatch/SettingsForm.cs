@@ -42,6 +42,7 @@ namespace StopWatch
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
             cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
             cbAllowMultipleTimers.Checked = this.settings.AllowMultipleTimers;
+            cbAllowFlexibleIssueCount.Checked = this.settings.AllowFlexibleIssueCount;
 
             cbSaveTimerState.DisplayMember = "Text";
             cbSaveTimerState.ValueMember = "Value";
@@ -83,6 +84,7 @@ namespace StopWatch
             {
                 this.settings.JiraBaseUrl = tbJiraBaseUrl.Text;
                 this.settings.IssueCount = (int)numIssueCount.Value;
+                this.settings.AllowFlexibleIssueCount = cbAllowFlexibleIssueCount.Checked;
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
                 this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
                 this.settings.AllowMultipleTimers = cbAllowMultipleTimers.Checked;

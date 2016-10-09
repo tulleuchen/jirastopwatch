@@ -259,10 +259,36 @@ namespace StopWatch
             );
         }
 
+        private void issue_RemoveMeTriggered(object sender, EventArgs e)
+        {
+            if (this.settings.IssueCount > 1)
+            {
+                this.settings.IssueCount--;
+            }
+            this.InitializeIssueControls();
+        }
+
+        private void btnAddIssue_Clicked(object sender, EventArgs e)
+        {
+            this.settings.IssueCount++;
+            this.InitializeIssueControls();
+        }
+
 
         private void InitializeIssueControls()
         {
             this.SuspendLayout();
+            this.btnAddIssue.Visible = this.settings.AllowFlexibleIssueCount;
+            this.btnAddIssue.Enabled = this.settings.AllowFlexibleIssueCount;
+
+            foreach (IssueControl issue in this.issueControls)
+            {
+                if (issue.MarkedForRemoval)
+                {
+                    this.pMain.Controls.Remove(issue);
+                }
+            }
+
 
             // If we have too many issueControl controls, compared to this.IssueCount
             // remove the ones not needed
@@ -276,6 +302,7 @@ namespace StopWatch
             while (this.issueControls.Count() < this.settings.IssueCount)
             {
                 var issue = new IssueControl(this.jiraClient, this.settings);
+                issue.RemoveMeTriggered += new EventHandler(this.issue_RemoveMeTriggered);
                 issue.TimerStarted += issue_TimerStarted;
                 issue.TimerReset += Issue_TimerReset;
                 this.pMain.Controls.Add(issue);
@@ -283,8 +310,10 @@ namespace StopWatch
 
             // Position all issueControl controls and set TimerEditable
             int i = 0;
+            bool EnableRemoveIssue = settings.AllowFlexibleIssueCount && this.issueControls.Count() > 1;
             foreach (var issue in this.issueControls)
             {
+                issue.ToggleRemoveIssueButton(settings.AllowFlexibleIssueCount, EnableRemoveIssue);
                 issue.Left = 12;
                 issue.Top = i * issue.Height + 12;
                 i++;

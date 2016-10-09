@@ -41,6 +41,13 @@ namespace StopWatch
 
         public WatchTimer WatchTimer { get; private set; }
 
+        public bool MarkedForRemoval
+        {
+            get
+            {
+                return _MarkedForRemoval;
+            }
+        }
 
         public IEnumerable<Issue> AvailableIssues
         {
@@ -54,6 +61,8 @@ namespace StopWatch
 
 
         public string Comment { get; set; }
+
+        public event EventHandler RemoveMeTriggered;
         #endregion
 
 
@@ -68,8 +77,7 @@ namespace StopWatch
         public IssueControl(JiraClient jiraClient, Settings settings)
             : base()
         {
-            InitializeComponent();
-
+            InitializeComponent();            
             Comment = null;
 
             this.settings = settings;
@@ -78,6 +86,11 @@ namespace StopWatch
             this.WatchTimer = new WatchTimer();
         }
 
+        public void ToggleRemoveIssueButton(bool Show, bool Enable)
+        {
+            this.btnRemoveIssue.Visible = Show;
+            this.btnRemoveIssue.Enabled = Enable;
+        }
 
         public void UpdateOutput(bool updateSummary = false)
         {
@@ -164,11 +177,12 @@ namespace StopWatch
             this.tbTime = new System.Windows.Forms.TextBox();
             this.lblSummary = new System.Windows.Forms.Label();
             this.ttIssue = new System.Windows.Forms.ToolTip(this.components);
+            this.btnRemoveIssue = new System.Windows.Forms.Button();
+            this.lblSplitter = new System.Windows.Forms.Label();
             this.btnPostAndReset = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.lblSplitter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbJira
@@ -211,6 +225,27 @@ namespace StopWatch
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Size = new System.Drawing.Size(457, 17);
             this.lblSummary.TabIndex = 6;
+            // 
+            // btnRemoveIssue
+            // 
+            this.btnRemoveIssue.Enabled = false;
+            this.btnRemoveIssue.Image = global::StopWatch.Properties.Resources.delete24;
+            this.btnRemoveIssue.Location = new System.Drawing.Point(453, 0);
+            this.btnRemoveIssue.Name = "btnRemoveIssue";
+            this.btnRemoveIssue.Size = new System.Drawing.Size(32, 32);
+            this.btnRemoveIssue.TabIndex = 7;
+            this.ttIssue.SetToolTip(this.btnRemoveIssue, "Remove issue row entirely");
+            this.btnRemoveIssue.UseVisualStyleBackColor = true;
+            this.btnRemoveIssue.Visible = false;
+            this.btnRemoveIssue.Click += new System.EventHandler(this.btnRemoveIssue_Click);
+            // 
+            // lblSplitter
+            // 
+            this.lblSplitter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSplitter.Location = new System.Drawing.Point(0, 53);
+            this.lblSplitter.Name = "lblSplitter";
+            this.lblSplitter.Size = new System.Drawing.Size(500, 2);
+            this.lblSplitter.TabIndex = 6;
             // 
             // btnPostAndReset
             // 
@@ -260,16 +295,9 @@ namespace StopWatch
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
-            // lblSplitter
-            // 
-            this.lblSplitter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSplitter.Location = new System.Drawing.Point(0, 53);
-            this.lblSplitter.Name = "lblSplitter";
-            this.lblSplitter.Size = new System.Drawing.Size(500, 2);
-            this.lblSplitter.TabIndex = 6;
-            // 
             // IssueControl
             // 
+            this.Controls.Add(this.btnRemoveIssue);
             this.Controls.Add(this.btnPostAndReset);
             this.Controls.Add(this.lblSplitter);
             this.Controls.Add(this.lblSummary);
@@ -279,7 +307,7 @@ namespace StopWatch
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
-            this.Size = new System.Drawing.Size(458, 58);
+            this.Size = new System.Drawing.Size(489, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,7 +352,6 @@ namespace StopWatch
             if (keyWidth < size.Width)
                 keyWidth = size.Width;
         }
-
 
         void cbJira_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -406,6 +433,16 @@ namespace StopWatch
                     this.TimerStarted(this, e);
             }
             UpdateOutput();
+        }
+
+        private void btnRemoveIssue_Click(object sender, EventArgs e)
+        {
+            this._MarkedForRemoval = true;
+            EventHandler handler = RemoveMeTriggered;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
 
@@ -563,6 +600,8 @@ namespace StopWatch
         private Settings settings;
 
         private int keyWidth;
+        private Button btnRemoveIssue;
+        private bool _MarkedForRemoval = false;
         #endregion
 
 

@@ -63,6 +63,7 @@ namespace StopWatch
             this.cbAllowMultipleTimers = new System.Windows.Forms.CheckBox();
             this.cbPostWorklogComment = new System.Windows.Forms.ComboBox();
             this.lblPostWorklogComment = new System.Windows.Forms.Label();
+            this.cbAllowFlexibleIssueCount = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -258,13 +259,25 @@ namespace StopWatch
             this.lblPostWorklogComment.TabIndex = 18;
             this.lblPostWorklogComment.Text = "How to post the worklog comment";
             // 
+            // cbAllowFlexibleIssueCount
+            // 
+            this.cbAllowFlexibleIssueCount.AutoSize = true;
+            this.cbAllowFlexibleIssueCount.Location = new System.Drawing.Point(164, 48);
+            this.cbAllowFlexibleIssueCount.Name = "cbAllowFlexibleIssueCount";
+            this.cbAllowFlexibleIssueCount.Size = new System.Drawing.Size(185, 17);
+            this.cbAllowFlexibleIssueCount.TabIndex = 21;
+            this.cbAllowFlexibleIssueCount.Text = "Allow changing count dynamically";
+            this.cbAllowFlexibleIssueCount.UseVisualStyleBackColor = true;            
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 330);
+            this.ClientSize = new System.Drawing.Size(383, 352);
+            this.Controls.Add(this.cbAllowFlexibleIssueCount);
+            this.Controls.Add(this.cbAllowManualEstimateAdjustments);
             this.Controls.Add(this.cbPostWorklogComment);
             this.Controls.Add(this.lblPostWorklogComment);
             this.Controls.Add(this.cbAllowMultipleTimers);
@@ -317,5 +330,6 @@ namespace StopWatch
         private System.Windows.Forms.CheckBox cbAllowMultipleTimers;
         private System.Windows.Forms.ComboBox cbPostWorklogComment;
         private System.Windows.Forms.Label lblPostWorklogComment;
+        private System.Windows.Forms.CheckBox cbAllowFlexibleIssueCount;
     }
 }
