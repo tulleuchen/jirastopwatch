@@ -69,6 +69,23 @@
             requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}", key.Trim()), Method.GET));
         }
 
+        [Test]
+        public void CreateGetIssueTimetrackingRequestt_CreatesValidRequest()
+        {
+            string key = "FOO-42";
+            var request = jiraApiRequestFactory.CreateGetIssueTimetrackingRequest(key);
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}?fields=timetracking", key), Method.GET));
+        }
+
+
+        [Test]
+        public void CreateGetIssueTimetrackingRequest_RemoveLeadingAndTrailingSpacesFromIssueKey()
+        {
+            string key = "   FOO-42   ";
+            var request = jiraApiRequestFactory.CreateGetIssueTimetrackingRequest(key);
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}?fields=timetracking", key.Trim()), Method.GET));
+        }
+
 
         [Test]
         public void CreatePostWorklogRequest_CreatesValidRequest()

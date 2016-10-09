@@ -130,6 +130,35 @@
             Assert.That(jiraClient.GetIssueSummary("DG-42"), Is.EqualTo(""));
         }
 
+        [Test, Description("GetIssueTimetracking: On success it returns a timetracking object")]
+        public void GetIssueTimetracking_OnSuccess_It_Returns_RemainingTime()
+        {
+            Issue returnData = new Issue
+            {
+                Fields = new IssueFields
+                {
+                    Summary = "The long dark tea-time of the soul",
+                    Timetracking = new TimetrackingFields
+                    {
+                        RemainingEstimate = "1h",
+                        RemainingEstimateSeconds = 360
+                    }
+                }
+            };
+
+            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<Issue>(It.IsAny<IRestRequest>())).Returns(returnData);
+
+            Assert.That(jiraClient.GetIssueTimetracking("DG-42"), Is.EqualTo(returnData.Fields.Timetracking));
+        }
+
+
+        [Test, Description("GetIssueTimetracking: On failure it returns null")]
+        public void GetIssueTimetracking_OnFailure_It_Returns_Empty_String()
+        {
+            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<Issue>(It.IsAny<IRestRequest>())).Throws<RequestDeniedException>();
+            Assert.That(jiraClient.GetIssueTimetracking("DG-42"), Is.Null);
+        }
+
 
         [Test, Description("PostWorklog: On success it returns true")]
         public void PostWorklog_OnSuccess_It_Returns_True()
