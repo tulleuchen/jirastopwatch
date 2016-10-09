@@ -88,8 +88,37 @@ namespace StopWatch
 
         public void ToggleRemoveIssueButton(bool Show, bool Enable)
         {
+            int adjustWidth = 0;
+            if (Show)
+            {
+                if (!this.btnRemoveIssue.Visible)
+                {
+                    // not previous visible but will be now
+                    adjustWidth = this.btnRemoveIssue.Width;
+                }
+            }
+            else
+            {
+                if (this.btnRemoveIssue.Visible)
+                {
+                    adjustWidth = -1 * this.btnRemoveIssue.Width;
+                }
+            }
             this.btnRemoveIssue.Visible = Show;
             this.btnRemoveIssue.Enabled = Enable;
+            if (0 != adjustWidth)
+            {
+                this.lblSplitter.Width += adjustWidth;
+                this.Width += adjustWidth;
+            }
+        }
+
+        public int WidthAdjustmentForFlexibleIssueControls
+        {
+            get
+            {
+                return this.btnRemoveIssue.Width;
+            }
         }
 
         public void UpdateOutput(bool updateSummary = false)

@@ -320,6 +320,20 @@ namespace StopWatch
             }
 
             pMain.Width = issueControls.Last().Width + 44;
+            if (this.prevValueOfAllowFlexibleIssueCount != settings.AllowFlexibleIssueCount)
+            {
+                int AdjustWidth = this.issueControls.Last().WidthAdjustmentForFlexibleIssueControls;
+                if (!settings.AllowFlexibleIssueCount)
+                {
+                    AdjustWidth *= -1;
+                }
+                pBottom.Width += AdjustWidth;
+                pbSettings.Location = new Point(
+                    pbSettings.Location.X + AdjustWidth,
+                    pbSettings.Location.Y
+                );
+                this.prevValueOfAllowFlexibleIssueCount = settings.AllowFlexibleIssueCount;
+            }
 
             this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + 50);
 
@@ -552,6 +566,7 @@ namespace StopWatch
         private Settings settings;
 
         private IssueControl lastRunningIssue = null;
+        private bool prevValueOfAllowFlexibleIssueCount = true;
         #endregion
 
 
