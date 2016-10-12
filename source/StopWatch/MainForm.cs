@@ -268,7 +268,7 @@ namespace StopWatch
             this.InitializeIssueControls();
         }
 
-        private void btnAddIssue_Clicked(object sender, EventArgs e)
+        private void pbAddIssue_Clicked(object sender, EventArgs e)
         {
             this.settings.IssueCount++;
             this.InitializeIssueControls();
@@ -281,8 +281,8 @@ namespace StopWatch
         private void InitializeIssueControls()
         {
             this.SuspendLayout();
-            this.btnAddIssue.Visible = this.settings.AllowFlexibleIssueCount;
-            this.btnAddIssue.Enabled = this.settings.AllowFlexibleIssueCount;
+            this.pbAddIssue.Visible = this.settings.AllowFlexibleIssueCount;
+            this.pbAddIssue.Enabled = this.settings.AllowFlexibleIssueCount;
 
             foreach (IssueControl issue in this.issueControls)
             {
@@ -317,12 +317,12 @@ namespace StopWatch
             foreach (var issue in this.issueControls)
             {
                 issue.ToggleRemoveIssueButton(settings.AllowFlexibleIssueCount, EnableRemoveIssue);
-                issue.Left = 12;
+                issue.Left = 0;
                 issue.Top = i * issue.Height + 12;
                 i++;
             }
 
-            pMain.Width = issueControls.Last().Width + 44;
+            pMain.Width = issueControls.Last().Width;
             if (this.prevValueOfAllowFlexibleIssueCount != settings.AllowFlexibleIssueCount)
             {
                 int AdjustWidth = this.issueControls.Last().WidthAdjustmentForFlexibleIssueControls;
@@ -338,7 +338,7 @@ namespace StopWatch
                 this.prevValueOfAllowFlexibleIssueCount = settings.AllowFlexibleIssueCount;
             }
 
-            this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + 50);
+            this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + 55);
 
             if (this.Height > Screen.PrimaryScreen.WorkingArea.Height)
                 this.Height = Screen.PrimaryScreen.WorkingArea.Height;
@@ -346,9 +346,9 @@ namespace StopWatch
             if (this.Bottom > Screen.PrimaryScreen.WorkingArea.Height)
                 this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
 
-
-            pMain.Height = ClientSize.Height - 34;
-            pBottom.Top = ClientSize.Height - 34;
+            
+            pMain.Height = ClientSize.Height - 39;
+            pBottom.Top = pMain.Height;
 
             this.TopMost = this.settings.AlwaysOnTop;
 
@@ -385,7 +385,7 @@ namespace StopWatch
                             () =>
                             {
                                 lblConnectionStatus.Text = "Not connected";
-                                lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                                lblConnectionStatus.ForeColor = Color.Tomato;
                             }
                         );
                         return;
@@ -412,7 +412,7 @@ namespace StopWatch
                         () =>
                         {
                             lblConnectionStatus.Text = "Not connected";
-                            lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                            lblConnectionStatus.ForeColor = Color.Tomato;
                         }
                     );
                 }
