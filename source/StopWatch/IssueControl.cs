@@ -86,31 +86,9 @@ namespace StopWatch
             this.WatchTimer = new WatchTimer();
         }
 
-        public void ToggleRemoveIssueButton(bool Show, bool Enable)
+        public void ToggleRemoveIssueButton(bool Enable)
         {
-            int adjustWidth = 0;
-            if (Show)
-            {
-                if (!this.btnRemoveIssue.Visible)
-                {
-                    // not previous visible but will be now
-                    adjustWidth = this.btnRemoveIssue.Width;
-                }
-            }
-            else
-            {
-                if (this.btnRemoveIssue.Visible)
-                {
-                    adjustWidth = -1 * this.btnRemoveIssue.Width;
-                }
-            }
-            this.btnRemoveIssue.Visible = Show;
             this.btnRemoveIssue.Enabled = Enable;
-            if (0 != adjustWidth)
-            {
-                this.lblSplitter.Width += adjustWidth;
-                this.Width += adjustWidth;
-            }
         }
 
         public bool focusJiraField()
@@ -266,9 +244,8 @@ namespace StopWatch
             this.btnRemoveIssue.Name = "btnRemoveIssue";
             this.btnRemoveIssue.Size = new System.Drawing.Size(32, 32);
             this.btnRemoveIssue.TabIndex = 7;
-            this.ttIssue.SetToolTip(this.btnRemoveIssue, "Remove issue row entirely");
+            this.ttIssue.SetToolTip(this.btnRemoveIssue, "Remove issue row (discards timer)");
             this.btnRemoveIssue.UseVisualStyleBackColor = true;
-            this.btnRemoveIssue.Visible = false;
             this.btnRemoveIssue.Click += new System.EventHandler(this.btnRemoveIssue_Click);
             // 
             // btnPostAndReset

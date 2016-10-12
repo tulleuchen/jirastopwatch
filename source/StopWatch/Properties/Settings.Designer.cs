@@ -193,14 +193,6 @@ namespace StopWatch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AllowFlexibleIssueCount {
-            get {
-                return ((bool)(this["AllowFlexibleIssueCount"]));
-            }
-            set {
-                this["AllowFlexibleIssueCount"] = value;
-            }
         }
     }
 }

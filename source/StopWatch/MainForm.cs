@@ -270,20 +270,42 @@ namespace StopWatch
 
         private void pbAddIssue_Clicked(object sender, EventArgs e)
         {
-            this.settings.IssueCount++;
-            this.InitializeIssueControls();
-            IssueControl AddedIssue = this.issueControls.Last();
-            AddedIssue.focusJiraField();
-            this.pMain.ScrollControlIntoView(AddedIssue);
+            if (this.settings.IssueCount < maxIssues || this.issueControls.Count() < maxIssues)
+            {
+                this.settings.IssueCount++;
+                this.InitializeIssueControls();
+                IssueControl AddedIssue = this.issueControls.Last();
+                AddedIssue.focusJiraField();
+                this.pMain.ScrollControlIntoView(AddedIssue);
+            }
         }
 
 
         private void InitializeIssueControls()
         {
             this.SuspendLayout();
-            this.pbAddIssue.Visible = this.settings.AllowFlexibleIssueCount;
-            this.pbAddIssue.Enabled = this.settings.AllowFlexibleIssueCount;
 
+            if (this.settings.IssueCount >= maxIssues)
+            {
+                // Max reached.  Reset numbe rin case it is larger 
+                this.settings.IssueCount = maxIssues;
+                // Update tooltip to reflect the fact that you can't add anymore
+                // We don't disable the button since then the tooltip doesn't show but
+                // the click won't do anything if we have too many issues
+                this.ttMain.SetToolTip(this.pbAddIssue, string.Format("You have reached the max limit of {0} issues and cannot add another", maxIssues.ToString()));
+                this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.No;
+            }
+            else
+            {
+                if (this.settings.IssueCount < 1)
+                {
+                    this.settings.IssueCount = 1;
+                }
+                // Reset status 
+                this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row");
+                this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.Hand;
+            }
+            
             foreach (IssueControl issue in this.issueControls)
             {
                 if (issue.MarkedForRemoval)
@@ -313,30 +335,16 @@ namespace StopWatch
 
             // Position all issueControl controls and set TimerEditable
             int i = 0;
-            bool EnableRemoveIssue = settings.AllowFlexibleIssueCount && this.issueControls.Count() > 1;
+            bool EnableRemoveIssue = this.issueControls.Count() > 1;
             foreach (var issue in this.issueControls)
             {
-                issue.ToggleRemoveIssueButton(settings.AllowFlexibleIssueCount, EnableRemoveIssue);
+                issue.ToggleRemoveIssueButton(EnableRemoveIssue);
                 issue.Left = 0;
                 issue.Top = i * issue.Height + 12;
                 i++;
             }
 
             pMain.Width = issueControls.Last().Width;
-            if (this.prevValueOfAllowFlexibleIssueCount != settings.AllowFlexibleIssueCount)
-            {
-                int AdjustWidth = this.issueControls.Last().WidthAdjustmentForFlexibleIssueControls;
-                if (!settings.AllowFlexibleIssueCount)
-                {
-                    AdjustWidth *= -1;
-                }
-                pBottom.Width += AdjustWidth;
-                pbSettings.Location = new Point(
-                    pbSettings.Location.X + AdjustWidth,
-                    pbSettings.Location.Y
-                );
-                this.prevValueOfAllowFlexibleIssueCount = settings.AllowFlexibleIssueCount;
-            }
 
             this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + 55);
 
@@ -569,13 +577,13 @@ namespace StopWatch
         private Settings settings;
 
         private IssueControl lastRunningIssue = null;
-        private bool prevValueOfAllowFlexibleIssueCount = true;
         #endregion
 
 
         #region private consts
         private const int firstDelay = 500;
         private const int defaultDelay = 30000;
+        private const int maxIssues = 20;
         #endregion
     }
 
