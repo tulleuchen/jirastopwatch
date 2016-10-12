@@ -113,6 +113,11 @@ namespace StopWatch
             }
         }
 
+        public bool focusJiraField()
+        {
+            return this.cbJira.Focus();
+        }
+
         public int WidthAdjustmentForFlexibleIssueControls
         {
             get

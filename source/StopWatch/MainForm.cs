@@ -272,6 +272,9 @@ namespace StopWatch
         {
             this.settings.IssueCount++;
             this.InitializeIssueControls();
+            IssueControl AddedIssue = this.issueControls.Last();
+            AddedIssue.focusJiraField();
+            this.pMain.ScrollControlIntoView(AddedIssue);
         }
 
 
