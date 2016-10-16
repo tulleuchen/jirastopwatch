@@ -77,7 +77,8 @@ namespace StopWatch
         public IssueControl(JiraClient jiraClient, Settings settings)
             : base()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
             Comment = null;
 
             this.settings = settings;
@@ -94,14 +95,6 @@ namespace StopWatch
         public bool focusJiraField()
         {
             return this.cbJira.Focus();
-        }
-
-        public int WidthAdjustmentForFlexibleIssueControls
-        {
-            get
-            {
-                return this.btnRemoveIssue.Width;
-            }
         }
 
         public void UpdateOutput(bool updateSummary = false)

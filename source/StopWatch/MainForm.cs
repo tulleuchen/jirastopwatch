@@ -287,7 +287,7 @@ namespace StopWatch
 
             if (this.settings.IssueCount >= maxIssues)
             {
-                // Max reached.  Reset numbe rin case it is larger 
+                // Max reached.  Reset number in case it is larger 
                 this.settings.IssueCount = maxIssues;
                 // Update tooltip to reflect the fact that you can't add anymore
                 // We don't disable the button since then the tooltip doesn't show but

@@ -158,14 +158,14 @@ namespace StopWatch
             // 
             // pBottom
             // 
-            this.pBottom.Controls.Add(this.tbTotalTime);
-            this.pBottom.Controls.Add(this.cbFilters);
-            this.pBottom.Controls.Add(this.pbAddIssue);
             this.pBottom.Controls.Add(this.pbLogin);
-            this.pBottom.Controls.Add(this.lblConnectionStatus);
+            this.pBottom.Controls.Add(this.tbTotalTime);
+            this.pBottom.Controls.Add(this.pbAddIssue);
             this.pBottom.Controls.Add(this.pbSettings);
             this.pBottom.Controls.Add(this.lblTotalTime);
             this.pBottom.Controls.Add(this.lblActiveFilter);
+            this.pBottom.Controls.Add(this.lblConnectionStatus);
+            this.pBottom.Controls.Add(this.cbFilters);
             this.pBottom.Location = new System.Drawing.Point(0, 140);
             this.pBottom.Name = "pBottom";
             this.pBottom.Size = new System.Drawing.Size(512, 32);

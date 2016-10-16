@@ -49,7 +49,7 @@ namespace StopWatch
         public bool MinimizeToTray { get; set; }
         public int IssueCount { get; set; }
         public bool AllowMultipleTimers { get; set; }
-        
+
         public SaveTimerSetting SaveTimerState { get; set; }
         public PauseAndResumeSetting PauseOnSessionLock { get; set; }
         public WorklogCommentSetting PostWorklogComment { get; set; }
@@ -78,7 +78,7 @@ namespace StopWatch
 
             this.AlwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
             this.MinimizeToTray = Properties.Settings.Default.MinimizeToTray;
-            this.IssueCount = Properties.Settings.Default.IssueCount;            
+            this.IssueCount = Properties.Settings.Default.IssueCount;
             this.Username = Properties.Settings.Default.Username;
             if (Properties.Settings.Default.Password != "")
                 this.Password = DPAPI.Decrypt(Properties.Settings.Default.Password);
@@ -104,7 +104,7 @@ namespace StopWatch
 
             Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
             Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
-            Properties.Settings.Default.IssueCount = this.IssueCount;            
+            Properties.Settings.Default.IssueCount = this.IssueCount;
 
             Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
             if (this.RememberCredentials)
