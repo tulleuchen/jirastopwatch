@@ -189,10 +189,6 @@ namespace StopWatch.Properties {
             set {
                 this["PostWorklogComment"] = value;
             }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        }
+        }   
     }
 }
