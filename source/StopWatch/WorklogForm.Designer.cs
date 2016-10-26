@@ -1,4 +1,5 @@
-﻿/**************************************************************************
+﻿using System;
+/**************************************************************************
 Copyright 2016 Carsten Gehling
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
+using System.Windows.Forms;
 namespace StopWatch
 {
     partial class WorklogForm
@@ -49,6 +51,14 @@ namespace StopWatch
             this.btnOk = new System.Windows.Forms.Button();
             this.lblInfo = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
+            this.rdEstimateAdjustAuto = new System.Windows.Forms.RadioButton();
+            this.gbRemainingEstimate = new System.Windows.Forms.GroupBox();
+            this.tbReduceBy = new System.Windows.Forms.TextBox();
+            this.tbSetTo = new System.Windows.Forms.TextBox();
+            this.rdEstimateAdjustManualDecrease = new System.Windows.Forms.RadioButton();
+            this.rdEstimateAdjustSetTo = new System.Windows.Forms.RadioButton();
+            this.rdEstimateAdjustLeave = new System.Windows.Forms.RadioButton();
+            this.gbRemainingEstimate.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblComment
@@ -57,7 +67,7 @@ namespace StopWatch
             this.lblComment.Location = new System.Drawing.Point(9, 7);
             this.lblComment.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblComment.Name = "lblComment";
-            this.lblComment.Size = new System.Drawing.Size(205, 13);
+            this.lblComment.Size = new System.Drawing.Size(206, 13);
             this.lblComment.TabIndex = 0;
             this.lblComment.Text = "Add a Comment to your work log (optional)";
             // 
@@ -75,11 +85,11 @@ namespace StopWatch
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(254, 186);
+            this.btnCancel.Location = new System.Drawing.Point(254, 312);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
-            this.btnCancel.TabIndex = 3;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -87,18 +97,19 @@ namespace StopWatch
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(193, 186);
+            this.btnOk.Location = new System.Drawing.Point(193, 312);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 23);
-            this.btnOk.TabIndex = 2;
+            this.btnOk.TabIndex = 8;
             this.btnOk.Text = "Su&bmit";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(11, 171);
+            this.lblInfo.Location = new System.Drawing.Point(11, 292);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(137, 13);
@@ -108,43 +119,142 @@ namespace StopWatch
             // btnSave
             // 
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.btnSave.Location = new System.Drawing.Point(11, 186);
+            this.btnSave.Location = new System.Drawing.Point(11, 312);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(83, 23);
-            this.btnSave.TabIndex = 5;
+            this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Sa&ve for later";
             this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // rdEstimateAdjustAuto
+            // 
+            this.rdEstimateAdjustAuto.AutoSize = true;
+            this.rdEstimateAdjustAuto.Checked = true;
+            this.rdEstimateAdjustAuto.Location = new System.Drawing.Point(8, 15);
+            this.rdEstimateAdjustAuto.Name = "rdEstimateAdjustAuto";
+            this.rdEstimateAdjustAuto.Size = new System.Drawing.Size(119, 17);
+            this.rdEstimateAdjustAuto.TabIndex = 2;
+            this.rdEstimateAdjustAuto.TabStop = true;
+            this.rdEstimateAdjustAuto.Text = "Adjust &Automatically";
+            this.rdEstimateAdjustAuto.UseVisualStyleBackColor = true;
+            this.rdEstimateAdjustAuto.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
+            this.rdEstimateAdjustAuto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustAuto_KeyDown);
+            // 
+            // gbRemainingEstimate
+            // 
+            this.gbRemainingEstimate.Controls.Add(this.tbReduceBy);
+            this.gbRemainingEstimate.Controls.Add(this.tbSetTo);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustManualDecrease);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustSetTo);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustLeave);
+            this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustAuto);
+            this.gbRemainingEstimate.Location = new System.Drawing.Point(14, 174);
+            this.gbRemainingEstimate.Name = "gbRemainingEstimate";
+            this.gbRemainingEstimate.Size = new System.Drawing.Size(299, 113);
+            this.gbRemainingEstimate.TabIndex = 2;
+            this.gbRemainingEstimate.TabStop = false;
+            this.gbRemainingEstimate.Text = "Remaining Estimate";
+            this.gbRemainingEstimate.Visible = false;
+            // 
+            // tbReduceBy
+            // 
+            this.tbReduceBy.Enabled = false;
+            this.tbReduceBy.Location = new System.Drawing.Point(160, 87);
+            this.tbReduceBy.Name = "tbReduceBy";
+            this.tbReduceBy.Size = new System.Drawing.Size(133, 20);
+            this.tbReduceBy.TabIndex = 7;
+            this.tbReduceBy.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyDown);
+            this.tbReduceBy.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbReduceBy_KeyUp);
+            this.tbReduceBy.Validating += new System.ComponentModel.CancelEventHandler(this.tbReduceBy_Validating);
+            // 
+            // tbSetTo
+            // 
+            this.tbSetTo.Enabled = false;
+            this.tbSetTo.Location = new System.Drawing.Point(160, 63);
+            this.tbSetTo.Name = "tbSetTo";
+            this.tbSetTo.Size = new System.Drawing.Size(133, 20);
+            this.tbSetTo.TabIndex = 6;
+            this.tbSetTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSetTo_KeyDown);
+            this.tbSetTo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbSetTo_KeyUp);
+            this.tbSetTo.Validating += new System.ComponentModel.CancelEventHandler(this.tbSetTo_Validating);
+            // 
+            // rdEstimateAdjustManualDecrease
+            // 
+            this.rdEstimateAdjustManualDecrease.AutoSize = true;
+            this.rdEstimateAdjustManualDecrease.Location = new System.Drawing.Point(8, 88);
+            this.rdEstimateAdjustManualDecrease.Name = "rdEstimateAdjustManualDecrease";
+            this.rdEstimateAdjustManualDecrease.Size = new System.Drawing.Size(78, 17);
+            this.rdEstimateAdjustManualDecrease.TabIndex = 5;
+            this.rdEstimateAdjustManualDecrease.Text = "&Reduce By";
+            this.rdEstimateAdjustManualDecrease.UseVisualStyleBackColor = true;
+            this.rdEstimateAdjustManualDecrease.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
+            this.rdEstimateAdjustManualDecrease.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustManualDecrease_KeyDown);
+            // 
+            // rdEstimateAdjustSetTo
+            // 
+            this.rdEstimateAdjustSetTo.AutoSize = true;
+            this.rdEstimateAdjustSetTo.Location = new System.Drawing.Point(8, 64);
+            this.rdEstimateAdjustSetTo.Name = "rdEstimateAdjustSetTo";
+            this.rdEstimateAdjustSetTo.Size = new System.Drawing.Size(57, 17);
+            this.rdEstimateAdjustSetTo.TabIndex = 4;
+            this.rdEstimateAdjustSetTo.Text = "&Set To";
+            this.rdEstimateAdjustSetTo.UseVisualStyleBackColor = true;
+            this.rdEstimateAdjustSetTo.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
+            this.rdEstimateAdjustSetTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustSetTo_KeyDown);
+            // 
+            // rdEstimateAdjustLeave
+            // 
+            this.rdEstimateAdjustLeave.AutoSize = true;
+            this.rdEstimateAdjustLeave.Location = new System.Drawing.Point(8, 39);
+            this.rdEstimateAdjustLeave.Name = "rdEstimateAdjustLeave";
+            this.rdEstimateAdjustLeave.Size = new System.Drawing.Size(114, 17);
+            this.rdEstimateAdjustLeave.TabIndex = 3;
+            this.rdEstimateAdjustLeave.Text = "&Leave Unchanged";
+            this.rdEstimateAdjustLeave.UseVisualStyleBackColor = true;
+            this.rdEstimateAdjustLeave.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
+            this.rdEstimateAdjustLeave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustLeave_KeyDown);
             // 
             // WorklogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(321, 220);
+            this.ClientSize = new System.Drawing.Size(321, 341);
+            this.Controls.Add(this.gbRemainingEstimate);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.tbComment);
             this.Controls.Add(this.lblComment);
-            this.Icon = Properties.Resources.stopwatchicon;
+            this.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "WorklogForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Submit worklog";
+            this.gbRemainingEstimate.ResumeLayout(false);
+            this.gbRemainingEstimate.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
+        
         private System.Windows.Forms.Label lblComment;
         private System.Windows.Forms.TextBox tbComment;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.RadioButton rdEstimateAdjustAuto;
+        private System.Windows.Forms.GroupBox gbRemainingEstimate;
+        private RadioButton rdEstimateAdjustManualDecrease;
+        private RadioButton rdEstimateAdjustSetTo;
+        private TextBox tbSetTo;
+        private TextBox tbReduceBy;
+        public RadioButton rdEstimateAdjustLeave;
     }
 }

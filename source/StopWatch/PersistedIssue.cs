@@ -25,5 +25,7 @@ namespace StopWatch
         public DateTime StartTime { get; set; }
         public TimeSpan TotalTime { get; set; }
         public string Comment { get; set; }
+        public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
+        public string EstimateUpdateValue { get; set; }
     }
 }

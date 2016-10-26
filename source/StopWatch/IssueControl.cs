@@ -54,6 +54,8 @@ namespace StopWatch
 
 
         public string Comment { get; set; }
+        public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
+        public string EstimateUpdateValue { get; set; }
         #endregion
 
 
@@ -71,6 +73,8 @@ namespace StopWatch
             InitializeComponent();
 
             Comment = null;
+            EstimateUpdateMethod = EstimateUpdateMethods.Auto;
+            EstimateUpdateValue = null;
 
             this.settings = settings;
 
@@ -156,6 +160,43 @@ namespace StopWatch
             );
         }
 
+        private void UpdateRemainingEstimate(WorklogForm  worklogForm)
+        {
+            RemainingEstimate = "";
+            RemainingEstimateSeconds = -1;
+
+            if (cbJira.Text == "")
+                return;
+            if (!jiraClient.SessionValid)
+                return;
+
+            Task.Factory.StartNew(
+                () =>
+                {
+                    string key = "";
+                    TimetrackingFields timetracking = null;
+                    this.InvokeIfRequired(
+                        () => key = cbJira.Text
+                    );
+                    timetracking = jiraClient.GetIssueTimetracking(key);
+                    this.InvokeIfRequired(
+                        () => RemainingEstimate = timetracking.RemainingEstimate
+                    );
+                    this.InvokeIfRequired(
+                        () => RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
+                    );
+                    if (worklogForm != null)
+                    {
+                        this.InvokeIfRequired(
+                            () => worklogForm.RemainingEstimate = timetracking.RemainingEstimate
+                        );
+                        this.InvokeIfRequired(
+                            () => worklogForm.RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
+                        );                        
+                    }
+                }
+            );
+        }
 
         private void InitializeComponent()
         {
@@ -289,6 +330,8 @@ namespace StopWatch
         private void Reset()
         {
             Comment = null;
+            EstimateUpdateMethod = EstimateUpdateMethods.Auto;
+            EstimateUpdateValue = null;
             this.WatchTimer.Reset();
             UpdateOutput();
 
@@ -417,18 +460,23 @@ namespace StopWatch
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
         {
-            using (var worklogForm = new WorklogForm(Comment))
+            using (var worklogForm = new WorklogForm(WatchTimer.TimeElapsed, settings.AllowManualEstimateAdjustments, Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
+                UpdateRemainingEstimate(worklogForm);
                 var formResult = worklogForm.ShowDialog(this);
                 if (formResult == DialogResult.OK)
                 {
                     Comment = worklogForm.Comment.Trim();
+                    EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
+                    EstimateUpdateValue = worklogForm.EstimateValue;
 
-                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment);
+                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
                 else if (formResult == DialogResult.Yes)
                 {
                     Comment = string.Format("{0}:{1}{2}", DateTime.Now.ToString("g"), Environment.NewLine, worklogForm.Comment.Trim());
+                    EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
+                    EstimateUpdateValue = worklogForm.EstimateValue;
                     UpdateOutput();
                 }
             }
@@ -451,7 +499,7 @@ namespace StopWatch
 
 
         #region private methods
-        private void PostAndReset(string key, TimeSpan timeElapsed, string comment)
+        private void PostAndReset(string key, TimeSpan timeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {
             Task.Factory.StartNew(
                 () =>
@@ -476,7 +524,7 @@ namespace StopWatch
 
                     // Now post the WorkLog with timeElapsed - and comment unless it was reset
                     if (postSuccesful)
-                        postSuccesful = jiraClient.PostWorklog(key, timeElapsed, comment);
+                        postSuccesful = jiraClient.PostWorklog(key, timeElapsed, comment, estimateUpdateMethod, estimateUpdateValue);
 
                     if (postSuccesful)
                     {
@@ -563,6 +611,9 @@ namespace StopWatch
         private Settings settings;
 
         private int keyWidth;
+
+        private string RemainingEstimate;
+        private int RemainingEstimateSeconds;
         #endregion
 
 

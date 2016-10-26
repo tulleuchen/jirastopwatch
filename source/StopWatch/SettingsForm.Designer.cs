@@ -43,7 +43,6 @@ namespace StopWatch
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.lblJiraBaseUrl = new System.Windows.Forms.Label();
             this.tbJiraBaseUrl = new System.Windows.Forms.TextBox();
             this.lblIssueCount = new System.Windows.Forms.Label();
@@ -63,6 +62,7 @@ namespace StopWatch
             this.cbAllowMultipleTimers = new System.Windows.Forms.CheckBox();
             this.cbPostWorklogComment = new System.Windows.Forms.ComboBox();
             this.lblPostWorklogComment = new System.Windows.Forms.Label();
+            this.cbAllowManualEstimateAdjustments = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numIssueCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,7 +131,7 @@ namespace StopWatch
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(255, 298);
+            this.btnOk.Location = new System.Drawing.Point(255, 319);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
@@ -142,7 +142,7 @@ namespace StopWatch
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(316, 298);
+            this.btnCancel.Location = new System.Drawing.Point(316, 319);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
@@ -160,7 +160,7 @@ namespace StopWatch
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(11, 298);
+            this.btnAbout.Location = new System.Drawing.Point(11, 319);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(56, 22);
@@ -209,7 +209,7 @@ namespace StopWatch
             // splitter3
             // 
             this.splitter3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitter3.Location = new System.Drawing.Point(12, 287);
+            this.splitter3.Location = new System.Drawing.Point(12, 308);
             this.splitter3.Name = "splitter3";
             this.splitter3.Size = new System.Drawing.Size(360, 2);
             this.splitter3.TabIndex = 16;
@@ -258,13 +258,25 @@ namespace StopWatch
             this.lblPostWorklogComment.TabIndex = 18;
             this.lblPostWorklogComment.Text = "How to post the worklog comment";
             // 
+            // cbAllowManualEstimateAdjustments
+            // 
+            this.cbAllowManualEstimateAdjustments.AutoSize = true;
+            this.cbAllowManualEstimateAdjustments.Location = new System.Drawing.Point(113, 285);
+            this.cbAllowManualEstimateAdjustments.Margin = new System.Windows.Forms.Padding(2);
+            this.cbAllowManualEstimateAdjustments.Name = "cbAllowManualEstimateAdjustments";
+            this.cbAllowManualEstimateAdjustments.Size = new System.Drawing.Size(200, 17);
+            this.cbAllowManualEstimateAdjustments.TabIndex = 20;
+            this.cbAllowManualEstimateAdjustments.Text = "Allow control over remaining estimate";
+            this.cbAllowManualEstimateAdjustments.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 330);
+            this.ClientSize = new System.Drawing.Size(383, 352);
+            this.Controls.Add(this.cbAllowManualEstimateAdjustments);
             this.Controls.Add(this.cbPostWorklogComment);
             this.Controls.Add(this.lblPostWorklogComment);
             this.Controls.Add(this.cbAllowMultipleTimers);
@@ -284,7 +296,7 @@ namespace StopWatch
             this.Controls.Add(this.lblIssueCount);
             this.Controls.Add(this.tbJiraBaseUrl);
             this.Controls.Add(this.lblJiraBaseUrl);
-            this.Icon = Properties.Resources.stopwatchicon;
+            this.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -317,5 +329,6 @@ namespace StopWatch
         private System.Windows.Forms.CheckBox cbAllowMultipleTimers;
         private System.Windows.Forms.ComboBox cbPostWorklogComment;
         private System.Windows.Forms.Label lblPostWorklogComment;
+        private System.Windows.Forms.CheckBox cbAllowManualEstimateAdjustments;
     }
 }

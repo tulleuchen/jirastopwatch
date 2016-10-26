@@ -69,6 +69,23 @@
             requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}", key.Trim()), Method.GET));
         }
 
+        [Test]
+        public void CreateGetIssueTimetrackingRequestt_CreatesValidRequest()
+        {
+            string key = "FOO-42";
+            var request = jiraApiRequestFactory.CreateGetIssueTimetrackingRequest(key);
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}?fields=timetracking", key), Method.GET));
+        }
+
+
+        [Test]
+        public void CreateGetIssueTimetrackingRequest_RemoveLeadingAndTrailingSpacesFromIssueKey()
+        {
+            string key = "   FOO-42   ";
+            var request = jiraApiRequestFactory.CreateGetIssueTimetrackingRequest(key);
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}?fields=timetracking", key.Trim()), Method.GET));
+        }
+
 
         [Test]
         public void CreatePostWorklogRequest_CreatesValidRequest()
@@ -77,7 +94,9 @@
             var started = new DateTimeOffset(2016, 07, 26, 1, 44, 15, TimeSpan.Zero);
             TimeSpan time = new TimeSpan(1, 2, 0);
             string comment = "Sorry for the inconvenience...";
-            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment);
+            StopWatch.EstimateUpdateMethods adjusmentMethod = EstimateUpdateMethods.Auto;
+            string adjustmentValue = "";
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment, adjusmentMethod, adjustmentValue);
 
             requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/worklog", key), Method.POST));
 
@@ -100,7 +119,9 @@
             var started = new DateTimeOffset(2016, 07, 26, 1, 44, 15, TimeSpan.Zero);
             TimeSpan time = new TimeSpan(1, 2, 0);
             string comment = "Sorry for the inconvenience...";
-            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment);
+            StopWatch.EstimateUpdateMethods adjusmentMethod = EstimateUpdateMethods.Auto;
+            string adjustmentValue = "";
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment, adjusmentMethod, adjustmentValue);
 
             requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/worklog", key.Trim()), Method.POST));
         }
