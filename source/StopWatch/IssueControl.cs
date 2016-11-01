@@ -266,14 +266,14 @@ namespace StopWatch
             this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSummary.Location = new System.Drawing.Point(11, 33);
             this.lblSummary.Name = "lblSummary";
-            this.lblSummary.Size = new System.Drawing.Size(489, 17);
+            this.lblSummary.Size = new System.Drawing.Size(482, 17);
             this.lblSummary.TabIndex = 6;
             // 
             // btnRemoveIssue
             // 
             this.btnRemoveIssue.Enabled = false;
             this.btnRemoveIssue.Image = global::StopWatch.Properties.Resources.delete24;
-            this.btnRemoveIssue.Location = new System.Drawing.Point(468, 0);
+            this.btnRemoveIssue.Location = new System.Drawing.Point(465, 0);
             this.btnRemoveIssue.Name = "btnRemoveIssue";
             this.btnRemoveIssue.Size = new System.Drawing.Size(32, 32);
             this.btnRemoveIssue.TabIndex = 7;
@@ -297,7 +297,7 @@ namespace StopWatch
             // 
             this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReset.Image = global::StopWatch.Properties.Resources.reset24;
-            this.btnReset.Location = new System.Drawing.Point(432, 0);
+            this.btnReset.Location = new System.Drawing.Point(429, 0);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 5;
@@ -349,7 +349,7 @@ namespace StopWatch
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
-            this.Size = new System.Drawing.Size(512, 58);
+            this.Size = new System.Drawing.Size(498, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 
