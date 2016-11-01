@@ -363,7 +363,7 @@ namespace StopWatch
                 this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
             
             pMain.Height = ClientSize.Height - pTop.Height - pBottom.Height;
-            pBottom.Top = ClientSize.Height - pTop.Height;
+            pBottom.Top = ClientSize.Height - pBottom.Height;
 
             this.TopMost = this.settings.AlwaysOnTop;
 
