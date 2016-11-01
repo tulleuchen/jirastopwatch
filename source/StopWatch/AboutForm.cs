@@ -23,9 +23,7 @@ namespace StopWatch
         {
             InitializeComponent();
 
-            var v = Application.ProductVersion;
-            v = v.Substring(0, v.LastIndexOf('.'));
-            lblNameVersion.Text = string.Format("{0} v. {1}", Application.ProductName, v);
+            lblNameVersion.Text = string.Format("{0} v. {1}", Application.ProductName, Application.ProductVersion);
         }
 
         private void lblLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

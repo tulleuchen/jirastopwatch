@@ -168,7 +168,7 @@ namespace StopWatch
         #region private eventhandlers
         private void tbComment_KeyDown(object sender, KeyEventArgs e)
         {
-            submit_if_ctrl_enter(e);
+            SubmitIfCtrlEnter(e);
         }
 
         private void tbSetTo_KeyUp(object sender, KeyEventArgs e)
@@ -180,7 +180,7 @@ namespace StopWatch
         }
         private void tbSetTo_KeyDown(object sender, KeyEventArgs e)
         {
-            submit_if_ctrl_enter(e);
+            SubmitIfEnter(e);
         }
         private void tbReduceBy_KeyUp(object sender, KeyEventArgs e)
         {
@@ -191,23 +191,23 @@ namespace StopWatch
         }
         private void tbReduceBy_KeyDown(object sender, KeyEventArgs e)
         {
-            submit_if_ctrl_enter(e);
+            SubmitIfEnter(e);
         }
         private void rdEstimateAdjustAuto_KeyDown(object sender, KeyEventArgs e)
         {
-            submit_if_ctrl_enter(e);
+            SubmitIfEnter(e);
         }
         private void rdEstimateAdjustLeave_KeyDown(object sender, KeyEventArgs e)
         {
-            submit_if_ctrl_enter(e);
+            SubmitIfEnter(e);
         }
         private void rdEstimateAdjustSetTo_KeyDown(object sender, KeyEventArgs e)
         {
-            submit_if_ctrl_enter(e);
+            SubmitIfEnter(e);
         }
         private void rdEstimateAdjustManualDecrease_KeyDown(object sender, KeyEventArgs e)
         {
-            submit_if_ctrl_enter(e);
+            SubmitIfEnter(e);
         }
         private void tbSetTo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -226,17 +226,24 @@ namespace StopWatch
             ValidateTimeInput(tbReduceBy, false);
         }
 
-        private void submit_if_ctrl_enter(KeyEventArgs e)
+        private void SubmitIfCtrlEnter(KeyEventArgs e)
         {
             if (e.KeyData == (Keys.Control | Keys.Enter))
-            {
-                DialogResult = DialogResult.OK;
-                post_time_and_close();
-                if (DialogResult == DialogResult.OK)
-                {
-                    Close();
-                }
-            }
+                SubmitForm();
+        }
+
+        private void SubmitIfEnter(KeyEventArgs e)
+        {
+            if (e.KeyData == (Keys.Enter))
+                SubmitForm();
+        }
+
+        private void SubmitForm()
+        {
+            DialogResult = DialogResult.OK;
+            PostTimeAndClose();
+            if (DialogResult == DialogResult.OK)
+                Close();
         }
 
         private void estimateUpdateMethod_changed(object sender, EventArgs e)
@@ -278,10 +285,10 @@ namespace StopWatch
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            post_time_and_close();
+            PostTimeAndClose();
         }
 
-        private void post_time_and_close()
+        private void PostTimeAndClose()
         {
             if (!ValidateAllInputs())
             {
