@@ -63,6 +63,8 @@ namespace StopWatch
         public int CurrentFilter { get; set; }
 
         public List<PersistedIssue> PersistedIssues { get; private set; }
+
+        public string StartTransitions { get; set; }
         #endregion
 
 
@@ -106,6 +108,8 @@ namespace StopWatch
             this.AllowMultipleTimers = Properties.Settings.Default.AllowMultipleTimers;
 
             this.AllowManualEstimateAdjustments = Properties.Settings.Default.AllowManualEstimateAdjustments;
+
+            this.StartTransitions = Properties.Settings.Default.StartTransitions;
         }
 
 
@@ -144,6 +148,8 @@ namespace StopWatch
             Properties.Settings.Default.AllowMultipleTimers = this.AllowMultipleTimers;
 
             Properties.Settings.Default.AllowManualEstimateAdjustments = this.AllowManualEstimateAdjustments;
+
+            Properties.Settings.Default.StartTransitions = this.StartTransitions;
 
             Properties.Settings.Default.Save();
         }
