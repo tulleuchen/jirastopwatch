@@ -261,10 +261,60 @@ namespace StopWatch
             );
         }
 
+        private void issue_RemoveMeTriggered(object sender, EventArgs e)
+        {
+            if (this.settings.IssueCount > 1)
+            {
+                this.settings.IssueCount--;
+            }
+            this.InitializeIssueControls();
+        }
+
+        private void pbAddIssue_Clicked(object sender, EventArgs e)
+        {
+            if (this.settings.IssueCount < maxIssues || this.issueControls.Count() < maxIssues)
+            {
+                this.settings.IssueCount++;
+                this.InitializeIssueControls();
+                IssueControl AddedIssue = this.issueControls.Last();
+                AddedIssue.focusJiraField();
+                this.pMain.ScrollControlIntoView(AddedIssue);
+            }
+        }
+
 
         private void InitializeIssueControls()
         {
             this.SuspendLayout();
+
+            if (this.settings.IssueCount >= maxIssues)
+            {
+                // Max reached.  Reset number in case it is larger 
+                this.settings.IssueCount = maxIssues;
+
+                // Update tooltip to reflect the fact that you can't add anymore
+                // We don't disable the button since then the tooltip doesn't show but
+                // the click won't do anything if we have too many issues
+                this.ttMain.SetToolTip(this.pbAddIssue, string.Format("You have reached the max limit of {0} issues and cannot add another", maxIssues.ToString()));
+                this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.No;
+            }
+            else
+            {
+                if (this.settings.IssueCount < 1)
+                    this.settings.IssueCount = 1;
+
+                // Reset status 
+                this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row");
+                this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.Hand;
+            }
+            
+            // Remove IssueControl where user has clicked the remove button
+            foreach (IssueControl issue in this.issueControls)
+            {
+                if (issue.MarkedForRemoval)
+                    this.pMain.Controls.Remove(issue);
+            }
+
 
             // If we have too many issueControl controls, compared to this.IssueCount
             // remove the ones not needed
@@ -278,38 +328,47 @@ namespace StopWatch
             while (this.issueControls.Count() < this.settings.IssueCount)
             {
                 var issue = new IssueControl(this.jiraClient, this.settings);
+                issue.RemoveMeTriggered += new EventHandler(this.issue_RemoveMeTriggered);
                 issue.TimerStarted += issue_TimerStarted;
                 issue.TimerReset += Issue_TimerReset;
                 this.pMain.Controls.Add(issue);
             }
 
-            // Position all issueControl controls and set TimerEditable
-            int i = 0;
-            foreach (var issue in this.issueControls)
+            // To make sure that pMain's scrollbar doesn't screw up, all IssueControls need to have
+            // their position reset, before positioning them again
+            foreach (IssueControl issue in this.issueControls)
             {
-                issue.Left = 12;
-                issue.Top = i * issue.Height + 12;
+                issue.Left = 0;
+                issue.Top = 0;
+            }
+
+            // Now position all issueControl controls
+            int i = 0;
+            bool EnableRemoveIssue = this.issueControls.Count() > 1;
+            foreach (IssueControl issue in this.issueControls)
+            {
+                issue.ToggleRemoveIssueButton(EnableRemoveIssue);
+                issue.Top = i * issue.Height;
                 i++;
             }
 
-            pMain.Width = issueControls.Last().Width + 44;
-
-            this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + 50);
+            this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + pMain.Top + pBottom.Height);
 
             if (this.Height > Screen.PrimaryScreen.WorkingArea.Height)
                 this.Height = Screen.PrimaryScreen.WorkingArea.Height;
 
             if (this.Bottom > Screen.PrimaryScreen.WorkingArea.Height)
                 this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
+            
+            pMain.Height = ClientSize.Height - pTop.Height - pBottom.Height;
+            pBottom.Top = ClientSize.Height - pTop.Height;
 
-
-            pMain.Height = ClientSize.Height - 34;
-            pBottom.Top = ClientSize.Height - 34;
-
+            lblConnectionStatus.Text = pMain.Height.ToString();
             this.TopMost = this.settings.AlwaysOnTop;
 
             this.ResumeLayout(false);
             this.PerformLayout();
+            UpdateIssuesOutput(true);
         }
 
 
@@ -341,7 +400,7 @@ namespace StopWatch
                             () =>
                             {
                                 lblConnectionStatus.Text = "Not connected";
-                                lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                                lblConnectionStatus.ForeColor = Color.Tomato;
                             }
                         );
                         return;
@@ -368,7 +427,7 @@ namespace StopWatch
                         () =>
                         {
                             lblConnectionStatus.Text = "Not connected";
-                            lblConnectionStatus.ForeColor = SystemColors.ControlText;
+                            lblConnectionStatus.ForeColor = Color.Tomato;
                         }
                     );
                 }
@@ -533,6 +592,7 @@ namespace StopWatch
         #region private consts
         private const int firstDelay = 500;
         private const int defaultDelay = 30000;
+        private const int maxIssues = 20;
         #endregion
     }
 

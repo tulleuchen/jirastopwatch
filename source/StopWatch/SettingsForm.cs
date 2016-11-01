@@ -38,7 +38,6 @@ namespace StopWatch
             cbMinimizeToTray.Visible = CrossPlatformHelpers.IsWindowsEnvironment();
 
             tbJiraBaseUrl.Text = this.settings.JiraBaseUrl;
-            numIssueCount.Value = this.settings.IssueCount;
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
             cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
             cbAllowMultipleTimers.Checked = this.settings.AllowMultipleTimers;
@@ -83,7 +82,6 @@ namespace StopWatch
             if (DialogResult == System.Windows.Forms.DialogResult.OK)
             {
                 this.settings.JiraBaseUrl = tbJiraBaseUrl.Text;
-                this.settings.IssueCount = (int)numIssueCount.Value;
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
                 this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
                 this.settings.AllowMultipleTimers = cbAllowMultipleTimers.Checked;

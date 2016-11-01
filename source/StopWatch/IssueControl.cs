@@ -41,6 +41,13 @@ namespace StopWatch
 
         public WatchTimer WatchTimer { get; private set; }
 
+        public bool MarkedForRemoval
+        {
+            get
+            {
+                return _MarkedForRemoval;
+            }
+        }
 
         public IEnumerable<Issue> AvailableIssues
         {
@@ -56,6 +63,7 @@ namespace StopWatch
         public string Comment { get; set; }
         public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
         public string EstimateUpdateValue { get; set; }
+        public event EventHandler RemoveMeTriggered;
         #endregion
 
 
@@ -82,6 +90,15 @@ namespace StopWatch
             this.WatchTimer = new WatchTimer();
         }
 
+        public void ToggleRemoveIssueButton(bool Enable)
+        {
+            this.btnRemoveIssue.Enabled = Enable;
+        }
+
+        public bool focusJiraField()
+        {
+            return this.cbJira.Focus();
+        }
 
         public void UpdateOutput(bool updateSummary = false)
         {
@@ -205,6 +222,7 @@ namespace StopWatch
             this.tbTime = new System.Windows.Forms.TextBox();
             this.lblSummary = new System.Windows.Forms.Label();
             this.ttIssue = new System.Windows.Forms.ToolTip(this.components);
+            this.btnRemoveIssue = new System.Windows.Forms.Button();
             this.btnPostAndReset = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
@@ -218,10 +236,10 @@ namespace StopWatch
             this.cbJira.DisplayMember = "Key";
             this.cbJira.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbJira.DropDownHeight = 90;
-            this.cbJira.DropDownWidth = 500;
+            this.cbJira.DropDownWidth = 488;
             this.cbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.cbJira.IntegralHeight = false;
-            this.cbJira.Location = new System.Drawing.Point(0, 2);
+            this.cbJira.Location = new System.Drawing.Point(12, 2);
             this.cbJira.Name = "cbJira";
             this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
@@ -230,13 +248,11 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
-            this.cbJira.MeasureItem += this.cbJira_MeasureItem;
-            this.cbJira.DrawItem += this.cbJira_DrawItem;
             // 
             // tbTime
             // 
             this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.3F);
-            this.tbTime.Location = new System.Drawing.Point(248, 2);
+            this.tbTime.Location = new System.Drawing.Point(256, 2);
             this.tbTime.Name = "tbTime";
             this.tbTime.ReadOnly = true;
             this.tbTime.Size = new System.Drawing.Size(107, 28);
@@ -248,16 +264,28 @@ namespace StopWatch
             // lblSummary
             // 
             this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummary.Location = new System.Drawing.Point(0, 33);
+            this.lblSummary.Location = new System.Drawing.Point(11, 33);
             this.lblSummary.Name = "lblSummary";
-            this.lblSummary.Size = new System.Drawing.Size(457, 17);
+            this.lblSummary.Size = new System.Drawing.Size(482, 17);
             this.lblSummary.TabIndex = 6;
+            // 
+            // btnRemoveIssue
+            // 
+            this.btnRemoveIssue.Enabled = false;
+            this.btnRemoveIssue.Image = global::StopWatch.Properties.Resources.delete24;
+            this.btnRemoveIssue.Location = new System.Drawing.Point(465, 0);
+            this.btnRemoveIssue.Name = "btnRemoveIssue";
+            this.btnRemoveIssue.Size = new System.Drawing.Size(32, 32);
+            this.btnRemoveIssue.TabIndex = 7;
+            this.ttIssue.SetToolTip(this.btnRemoveIssue, "Remove issue row (discards timer)");
+            this.btnRemoveIssue.UseVisualStyleBackColor = true;
+            this.btnRemoveIssue.Click += new System.EventHandler(this.btnRemoveIssue_Click);
             // 
             // btnPostAndReset
             // 
             this.btnPostAndReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPostAndReset.Image = global::StopWatch.Properties.Resources.posttime26;
-            this.btnPostAndReset.Location = new System.Drawing.Point(361, 0);
+            this.btnPostAndReset.Location = new System.Drawing.Point(369, 0);
             this.btnPostAndReset.Name = "btnPostAndReset";
             this.btnPostAndReset.Size = new System.Drawing.Size(32, 32);
             this.btnPostAndReset.TabIndex = 4;
@@ -269,7 +297,7 @@ namespace StopWatch
             // 
             this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReset.Image = global::StopWatch.Properties.Resources.reset24;
-            this.btnReset.Location = new System.Drawing.Point(414, 0);
+            this.btnReset.Location = new System.Drawing.Point(429, 0);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 5;
@@ -281,7 +309,7 @@ namespace StopWatch
             // 
             this.btnStartStop.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartStop.Image = global::StopWatch.Properties.Resources.play26;
-            this.btnStartStop.Location = new System.Drawing.Point(212, 0);
+            this.btnStartStop.Location = new System.Drawing.Point(220, 0);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(32, 32);
             this.btnStartStop.TabIndex = 2;
@@ -293,7 +321,7 @@ namespace StopWatch
             // 
             this.btnOpen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOpen.Image = global::StopWatch.Properties.Resources.openbrowser26;
-            this.btnOpen.Location = new System.Drawing.Point(156, 0);
+            this.btnOpen.Location = new System.Drawing.Point(168, 0);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(32, 32);
             this.btnOpen.TabIndex = 1;
@@ -306,11 +334,12 @@ namespace StopWatch
             this.lblSplitter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblSplitter.Location = new System.Drawing.Point(0, 53);
             this.lblSplitter.Name = "lblSplitter";
-            this.lblSplitter.Size = new System.Drawing.Size(500, 2);
+            this.lblSplitter.Size = new System.Drawing.Size(512, 2);
             this.lblSplitter.TabIndex = 6;
             // 
             // IssueControl
             // 
+            this.Controls.Add(this.btnRemoveIssue);
             this.Controls.Add(this.btnPostAndReset);
             this.Controls.Add(this.lblSplitter);
             this.Controls.Add(this.lblSummary);
@@ -320,7 +349,7 @@ namespace StopWatch
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
-            this.Size = new System.Drawing.Size(458, 58);
+            this.Size = new System.Drawing.Size(498, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -367,7 +396,6 @@ namespace StopWatch
             if (keyWidth < size.Width)
                 keyWidth = size.Width;
         }
-
 
         void cbJira_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -449,6 +477,16 @@ namespace StopWatch
                     this.TimerStarted(this, e);
             }
             UpdateOutput();
+        }
+
+        private void btnRemoveIssue_Click(object sender, EventArgs e)
+        {
+            this._MarkedForRemoval = true;
+            EventHandler handler = RemoveMeTriggered;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
 
@@ -611,9 +649,10 @@ namespace StopWatch
         private Settings settings;
 
         private int keyWidth;
-
         private string RemainingEstimate;
         private int RemainingEstimateSeconds;
+        private Button btnRemoveIssue;
+        private bool _MarkedForRemoval = false;
         #endregion
 
 
