@@ -69,6 +69,14 @@ namespace StopWatch
         #region public methods
         public Settings()
         {
+            // Check for upgrade because of application version change
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
             this.PersistedIssues = new List<PersistedIssue>();
         }
 
