@@ -291,6 +291,7 @@ namespace StopWatch
             {
                 // Max reached.  Reset number in case it is larger 
                 this.settings.IssueCount = maxIssues;
+
                 // Update tooltip to reflect the fact that you can't add anymore
                 // We don't disable the button since then the tooltip doesn't show but
                 // the click won't do anything if we have too many issues
@@ -300,20 +301,18 @@ namespace StopWatch
             else
             {
                 if (this.settings.IssueCount < 1)
-                {
                     this.settings.IssueCount = 1;
-                }
+
                 // Reset status 
                 this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row");
                 this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.Hand;
             }
             
+            // Remove IssueControl where user has clicked the remove button
             foreach (IssueControl issue in this.issueControls)
             {
                 if (issue.MarkedForRemoval)
-                {
                     this.pMain.Controls.Remove(issue);
-                }
             }
 
 
@@ -335,35 +334,41 @@ namespace StopWatch
                 this.pMain.Controls.Add(issue);
             }
 
-            // Position all issueControl controls and set TimerEditable
+            // To make sure that pMain's scrollbar doesn't screw up, all IssueControls need to have
+            // their position reset, before positioning them again
+            foreach (IssueControl issue in this.issueControls)
+            {
+                issue.Left = 0;
+                issue.Top = 0;
+            }
+
+            // Now position all issueControl controls
             int i = 0;
             bool EnableRemoveIssue = this.issueControls.Count() > 1;
-            foreach (var issue in this.issueControls)
+            foreach (IssueControl issue in this.issueControls)
             {
                 issue.ToggleRemoveIssueButton(EnableRemoveIssue);
-                issue.Left = 0;
-                issue.Top = i * issue.Height + 12;
+                issue.Top = i * issue.Height;
                 i++;
             }
 
-            pMain.Width = issueControls.Last().Width;
-
-            this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + 55);
+            this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + pMain.Top + pBottom.Height);
 
             if (this.Height > Screen.PrimaryScreen.WorkingArea.Height)
                 this.Height = Screen.PrimaryScreen.WorkingArea.Height;
 
             if (this.Bottom > Screen.PrimaryScreen.WorkingArea.Height)
                 this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
-
             
-            pMain.Height = ClientSize.Height - 39;
-            pBottom.Top = pMain.Height;
+            pMain.Height = ClientSize.Height - pTop.Height - pBottom.Height;
+            pBottom.Top = ClientSize.Height - pTop.Height;
 
+            lblConnectionStatus.Text = pMain.Height.ToString();
             this.TopMost = this.settings.AlwaysOnTop;
 
             this.ResumeLayout(false);
             this.PerformLayout();
+            UpdateIssuesOutput(true);
         }
 
 
