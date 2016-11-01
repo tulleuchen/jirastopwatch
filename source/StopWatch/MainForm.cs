@@ -42,6 +42,8 @@ namespace StopWatch
 
             InitializeComponent();
 
+            Text = string.Format("{0} v. {1}", Application.ProductName, Application.ProductVersion);
+
             cbFilters.DropDownStyle = ComboBoxStyle.DropDownList;
             cbFilters.DisplayMember = "Name";
 
