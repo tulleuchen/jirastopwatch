@@ -365,7 +365,6 @@ namespace StopWatch
             pMain.Height = ClientSize.Height - pTop.Height - pBottom.Height;
             pBottom.Top = ClientSize.Height - pTop.Height;
 
-            lblConnectionStatus.Text = pMain.Height.ToString();
             this.TopMost = this.settings.AlwaysOnTop;
 
             this.ResumeLayout(false);
