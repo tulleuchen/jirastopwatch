@@ -187,6 +187,8 @@ namespace StopWatch
             this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row");
             this.pbAddIssue.Click += new System.EventHandler(this.pbAddIssue_Clicked);
             this.pbAddIssue.DoubleClick += new System.EventHandler(this.pbAddIssue_Clicked);
+            this.pbAddIssue.MouseEnter += new System.EventHandler(this.pbAddIssue_MouseEnter);
+            this.pbAddIssue.MouseLeave += new System.EventHandler(this.pbAddIssue_MouseLeave);
             // 
             // pTop
             // 

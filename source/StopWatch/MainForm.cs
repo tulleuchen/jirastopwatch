@@ -284,6 +284,16 @@ namespace StopWatch
             }
         }
 
+        private void pbAddIssue_MouseEnter(object sender, EventArgs e)
+        {
+            pbAddIssue.BackColor = SystemColors.GradientInactiveCaption;
+
+        }
+
+        private void pbAddIssue_MouseLeave(object sender, EventArgs e)
+        {
+            pbAddIssue.BackColor = SystemColors.GradientActiveCaption;
+        }
 
         private void InitializeIssueControls()
         {
