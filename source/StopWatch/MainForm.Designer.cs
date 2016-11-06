@@ -154,7 +154,7 @@ namespace StopWatch
             // pMain
             // 
             this.pMain.AutoScroll = true;
-            this.pMain.BackColor = System.Drawing.SystemColors.Control;
+            this.pMain.BackColor = System.Drawing.SystemColors.Window;
             this.pMain.Location = new System.Drawing.Point(0, 39);
             this.pMain.Margin = new System.Windows.Forms.Padding(0);
             this.pMain.Name = "pMain";
@@ -163,6 +163,7 @@ namespace StopWatch
             // 
             // pBottom
             // 
+            this.pBottom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.pBottom.Controls.Add(this.pbLogin);
             this.pBottom.Controls.Add(this.tbTotalTime);
             this.pBottom.Controls.Add(this.pbSettings);
@@ -189,8 +190,7 @@ namespace StopWatch
             // 
             // pTop
             // 
-            this.pTop.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pTop.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.pTop.Controls.Add(this.lblActiveFilter);
             this.pTop.Controls.Add(this.cbFilters);
             this.pTop.Controls.Add(this.pbAddIssue);
@@ -203,6 +203,7 @@ namespace StopWatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(609, 223);
             this.Controls.Add(this.pTop);
             this.Controls.Add(this.pBottom);
