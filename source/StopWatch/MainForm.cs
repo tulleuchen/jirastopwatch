@@ -92,10 +92,11 @@ namespace StopWatch
         #region private eventhandlers
         void issue_TimerStarted(object sender, EventArgs e)
         {
+            IssueControl senderCtrl = (IssueControl)sender;
+            ChangeIssueState(senderCtrl.IssueKey);
+
             if (settings.AllowMultipleTimers)
                 return;
-
-            IssueControl senderCtrl = (IssueControl)sender;
 
             foreach (var issue in this.issueControls)
                 if (issue != senderCtrl)
@@ -431,6 +432,20 @@ namespace StopWatch
                             lblConnectionStatus.ForeColor = Color.Tomato;
                         }
                     );
+                }
+            );
+        }
+
+
+        private void ChangeIssueState(string issueKey)
+        {
+            if (string.IsNullOrWhiteSpace(settings.StartTransitions))
+                return;
+
+            Task.Factory.StartNew(
+                () =>
+                {
+                    var transitions = jiraClient.GetAvailableTransitions(issueKey);
                 }
             );
         }

@@ -62,6 +62,8 @@
       <DependentUpon>EditTimeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InvokeExtensions.cs" />
+    <Compile Include="JiraApi\AvailableTransitions.cs" />
+    <Compile Include="JiraApi\Transition.cs" />
     <Compile Include="Jira\IJiraApiRequester.cs" />
     <Compile Include="Jira\IJiraApiRequestFactory.cs" />
     <Compile Include="Jira\JiraApiRequester.cs" />

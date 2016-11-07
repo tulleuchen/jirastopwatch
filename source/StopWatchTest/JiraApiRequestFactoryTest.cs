@@ -157,6 +157,17 @@
 
 
         [Test]
+        public void CreateGetAvailableTransitions_CreatesValidRequest()
+        {
+            string key = "TST-1";
+
+            var request = jiraApiRequestFactory.CreateGetAvailableTransitions(key);
+
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/transitions", key), Method.GET));
+        }
+
+
+        [Test]
         public void CreateAuthenticateRequest_CreatesValidRequest()
         {
             string username = "Marvin";
@@ -204,5 +215,7 @@
                 }).GetHashCode()
             )));
         }
+
+
     }
 }

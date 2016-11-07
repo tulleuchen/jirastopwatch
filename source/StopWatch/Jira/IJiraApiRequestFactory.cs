@@ -29,6 +29,7 @@ namespace StopWatch
         IRestRequest CreatePostCommentRequest(string key, string comment);
         IRestRequest CreateAuthenticateRequest(string username, string password);
         IRestRequest CreateReAuthenticateRequest();
+        IRestRequest CreateGetAvailableTransitions(string key);
     }
 
 }
