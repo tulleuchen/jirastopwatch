@@ -445,7 +445,24 @@ namespace StopWatch
             Task.Factory.StartNew(
                 () =>
                 {
-                    var transitions = jiraClient.GetAvailableTransitions(issueKey);
+                    var startTransitions = this.settings.StartTransitions
+                        .Split(new string[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(l => l.Trim().ToLower()).ToArray();
+
+                    var availableTransitions = jiraClient.GetAvailableTransitions(issueKey);
+                    if (availableTransitions == null || availableTransitions.Transitions.Count() == 0)
+                        return;
+
+                    foreach (var t in availableTransitions.Transitions)
+                    {
+                        if (startTransitions.Any(t.Name.ToLower().Contains))
+                        {
+                            jiraClient.DoTransition(issueKey, t.Id);
+                            return;
+                        }
+                    }
+
+
                 }
             );
         }

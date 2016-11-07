@@ -166,6 +166,21 @@ namespace StopWatch
                 return null;
             }
         }
+
+
+        public bool DoTransition(string key, int transitionId)
+        {
+            var request = jiraApiRequestFactory.CreateDoTransition(key, transitionId);
+            try
+            {
+                jiraApiRequester.DoAuthenticatedRequest<object>(request);
+                return true;
+            }
+            catch (RequestDeniedException)
+            {
+                return false;
+            }
+        }
         #endregion
 
 
