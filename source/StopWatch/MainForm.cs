@@ -285,6 +285,16 @@ namespace StopWatch
             }
         }
 
+        private void pbAddIssue_MouseEnter(object sender, EventArgs e)
+        {
+            pbAddIssue.BackColor = SystemColors.GradientInactiveCaption;
+
+        }
+
+        private void pbAddIssue_MouseLeave(object sender, EventArgs e)
+        {
+            pbAddIssue.BackColor = SystemColors.GradientActiveCaption;
+        }
 
         private void InitializeIssueControls()
         {
@@ -364,7 +374,7 @@ namespace StopWatch
                 this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
             
             pMain.Height = ClientSize.Height - pTop.Height - pBottom.Height;
-            pBottom.Top = ClientSize.Height - pTop.Height;
+            pBottom.Top = ClientSize.Height - pBottom.Height;
 
             this.TopMost = this.settings.AlwaysOnTop;
 
