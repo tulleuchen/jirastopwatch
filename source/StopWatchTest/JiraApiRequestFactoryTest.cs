@@ -157,6 +157,40 @@
 
 
         [Test]
+        public void CreateGetAvailableTransitions_CreatesValidRequest()
+        {
+            string key = "TST-1";
+
+            var request = jiraApiRequestFactory.CreateGetAvailableTransitions(key);
+
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/transitions", key), Method.GET));
+        }
+
+
+        [Test]
+        public void CreateDoTransition_CreatesValidRequest()
+        {
+            string key = "TST-1";
+            int transitionId = 5;
+
+            var request = jiraApiRequestFactory.CreateDoTransition(key, transitionId);
+
+            requestFactoryMock.Verify(m => m.Create(String.Format("/rest/api/2/issue/{0}/transitions", key), Method.POST));
+
+            requestMock.VerifySet(m => m.RequestFormat = DataFormat.Json);
+
+            requestMock.Verify(m => m.AddBody(It.Is<object>(o =>
+                o.GetHashCode() == (new {
+                    transition = new
+                    {
+                        id = transitionId
+                    }
+                }).GetHashCode()
+            )));
+        }
+
+
+        [Test]
         public void CreateAuthenticateRequest_CreatesValidRequest()
         {
             string username = "Marvin";
@@ -204,5 +238,7 @@
                 }).GetHashCode()
             )));
         }
+
+
     }
 }

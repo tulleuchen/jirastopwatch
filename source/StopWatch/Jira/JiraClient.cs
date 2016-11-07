@@ -152,6 +152,35 @@ namespace StopWatch
                 return false;
             }
         }
+
+
+        public AvailableTransitions GetAvailableTransitions(string key)
+        {
+            var request = jiraApiRequestFactory.CreateGetAvailableTransitions(key);
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<AvailableTransitions>(request);
+            }
+            catch (RequestDeniedException)
+            {
+                return null;
+            }
+        }
+
+
+        public bool DoTransition(string key, int transitionId)
+        {
+            var request = jiraApiRequestFactory.CreateDoTransition(key, transitionId);
+            try
+            {
+                jiraApiRequester.DoAuthenticatedRequest<object>(request);
+                return true;
+            }
+            catch (RequestDeniedException)
+            {
+                return false;
+            }
+        }
         #endregion
 
 

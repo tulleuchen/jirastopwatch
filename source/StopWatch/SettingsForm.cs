@@ -72,6 +72,8 @@ namespace StopWatch
                 new { Text = "Post as both worklog and comment", Value = WorklogCommentSetting.WorklogAndComment }
             };
             cbPostWorklogComment.SelectedValue = this.settings.PostWorklogComment;
+
+            tbStartTransitions.Text = this.settings.StartTransitions;
         }
         #endregion
 
@@ -90,6 +92,8 @@ namespace StopWatch
                 this.settings.SaveTimerState = (SaveTimerSetting)cbSaveTimerState.SelectedValue;
                 this.settings.PauseOnSessionLock = (PauseAndResumeSetting)cbPauseOnSessionLock.SelectedValue;
                 this.settings.PostWorklogComment = (WorklogCommentSetting)cbPostWorklogComment.SelectedValue;
+
+                this.settings.StartTransitions = tbStartTransitions.Text;
             }
         }
 

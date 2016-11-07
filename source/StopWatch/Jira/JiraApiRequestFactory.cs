@@ -110,6 +110,26 @@ namespace StopWatch
             return request;
         }
 
+        public IRestRequest CreateGetAvailableTransitions(string key)
+        {
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/transitions", key.Trim()), Method.GET);
+            return request;
+        }
+
+        public IRestRequest CreateDoTransition(string key, int transitionId)
+        {
+            var request = restRequestFactory.Create(String.Format("/rest/api/2/issue/{0}/transitions", key.Trim()), Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(new
+                {
+                    transition = new
+                    {
+                        id = transitionId
+                    }
+                }
+            );
+            return request;
+        }
 
         public IRestRequest CreateAuthenticateRequest(string username, string password)
         {
