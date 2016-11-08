@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace StopWatch
 {
@@ -249,7 +250,8 @@ namespace StopWatch
             this.cbJira.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.cbJira_MeasureItem);
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
-            this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
+            this.cbJira.TextChanged += new System.EventHandler(this.cbJira_TextChanged);
+            this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);            
             // 
             // tbTime
             // 
@@ -371,18 +373,57 @@ namespace StopWatch
         }
 
 
-        public void OpenIssueInBrowser(string key)
+        private string GetJiraIssueBaseUrl()
         {
-            if (string.IsNullOrEmpty(this.settings.JiraBaseUrl))
-                return;
-
+            if (this.settings == null)
+            {
+                return null;
+            }
             string url = this.settings.JiraBaseUrl;
-            if (!url.EndsWith("/"))
+            if ( string.IsNullOrWhiteSpace(url) || !url.EndsWith("/"))
                 url += "/";
             url += "browse/";
+            return url;
+        }
+
+
+        /// <summary>
+        /// If the text supplied is a Jira ssue uRL (by pattern) for the current Jira installatyion
+        /// then return only the issue kery.  Otherwise the text is retyurned unchanged
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private string ParseUrlToKeyIfPossible(string text)
+        {
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                string key = text.Trim();
+                string JiraIssueUrlBase = GetJiraIssueBaseUrl();
+                int JiraIssueUrlBaseLength = null == JiraIssueUrlBase ? 0 : JiraIssueUrlBase.Length;
+                if (key.Length > JiraIssueUrlBaseLength && key.StartsWith(JiraIssueUrlBase))
+                {
+                    key = key.Substring(JiraIssueUrlBaseLength);
+                    Regex regex = new Regex(@"^[A-Z0-9_]+-\d+$", RegexOptions.Compiled);
+                    if (regex.IsMatch(key))
+                    {
+                        return key;
+                    }
+                }
+            }
+
+            return text;
+        }
+
+        public void OpenIssueInBrowser(string key)
+        {
+            if (string.IsNullOrEmpty(this.settings.JiraBaseUrl) || string.IsNullOrWhiteSpace(key))
+                return;
+
+            string url = this.GetJiraIssueBaseUrl();
             url += key.Trim();
             System.Diagnostics.Process.Start(url);
         }
+
         #endregion
 
 
@@ -466,6 +507,10 @@ namespace StopWatch
                 UpdateOutput(true);
         }
 
+        private void cbJira_TextChanged(object sender, EventArgs e)
+        {
+            cbJira.Text = ParseUrlToKeyIfPossible(cbJira.Text);
+        }
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {
