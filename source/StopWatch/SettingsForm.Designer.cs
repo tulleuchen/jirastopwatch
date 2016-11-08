@@ -62,6 +62,9 @@ namespace StopWatch
             this.lblPostWorklogComment = new System.Windows.Forms.Label();
             this.cbAllowManualEstimateAdjustments = new System.Windows.Forms.CheckBox();
             this.lblDisplayOptions = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblStartTransitions = new System.Windows.Forms.Label();
+            this.tbStartTransitions = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblJiraBaseUrl
@@ -76,7 +79,7 @@ namespace StopWatch
             // 
             // tbJiraBaseUrl
             // 
-            this.tbJiraBaseUrl.Location = new System.Drawing.Point(113, 5);
+            this.tbJiraBaseUrl.Location = new System.Drawing.Point(122, 5);
             this.tbJiraBaseUrl.Margin = new System.Windows.Forms.Padding(2);
             this.tbJiraBaseUrl.Name = "tbJiraBaseUrl";
             this.tbJiraBaseUrl.Size = new System.Drawing.Size(259, 20);
@@ -85,7 +88,7 @@ namespace StopWatch
             // cbAlwaysOnTop
             // 
             this.cbAlwaysOnTop.AutoSize = true;
-            this.cbAlwaysOnTop.Location = new System.Drawing.Point(113, 46);
+            this.cbAlwaysOnTop.Location = new System.Drawing.Point(122, 46);
             this.cbAlwaysOnTop.Margin = new System.Windows.Forms.Padding(2);
             this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
             this.cbAlwaysOnTop.Size = new System.Drawing.Size(158, 17);
@@ -97,7 +100,7 @@ namespace StopWatch
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(255, 281);
+            this.btnOk.Location = new System.Drawing.Point(263, 363);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
@@ -108,7 +111,7 @@ namespace StopWatch
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(316, 281);
+            this.btnCancel.Location = new System.Drawing.Point(324, 363);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
@@ -126,7 +129,7 @@ namespace StopWatch
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(11, 281);
+            this.btnAbout.Location = new System.Drawing.Point(11, 363);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(56, 22);
@@ -138,7 +141,7 @@ namespace StopWatch
             // cbMinimizeToTray
             // 
             this.cbMinimizeToTray.AutoSize = true;
-            this.cbMinimizeToTray.Location = new System.Drawing.Point(113, 67);
+            this.cbMinimizeToTray.Location = new System.Drawing.Point(122, 67);
             this.cbMinimizeToTray.Margin = new System.Windows.Forms.Padding(2);
             this.cbMinimizeToTray.Name = "cbMinimizeToTray";
             this.cbMinimizeToTray.Size = new System.Drawing.Size(98, 17);
@@ -150,7 +153,7 @@ namespace StopWatch
             // 
             this.cbSaveTimerState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSaveTimerState.FormattingEnabled = true;
-            this.cbSaveTimerState.Location = new System.Drawing.Point(113, 107);
+            this.cbSaveTimerState.Location = new System.Drawing.Point(122, 107);
             this.cbSaveTimerState.Name = "cbSaveTimerState";
             this.cbSaveTimerState.Size = new System.Drawing.Size(258, 21);
             this.cbSaveTimerState.TabIndex = 8;
@@ -167,7 +170,7 @@ namespace StopWatch
             // 
             this.cbPauseOnSessionLock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPauseOnSessionLock.FormattingEnabled = true;
-            this.cbPauseOnSessionLock.Location = new System.Drawing.Point(113, 145);
+            this.cbPauseOnSessionLock.Location = new System.Drawing.Point(122, 145);
             this.cbPauseOnSessionLock.Name = "cbPauseOnSessionLock";
             this.cbPauseOnSessionLock.Size = new System.Drawing.Size(176, 21);
             this.cbPauseOnSessionLock.TabIndex = 10;
@@ -175,9 +178,9 @@ namespace StopWatch
             // splitter3
             // 
             this.splitter3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitter3.Location = new System.Drawing.Point(12, 270);
+            this.splitter3.Location = new System.Drawing.Point(12, 352);
             this.splitter3.Name = "splitter3";
-            this.splitter3.Size = new System.Drawing.Size(360, 2);
+            this.splitter3.Size = new System.Drawing.Size(370, 2);
             this.splitter3.TabIndex = 15;
             // 
             // splitter2
@@ -185,7 +188,7 @@ namespace StopWatch
             this.splitter2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitter2.Location = new System.Drawing.Point(12, 93);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(360, 2);
+            this.splitter2.Size = new System.Drawing.Size(370, 2);
             this.splitter2.TabIndex = 6;
             // 
             // splitter1
@@ -193,13 +196,13 @@ namespace StopWatch
             this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitter1.Location = new System.Drawing.Point(12, 37);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(360, 2);
+            this.splitter1.Size = new System.Drawing.Size(370, 2);
             this.splitter1.TabIndex = 2;
             // 
             // cbAllowMultipleTimers
             // 
             this.cbAllowMultipleTimers.AutoSize = true;
-            this.cbAllowMultipleTimers.Location = new System.Drawing.Point(113, 183);
+            this.cbAllowMultipleTimers.Location = new System.Drawing.Point(122, 183);
             this.cbAllowMultipleTimers.Margin = new System.Windows.Forms.Padding(2);
             this.cbAllowMultipleTimers.Name = "cbAllowMultipleTimers";
             this.cbAllowMultipleTimers.Size = new System.Drawing.Size(228, 17);
@@ -211,7 +214,7 @@ namespace StopWatch
             // 
             this.cbPostWorklogComment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPostWorklogComment.FormattingEnabled = true;
-            this.cbPostWorklogComment.Location = new System.Drawing.Point(113, 212);
+            this.cbPostWorklogComment.Location = new System.Drawing.Point(122, 212);
             this.cbPostWorklogComment.Name = "cbPostWorklogComment";
             this.cbPostWorklogComment.Size = new System.Drawing.Size(198, 21);
             this.cbPostWorklogComment.TabIndex = 13;
@@ -227,7 +230,7 @@ namespace StopWatch
             // cbAllowManualEstimateAdjustments
             // 
             this.cbAllowManualEstimateAdjustments.AutoSize = true;
-            this.cbAllowManualEstimateAdjustments.Location = new System.Drawing.Point(113, 244);
+            this.cbAllowManualEstimateAdjustments.Location = new System.Drawing.Point(122, 244);
             this.cbAllowManualEstimateAdjustments.Margin = new System.Windows.Forms.Padding(2);
             this.cbAllowManualEstimateAdjustments.Name = "cbAllowManualEstimateAdjustments";
             this.cbAllowManualEstimateAdjustments.Size = new System.Drawing.Size(200, 17);
@@ -244,13 +247,41 @@ namespace StopWatch
             this.lblDisplayOptions.TabIndex = 3;
             this.lblDisplayOptions.Text = "Display Options";
             // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(11, 271);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(370, 2);
+            this.label1.TabIndex = 19;
+            // 
+            // lblStartTransitions
+            // 
+            this.lblStartTransitions.Location = new System.Drawing.Point(9, 285);
+            this.lblStartTransitions.Name = "lblStartTransitions";
+            this.lblStartTransitions.Size = new System.Drawing.Size(107, 52);
+            this.lblStartTransitions.TabIndex = 20;
+            this.lblStartTransitions.Text = "Possible state changes when pressing play (seperate by newline)";
+            // 
+            // tbStartTransitions
+            // 
+            this.tbStartTransitions.AcceptsReturn = true;
+            this.tbStartTransitions.Location = new System.Drawing.Point(122, 285);
+            this.tbStartTransitions.Multiline = true;
+            this.tbStartTransitions.Name = "tbStartTransitions";
+            this.tbStartTransitions.Size = new System.Drawing.Size(200, 52);
+            this.tbStartTransitions.TabIndex = 21;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(383, 315);
+            this.ClientSize = new System.Drawing.Size(397, 393);
+            this.Controls.Add(this.tbStartTransitions);
+            this.Controls.Add(this.lblStartTransitions);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cbAllowManualEstimateAdjustments);
             this.Controls.Add(this.cbPostWorklogComment);
             this.Controls.Add(this.lblPostWorklogComment);
@@ -302,5 +333,8 @@ namespace StopWatch
         private System.Windows.Forms.Label lblPostWorklogComment;
         private System.Windows.Forms.CheckBox cbAllowManualEstimateAdjustments;
         private System.Windows.Forms.Label lblDisplayOptions;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblStartTransitions;
+        private System.Windows.Forms.TextBox tbStartTransitions;
     }
 }

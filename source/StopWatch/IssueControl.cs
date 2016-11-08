@@ -244,7 +244,9 @@ namespace StopWatch
             this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
             this.cbJira.ValueMember = "Key";
+            this.cbJira.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbJira_DrawItem);
             this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
+            this.cbJira.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.cbJira_MeasureItem);
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
