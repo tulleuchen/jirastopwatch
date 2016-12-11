@@ -67,6 +67,8 @@ namespace StopWatch
         public string StartTransitions { get; set; }
         #endregion
 
+        public bool LoggingEnabled { get; set; }
+
 
         #region public methods
         public Settings()
@@ -110,6 +112,8 @@ namespace StopWatch
             this.AllowManualEstimateAdjustments = Properties.Settings.Default.AllowManualEstimateAdjustments;
 
             this.StartTransitions = Properties.Settings.Default.StartTransitions;
+
+            this.LoggingEnabled = Properties.Settings.Default.LoggingEnabled;
         }
 
 
@@ -150,6 +154,8 @@ namespace StopWatch
             Properties.Settings.Default.AllowManualEstimateAdjustments = this.AllowManualEstimateAdjustments;
 
             Properties.Settings.Default.StartTransitions = this.StartTransitions;
+
+            Properties.Settings.Default.LoggingEnabled = this.LoggingEnabled;
 
             Properties.Settings.Default.Save();
         }

@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
 using RestSharp;
+using StopWatch.Logging;
 using System;
 using System.Net;
 
@@ -36,15 +37,22 @@ namespace StopWatch
         public T DoAuthenticatedRequest<T>(IRestRequest request)
             where T : new()
         {
-            IRestResponse<T> response = restClientFactory.Create().Execute<T>(request);
+            IRestClient client = restClientFactory.Create();
+
+            _logger.Log(string.Format("Request: {0}", client.BuildUri(request)));
+            IRestResponse<T> response = client.Execute<T>(request);
+            _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, Truncate(response.Content, 100)));
 
             // If login session has expired, try to login, and then re-execute the original request
             if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.BadRequest)
             {
+                _logger.Log("Try to re-authenticate");
                 if (!ReAuthenticate())
                     throw new RequestDeniedException();
 
-                response = restClientFactory.Create().Execute<T>(request);
+                _logger.Log(string.Format("Authenticated. Resend request: {0}", client.BuildUri(request)));
+                response = client.Execute<T>(request);
+                _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, Truncate(response.Content, 100)));
             }
 
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
@@ -68,13 +76,23 @@ namespace StopWatch
             }
 
             var client = restClientFactory.Create(true);
+            _logger.Log(string.Format("Request: {0}", client.BuildUri(request)));
             IRestResponse response = client.Execute(request);
+            _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, Truncate(response.Content, 100)));
             if (response.StatusCode != HttpStatusCode.OK)
                 return false;
 
             return true;
         }
 
+
+        private string Truncate(string str, int length)
+        {
+            return str.Substring(0, Math.Min(str.Length, length));
+        }
+
+
+        private Logger _logger = Logger.Instance;
 
         private IRestClientFactory restClientFactory;
         private IJiraApiRequestFactory jiraApiRequestFactory;

@@ -226,5 +226,17 @@ namespace StopWatch.Properties {
                 this["StartTransitions"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LoggingEnabled {
+            get {
+                return ((bool)(this["LoggingEnabled"]));
+            }
+            set {
+                this["LoggingEnabled"] = value;
+            }
+        }
     }
 }

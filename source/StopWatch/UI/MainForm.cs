@@ -13,9 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
+using StopWatch.Logging;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,6 +31,9 @@ namespace StopWatch
         {
             settings = new Settings();
             settings.Load();
+
+            Logger.Instance.LogfilePath = Path.Combine(Application.UserAppDataPath, "jirastopwatch.log");
+            Logger.Instance.Enabled = settings.LoggingEnabled;
 
             restRequestFactory = new RestRequestFactory();
             jiraApiRequestFactory = new JiraApiRequestFactory(restRequestFactory);
@@ -485,6 +490,7 @@ namespace StopWatch
                 if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
                     restClientFactory.BaseUrl = this.settings.JiraBaseUrl;
+                    Logging.Logger.Instance.Enabled = settings.LoggingEnabled;
                     InitializeIssueControls();
                 }
             }
