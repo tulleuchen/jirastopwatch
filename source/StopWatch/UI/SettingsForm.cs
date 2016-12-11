@@ -13,6 +13,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
+using StopWatch.Logging;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace StopWatch
@@ -74,6 +77,8 @@ namespace StopWatch
             cbPostWorklogComment.SelectedValue = this.settings.PostWorklogComment;
 
             tbStartTransitions.Text = this.settings.StartTransitions;
+
+            cbLoggingEnabbled.Checked = this.settings.LoggingEnabled;
         }
         #endregion
 
@@ -94,6 +99,8 @@ namespace StopWatch
                 this.settings.PostWorklogComment = (WorklogCommentSetting)cbPostWorklogComment.SelectedValue;
 
                 this.settings.StartTransitions = tbStartTransitions.Text;
+
+                this.settings.LoggingEnabled = cbLoggingEnabbled.Checked;
             }
         }
 
@@ -106,5 +113,10 @@ namespace StopWatch
             }
         }
         #endregion
+
+        private void lblOpenLogFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Path.GetDirectoryName(Logger.Instance.LogfilePath));
+        }
     }
 }
