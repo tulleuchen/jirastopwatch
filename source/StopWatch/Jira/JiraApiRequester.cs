@@ -41,7 +41,7 @@ namespace StopWatch
 
             _logger.Log(string.Format("Request: {0}", client.BuildUri(request)));
             IRestResponse<T> response = client.Execute<T>(request);
-            _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, Truncate(response.Content, 100)));
+            _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, StringHelpers.Truncate(response.Content, 100)));
 
             // If login session has expired, try to login, and then re-execute the original request
             if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.BadRequest)
@@ -52,7 +52,7 @@ namespace StopWatch
 
                 _logger.Log(string.Format("Authenticated. Resend request: {0}", client.BuildUri(request)));
                 response = client.Execute<T>(request);
-                _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, Truncate(response.Content, 100)));
+                _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, StringHelpers.Truncate(response.Content, 100)));
             }
 
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
@@ -78,17 +78,11 @@ namespace StopWatch
             var client = restClientFactory.Create(true);
             _logger.Log(string.Format("Request: {0}", client.BuildUri(request)));
             IRestResponse response = client.Execute(request);
-            _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, Truncate(response.Content, 100)));
+            _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, StringHelpers.Truncate(response.Content, 100)));
             if (response.StatusCode != HttpStatusCode.OK)
                 return false;
 
             return true;
-        }
-
-
-        private string Truncate(string str, int length)
-        {
-            return str.Substring(0, Math.Min(str.Length, length));
         }
 
 
