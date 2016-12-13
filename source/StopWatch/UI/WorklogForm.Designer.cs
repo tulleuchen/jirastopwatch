@@ -85,7 +85,7 @@ namespace StopWatch
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(254, 312);
+            this.btnCancel.Location = new System.Drawing.Point(254, 302);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
@@ -97,7 +97,7 @@ namespace StopWatch
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(193, 312);
+            this.btnOk.Location = new System.Drawing.Point(193, 302);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 23);
@@ -109,7 +109,7 @@ namespace StopWatch
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(11, 292);
+            this.lblInfo.Location = new System.Drawing.Point(11, 282);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(137, 13);
@@ -119,7 +119,7 @@ namespace StopWatch
             // btnSave
             // 
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.btnSave.Location = new System.Drawing.Point(11, 312);
+            this.btnSave.Location = new System.Drawing.Point(11, 302);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(83, 23);
@@ -151,7 +151,7 @@ namespace StopWatch
             this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustAuto);
             this.gbRemainingEstimate.Location = new System.Drawing.Point(14, 174);
             this.gbRemainingEstimate.Name = "gbRemainingEstimate";
-            this.gbRemainingEstimate.Size = new System.Drawing.Size(299, 113);
+            this.gbRemainingEstimate.Size = new System.Drawing.Size(299, 102);
             this.gbRemainingEstimate.TabIndex = 2;
             this.gbRemainingEstimate.TabStop = false;
             this.gbRemainingEstimate.Text = "Remaining Estimate";
@@ -160,7 +160,7 @@ namespace StopWatch
             // tbReduceBy
             // 
             this.tbReduceBy.Enabled = false;
-            this.tbReduceBy.Location = new System.Drawing.Point(160, 87);
+            this.tbReduceBy.Location = new System.Drawing.Point(160, 75);
             this.tbReduceBy.Name = "tbReduceBy";
             this.tbReduceBy.Size = new System.Drawing.Size(133, 20);
             this.tbReduceBy.TabIndex = 7;
@@ -171,7 +171,7 @@ namespace StopWatch
             // tbSetTo
             // 
             this.tbSetTo.Enabled = false;
-            this.tbSetTo.Location = new System.Drawing.Point(160, 63);
+            this.tbSetTo.Location = new System.Drawing.Point(160, 55);
             this.tbSetTo.Name = "tbSetTo";
             this.tbSetTo.Size = new System.Drawing.Size(133, 20);
             this.tbSetTo.TabIndex = 6;
@@ -182,7 +182,7 @@ namespace StopWatch
             // rdEstimateAdjustManualDecrease
             // 
             this.rdEstimateAdjustManualDecrease.AutoSize = true;
-            this.rdEstimateAdjustManualDecrease.Location = new System.Drawing.Point(8, 88);
+            this.rdEstimateAdjustManualDecrease.Location = new System.Drawing.Point(8, 76);
             this.rdEstimateAdjustManualDecrease.Name = "rdEstimateAdjustManualDecrease";
             this.rdEstimateAdjustManualDecrease.Size = new System.Drawing.Size(78, 17);
             this.rdEstimateAdjustManualDecrease.TabIndex = 5;
@@ -194,7 +194,7 @@ namespace StopWatch
             // rdEstimateAdjustSetTo
             // 
             this.rdEstimateAdjustSetTo.AutoSize = true;
-            this.rdEstimateAdjustSetTo.Location = new System.Drawing.Point(8, 64);
+            this.rdEstimateAdjustSetTo.Location = new System.Drawing.Point(8, 56);
             this.rdEstimateAdjustSetTo.Name = "rdEstimateAdjustSetTo";
             this.rdEstimateAdjustSetTo.Size = new System.Drawing.Size(57, 17);
             this.rdEstimateAdjustSetTo.TabIndex = 4;
@@ -206,7 +206,7 @@ namespace StopWatch
             // rdEstimateAdjustLeave
             // 
             this.rdEstimateAdjustLeave.AutoSize = true;
-            this.rdEstimateAdjustLeave.Location = new System.Drawing.Point(8, 39);
+            this.rdEstimateAdjustLeave.Location = new System.Drawing.Point(8, 35);
             this.rdEstimateAdjustLeave.Name = "rdEstimateAdjustLeave";
             this.rdEstimateAdjustLeave.Size = new System.Drawing.Size(114, 17);
             this.rdEstimateAdjustLeave.TabIndex = 3;
@@ -221,7 +221,7 @@ namespace StopWatch
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(321, 341);
+            this.ClientSize = new System.Drawing.Size(321, 332);
             this.Controls.Add(this.gbRemainingEstimate);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblInfo);
