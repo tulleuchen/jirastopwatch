@@ -304,7 +304,7 @@ namespace StopWatch
         {
             if (string.IsNullOrWhiteSpace(RemainingEstimate))
             {
-                rdEstimateAdjustLeave.Text = "&Leave Unchanged bar";
+                rdEstimateAdjustLeave.Text = "&Leave Unchanged";
             }
             else
             {
