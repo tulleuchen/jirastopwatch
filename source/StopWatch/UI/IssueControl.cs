@@ -248,6 +248,7 @@ namespace StopWatch
             this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
             this.cbJira.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.cbJira_MeasureItem);
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
+            this.cbJira.TextUpdate += new System.EventHandler(this.cbJira_TextUpdate);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
@@ -399,6 +400,7 @@ namespace StopWatch
                 keyWidth = size.Width;
         }
 
+
         void cbJira_DrawItem(object sender, DrawItemEventArgs e)
         {
             // Draw the default background
@@ -464,6 +466,12 @@ namespace StopWatch
         {
             if (e.KeyCode == Keys.Enter)
                 UpdateOutput(true);
+        }
+
+
+        private void cbJira_TextUpdate(object sender, EventArgs e)
+        {
+            cbJira.Text = JiraKeyHelpers.ParseUrlToKey(cbJira.Text);
         }
 
 
@@ -631,7 +639,6 @@ namespace StopWatch
             }
         }
         #endregion
-
 
         #region private members
         private ComboBox cbJira;

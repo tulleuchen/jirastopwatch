@@ -78,6 +78,7 @@
     <Compile Include="JiraApiRequesterTest.cs" />
     <Compile Include="JiraApiRequestFactoryTest.cs" />
     <Compile Include="JiraClientTest.cs" />
+    <Compile Include="JiraKeyHelpersTest.cs" />
     <Compile Include="JiraTimeHelpersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
