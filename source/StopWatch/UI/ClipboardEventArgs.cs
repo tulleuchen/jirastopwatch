@@ -13,23 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
-using System.Text.RegularExpressions;
+using System;
 
 namespace StopWatch
 {
-    static public class JiraKeyHelpers
+    public class ClipboardEventArgs : EventArgs
     {
-        public static string ParseUrlToKey(string text)
+        public string ClipboardText { get; set; }
+
+        public ClipboardEventArgs(string clipboardText)
         {
-            // If text contains a key, extract and return it
-            Match m = new Regex(@"[A-Z0-9_]+-\d+", RegexOptions.IgnoreCase).Match(text);
-
-            if (m.Success)
-                return m.Value;
-
-            // otherwise return original text
-            return text;
+            ClipboardText = clipboardText;
         }
     }
-}
 
+}

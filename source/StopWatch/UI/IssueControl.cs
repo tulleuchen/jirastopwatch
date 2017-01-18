@@ -80,6 +80,9 @@ namespace StopWatch
         {
             InitializeComponent();
 
+            cbJiraPaster = new ComboBoxPaster(cbJira);
+            cbJiraPaster.Pasted += cbJiraPaster_Pasted;
+
             Comment = null;
             EstimateUpdateMethod = EstimateUpdateMethods.Auto;
             EstimateUpdateValue = null;
@@ -248,7 +251,6 @@ namespace StopWatch
             this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
             this.cbJira.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.cbJira_MeasureItem);
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
-            this.cbJira.TextUpdate += new System.EventHandler(this.cbJira_TextUpdate);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
@@ -469,9 +471,9 @@ namespace StopWatch
         }
 
 
-        private void cbJira_TextUpdate(object sender, EventArgs e)
+        private void cbJiraPaster_Pasted(object sender, ClipboardEventArgs e)
         {
-            cbJira.Text = JiraKeyHelpers.ParseUrlToKey(cbJira.Text);
+            cbJira.Text = JiraKeyHelpers.ParseUrlToKey(e.ClipboardText);
         }
 
 
@@ -662,6 +664,8 @@ namespace StopWatch
         private int RemainingEstimateSeconds;
         private Button btnRemoveIssue;
         private bool _MarkedForRemoval = false;
+
+        private ComboBoxPaster cbJiraPaster;
         #endregion
 
 
