@@ -121,6 +121,8 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\WatchTimer.cs" />
+    <Compile Include="UpdateCheck\DTO\GithubRelease.cs" />
+    <Compile Include="UpdateCheck\ReleaseHelper.cs" />
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>

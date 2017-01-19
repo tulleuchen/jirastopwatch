@@ -125,6 +125,9 @@ namespace StopWatch
             UpdateIssuesOutput(firstTick);
 
             SaceSettingsAndIssueStates();
+
+            if (firstTick)
+                CheckForUpdates();
         }
 
 
@@ -617,6 +620,43 @@ namespace StopWatch
             bool top = TopMost;
             TopMost = true;
             TopMost = top;
+        }
+
+
+        private void CheckForUpdates()
+        {
+            if (!settings.CheckForUpdate)
+                return;
+
+            Task.Factory.StartNew(
+                () =>
+                {
+                    GithubRelease latestRelease = ReleaseHelper.GetLatestVersion();
+                    if (latestRelease == null)
+                        return;
+
+                    string currentVersion = Application.ProductVersion;
+                    if (string.Compare(latestRelease.TagName, currentVersion) <= 0)
+                        return;
+
+                    this.InvokeIfRequired(
+                        () =>
+                        {
+                            string msg = string.Format("There is a newer version available of Jira StopWatch.{0}{0}Latest release is {1}. You are running version {2}.{0}{0}Do you want to download latest release?",
+                                Environment.NewLine,
+                                latestRelease.TagName,
+                                currentVersion);
+                            if (MessageBox.Show(msg, "New version available", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                System.Diagnostics.Process.Start("https://github.com/carstengehling/jirastopwatch/releases/latest");
+                        }
+                    );
+                }
+            );
+
+
+
+
+
         }
         #endregion
 

@@ -79,6 +79,8 @@ namespace StopWatch
             tbStartTransitions.Text = this.settings.StartTransitions;
 
             cbLoggingEnabbled.Checked = this.settings.LoggingEnabled;
+
+            cbCheckForUpdate.Checked = settings.CheckForUpdate;
         }
         #endregion
 
@@ -101,6 +103,7 @@ namespace StopWatch
                 this.settings.StartTransitions = tbStartTransitions.Text;
 
                 this.settings.LoggingEnabled = cbLoggingEnabbled.Checked;
+                settings.CheckForUpdate = cbCheckForUpdate.Checked;
             }
         }
 

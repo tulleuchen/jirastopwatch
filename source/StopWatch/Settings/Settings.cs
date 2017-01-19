@@ -65,9 +65,11 @@ namespace StopWatch
         public List<PersistedIssue> PersistedIssues { get; private set; }
 
         public string StartTransitions { get; set; }
-        #endregion
 
         public bool LoggingEnabled { get; set; }
+
+        public bool CheckForUpdate { get; set; }
+        #endregion
 
 
         #region public methods
@@ -114,6 +116,8 @@ namespace StopWatch
             this.StartTransitions = Properties.Settings.Default.StartTransitions;
 
             this.LoggingEnabled = Properties.Settings.Default.LoggingEnabled;
+
+            CheckForUpdate = Properties.Settings.Default.CheckForUpdate;
         }
 
 
@@ -156,6 +160,8 @@ namespace StopWatch
             Properties.Settings.Default.StartTransitions = this.StartTransitions;
 
             Properties.Settings.Default.LoggingEnabled = this.LoggingEnabled;
+
+            Properties.Settings.Default.CheckForUpdate = CheckForUpdate;
 
             Properties.Settings.Default.Save();
         }

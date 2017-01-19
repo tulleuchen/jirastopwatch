@@ -238,5 +238,17 @@ namespace StopWatch.Properties {
                 this["LoggingEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CheckForUpdate {
+            get {
+                return ((bool)(this["CheckForUpdate"]));
+            }
+            set {
+                this["CheckForUpdate"] = value;
+            }
+        }
     }
 }
