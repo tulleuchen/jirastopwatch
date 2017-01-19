@@ -27,10 +27,13 @@ namespace StopWatch
 
     internal class JiraApiRequester : IJiraApiRequester
     {
+        public string ErrorMessage { get; private set; }
+
         public JiraApiRequester(IRestClientFactory restClientFactory, IJiraApiRequestFactory jiraApiRequestFactory)
         {
             this.restClientFactory = restClientFactory;
             this.jiraApiRequestFactory = jiraApiRequestFactory;
+            ErrorMessage = "";
         }
 
 
@@ -56,8 +59,12 @@ namespace StopWatch
             }
 
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
+            {
+                ErrorMessage = response.ErrorMessage;
                 throw new RequestDeniedException();
+            }
 
+            ErrorMessage = "";
             return response.Data;
         }
 
@@ -79,9 +86,20 @@ namespace StopWatch
             _logger.Log(string.Format("Request: {0}", client.BuildUri(request)));
             IRestResponse response = client.Execute(request);
             _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, StringHelpers.Truncate(response.Content, 100)));
-            if (response.StatusCode != HttpStatusCode.OK)
-                return false;
 
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                ErrorMessage = "Invalid username or password";
+                return false;
+            }
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                ErrorMessage = response.ErrorMessage;
+                return false;
+            }
+
+            ErrorMessage = "";
             return true;
         }
 

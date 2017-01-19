@@ -23,6 +23,8 @@ namespace StopWatch
     {
         public bool SessionValid { get; private set; }
 
+        public string ErrorMessage { get; private set; }
+
         #region public methods
         public JiraClient(IJiraApiRequestFactory jiraApiRequestFactory, IJiraApiRequester jiraApiRequester)
         {
@@ -30,6 +32,7 @@ namespace StopWatch
             this.jiraApiRequester = jiraApiRequester;
 
             SessionValid = false;
+            ErrorMessage = "";
         }
 
 
@@ -45,6 +48,7 @@ namespace StopWatch
             }
             catch (RequestDeniedException)
             {
+                ErrorMessage = jiraApiRequester.ErrorMessage;
                 return false;
             }
         }
@@ -63,6 +67,7 @@ namespace StopWatch
             }
             catch (RequestDeniedException)
             {
+                ErrorMessage = jiraApiRequester.ErrorMessage;
                 return false;
             }
         }
@@ -182,67 +187,6 @@ namespace StopWatch
             }
         }
         #endregion
-
-
-        #region protected methods
-        protected object DoAuthenticatedRequest(IRestRequest request)
-        {
-            return DoAuthenticatedRequest<object>(request);
-        }
-
-        protected T DoAuthenticatedRequest<T>(IRestRequest request)
-            where T : new()
-        {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return default(T);
-
-            var client = restClientFactory.Create(BaseUrl);
-
-            IRestResponse<T> response = client.Execute<T>(request);
-
-            // If login session has expired, try to login, and then re-execute the original request
-            if (response.StatusCode == HttpStatusCode.Unauthorized) {
-                if (!ReAuthenticate())
-                    return default(T);
-
-                response = client.Execute<T>(request);
-            }
-
-            if (response.StatusCode != HttpStatusCode.OK)
-                return default(T);
-
-            return response.Data;
-            */
-            return default(T);
-        }
-
-
-        protected bool ReAuthenticate()
-        {
-            /*
-            if (string.IsNullOrEmpty(this.BaseUrl))
-                return false;
-
-            var client = restClientFactory.Create(BaseUrl, true);
-
-            var request = restRequestFactory.Create("/rest/auth/1/session", Method.POST);
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {
-                username = this.username,
-                password = this.password
-            });
-
-            IRestResponse response = client.Execute(request);
-            if (response.StatusCode != HttpStatusCode.OK)
-                return false;
-
-            return true;
-            */
-            return false;
-        }
-        #endregion
-
 
         #region private members
         private IJiraApiRequestFactory jiraApiRequestFactory;

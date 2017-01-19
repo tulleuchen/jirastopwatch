@@ -149,9 +149,7 @@ namespace StopWatch
             if (this.settings.FirstRun)
             {
                 this.settings.FirstRun = false;
-
                 EditSettings();
-                JiraLogin();
             }
             else
             {
@@ -239,6 +237,15 @@ namespace StopWatch
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
+        }
+
+        private void lblConnectionStatus_Click(object sender, EventArgs e)
+        {
+            if (jiraClient.SessionValid)
+                return;
+
+            string msg = string.Format("Jira StopWatch could not connect to your Jira server. Error returned:{0}{0}{1}", Environment.NewLine, jiraClient.ErrorMessage);
+            MessageBox.Show(msg, "Connection error");
         }
         #endregion
 
@@ -413,24 +420,17 @@ namespace StopWatch
                 {
                     if (!IsJiraEnabled)
                     {
-                        this.InvokeIfRequired(
-                            () =>
-                            {
-                                lblConnectionStatus.Text = "Not connected";
-                                lblConnectionStatus.ForeColor = Color.Tomato;
-                            }
-                        );
+                        SetConnectionStatus(false);
                         return;
                     }
 
                     if (jiraClient.SessionValid || jiraClient.ValidateSession())
                     {
+                        SetConnectionStatus(true);
+
                         this.InvokeIfRequired(
                             () =>
                             {
-                                lblConnectionStatus.Text = "Connected";
-                                lblConnectionStatus.ForeColor = Color.DarkGreen;
-
                                 if (firstTick)
                                     LoadFilters();
 
@@ -440,13 +440,31 @@ namespace StopWatch
                         return;
                     }
 
-                    this.InvokeIfRequired(
-                        () =>
-                        {
-                            lblConnectionStatus.Text = "Not connected";
-                            lblConnectionStatus.ForeColor = Color.Tomato;
-                        }
-                    );
+                    SetConnectionStatus(false);
+                }
+            );
+        }
+
+
+        private void SetConnectionStatus(bool connected)
+        {
+            this.InvokeIfRequired(
+                () =>
+                {
+                    if (connected)
+                    {
+                        lblConnectionStatus.Text = "Connected";
+                        lblConnectionStatus.ForeColor = Color.DarkGreen;
+                        lblConnectionStatus.Font = new Font(lblConnectionStatus.Font, FontStyle.Regular);
+                        lblConnectionStatus.Cursor = Cursors.Default;
+                    }
+                    else
+                    {
+                        lblConnectionStatus.Text = "Not connected";
+                        lblConnectionStatus.ForeColor = Color.Tomato;
+                        lblConnectionStatus.Font = new Font(lblConnectionStatus.Font, FontStyle.Regular | FontStyle.Underline);
+                        lblConnectionStatus.Cursor = Cursors.Hand;
+                    }
                 }
             );
         }
@@ -476,8 +494,6 @@ namespace StopWatch
                             return;
                         }
                     }
-
-
                 }
             );
         }
@@ -491,6 +507,8 @@ namespace StopWatch
                 {
                     restClientFactory.BaseUrl = this.settings.JiraBaseUrl;
                     Logging.Logger.Instance.Enabled = settings.LoggingEnabled;
+                    if (IsJiraEnabled)
+                        AuthenticateJira(this.settings.Username, this.settings.Password);
                     InitializeIssueControls();
                 }
             }

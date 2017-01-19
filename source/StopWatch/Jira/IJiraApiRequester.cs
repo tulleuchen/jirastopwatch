@@ -19,6 +19,8 @@ namespace StopWatch
 {
     interface IJiraApiRequester
     {
+        string ErrorMessage { get; }
+
         T DoAuthenticatedRequest<T>(IRestRequest request)
             where T : new();
     }

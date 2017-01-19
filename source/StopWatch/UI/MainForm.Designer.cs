@@ -98,6 +98,7 @@ namespace StopWatch
             this.lblConnectionStatus.Size = new System.Drawing.Size(117, 21);
             this.lblConnectionStatus.TabIndex = 3;
             this.lblConnectionStatus.Text = "x";
+            this.lblConnectionStatus.Click += new System.EventHandler(this.lblConnectionStatus_Click);
             // 
             // cbFilters
             // 
