@@ -124,7 +124,7 @@ namespace StopWatch
             UpdateJiraRelatedData(firstTick);
             UpdateIssuesOutput(firstTick);
 
-            SaceSettingsAndIssueStates();
+            SaveSettingsAndIssueStates();
 
             if (firstTick)
                 CheckForUpdates();
@@ -143,7 +143,7 @@ namespace StopWatch
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            SaceSettingsAndIssueStates();
+            SaveSettingsAndIssueStates();
         }
 
 
@@ -518,7 +518,7 @@ namespace StopWatch
         }
 
 
-        private void SaceSettingsAndIssueStates()
+        private void SaveSettingsAndIssueStates()
         {
             settings.PersistedIssues.Clear();
 
