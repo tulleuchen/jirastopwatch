@@ -92,7 +92,7 @@ namespace StopWatch
             return new TimerState
             {
                 Running = this.Running,
-                TotalTime = this.totalTime,
+                TotalTime = Running ? totalTime + (DateTime.Now - startTime) : totalTime,
                 StartTime = this.startTime
             };
         }
