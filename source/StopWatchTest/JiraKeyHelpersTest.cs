@@ -2,7 +2,6 @@
 {
     using NUnit.Framework;
     using StopWatch;
-    using System;
 
 
     [TestFixture]
