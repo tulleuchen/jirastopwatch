@@ -194,11 +194,14 @@ namespace StopWatch
                 () =>
                 {
                     string key = "";
-                    TimetrackingFields timetracking = null;
                     this.InvokeIfRequired(
                         () => key = cbJira.Text
                     );
-                    timetracking = jiraClient.GetIssueTimetracking(key);
+
+                    TimetrackingFields timetracking = jiraClient.GetIssueTimetracking(key);
+                    if (timetracking == null)
+                        return;
+
                     this.InvokeIfRequired(
                         () => RemainingEstimate = timetracking.RemainingEstimate
                     );
