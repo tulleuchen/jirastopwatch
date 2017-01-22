@@ -89,11 +89,22 @@ namespace StopWatch
 
         public TimerState GetState()
         {
+            if (Running)
+            {
+                var now = DateTime.Now;
+                return new TimerState
+                {
+                    Running = Running,
+                    TotalTime = totalTime + (now - startTime),
+                    StartTime = now
+                };
+            }
+
             return new TimerState
             {
-                Running = this.Running,
-                TotalTime = Running ? totalTime + (DateTime.Now - startTime) : totalTime,
-                StartTime = this.startTime
+                Running = Running,
+                TotalTime = totalTime,
+                StartTime = startTime
             };
         }
 
