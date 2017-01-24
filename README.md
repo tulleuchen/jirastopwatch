@@ -2,14 +2,14 @@
 
 A Windows desktop tool for recording time spent on different Jira tasks.
 
-![](http://gehling.dk/jirastopwatch/screenshot4.png)
+![](http://jirastopwatch.com/img/screen2.png)
 
 ## Features:
 
 ### Easy time tracking of Jira issues
 
 * Switch time tracking between issues with just one click
-* Configure how many time-tracking slots you want available
+* Quickly add/remove as many time-tracking slots you want available
 * Time can be manually edited (eg. if you forgot to start the timer when starting work)
 * Optionally pause timer when locking your PC
 
@@ -72,24 +72,42 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
-1.8.0     2016-10-05     New features/improvement:
+1.9.0     2017-01-24     New features/improvements
+                           - Issue rows are now added/removed directly from the UI instead of
+                             from inside the settings dialog. (Thanks to Adam Conway for this)
+                           - When posting worklog, remaining estimate can now be edited the same
+                             way as in Jira. (Thanks to Adam Conway for this)
+                           - Display version info on titlebar.
+                           - Keep existing settings on version upgrade.
+                           - Misc. UI improvements (coloring, repositioning UI items, etc.)
+                           - Optionally autostart an issue (setting "In progress") when pressing play
+                             on timer.
+                           - Optional logging of Jira API communication for debugging purposes.
+                           - Copy/paste of Jira URL into issue combobox now extracts the issue key.
+                           - Click on "Not connected" will now display the connection problems in a dialog.
+
+                         Bugfixes:
+                           - Active timers total time did not get stored when using the setting
+                             "pause active timer".
+
+1.8.0     2016-10-05     New features/improvements:
                            - When submitting worklog, StartTime will also be set. The value
-						     will be equal to "now minus logged work-time".
-							 Kudos to [Lee Houghton](https://github.com/asztal)
-							 for making this PR.
-						   - UI now handles Windows' zoom settings much better.
-						   - Timers and settings are now saved continously instead of only
-						     at program exit. So no data loss if you get power-outs or PC crash.
-						   - Issue dropdown box will now retrieve up to 200 issues, instead of
-						     the API-default of 50.
+                             will be equal to "now minus logged work-time".
+                             Kudos to [Lee Houghton](https://github.com/asztal)
+                             for making this PR.
+                           - UI now handles Windows' zoom settings much better.
+                           - Timers and settings are now saved continously instead of only
+                             at program exit. So no data loss if you get power-outs or PC crash.
+                           - Issue dropdown box will now retrieve up to 200 issues, instead of
+                             the API-default of 50.
 							 
                          Bugfixes:
-						   - Fixed random startup crashes.
-						   - If issue keys are very long, they could be cropped in the dropdown
-						     box. This has been fixed, so the key column width adapts to the
-							 widest key.
+                           - Fixed random startup crashes.
+                           - If issue keys are very long, they could be cropped in the dropdown
+                             box. This has been fixed, so the key column width adapts to the
+                             widest key.
                       
-1.7.0     2016-06-25     New features/improvement:
+1.7.0     2016-06-25     New features/improvements:
                            - Edit timer is now always enabled - you edit by double-clicking
                              the time field. 
                            - StopWatch now only runs single instance - it detects at startup
