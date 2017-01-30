@@ -41,8 +41,10 @@ namespace StopWatch
         WorklogAndComment
     }
 
-    internal class Settings
+    internal sealed class Settings
     {
+        public static readonly Settings Instance = new Settings();
+
         #region public members
         public string JiraBaseUrl { get; set; }
         public bool AlwaysOnTop { get; set; }
@@ -73,20 +75,6 @@ namespace StopWatch
 
 
         #region public methods
-        public Settings()
-        {
-            // Check for upgrade because of application version change
-            if (Properties.Settings.Default.UpgradeRequired)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeRequired = false;
-                Properties.Settings.Default.Save();
-            }
-
-            this.PersistedIssues = new List<PersistedIssue>();
-        }
-
-
         public void Load()
         {
             this.JiraBaseUrl = Properties.Settings.Default.JiraBaseUrl ?? "";
@@ -123,52 +111,52 @@ namespace StopWatch
 
         public void Save()
         {
-            Properties.Settings.Default.JiraBaseUrl = this.JiraBaseUrl;
-
-            Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
-            Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
-            Properties.Settings.Default.IssueCount = this.IssueCount;
-
-            Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
-            if (this.RememberCredentials)
+            lock (_writeLock)
             {
-                Properties.Settings.Default.Username = this.Username;
-                if (this.Password != "")
-                    Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
+                Properties.Settings.Default.JiraBaseUrl = this.JiraBaseUrl;
+
+                Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
+                Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
+                Properties.Settings.Default.IssueCount = this.IssueCount;
+
+                Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
+                if (this.RememberCredentials)
+                {
+                    Properties.Settings.Default.Username = this.Username;
+                    if (this.Password != "")
+                        Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
+                    else
+                        Properties.Settings.Default.Password = "";
+                }
                 else
+                {
+                    Properties.Settings.Default.Username = "";
                     Properties.Settings.Default.Password = "";
+                }
+
+                Properties.Settings.Default.FirstRun = this.FirstRun;
+                Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;
+                Properties.Settings.Default.PauseOnSessionLock = (int)this.PauseOnSessionLock;
+                Properties.Settings.Default.PostWorklogComment = (int)this.PostWorklogComment;
+
+                Properties.Settings.Default.CurrentFilter = this.CurrentFilter;
+
+                Properties.Settings.Default.PersistedIssues = WriteIssues(this.PersistedIssues);
+
+                Properties.Settings.Default.AllowMultipleTimers = this.AllowMultipleTimers;
+
+                Properties.Settings.Default.AllowManualEstimateAdjustments = this.AllowManualEstimateAdjustments;
+
+                Properties.Settings.Default.StartTransitions = this.StartTransitions;
+
+                Properties.Settings.Default.LoggingEnabled = this.LoggingEnabled;
+
+                Properties.Settings.Default.CheckForUpdate = CheckForUpdate;
+
+                Properties.Settings.Default.Save();
             }
-            else
-            {
-                Properties.Settings.Default.Username = "";
-                Properties.Settings.Default.Password = "";
-            }
-
-            Properties.Settings.Default.FirstRun = this.FirstRun;
-            Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;
-            Properties.Settings.Default.PauseOnSessionLock = (int)this.PauseOnSessionLock;
-            Properties.Settings.Default.PostWorklogComment = (int)this.PostWorklogComment;
-
-            Properties.Settings.Default.CurrentFilter = this.CurrentFilter;
-
-            Properties.Settings.Default.PersistedIssues = WriteIssues(this.PersistedIssues);
-
-            Properties.Settings.Default.AllowMultipleTimers = this.AllowMultipleTimers;
-
-            Properties.Settings.Default.AllowManualEstimateAdjustments = this.AllowManualEstimateAdjustments;
-
-            Properties.Settings.Default.StartTransitions = this.StartTransitions;
-
-            Properties.Settings.Default.LoggingEnabled = this.LoggingEnabled;
-
-            Properties.Settings.Default.CheckForUpdate = CheckForUpdate;
-
-            Properties.Settings.Default.Save();
         }
-        #endregion
 
-
-        #region private methods
         public List<PersistedIssue> ReadIssues(string data)
         {
             if (string.IsNullOrEmpty(Properties.Settings.Default.PersistedIssues))
@@ -199,7 +187,25 @@ namespace StopWatch
 
             return s;
         }
-
         #endregion
+
+
+        #region private methods
+        private Settings()
+        {
+            // Check for upgrade because of application version change
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
+            this.PersistedIssues = new List<PersistedIssue>();
+        }
+        #endregion
+
+
+        private Object _writeLock = new Object(); 
     }
 }

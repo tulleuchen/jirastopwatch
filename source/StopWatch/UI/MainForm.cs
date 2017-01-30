@@ -29,7 +29,7 @@ namespace StopWatch
         #region public methods
         public MainForm()
         {
-            settings = new Settings();
+            settings = Settings.Instance;
             settings.Load();
 
             Logger.Instance.LogfilePath = Path.Combine(Application.UserAppDataPath, "jirastopwatch.log");
