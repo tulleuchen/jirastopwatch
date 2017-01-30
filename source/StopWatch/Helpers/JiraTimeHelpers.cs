@@ -23,7 +23,7 @@ namespace StopWatch
     {
         public static string DateTimeToJiraDateTime(DateTimeOffset date)
         {
-            string formatted = date.ToString("yyyy-MM-dd\\THH:mm:ss.fffzzzz");
+            string formatted = date.ToString("yyyy-MM-dd\\THH:mm:ss.fffzzzz", CultureInfo.InvariantCulture);
             return formatted.Substring(0, formatted.Length - 3) + formatted.Substring(formatted.Length - 2);
         }
 
