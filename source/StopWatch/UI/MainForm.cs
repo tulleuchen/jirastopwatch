@@ -16,6 +16,7 @@ limitations under the License.
 using StopWatch.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -47,6 +48,11 @@ namespace StopWatch
             jiraClient = new JiraClient(jiraApiRequestFactory, jiraApiRequester);
 
             InitializeComponent();
+
+            pMain.HorizontalScroll.Maximum = 0;
+            pMain.AutoScroll = false;
+            pMain.VerticalScroll.Visible = false;
+            pMain.AutoScroll = true;
 
             Text = string.Format("{0} v. {1}", Application.ProductName, Application.ProductVersion);
 
@@ -128,7 +134,9 @@ namespace StopWatch
             SaveSettingsAndIssueStates();
 
             if (firstTick)
+            {
                 CheckForUpdates();
+            }
         }
 
 
@@ -291,12 +299,17 @@ namespace StopWatch
 
         private void pbAddIssue_Clicked(object sender, EventArgs e)
         {
+            IssueAdd();
+        }
+
+        private void IssueAdd()
+        {
             if (this.settings.IssueCount < maxIssues || this.issueControls.Count() < maxIssues)
             {
                 this.settings.IssueCount++;
                 this.InitializeIssueControls();
                 IssueControl AddedIssue = this.issueControls.Last();
-                AddedIssue.focusJiraField();
+                IssueSetCurrentByControl(AddedIssue);
                 this.pMain.ScrollControlIntoView(AddedIssue);
             }
         }
@@ -360,6 +373,7 @@ namespace StopWatch
                 issue.RemoveMeTriggered += new EventHandler(this.issue_RemoveMeTriggered);
                 issue.TimerStarted += issue_TimerStarted;
                 issue.TimerReset += Issue_TimerReset;
+                issue.Selected += Issue_Selected;
                 this.pMain.Controls.Add(issue);
             }
 
@@ -394,11 +408,34 @@ namespace StopWatch
 
             this.TopMost = this.settings.AlwaysOnTop;
 
+            if (currentIssueIndex >= issueControls.Count())
+                IssueSetCurrent(issueControls.Count() - 1);
+            else
+                IssueSetCurrent(currentIssueIndex);
+
             this.ResumeLayout(false);
             this.PerformLayout();
             UpdateIssuesOutput(true);
         }
 
+        private void Issue_Selected(object sender, EventArgs e)
+        {
+            IssueSetCurrentByControl((IssueControl)sender);
+        }
+
+        private void IssueSetCurrentByControl(IssueControl control)
+        {
+            int i = 0;
+            foreach (var issue in issueControls)
+            {
+                if (issue == control)
+                {
+                    IssueSetCurrent(i);
+                    return;
+                }
+                i++;
+            }
+        }
 
         private void UpdateIssuesOutput(bool updateSummary = false)
         {
@@ -702,6 +739,136 @@ namespace StopWatch
         private const int defaultDelay = 30000;
         private const int maxIssues = 20;
         #endregion
+
+        private int currentIssueIndex;
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Up)
+            {
+                IssueMoveUp();
+                e.Handled = true;
+            }
+
+
+            if (e.Control && e.KeyCode == Keys.Down)
+            {
+                IssueMoveDown();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.P)
+            {
+                IssueTogglePlay();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.L)
+            {
+                IssuePostWorklog();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.E)
+            {
+                IssueEditTime();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.R)
+            {
+                IssueReset();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.Delete)
+            {
+                IssueDelete();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.I)
+            {
+                IssueFocusKey();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.N)
+            {
+                IssueAdd();
+                e.Handled = true;
+            }
+
+            if (e.Alt && e.KeyCode == Keys.Down)
+            {
+                IssueOpenCombo();
+                e.Handled = true;
+            }
+        }
+
+        private void IssueEditTime()
+        {
+            issueControls.ToList()[currentIssueIndex].EditTime();
+        }
+
+        private void IssueDelete()
+        {
+            issueControls.ToList()[currentIssueIndex].Remove();
+        }
+
+        private void IssueFocusKey()
+        {
+            issueControls.ToList()[currentIssueIndex].FocusKey();
+        }
+
+        private void IssueReset()
+        {
+            issueControls.ToList()[currentIssueIndex].Reset();
+        }
+
+        private void IssuePostWorklog()
+        {
+            issueControls.ToList()[currentIssueIndex].PostAndReset();
+        }
+
+        private void IssueTogglePlay()
+        {
+            issueControls.ToList()[currentIssueIndex].StartStop();
+        }
+
+        private void IssueMoveDown()
+        {
+            if (currentIssueIndex == issueControls.Count() - 1)
+                return;
+
+            IssueSetCurrent(currentIssueIndex + 1);
+        }
+
+        private void IssueMoveUp()
+        {
+            if (currentIssueIndex == 0)
+                return;
+
+            IssueSetCurrent(currentIssueIndex - 1);
+        }
+
+        private void IssueSetCurrent(int index)
+        {
+            currentIssueIndex = index;
+            int i = 0;
+            foreach (var issue in issueControls)
+            {
+                issue.Current = i == currentIssueIndex;
+                if (i == currentIssueIndex)
+                    pMain.ScrollControlIntoView(issue);
+                i++;
+            }
+        }
+
+        private void IssueOpenCombo()
+        {
+            issueControls.ToList()[currentIssueIndex].OpenCombo();
+        }
     }
 
     // content item for the combo box

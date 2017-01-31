@@ -63,7 +63,22 @@ namespace StopWatch
         public string Comment { get; set; }
         public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
         public string EstimateUpdateValue { get; set; }
+
+        public bool Current
+        {
+            get
+            {
+                return Current;
+            }
+            set
+            {
+                BackColor = value ? Color.LightSteelBlue : SystemColors.Window;
+            }
+        }
+
         public event EventHandler RemoveMeTriggered;
+
+        public event EventHandler Selected;
         #endregion
 
 
@@ -142,6 +157,11 @@ namespace StopWatch
         {
             WatchTimer.Pause();
             UpdateOutput();
+        }
+
+        public void FocusKey()
+        {
+            cbJira.Focus();
         }
         #endregion
 
@@ -233,7 +253,6 @@ namespace StopWatch
             this.btnReset = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.lblSplitter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbJira
@@ -245,7 +264,7 @@ namespace StopWatch
             this.cbJira.DropDownWidth = 488;
             this.cbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.cbJira.IntegralHeight = false;
-            this.cbJira.Location = new System.Drawing.Point(12, 2);
+            this.cbJira.Location = new System.Drawing.Point(12, 5);
             this.cbJira.Name = "cbJira";
             this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
@@ -256,11 +275,12 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
+            this.cbJira.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cbJira_MouseUp);
             // 
             // tbTime
             // 
             this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.3F);
-            this.tbTime.Location = new System.Drawing.Point(256, 2);
+            this.tbTime.Location = new System.Drawing.Point(256, 5);
             this.tbTime.Name = "tbTime";
             this.tbTime.ReadOnly = true;
             this.tbTime.Size = new System.Drawing.Size(107, 28);
@@ -268,20 +288,22 @@ namespace StopWatch
             this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbTime_KeyDown);
             this.tbTime.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tbTime_MouseDoubleClick);
+            this.tbTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbTime_MouseUp);
             // 
             // lblSummary
             // 
             this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummary.Location = new System.Drawing.Point(11, 33);
+            this.lblSummary.Location = new System.Drawing.Point(11, 36);
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Size = new System.Drawing.Size(482, 17);
             this.lblSummary.TabIndex = 6;
+            this.lblSummary.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lblSummary_MouseUp);
             // 
             // btnRemoveIssue
             // 
             this.btnRemoveIssue.Enabled = false;
             this.btnRemoveIssue.Image = global::StopWatch.Properties.Resources.delete24;
-            this.btnRemoveIssue.Location = new System.Drawing.Point(465, 0);
+            this.btnRemoveIssue.Location = new System.Drawing.Point(465, 3);
             this.btnRemoveIssue.Name = "btnRemoveIssue";
             this.btnRemoveIssue.Size = new System.Drawing.Size(32, 32);
             this.btnRemoveIssue.TabIndex = 7;
@@ -293,63 +315,59 @@ namespace StopWatch
             // 
             this.btnPostAndReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPostAndReset.Image = global::StopWatch.Properties.Resources.posttime26;
-            this.btnPostAndReset.Location = new System.Drawing.Point(369, 0);
+            this.btnPostAndReset.Location = new System.Drawing.Point(369, 3);
             this.btnPostAndReset.Name = "btnPostAndReset";
             this.btnPostAndReset.Size = new System.Drawing.Size(32, 32);
             this.btnPostAndReset.TabIndex = 4;
             this.ttIssue.SetToolTip(this.btnPostAndReset, "Submit worklog to Jira and reset timer");
             this.btnPostAndReset.UseVisualStyleBackColor = true;
             this.btnPostAndReset.Click += new System.EventHandler(this.btnPostAndReset_Click);
+            this.btnPostAndReset.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnPostAndReset_MouseUp);
             // 
             // btnReset
             // 
             this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReset.Image = global::StopWatch.Properties.Resources.reset24;
-            this.btnReset.Location = new System.Drawing.Point(429, 0);
+            this.btnReset.Location = new System.Drawing.Point(429, 3);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 5;
             this.ttIssue.SetToolTip(this.btnReset, "Reset timer");
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            this.btnReset.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReset_MouseUp);
             // 
             // btnStartStop
             // 
             this.btnStartStop.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartStop.Image = global::StopWatch.Properties.Resources.play26;
-            this.btnStartStop.Location = new System.Drawing.Point(220, 0);
+            this.btnStartStop.Location = new System.Drawing.Point(220, 3);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(32, 32);
             this.btnStartStop.TabIndex = 2;
             this.ttIssue.SetToolTip(this.btnStartStop, "Start/stop timer");
             this.btnStartStop.UseVisualStyleBackColor = true;
             this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
+            this.btnStartStop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnStartStop_MouseUp);
             // 
             // btnOpen
             // 
             this.btnOpen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOpen.Image = global::StopWatch.Properties.Resources.openbrowser26;
-            this.btnOpen.Location = new System.Drawing.Point(168, 0);
+            this.btnOpen.Location = new System.Drawing.Point(168, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(32, 32);
             this.btnOpen.TabIndex = 1;
             this.ttIssue.SetToolTip(this.btnOpen, "Open issueControl in browser");
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
-            // lblSplitter
-            // 
-            this.lblSplitter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSplitter.Location = new System.Drawing.Point(0, 53);
-            this.lblSplitter.Name = "lblSplitter";
-            this.lblSplitter.Size = new System.Drawing.Size(512, 2);
-            this.lblSplitter.TabIndex = 6;
+            this.btnOpen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnOpen_MouseUp);
             // 
             // IssueControl
             // 
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.btnRemoveIssue);
             this.Controls.Add(this.btnPostAndReset);
-            this.Controls.Add(this.lblSplitter);
             this.Controls.Add(this.lblSummary);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnStartStop);
@@ -357,14 +375,15 @@ namespace StopWatch
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
-            this.Size = new System.Drawing.Size(498, 58);
+            this.Size = new System.Drawing.Size(517, 58);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.IssueControl_MouseUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
 
-        private void Reset()
+        public void Reset()
         {
             Comment = null;
             EstimateUpdateMethod = EstimateUpdateMethods.Auto;
@@ -469,6 +488,12 @@ namespace StopWatch
 
         private void cbJira_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Control)
+            {
+                e.Handled = true;
+                return;
+            }
+
             if (e.KeyCode == Keys.Enter)
                 UpdateOutput(true);
         }
@@ -482,28 +507,32 @@ namespace StopWatch
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {
+            StartStop();
+        }
+
+        public void StartStop()
+        {
             if (WatchTimer.Running) {
                 this.WatchTimer.Pause();
             }
             else {
                 this.WatchTimer.Start();
 
-                if (this.TimerStarted != null)
-                    this.TimerStarted(this, e);
+                this.TimerStarted?.Invoke(this, new EventArgs());
             }
             UpdateOutput();
         }
 
         private void btnRemoveIssue_Click(object sender, EventArgs e)
         {
-            this._MarkedForRemoval = true;
-            EventHandler handler = RemoveMeTriggered;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            Remove();
         }
 
+        public void Remove()
+        {
+            this._MarkedForRemoval = true;
+            RemoveMeTriggered?.Invoke(this, new EventArgs());
+        }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -512,6 +541,11 @@ namespace StopWatch
 
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
+        {
+            PostAndReset();
+        }
+
+        public void PostAndReset()
         {
             using (var worklogForm = new WorklogForm(WatchTimer.TimeElapsed, settings.AllowManualEstimateAdjustments, Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
@@ -535,7 +569,6 @@ namespace StopWatch
             }
         }
 
-
         private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             EditTime();
@@ -545,6 +578,12 @@ namespace StopWatch
 
         private void tbTime_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Control)
+            {
+                e.Handled = true;
+                return;
+            }
+
             if (e.KeyCode == Keys.Enter)
                 EditTime();
         }
@@ -631,7 +670,7 @@ namespace StopWatch
         }
 
 
-        private void EditTime()
+        public void EditTime()
         {
             using (var editTimeForm = new EditTimeForm(WatchTimer.TimeElapsed))
             {
@@ -642,6 +681,19 @@ namespace StopWatch
                     UpdateOutput();
                 }
             }
+        }
+
+
+        public void OpenCombo()
+        {
+            cbJira.Focus();
+            cbJira.DroppedDown = true;
+        }
+
+
+        private void SetSelected()
+        {
+            Selected?.Invoke(this, new EventArgs());
         }
         #endregion
 
@@ -655,7 +707,6 @@ namespace StopWatch
 
         private ToolTip ttIssue;
         private System.ComponentModel.IContainer components;
-        private Label lblSplitter;
         private Button btnPostAndReset;
 
         private JiraClient jiraClient;
@@ -684,5 +735,45 @@ namespace StopWatch
             }
         }
         #endregion
+
+        private void IssueControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
+
+        private void cbJira_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
+
+        private void btnOpen_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
+
+        private void btnStartStop_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
+
+        private void tbTime_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
+
+        private void btnPostAndReset_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
+
+        private void btnReset_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
+
+        private void lblSummary_MouseUp(object sender, MouseEventArgs e)
+        {
+            SetSelected();
+        }
     }
 }
