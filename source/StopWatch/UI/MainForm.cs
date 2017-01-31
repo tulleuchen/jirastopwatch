@@ -30,7 +30,8 @@ namespace StopWatch
         public MainForm()
         {
             settings = Settings.Instance;
-            settings.Load();
+            if (!settings.Load())
+                MessageBox.Show(string.Format("An error occurred while loading settings for Jira StopWatch. Your configuration file has most likely become corrupted.{0}{0}And older configuration file has been loaded instead, so please verify your settings.", Environment.NewLine), "Jira StopWatch");
 
             Logger.Instance.LogfilePath = Path.Combine(Application.UserAppDataPath, "jirastopwatch.log");
             Logger.Instance.Enabled = settings.LoggingEnabled;

@@ -15,6 +15,7 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -75,7 +76,42 @@ namespace StopWatch
 
 
         #region public methods
-        public void Load()
+        public bool Load()
+        {
+            try
+            {
+                ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                string filename = ex.Filename;
+                if (File.Exists(filename))
+                    File.Delete(filename);
+
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.Reload();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.FirstRun = true;
+                Properties.Settings.Default.Save();
+
+                ReadSettings();
+                return false;
+            }
+
+            // Check for upgrade because of application version change
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
+            ReadSettings();
+
+            return true;
+        }
+
+        private void ReadSettings()
         {
             this.JiraBaseUrl = Properties.Settings.Default.JiraBaseUrl ?? "";
 
@@ -193,14 +229,6 @@ namespace StopWatch
         #region private methods
         private Settings()
         {
-            // Check for upgrade because of application version change
-            if (Properties.Settings.Default.UpgradeRequired)
-            {
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeRequired = false;
-                Properties.Settings.Default.Save();
-            }
-
             this.PersistedIssues = new List<PersistedIssue>();
         }
         #endregion
