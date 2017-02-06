@@ -860,7 +860,10 @@ namespace StopWatch
             {
                 issue.Current = i == currentIssueIndex;
                 if (i == currentIssueIndex)
+                {
                     pMain.ScrollControlIntoView(issue);
+                    issue.Focus();
+                }
                 i++;
             }
         }
