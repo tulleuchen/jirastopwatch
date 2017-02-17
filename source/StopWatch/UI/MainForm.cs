@@ -799,11 +799,44 @@ namespace StopWatch
                 e.Handled = true;
             }
 
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                IssueCopyToClipboard();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.V)
+            {
+                IssuePasteFromClipboard();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.O)
+            {
+                IssueOpenInBrowser();
+                e.Handled = true;
+            }
+
             if (e.Alt && e.KeyCode == Keys.Down)
             {
                 IssueOpenCombo();
                 e.Handled = true;
             }
+        }
+
+        private void IssueOpenInBrowser()
+        {
+            issueControls.ToList()[currentIssueIndex].OpenJira();
+        }
+
+        private void IssueCopyToClipboard()
+        {
+            issueControls.ToList()[currentIssueIndex].CopyKeyToClipboard();
+        }
+
+        private void IssuePasteFromClipboard()
+        {
+            issueControls.ToList()[currentIssueIndex].PasteKeyFromClipboard();
         }
 
         private void IssueEditTime()

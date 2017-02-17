@@ -96,7 +96,7 @@ namespace StopWatch
             InitializeComponent();
 
             cbJiraPaster = new ComboBoxPaster(cbJira);
-            cbJiraPaster.Pasted += cbJiraPaster_Pasted;
+            cbJiraPaster.OnPaste += cbJiraPaster_OnPaste;
 
             Comment = null;
             EstimateUpdateMethod = EstimateUpdateMethods.Auto;
@@ -167,7 +167,7 @@ namespace StopWatch
 
 
         #region private methods
-        private void OpenJira(string issue)
+        public void OpenJira()
         {
             if (cbJira.Text == "")
                 return;
@@ -476,7 +476,7 @@ namespace StopWatch
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            OpenJira(cbJira.Text);
+            OpenJira();
         }
 
 
@@ -499,11 +499,23 @@ namespace StopWatch
         }
 
 
-        private void cbJiraPaster_Pasted(object sender, ClipboardEventArgs e)
+        private void cbJiraPaster_OnPaste(object sender, EventArgs e)
         {
-            cbJira.Text = JiraKeyHelpers.ParseUrlToKey(e.ClipboardText);
+            PasteKeyFromClipboard();
         }
 
+        public void PasteKeyFromClipboard()
+        {
+            if (Clipboard.ContainsText())
+                cbJira.Text = JiraKeyHelpers.ParseUrlToKey(Clipboard.GetText());
+        }
+
+        public void CopyKeyToClipboard()
+        {
+            if (string.IsNullOrEmpty(cbJira.Text))
+                return;
+            Clipboard.SetText(cbJira.Text);
+        }
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {

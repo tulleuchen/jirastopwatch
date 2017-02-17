@@ -24,7 +24,7 @@ namespace StopWatch
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
-        public event EventHandler<ClipboardEventArgs> Pasted;
+        public event EventHandler<EventArgs> OnPaste;
 
         public ComboBoxPaster(ComboBox comboBox)
         {
@@ -40,7 +40,7 @@ namespace StopWatch
             if (m.Msg == WM_PASTE)
             {
                 if (Clipboard.ContainsText())
-                    Pasted?.Invoke(this, new ClipboardEventArgs(Clipboard.GetText()));
+                    OnPaste?.Invoke(this, new EventArgs());
                 return;
             }
 
