@@ -307,7 +307,7 @@ namespace StopWatch
             this.btnRemoveIssue.Name = "btnRemoveIssue";
             this.btnRemoveIssue.Size = new System.Drawing.Size(32, 32);
             this.btnRemoveIssue.TabIndex = 7;
-            this.ttIssue.SetToolTip(this.btnRemoveIssue, "Remove issue row (discards timer)");
+            this.ttIssue.SetToolTip(this.btnRemoveIssue, "Remove issue row (CTRL-DEL)");
             this.btnRemoveIssue.UseVisualStyleBackColor = true;
             this.btnRemoveIssue.Click += new System.EventHandler(this.btnRemoveIssue_Click);
             // 
@@ -319,7 +319,7 @@ namespace StopWatch
             this.btnPostAndReset.Name = "btnPostAndReset";
             this.btnPostAndReset.Size = new System.Drawing.Size(32, 32);
             this.btnPostAndReset.TabIndex = 4;
-            this.ttIssue.SetToolTip(this.btnPostAndReset, "Submit worklog to Jira and reset timer");
+            this.ttIssue.SetToolTip(this.btnPostAndReset, "Submit worklog to Jira and reset timer (CTRL-L)");
             this.btnPostAndReset.UseVisualStyleBackColor = true;
             this.btnPostAndReset.Click += new System.EventHandler(this.btnPostAndReset_Click);
             this.btnPostAndReset.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnPostAndReset_MouseUp);
@@ -332,7 +332,7 @@ namespace StopWatch
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 5;
-            this.ttIssue.SetToolTip(this.btnReset, "Reset timer");
+            this.ttIssue.SetToolTip(this.btnReset, "Reset timer (CTRL-R)");
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             this.btnReset.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReset_MouseUp);
@@ -345,7 +345,7 @@ namespace StopWatch
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(32, 32);
             this.btnStartStop.TabIndex = 2;
-            this.ttIssue.SetToolTip(this.btnStartStop, "Start/stop timer");
+            this.ttIssue.SetToolTip(this.btnStartStop, "Start/stop timer (CTRL-P)");
             this.btnStartStop.UseVisualStyleBackColor = true;
             this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
             this.btnStartStop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnStartStop_MouseUp);
@@ -358,7 +358,7 @@ namespace StopWatch
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(32, 32);
             this.btnOpen.TabIndex = 1;
-            this.ttIssue.SetToolTip(this.btnOpen, "Open issueControl in browser");
+            this.ttIssue.SetToolTip(this.btnOpen, "Open issue in browser (CTRL-O)");
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             this.btnOpen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnOpen_MouseUp);

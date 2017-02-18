@@ -74,6 +74,7 @@ namespace StopWatch
             this.pbLogin.Size = new System.Drawing.Size(22, 22);
             this.pbLogin.TabIndex = 1;
             this.pbLogin.TabStop = false;
+            this.ttMain.SetToolTip(this.pbLogin, "Set login credentials");
             this.pbLogin.Click += new System.EventHandler(this.pbLogin_Click);
             // 
             // pbSettings
@@ -184,7 +185,7 @@ namespace StopWatch
             this.pbAddIssue.Size = new System.Drawing.Size(24, 24);
             this.pbAddIssue.TabIndex = 11;
             this.pbAddIssue.TabStop = false;
-            this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row");
+            this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row (CTRL-N)");
             this.pbAddIssue.Click += new System.EventHandler(this.pbAddIssue_Clicked);
             this.pbAddIssue.DoubleClick += new System.EventHandler(this.pbAddIssue_Clicked);
             this.pbAddIssue.MouseEnter += new System.EventHandler(this.pbAddIssue_MouseEnter);
