@@ -346,7 +346,7 @@ namespace StopWatch
                     this.settings.IssueCount = 1;
 
                 // Reset status 
-                this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row");
+                this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row (CTRL-N)");
                 this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.Hand;
             }
             
