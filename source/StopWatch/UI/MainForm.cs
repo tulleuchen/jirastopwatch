@@ -581,6 +581,23 @@ namespace StopWatch
                     if (filters == null)
                         return;
 
+                    filters.Insert(0, new Filter
+                    {
+                        Id = -1,
+                        Name = "My open issues",
+                        Jql = "assignee = currentUser() AND resolution = Unresolved order by updated DESC"
+                    });
+
+                    if (filters.Count() > 1)
+                    {
+                        filters.Insert(1, new Filter
+                        {
+                            Id = 0,
+                            Name = "--------------",
+                            Jql = ""
+                        });
+                    }
+
                     this.InvokeIfRequired(
                         () =>
                         {
