@@ -507,7 +507,10 @@ namespace StopWatch
         public void PasteKeyFromClipboard()
         {
             if (Clipboard.ContainsText())
+            {
                 cbJira.Text = JiraKeyHelpers.ParseUrlToKey(Clipboard.GetText());
+                UpdateOutput(true);
+            }
         }
 
         public void CopyKeyToClipboard()
