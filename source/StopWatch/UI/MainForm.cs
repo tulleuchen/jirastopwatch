@@ -742,87 +742,92 @@ namespace StopWatch
 
         private int currentIssueIndex;
 
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (e.Control && e.KeyCode == Keys.Up)
+            if (keyData == (Keys.Control | Keys.Up))
             {
                 IssueMoveUp();
-                e.Handled = true;
+                return true;
             }
 
 
-            if (e.Control && e.KeyCode == Keys.Down)
+            if (keyData == (Keys.Control | Keys.Down))
             {
                 IssueMoveDown();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.P)
+            if (keyData == (Keys.Control | Keys.P))
             {
                 IssueTogglePlay();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.L)
+            if (keyData == (Keys.Control | Keys.L))
             {
                 IssuePostWorklog();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.E)
+            if (keyData == (Keys.Control | Keys.E))
             {
                 IssueEditTime();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.R)
+            if (keyData == (Keys.Control | Keys.R))
             {
                 IssueReset();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.Delete)
+            if (keyData == (Keys.Control | Keys.Delete))
             {
                 IssueDelete();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.I)
+            if (keyData == (Keys.Control | Keys.I))
             {
                 IssueFocusKey();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.N)
+            if (keyData == (Keys.Control | Keys.N))
             {
                 IssueAdd();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.C)
+            if (keyData == (Keys.Control | Keys.C))
             {
                 IssueCopyToClipboard();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.V)
+            if (keyData == (Keys.Control | Keys.V))
             {
                 IssuePasteFromClipboard();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Control && e.KeyCode == Keys.O)
+            if (keyData == (Keys.Control | Keys.O))
             {
                 IssueOpenInBrowser();
-                e.Handled = true;
+                return true;
             }
 
-            if (e.Alt && e.KeyCode == Keys.Down)
+            if (keyData == (Keys.Alt | Keys.Down))
             {
                 IssueOpenCombo();
-                e.Handled = true;
+                return true;
             }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
+
+
 
         private void IssueOpenInBrowser()
         {
