@@ -44,7 +44,6 @@ namespace StopWatch
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.pbLogin = new System.Windows.Forms.PictureBox();
             this.pbSettings = new System.Windows.Forms.PictureBox();
             this.lblConnectionStatus = new System.Windows.Forms.Label();
             this.cbFilters = new System.Windows.Forms.ComboBox();
@@ -57,25 +56,11 @@ namespace StopWatch
             this.pbAddIssue = new System.Windows.Forms.PictureBox();
             this.ttMain = new System.Windows.Forms.ToolTip(this.components);
             this.pTop = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddIssue)).BeginInit();
             this.pTop.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pbLogin
-            // 
-            this.pbLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbLogin.Image = global::StopWatch.Properties.Resources.login22;
-            this.pbLogin.Location = new System.Drawing.Point(6, 3);
-            this.pbLogin.Margin = new System.Windows.Forms.Padding(2);
-            this.pbLogin.Name = "pbLogin";
-            this.pbLogin.Size = new System.Drawing.Size(22, 22);
-            this.pbLogin.TabIndex = 1;
-            this.pbLogin.TabStop = false;
-            this.ttMain.SetToolTip(this.pbLogin, "Set login credentials");
-            this.pbLogin.Click += new System.EventHandler(this.pbLogin_Click);
             // 
             // pbSettings
             // 
@@ -94,7 +79,7 @@ namespace StopWatch
             // 
             this.lblConnectionStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lblConnectionStatus.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.lblConnectionStatus.Location = new System.Drawing.Point(28, 8);
+            this.lblConnectionStatus.Location = new System.Drawing.Point(12, 8);
             this.lblConnectionStatus.Name = "lblConnectionStatus";
             this.lblConnectionStatus.Size = new System.Drawing.Size(117, 21);
             this.lblConnectionStatus.TabIndex = 3;
@@ -106,7 +91,7 @@ namespace StopWatch
             this.cbFilters.DropDownWidth = 422;
             this.cbFilters.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cbFilters.FormattingEnabled = true;
-            this.cbFilters.Location = new System.Drawing.Point(47, 5);
+            this.cbFilters.Location = new System.Drawing.Point(56, 5);
             this.cbFilters.Margin = new System.Windows.Forms.Padding(2);
             this.cbFilters.Name = "cbFilters";
             this.cbFilters.Size = new System.Drawing.Size(151, 24);
@@ -118,7 +103,7 @@ namespace StopWatch
             // 
             this.lblActiveFilter.AutoSize = true;
             this.lblActiveFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblActiveFilter.Location = new System.Drawing.Point(3, 8);
+            this.lblActiveFilter.Location = new System.Drawing.Point(12, 8);
             this.lblActiveFilter.Name = "lblActiveFilter";
             this.lblActiveFilter.Size = new System.Drawing.Size(39, 17);
             this.lblActiveFilter.TabIndex = 5;
@@ -165,7 +150,6 @@ namespace StopWatch
             // pBottom
             // 
             this.pBottom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.pBottom.Controls.Add(this.pbLogin);
             this.pBottom.Controls.Add(this.tbTotalTime);
             this.pBottom.Controls.Add(this.pbSettings);
             this.pBottom.Controls.Add(this.lblTotalTime);
@@ -221,7 +205,6 @@ namespace StopWatch
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.pBottom.ResumeLayout(false);
             this.pBottom.PerformLayout();
@@ -235,7 +218,6 @@ namespace StopWatch
         #endregion
 
         private System.Windows.Forms.PictureBox pbSettings;
-        private System.Windows.Forms.PictureBox pbLogin;
         private System.Windows.Forms.Label lblConnectionStatus;
         private System.Windows.Forms.ComboBox cbFilters;
         private System.Windows.Forms.Label lblActiveFilter;

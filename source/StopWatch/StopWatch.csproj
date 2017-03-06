@@ -100,12 +100,6 @@
     <Compile Include="Jira\DTO\IssueFields.cs" />
     <Compile Include="Jira\JiraClient.cs" />
     <Compile Include="Helpers\JiraTimeHelpers.cs" />
-    <Compile Include="UI\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,9 +128,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\IssueControl.resx">
       <DependentUpon>IssueControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

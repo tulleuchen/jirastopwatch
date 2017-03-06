@@ -60,7 +60,6 @@ namespace StopWatch
 
         public string Username { get; set; }
         public string Password { get; set; }
-        public bool RememberCredentials { get; set; }
         public bool FirstRun { get; set; }
 
         public int CurrentFilter { get; set; }
@@ -123,7 +122,6 @@ namespace StopWatch
                 this.Password = DPAPI.Decrypt(Properties.Settings.Default.Password);
             else
                 this.Password = "";
-            this.RememberCredentials = Properties.Settings.Default.RememberCredentials;
             this.FirstRun = Properties.Settings.Default.FirstRun;
             this.SaveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
             this.PauseOnSessionLock = (PauseAndResumeSetting)Properties.Settings.Default.PauseOnSessionLock;
@@ -155,20 +153,11 @@ namespace StopWatch
                 Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
                 Properties.Settings.Default.IssueCount = this.IssueCount;
 
-                Properties.Settings.Default.RememberCredentials = this.RememberCredentials;
-                if (this.RememberCredentials)
-                {
-                    Properties.Settings.Default.Username = this.Username;
-                    if (this.Password != "")
-                        Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
-                    else
-                        Properties.Settings.Default.Password = "";
-                }
+                Properties.Settings.Default.Username = this.Username;
+                if (this.Password != "")
+                    Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
                 else
-                {
-                    Properties.Settings.Default.Username = "";
                     Properties.Settings.Default.Password = "";
-                }
 
                 Properties.Settings.Default.FirstRun = this.FirstRun;
                 Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;

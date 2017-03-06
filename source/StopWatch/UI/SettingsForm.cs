@@ -41,6 +41,9 @@ namespace StopWatch
             cbMinimizeToTray.Visible = CrossPlatformHelpers.IsWindowsEnvironment();
 
             tbJiraBaseUrl.Text = this.settings.JiraBaseUrl;
+            tbUsername.Text = settings.Username;
+            tbPassword.Text = settings.Password;
+
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
             cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
             cbAllowMultipleTimers.Checked = this.settings.AllowMultipleTimers;
@@ -91,6 +94,9 @@ namespace StopWatch
             if (DialogResult == System.Windows.Forms.DialogResult.OK)
             {
                 this.settings.JiraBaseUrl = tbJiraBaseUrl.Text;
+                settings.Username = tbUsername.Text;
+                settings.Password = tbPassword.Text;
+
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
                 this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
                 this.settings.AllowMultipleTimers = cbAllowMultipleTimers.Checked;

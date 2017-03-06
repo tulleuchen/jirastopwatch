@@ -17,9 +17,6 @@
     <Setting Name="Password" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="RememberCredentials" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="JiraBaseUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://myjiraserver.local/</Value>
     </Setting>

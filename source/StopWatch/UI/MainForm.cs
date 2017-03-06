@@ -201,16 +201,6 @@ namespace StopWatch
         }
 
 
-        private void pbLogin_Click(object sender, EventArgs e)
-        {
-            if (settings.AlwaysOnTop)
-                this.TopMost = false;
-            JiraLogin();
-            if (settings.AlwaysOnTop)
-                this.TopMost = settings.AlwaysOnTop;
-        }
-
-
         private void cbFilters_DropDown(object sender, EventArgs e)
         {
             LoadFilters();
@@ -579,27 +569,6 @@ namespace StopWatch
             }
 
             this.settings.Save();
-        }
-
-
-        private void JiraLogin()
-        {
-            using (var form = new LoginForm())
-            {
-                form.Username = this.settings.Username;
-                form.Password = this.settings.Password;
-                form.Remember = this.settings.RememberCredentials;
-
-                if (form.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                {
-                    this.settings.RememberCredentials = form.Remember;
-                    this.settings.Username = form.Username;
-                    this.settings.Password = form.Password;
-
-                    if (IsJiraEnabled)
-                        AuthenticateJira(this.settings.Username, this.settings.Password);
-                }
-            }
         }
 
 

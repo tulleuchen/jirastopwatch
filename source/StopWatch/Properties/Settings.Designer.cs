@@ -85,18 +85,6 @@ namespace StopWatch.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool RememberCredentials {
-            get {
-                return ((bool)(this["RememberCredentials"]));
-            }
-            set {
-                this["RememberCredentials"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://myjiraserver.local/")]
         public string JiraBaseUrl {
             get {
