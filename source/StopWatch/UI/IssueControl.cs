@@ -178,12 +178,17 @@ namespace StopWatch
 
         private void UpdateSummary()
         {
-            lblSummary.Text = "";
 
             if (cbJira.Text == "")
+            {
+                lblSummary.Text = "";
                 return;
+            }
             if (!jiraClient.SessionValid)
+            {
+                lblSummary.Text = "";
                 return;
+            }
 
             Task.Factory.StartNew(
                 () => {
