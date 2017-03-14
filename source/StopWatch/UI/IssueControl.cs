@@ -280,7 +280,6 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
-            this.cbJira.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cbJira_MouseUp);
             // 
             // tbTime
             // 
@@ -469,6 +468,7 @@ namespace StopWatch
 
         void cbJira_SelectedIndexChanged(object sender, EventArgs e)
         {
+            SetSelected();
             UpdateOutput(true);
         }
 
@@ -757,11 +757,6 @@ namespace StopWatch
         #endregion
 
         private void IssueControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void cbJira_MouseUp(object sender, MouseEventArgs e)
         {
             SetSelected();
         }
