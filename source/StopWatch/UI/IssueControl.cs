@@ -535,7 +535,7 @@ namespace StopWatch
 
                 this.TimerStarted?.Invoke(this, new EventArgs());
             }
-            UpdateOutput();
+            UpdateOutput(true);
         }
 
         private void btnRemoveIssue_Click(object sender, EventArgs e)
