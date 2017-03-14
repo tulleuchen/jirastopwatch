@@ -59,7 +59,7 @@
     </Compile>
     <Compile Include="Helpers\CrossPlatformHelpers.cs" />
     <Compile Include="Helpers\DPApi.cs" />
-    <Compile Include="UI\ComboBoxPaster.cs" />
+    <Compile Include="UI\ComboTextBoxEvents.cs" />
     <Compile Include="UI\EditTimeForm.cs">
       <SubType>Form</SubType>
     </Compile>

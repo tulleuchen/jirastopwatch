@@ -95,8 +95,9 @@ namespace StopWatch
         {
             InitializeComponent();
 
-            cbJiraPaster = new ComboBoxPaster(cbJira);
-            cbJiraPaster.OnPaste += cbJiraPaster_OnPaste;
+            cbJiraTbEvents = new ComboTextBoxEvents(cbJira);
+            cbJiraTbEvents.Paste += cbJiraTbEvents_Paste;
+            cbJiraTbEvents.MouseDown += CbJiraTbEvents_MouseDown;
 
             Comment = null;
             EstimateUpdateMethod = EstimateUpdateMethods.Auto;
@@ -106,6 +107,11 @@ namespace StopWatch
 
             this.jiraClient = jiraClient;
             this.WatchTimer = new WatchTimer();
+        }
+
+        private void CbJiraTbEvents_MouseDown(object sender, EventArgs e)
+        {
+            SetSelected();
         }
 
         public void ToggleRemoveIssueButton(bool Enable)
@@ -504,7 +510,7 @@ namespace StopWatch
         }
 
 
-        private void cbJiraPaster_OnPaste(object sender, EventArgs e)
+        private void cbJiraTbEvents_Paste(object sender, EventArgs e)
         {
             PasteKeyFromClipboard();
         }
@@ -739,7 +745,7 @@ namespace StopWatch
         private Button btnRemoveIssue;
         private bool _MarkedForRemoval = false;
 
-        private ComboBoxPaster cbJiraPaster;
+        private ComboTextBoxEvents cbJiraTbEvents;
         #endregion
 
 

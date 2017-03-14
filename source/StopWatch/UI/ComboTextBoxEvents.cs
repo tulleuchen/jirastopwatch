@@ -19,14 +19,16 @@ using System.Windows.Forms;
 
 namespace StopWatch
 {
-    public class ComboBoxPaster : NativeWindow
+    public class ComboTextBoxEvents : NativeWindow
     {
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
 
-        public event EventHandler<EventArgs> OnPaste;
+        public event EventHandler<EventArgs> Paste;
 
-        public ComboBoxPaster(ComboBox comboBox)
+        public event EventHandler<EventArgs> MouseDown;
+
+        public ComboTextBoxEvents(ComboBox comboBox)
         {
             if (comboBox == null) throw new ArgumentNullException("comboBox");
 
@@ -40,14 +42,18 @@ namespace StopWatch
             if (m.Msg == WM_PASTE)
             {
                 if (Clipboard.ContainsText())
-                    OnPaste?.Invoke(this, new EventArgs());
+                    Paste?.Invoke(this, new EventArgs());
                 return;
             }
+
+            if (m.Msg == WM_LBUTTONDOWN)
+                MouseDown?.Invoke(this, new EventArgs());
 
             base.WndProc(ref m);
         }
 
         private const int WM_PASTE = 0x0302;
+        private const int WM_LBUTTONDOWN = 0x0201;
 
         private ComboBox _comboBox;
     }
