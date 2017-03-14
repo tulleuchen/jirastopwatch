@@ -53,6 +53,7 @@ namespace StopWatch
             this.tbTotalTime = new System.Windows.Forms.TextBox();
             this.pMain = new System.Windows.Forms.Panel();
             this.pBottom = new System.Windows.Forms.Panel();
+            this.lblDivider = new System.Windows.Forms.Label();
             this.pbAddIssue = new System.Windows.Forms.PictureBox();
             this.ttMain = new System.Windows.Forms.ToolTip(this.components);
             this.pTop = new System.Windows.Forms.Panel();
@@ -64,9 +65,9 @@ namespace StopWatch
             // 
             // pbSettings
             // 
+            this.pbSettings.BackgroundImage = global::StopWatch.Properties.Resources.settings22;
             this.pbSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbSettings.Image = global::StopWatch.Properties.Resources.settings22;
-            this.pbSettings.Location = new System.Drawing.Point(484, 5);
+            this.pbSettings.Location = new System.Drawing.Point(471, 5);
             this.pbSettings.Margin = new System.Windows.Forms.Padding(2);
             this.pbSettings.Name = "pbSettings";
             this.pbSettings.Size = new System.Drawing.Size(22, 22);
@@ -103,6 +104,7 @@ namespace StopWatch
             // 
             this.lblActiveFilter.AutoSize = true;
             this.lblActiveFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblActiveFilter.ForeColor = System.Drawing.Color.White;
             this.lblActiveFilter.Location = new System.Drawing.Point(12, 8);
             this.lblActiveFilter.Name = "lblActiveFilter";
             this.lblActiveFilter.Size = new System.Drawing.Size(39, 17);
@@ -111,7 +113,6 @@ namespace StopWatch
             // 
             // notifyIcon
             // 
-            this.notifyIcon.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.notifyIcon.Text = "JIRA StopWatch";
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
@@ -149,7 +150,7 @@ namespace StopWatch
             // 
             // pBottom
             // 
-            this.pBottom.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.pBottom.Controls.Add(this.lblDivider);
             this.pBottom.Controls.Add(this.tbTotalTime);
             this.pBottom.Controls.Add(this.pbSettings);
             this.pBottom.Controls.Add(this.lblTotalTime);
@@ -159,25 +160,29 @@ namespace StopWatch
             this.pBottom.Size = new System.Drawing.Size(517, 32);
             this.pBottom.TabIndex = 10;
             // 
+            // lblDivider
+            // 
+            this.lblDivider.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblDivider.Location = new System.Drawing.Point(0, 0);
+            this.lblDivider.Name = "lblDivider";
+            this.lblDivider.Size = new System.Drawing.Size(517, 2);
+            this.lblDivider.TabIndex = 9;
+            // 
             // pbAddIssue
             // 
+            this.pbAddIssue.BackgroundImage = global::StopWatch.Properties.Resources.addissue22;
             this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbAddIssue.Image = global::StopWatch.Properties.Resources.addissue22;
-            this.pbAddIssue.Location = new System.Drawing.Point(469, 5);
+            this.pbAddIssue.Location = new System.Drawing.Point(470, 5);
             this.pbAddIssue.Margin = new System.Windows.Forms.Padding(2);
             this.pbAddIssue.Name = "pbAddIssue";
             this.pbAddIssue.Size = new System.Drawing.Size(24, 24);
             this.pbAddIssue.TabIndex = 11;
             this.pbAddIssue.TabStop = false;
             this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row (CTRL-N)");
-            this.pbAddIssue.Click += new System.EventHandler(this.pbAddIssue_Clicked);
-            this.pbAddIssue.DoubleClick += new System.EventHandler(this.pbAddIssue_Clicked);
-            this.pbAddIssue.MouseEnter += new System.EventHandler(this.pbAddIssue_MouseEnter);
-            this.pbAddIssue.MouseLeave += new System.EventHandler(this.pbAddIssue_MouseLeave);
             // 
             // pTop
             // 
-            this.pTop.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pTop.BackColor = System.Drawing.Color.SteelBlue;
             this.pTop.Controls.Add(this.lblActiveFilter);
             this.pTop.Controls.Add(this.cbFilters);
             this.pTop.Controls.Add(this.pbAddIssue);
@@ -196,7 +201,6 @@ namespace StopWatch
             this.Controls.Add(this.pBottom);
             this.Controls.Add(this.pMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -229,6 +233,7 @@ namespace StopWatch
         private System.Windows.Forms.ToolTip ttMain;
         private System.Windows.Forms.PictureBox pbAddIssue;
         private System.Windows.Forms.Panel pTop;
+        private System.Windows.Forms.Label lblDivider;
     }
 }
 

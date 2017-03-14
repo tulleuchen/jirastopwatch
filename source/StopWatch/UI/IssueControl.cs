@@ -72,7 +72,7 @@ namespace StopWatch
             }
             set
             {
-                BackColor = value ? Color.LightSteelBlue : SystemColors.Window;
+                BackColor = value ? SystemColors.GradientInactiveCaption : SystemColors.Window;
             }
         }
 
