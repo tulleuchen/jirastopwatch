@@ -99,7 +99,7 @@ namespace StopWatch
             this.cbAlwaysOnTop.Margin = new System.Windows.Forms.Padding(2);
             this.cbAlwaysOnTop.Name = "cbAlwaysOnTop";
             this.cbAlwaysOnTop.Size = new System.Drawing.Size(158, 17);
-            this.cbAlwaysOnTop.TabIndex = 6;
+            this.cbAlwaysOnTop.TabIndex = 10;
             this.cbAlwaysOnTop.Text = "Always keep window on top";
             this.cbAlwaysOnTop.UseVisualStyleBackColor = true;
             // 
@@ -111,7 +111,7 @@ namespace StopWatch
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 22);
-            this.btnOk.TabIndex = 22;
+            this.btnOk.TabIndex = 27;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             // 
@@ -122,7 +122,7 @@ namespace StopWatch
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 22);
-            this.btnCancel.TabIndex = 23;
+            this.btnCancel.TabIndex = 28;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -131,7 +131,7 @@ namespace StopWatch
             this.lblSaveTimerState.Location = new System.Drawing.Point(9, 206);
             this.lblSaveTimerState.Name = "lblSaveTimerState";
             this.lblSaveTimerState.Size = new System.Drawing.Size(98, 38);
-            this.lblSaveTimerState.TabIndex = 9;
+            this.lblSaveTimerState.TabIndex = 14;
             this.lblSaveTimerState.Text = "Save timer states on program exit";
             // 
             // btnAbout
@@ -140,7 +140,7 @@ namespace StopWatch
             this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(56, 22);
-            this.btnAbout.TabIndex = 21;
+            this.btnAbout.TabIndex = 26;
             this.btnAbout.Text = "About...";
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
@@ -152,7 +152,7 @@ namespace StopWatch
             this.cbMinimizeToTray.Margin = new System.Windows.Forms.Padding(2);
             this.cbMinimizeToTray.Name = "cbMinimizeToTray";
             this.cbMinimizeToTray.Size = new System.Drawing.Size(98, 17);
-            this.cbMinimizeToTray.TabIndex = 7;
+            this.cbMinimizeToTray.TabIndex = 11;
             this.cbMinimizeToTray.Text = "Minimize to tray";
             this.cbMinimizeToTray.UseVisualStyleBackColor = true;
             // 
@@ -163,14 +163,14 @@ namespace StopWatch
             this.cbSaveTimerState.Location = new System.Drawing.Point(122, 208);
             this.cbSaveTimerState.Name = "cbSaveTimerState";
             this.cbSaveTimerState.Size = new System.Drawing.Size(258, 21);
-            this.cbSaveTimerState.TabIndex = 10;
+            this.cbSaveTimerState.TabIndex = 15;
             // 
             // lblPauseOnSessionLock
             // 
             this.lblPauseOnSessionLock.Location = new System.Drawing.Point(9, 244);
             this.lblPauseOnSessionLock.Name = "lblPauseOnSessionLock";
             this.lblPauseOnSessionLock.Size = new System.Drawing.Size(98, 38);
-            this.lblPauseOnSessionLock.TabIndex = 11;
+            this.lblPauseOnSessionLock.TabIndex = 16;
             this.lblPauseOnSessionLock.Text = "Pause timer on session lock";
             // 
             // cbPauseOnSessionLock
@@ -180,7 +180,7 @@ namespace StopWatch
             this.cbPauseOnSessionLock.Location = new System.Drawing.Point(122, 246);
             this.cbPauseOnSessionLock.Name = "cbPauseOnSessionLock";
             this.cbPauseOnSessionLock.Size = new System.Drawing.Size(176, 21);
-            this.cbPauseOnSessionLock.TabIndex = 12;
+            this.cbPauseOnSessionLock.TabIndex = 17;
             // 
             // splitter3
             // 
@@ -188,7 +188,7 @@ namespace StopWatch
             this.splitter3.Location = new System.Drawing.Point(12, 453);
             this.splitter3.Name = "splitter3";
             this.splitter3.Size = new System.Drawing.Size(370, 2);
-            this.splitter3.TabIndex = 20;
+            this.splitter3.TabIndex = 25;
             // 
             // splitter2
             // 
@@ -196,7 +196,7 @@ namespace StopWatch
             this.splitter2.Location = new System.Drawing.Point(12, 194);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(370, 2);
-            this.splitter2.TabIndex = 8;
+            this.splitter2.TabIndex = 13;
             // 
             // splitter1
             // 
@@ -204,7 +204,7 @@ namespace StopWatch
             this.splitter1.Location = new System.Drawing.Point(12, 116);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(370, 2);
-            this.splitter1.TabIndex = 4;
+            this.splitter1.TabIndex = 8;
             // 
             // cbAllowMultipleTimers
             // 
@@ -213,7 +213,7 @@ namespace StopWatch
             this.cbAllowMultipleTimers.Margin = new System.Windows.Forms.Padding(2);
             this.cbAllowMultipleTimers.Name = "cbAllowMultipleTimers";
             this.cbAllowMultipleTimers.Size = new System.Drawing.Size(228, 17);
-            this.cbAllowMultipleTimers.TabIndex = 13;
+            this.cbAllowMultipleTimers.TabIndex = 18;
             this.cbAllowMultipleTimers.Text = "Allow running multiple timers simultaneously";
             this.cbAllowMultipleTimers.UseVisualStyleBackColor = true;
             // 
@@ -224,14 +224,14 @@ namespace StopWatch
             this.cbPostWorklogComment.Location = new System.Drawing.Point(122, 313);
             this.cbPostWorklogComment.Name = "cbPostWorklogComment";
             this.cbPostWorklogComment.Size = new System.Drawing.Size(198, 21);
-            this.cbPostWorklogComment.TabIndex = 15;
+            this.cbPostWorklogComment.TabIndex = 20;
             // 
             // lblPostWorklogComment
             // 
             this.lblPostWorklogComment.Location = new System.Drawing.Point(9, 311);
             this.lblPostWorklogComment.Name = "lblPostWorklogComment";
             this.lblPostWorklogComment.Size = new System.Drawing.Size(98, 38);
-            this.lblPostWorklogComment.TabIndex = 14;
+            this.lblPostWorklogComment.TabIndex = 19;
             this.lblPostWorklogComment.Text = "How to post the worklog comment";
             // 
             // cbAllowManualEstimateAdjustments
@@ -241,7 +241,7 @@ namespace StopWatch
             this.cbAllowManualEstimateAdjustments.Margin = new System.Windows.Forms.Padding(2);
             this.cbAllowManualEstimateAdjustments.Name = "cbAllowManualEstimateAdjustments";
             this.cbAllowManualEstimateAdjustments.Size = new System.Drawing.Size(200, 17);
-            this.cbAllowManualEstimateAdjustments.TabIndex = 16;
+            this.cbAllowManualEstimateAdjustments.TabIndex = 21;
             this.cbAllowManualEstimateAdjustments.Text = "Allow control over remaining estimate";
             this.cbAllowManualEstimateAdjustments.UseVisualStyleBackColor = true;
             // 
@@ -251,7 +251,7 @@ namespace StopWatch
             this.lblDisplayOptions.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDisplayOptions.Name = "lblDisplayOptions";
             this.lblDisplayOptions.Size = new System.Drawing.Size(107, 34);
-            this.lblDisplayOptions.TabIndex = 5;
+            this.lblDisplayOptions.TabIndex = 9;
             this.lblDisplayOptions.Text = "General options";
             // 
             // label1
@@ -260,14 +260,14 @@ namespace StopWatch
             this.label1.Location = new System.Drawing.Point(11, 372);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(370, 2);
-            this.label1.TabIndex = 17;
+            this.label1.TabIndex = 22;
             // 
             // lblStartTransitions
             // 
             this.lblStartTransitions.Location = new System.Drawing.Point(9, 386);
             this.lblStartTransitions.Name = "lblStartTransitions";
             this.lblStartTransitions.Size = new System.Drawing.Size(107, 52);
-            this.lblStartTransitions.TabIndex = 18;
+            this.lblStartTransitions.TabIndex = 23;
             this.lblStartTransitions.Text = "Possible state changes when pressing play (seperate by newline)";
             // 
             // tbStartTransitions
@@ -277,7 +277,7 @@ namespace StopWatch
             this.tbStartTransitions.Multiline = true;
             this.tbStartTransitions.Name = "tbStartTransitions";
             this.tbStartTransitions.Size = new System.Drawing.Size(200, 52);
-            this.tbStartTransitions.TabIndex = 19;
+            this.tbStartTransitions.TabIndex = 24;
             // 
             // cbLoggingEnabbled
             // 
@@ -286,7 +286,7 @@ namespace StopWatch
             this.cbLoggingEnabbled.Margin = new System.Windows.Forms.Padding(2);
             this.cbLoggingEnabbled.Name = "cbLoggingEnabbled";
             this.cbLoggingEnabbled.Size = new System.Drawing.Size(132, 17);
-            this.cbLoggingEnabbled.TabIndex = 2;
+            this.cbLoggingEnabbled.TabIndex = 6;
             this.cbLoggingEnabbled.Text = "Enable debug logging ";
             this.cbLoggingEnabbled.UseVisualStyleBackColor = true;
             // 
@@ -296,7 +296,7 @@ namespace StopWatch
             this.lblOpenLogFolder.Location = new System.Drawing.Point(264, 90);
             this.lblOpenLogFolder.Name = "lblOpenLogFolder";
             this.lblOpenLogFolder.Size = new System.Drawing.Size(79, 13);
-            this.lblOpenLogFolder.TabIndex = 3;
+            this.lblOpenLogFolder.TabIndex = 7;
             this.lblOpenLogFolder.TabStop = true;
             this.lblOpenLogFolder.Text = "Open log folder";
             this.lblOpenLogFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblOpenLogFolder_LinkClicked);
@@ -308,7 +308,7 @@ namespace StopWatch
             this.cbCheckForUpdate.Margin = new System.Windows.Forms.Padding(2);
             this.cbCheckForUpdate.Name = "cbCheckForUpdate";
             this.cbCheckForUpdate.Size = new System.Drawing.Size(205, 17);
-            this.cbCheckForUpdate.TabIndex = 24;
+            this.cbCheckForUpdate.TabIndex = 12;
             this.cbCheckForUpdate.Text = "Check for updates on application start";
             this.cbCheckForUpdate.UseVisualStyleBackColor = true;
             // 
@@ -319,7 +319,7 @@ namespace StopWatch
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(129, 20);
-            this.tbPassword.TabIndex = 28;
+            this.tbPassword.TabIndex = 5;
             // 
             // lblPassword
             // 
@@ -328,7 +328,7 @@ namespace StopWatch
             this.lblPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(53, 13);
-            this.lblPassword.TabIndex = 27;
+            this.lblPassword.TabIndex = 4;
             this.lblPassword.Text = "Password";
             // 
             // tbUsername
@@ -337,7 +337,7 @@ namespace StopWatch
             this.tbUsername.Margin = new System.Windows.Forms.Padding(2);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(129, 20);
-            this.tbUsername.TabIndex = 26;
+            this.tbUsername.TabIndex = 3;
             // 
             // lblUsername
             // 
@@ -346,7 +346,7 @@ namespace StopWatch
             this.lblUsername.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(55, 13);
-            this.lblUsername.TabIndex = 25;
+            this.lblUsername.TabIndex = 2;
             this.lblUsername.Text = "Username";
             // 
             // SettingsForm
