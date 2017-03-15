@@ -179,6 +179,7 @@ namespace StopWatch
             this.pbAddIssue.TabIndex = 11;
             this.pbAddIssue.TabStop = false;
             this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row (CTRL-N)");
+            this.pbAddIssue.Click += new System.EventHandler(this.pbAddIssue_Clicked);
             // 
             // pTop
             // 
@@ -201,12 +202,12 @@ namespace StopWatch
             this.Controls.Add(this.pBottom);
             this.Controls.Add(this.pMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "JIRA StopWatch";
             this.TopMost = true;
-            this.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
