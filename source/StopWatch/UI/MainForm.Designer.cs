@@ -206,6 +206,7 @@ namespace StopWatch
             this.Name = "MainForm";
             this.Text = "JIRA StopWatch";
             this.TopMost = true;
+            this.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
