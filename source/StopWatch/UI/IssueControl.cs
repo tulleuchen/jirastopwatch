@@ -283,7 +283,7 @@ namespace StopWatch
             this.cbJira.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbJira_DrawItem);
             this.cbJira.DropDown += new System.EventHandler(this.cbJira_DropDown);
             this.cbJira.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.cbJira_MeasureItem);
-            this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
+            this.cbJira.SelectionChangeCommitted += new System.EventHandler(this.cbJira_SelectionChangeCommitted);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
             // 
@@ -469,13 +469,6 @@ namespace StopWatch
             using (Pen p = new Pen(Color.Black))
                 e.Graphics.DrawLine(p, r1.Right, 0, r1.Right, 140);
 
-        }
-
-
-        void cbJira_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetSelected();
-            UpdateOutput(true);
         }
 
 
@@ -795,6 +788,12 @@ namespace StopWatch
         private void lblSummary_MouseUp(object sender, MouseEventArgs e)
         {
             SetSelected();
+        }
+
+        private void cbJira_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            SetSelected();
+            UpdateOutput(true);
         }
     }
 }
