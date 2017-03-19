@@ -33,7 +33,7 @@ namespace StopWatch
 
         private void lblHomepage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://carstengehling.github.io/jirastopwatch");
+            System.Diagnostics.Process.Start("http://jirastopwatch.com");
         }
     }
 }
