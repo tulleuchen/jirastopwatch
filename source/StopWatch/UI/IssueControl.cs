@@ -566,7 +566,7 @@ namespace StopWatch
 
         public void PostAndReset()
         {
-            using (var worklogForm = new WorklogForm(WatchTimer.TimeElapsed, settings.AllowManualEstimateAdjustments, Comment, EstimateUpdateMethod, EstimateUpdateValue))
+            using (var worklogForm = new WorklogForm(WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
                 UpdateRemainingEstimate(worklogForm);
                 var formResult = worklogForm.ShowDialog(this);

@@ -33,37 +33,23 @@ namespace StopWatch
         {
             get
             {
-                if (this.AllowManualEstimateAdjustments) 
-                {
-                    return _estimateUpdateMethod;
-                }
-                else 
-                {
-                    return EstimateUpdateMethods.Auto;
-                }
+                return _estimateUpdateMethod;
             }
         }
         public string EstimateValue
         {
             get
             {
-                if (this.AllowManualEstimateAdjustments)
+                switch(this.estimateUpdateMethod)
                 {
-                    switch(this.estimateUpdateMethod)
-                    {
-                        case EstimateUpdateMethods.SetTo:                       
-                            return this.tbSetTo.Text;
-                        case EstimateUpdateMethods.ManualDecrease:
-                            return this.tbReduceBy.Text;
-                        case EstimateUpdateMethods.Auto:
-                        case EstimateUpdateMethods.Leave:
-                        default:
-                            return null;                        
-                    }
-                }
-                else
-                {
-                    return null;
+                    case EstimateUpdateMethods.SetTo:                       
+                        return this.tbSetTo.Text;
+                    case EstimateUpdateMethods.ManualDecrease:
+                        return this.tbReduceBy.Text;
+                    case EstimateUpdateMethods.Auto:
+                    case EstimateUpdateMethods.Leave:
+                    default:
+                        return null;                        
                 }
             }
         }
@@ -97,9 +83,8 @@ namespace StopWatch
 
 
         #region public methods
-        public WorklogForm(TimeSpan TimeElapsed, bool AllowManualEstimateAdjustments, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
+        public WorklogForm(TimeSpan TimeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {            
-            this.AllowManualEstimateAdjustments = AllowManualEstimateAdjustments;
             this.TimeElapsed = TimeElapsed;
             InitializeComponent();
             if (!String.IsNullOrEmpty(comment))
@@ -107,46 +92,22 @@ namespace StopWatch
                 tbComment.Text = String.Format("{0}{0}{1}", Environment.NewLine, comment);
                 tbComment.SelectionStart = 0;
             }
-            if (this.AllowManualEstimateAdjustments)
-            {                
-                this.gbRemainingEstimate.Visible = true;
-                switch( estimateUpdateMethod ) {
-                    case EstimateUpdateMethods.Auto:
-                        rdEstimateAdjustAuto.Checked = true;
-                        break;
-                    case EstimateUpdateMethods.Leave:
-                        rdEstimateAdjustLeave.Checked = true;
-                        break;
-                    case EstimateUpdateMethods.SetTo:
-                        rdEstimateAdjustSetTo.Checked = true;
-                        tbSetTo.Text = estimateUpdateValue;
-                        break;
-                    case EstimateUpdateMethods.ManualDecrease:
-                        rdEstimateAdjustManualDecrease.Checked = true;
-                        tbReduceBy.Text = estimateUpdateValue;
-                        break;
-                }
-            }
-            else
-            {
-                this.lblInfo.Location = new Point(
-                    this.lblInfo.Location.X,
-                    this.lblInfo.Location.Y - this.gbRemainingEstimate.Height
-                );
-                this.btnSave.Location = new Point(
-                    this.btnSave.Location.X,
-                    this.btnSave.Location.Y - this.gbRemainingEstimate.Height
-                );
-                this.btnOk.Location = new Point(
-                    this.btnOk.Location.X,
-                    this.btnOk.Location.Y - this.gbRemainingEstimate.Height
-                );
-                this.btnCancel.Location = new Point(
-                    this.btnCancel.Location.X,
-                    this.btnCancel.Location.Y - this.gbRemainingEstimate.Height
-                );
-                this.Height -= this.gbRemainingEstimate.Height;
 
+            switch( estimateUpdateMethod ) {
+                case EstimateUpdateMethods.Auto:
+                    rdEstimateAdjustAuto.Checked = true;
+                    break;
+                case EstimateUpdateMethods.Leave:
+                    rdEstimateAdjustLeave.Checked = true;
+                    break;
+                case EstimateUpdateMethods.SetTo:
+                    rdEstimateAdjustSetTo.Checked = true;
+                    tbSetTo.Text = estimateUpdateValue;
+                    break;
+                case EstimateUpdateMethods.ManualDecrease:
+                    rdEstimateAdjustManualDecrease.Checked = true;
+                    tbReduceBy.Text = estimateUpdateValue;
+                    break;
             }
         }
         #endregion
@@ -159,7 +120,6 @@ namespace StopWatch
         private EstimateUpdateMethods _estimateUpdateMethod = EstimateUpdateMethods.Auto;
         private bool tbSetToInvalid = false;
         private bool tbReduceByInvalid = false;
-        private bool AllowManualEstimateAdjustments;
         private string _RemainingEstimate;
         private int _RemainingEstimateSeconds;
         private TimeSpan TimeElapsed;
@@ -212,7 +172,7 @@ namespace StopWatch
         private void tbSetTo_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Valdiate but do not set the cancel event
-            // The reason for this is thats etting the cancel event means you can't leave the field,
+            // The reason for this is that setting the cancel event means you can't leave the field,
             // even to choose a different estimate adjustment option.
             // So valiate (so the colour updates) but do not cancel
             ValidateTimeInput(tbSetTo, false);
@@ -220,7 +180,7 @@ namespace StopWatch
         private void tbReduceBy_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Valdiate but do not set the cancel event
-            // The reason for this is thats etting the cancel event means you can't leave the field,
+            // The reason for this is that setting the cancel event means you can't leave the field,
             // even to choose a different estimate adjustment option.
             // So valiate (so the colour updates) but do not cancel
             ValidateTimeInput(tbReduceBy, false);

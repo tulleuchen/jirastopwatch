@@ -154,7 +154,6 @@ namespace StopWatch
             this.gbRemainingEstimate.TabIndex = 2;
             this.gbRemainingEstimate.TabStop = false;
             this.gbRemainingEstimate.Text = "Remaining Estimate";
-            this.gbRemainingEstimate.Visible = false;
             // 
             // tbReduceBy
             // 

@@ -47,7 +47,6 @@ namespace StopWatch
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
             cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
             cbAllowMultipleTimers.Checked = this.settings.AllowMultipleTimers;
-            cbAllowManualEstimateAdjustments.Checked = this.settings.AllowManualEstimateAdjustments;
 
             cbSaveTimerState.DisplayMember = "Text";
             cbSaveTimerState.ValueMember = "Value";
@@ -100,7 +99,6 @@ namespace StopWatch
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
                 this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
                 this.settings.AllowMultipleTimers = cbAllowMultipleTimers.Checked;
-                this.settings.AllowManualEstimateAdjustments = cbAllowManualEstimateAdjustments.Checked;
 
                 this.settings.SaveTimerState = (SaveTimerSetting)cbSaveTimerState.SelectedValue;
                 this.settings.PauseOnSessionLock = (PauseAndResumeSetting)cbPauseOnSessionLock.SelectedValue;
