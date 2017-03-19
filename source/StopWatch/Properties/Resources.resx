@@ -118,8 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="stopwatchicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\stopwatchicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="pause26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\pause26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addissue22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\addissue22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="play26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\play26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -127,14 +133,20 @@
   <data name="posttimenote26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\posttimenote26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="posttime26" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\posttime26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="settings22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\settings22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\delete24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stopwatchimg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\stopwatchimg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="openbrowser26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\openbrowser26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="settings22" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\settings22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="posttime26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\posttime26.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="login22" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\login22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,16 +154,7 @@
   <data name="reset24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\icons\reset24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="stopwatchicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\stopwatchicon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="stopwatchimg" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\stopwatchimg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="addissue22" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\addissue22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="delete24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\icons\delete24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="help22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\icons\help22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

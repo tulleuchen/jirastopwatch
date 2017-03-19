@@ -885,6 +885,11 @@ namespace StopWatch
         {
             issueControls.ToList()[currentIssueIndex].OpenCombo();
         }
+
+        private void pbHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://jirastopwatch.com/doc");
+        }
     }
 
     // content item for the combo box

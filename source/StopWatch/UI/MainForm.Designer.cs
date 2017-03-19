@@ -57,10 +57,12 @@ namespace StopWatch
             this.pbAddIssue = new System.Windows.Forms.PictureBox();
             this.ttMain = new System.Windows.Forms.ToolTip(this.components);
             this.pTop = new System.Windows.Forms.Panel();
+            this.pbHelp = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddIssue)).BeginInit();
             this.pTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHelp)).BeginInit();
             this.SuspendLayout();
             // 
             // pbSettings
@@ -172,7 +174,7 @@ namespace StopWatch
             // 
             this.pbAddIssue.BackgroundImage = global::StopWatch.Properties.Resources.addissue22;
             this.pbAddIssue.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbAddIssue.Location = new System.Drawing.Point(470, 5);
+            this.pbAddIssue.Location = new System.Drawing.Point(434, 5);
             this.pbAddIssue.Margin = new System.Windows.Forms.Padding(2);
             this.pbAddIssue.Name = "pbAddIssue";
             this.pbAddIssue.Size = new System.Drawing.Size(24, 24);
@@ -184,6 +186,7 @@ namespace StopWatch
             // pTop
             // 
             this.pTop.BackColor = System.Drawing.Color.SteelBlue;
+            this.pTop.Controls.Add(this.pbHelp);
             this.pTop.Controls.Add(this.lblActiveFilter);
             this.pTop.Controls.Add(this.cbFilters);
             this.pTop.Controls.Add(this.pbAddIssue);
@@ -191,6 +194,18 @@ namespace StopWatch
             this.pTop.Name = "pTop";
             this.pTop.Size = new System.Drawing.Size(517, 35);
             this.pTop.TabIndex = 11;
+            // 
+            // pbHelp
+            // 
+            this.pbHelp.BackgroundImage = global::StopWatch.Properties.Resources.help22;
+            this.pbHelp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbHelp.Location = new System.Drawing.Point(471, 5);
+            this.pbHelp.Name = "pbHelp";
+            this.pbHelp.Size = new System.Drawing.Size(22, 22);
+            this.pbHelp.TabIndex = 12;
+            this.pbHelp.TabStop = false;
+            this.ttMain.SetToolTip(this.pbHelp, "Open help page in your browser");
+            this.pbHelp.Click += new System.EventHandler(this.pbHelp_Click);
             // 
             // MainForm
             // 
@@ -217,6 +232,7 @@ namespace StopWatch
             ((System.ComponentModel.ISupportInitialize)(this.pbAddIssue)).EndInit();
             this.pTop.ResumeLayout(false);
             this.pTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHelp)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -236,6 +252,7 @@ namespace StopWatch
         private System.Windows.Forms.PictureBox pbAddIssue;
         private System.Windows.Forms.Panel pTop;
         private System.Windows.Forms.Label lblDivider;
+        private System.Windows.Forms.PictureBox pbHelp;
     }
 }
 
