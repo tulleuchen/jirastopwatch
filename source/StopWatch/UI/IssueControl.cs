@@ -79,6 +79,8 @@ namespace StopWatch
         public event EventHandler RemoveMeTriggered;
 
         public event EventHandler Selected;
+
+        public event EventHandler TimeEdited;
         #endregion
 
 
@@ -698,6 +700,8 @@ namespace StopWatch
                     WatchTimer.TimeElapsed = editTimeForm.Time;
 
                     UpdateOutput();
+
+                    TimeEdited?.Invoke(this, new EventArgs());
                 }
             }
         }

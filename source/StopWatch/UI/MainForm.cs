@@ -353,6 +353,7 @@ namespace StopWatch
                 issue.TimerStarted += issue_TimerStarted;
                 issue.TimerReset += Issue_TimerReset;
                 issue.Selected += Issue_Selected;
+                issue.TimeEdited += Issue_TimeEdited;
                 this.pMain.Controls.Add(issue);
             }
 
@@ -395,6 +396,11 @@ namespace StopWatch
             this.ResumeLayout(false);
             this.PerformLayout();
             UpdateIssuesOutput(true);
+        }
+
+        private void Issue_TimeEdited(object sender, EventArgs e)
+        {
+            UpdateTotalTime();
         }
 
         private void Issue_Selected(object sender, EventArgs e)
