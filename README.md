@@ -4,50 +4,14 @@ A Windows desktop tool for recording time spent on different Jira tasks.
 
 ![](http://jirastopwatch.com/img/screen2.png)
 
-## Features:
+## Features, download and installation:
 
-### Easy time tracking of Jira issues
+Read all about features on [the product homepage](http://jirastopwatch.com).
 
-* Switch time tracking between issues with just one click
-* Quickly add/remove as many time-tracking slots you want available
-* Time can be manually edited (eg. if you forgot to start the timer when starting work)
-* Optionally pause timer when locking your PC
-
-### Integration with Jira REST API
-
-* Select issue keys from a list based on one of your favorite JQL filters or type it manually
-* Displays issue description when key has been selected or entered manually
-* Post spent time into Jira as a worklog with comments
-
-### Automatically save program state on exit
-
-* Jira issue keys are saved on program exit
-* Optionally remember login credentials
-* Optionally save time-tracking state, so your stopwatch continue to "run" even if you need to quit the program (e.g. you need to reboot, but still want to keep on recording time)
+Documentaion about [how to download, install, and use Jira StopWatch](http://jirastopwatch.com/doc/)
+is also available.
 
 Feature-requests are more than welcome :-)
-
-## Download & installation
-
-A setup file with the latest release can be [downloaded here](https://github.com/carstengehling/jirastopwatch/releases).
-
-## Usage
-
-Watch the tutorial screencast: [https://vimeo.com/146107370](https://vimeo.com/146107370)
-
-After install, start the application and click the settings icon (gears icon). Enter the real base URL for your Jira server and press OK. Then click on the padlock to login to Jira.
-
-Now you can either write Jira issue id's manually into the the textbox. Or you can choose one of your favorite JQL filters in the drop-down list in the bottom of the windows, and afterwards select Jia issues from drop-down lists.
-
-Press the green PLAY button next to the issue, that you want to work on. The time-tracking textbox will now turn green, and after the first minute has passed, the time elapsed will change from "0m" to "1m".
-
-If you press PLAY on another task, the previous timer will automatically pause.
-
-The button to the right of the time box lets you post the time directly on Jira as a worklog along with a comment. If the posting is successful, the timer will automatically reset, otherwise the timer will not be changed.
-
-The rightmost button on each row reset the timer to 0m.
-
-That's pretty much it!
 
 ## Mac OSX and Linux users
 
@@ -72,6 +36,20 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+2.0.0     2017-03-23     New features/improvements
+                           - Added keyboard shortcuts to operate most important functions.
+                           - Moved user credentials into settings window instead of
+                             separate login window.
+                           - Added Jira's default filter "My open issues" as hard-coded
+                             first filter.
+                           - Added a help button, that links to the new documentation homepage.
+
+                         Bugfixes
+                           - If the user config file got corrupt, StopWatch would not start.
+                           - Worklog could not be submitted, if user's regional setting was
+                             set to eg. Swedish because of a different date format.
+                           - When manually editing timer, total time was not updated instantly.
+
 1.9.0     2017-01-24     New features/improvements
                            - Issue rows are now added/removed directly from the UI instead of
                              from inside the settings dialog. (Thanks to Adam Conway for this)
