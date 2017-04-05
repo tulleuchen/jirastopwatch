@@ -377,11 +377,12 @@ namespace StopWatch
 
             this.ClientSize = new Size(pBottom.Width, this.settings.IssueCount * issueControls.Last().Height + pMain.Top + pBottom.Height);
 
-            if (this.Height > Screen.PrimaryScreen.WorkingArea.Height)
-                this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+            var workingArea = Screen.FromControl(this).WorkingArea;
+            if (this.Height > workingArea.Height)
+                this.Height = workingArea.Height;
 
-            if (this.Bottom > Screen.PrimaryScreen.WorkingArea.Height)
-                this.Top = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
+            if (this.Bottom > workingArea.Bottom)
+                this.Top = workingArea.Bottom - this.Height;
             
             pMain.Height = ClientSize.Height - pTop.Height - pBottom.Height;
             pBottom.Top = ClientSize.Height - pBottom.Height;
