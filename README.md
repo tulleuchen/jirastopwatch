@@ -36,6 +36,11 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+2.0.1     2017-04-10     Bugfixes
+                           - System tray icon missing when minimizing to tray.
+                           - Always use current screen instead of main screen for calculating
+                             maximum height of main window.
+
 2.0.0     2017-03-23     New features/improvements
                            - Added keyboard shortcuts to operate most important functions.
                            - Moved user credentials into settings window instead of
