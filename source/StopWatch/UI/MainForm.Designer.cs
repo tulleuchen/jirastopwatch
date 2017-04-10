@@ -44,6 +44,7 @@ namespace StopWatch
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pbSettings = new System.Windows.Forms.PictureBox();
             this.lblConnectionStatus = new System.Windows.Forms.Label();
             this.cbFilters = new System.Windows.Forms.ComboBox();
@@ -56,13 +57,13 @@ namespace StopWatch
             this.lblDivider = new System.Windows.Forms.Label();
             this.pbAddIssue = new System.Windows.Forms.PictureBox();
             this.ttMain = new System.Windows.Forms.ToolTip(this.components);
-            this.pTop = new System.Windows.Forms.Panel();
             this.pbHelp = new System.Windows.Forms.PictureBox();
+            this.pTop = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddIssue)).BeginInit();
-            this.pTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbHelp)).BeginInit();
+            this.pTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbSettings
@@ -115,6 +116,7 @@ namespace StopWatch
             // 
             // notifyIcon
             // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "JIRA StopWatch";
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
@@ -183,18 +185,6 @@ namespace StopWatch
             this.ttMain.SetToolTip(this.pbAddIssue, "Add another issue row (CTRL-N)");
             this.pbAddIssue.Click += new System.EventHandler(this.pbAddIssue_Clicked);
             // 
-            // pTop
-            // 
-            this.pTop.BackColor = System.Drawing.Color.SteelBlue;
-            this.pTop.Controls.Add(this.pbHelp);
-            this.pTop.Controls.Add(this.lblActiveFilter);
-            this.pTop.Controls.Add(this.cbFilters);
-            this.pTop.Controls.Add(this.pbAddIssue);
-            this.pTop.Location = new System.Drawing.Point(0, 0);
-            this.pTop.Name = "pTop";
-            this.pTop.Size = new System.Drawing.Size(517, 35);
-            this.pTop.TabIndex = 11;
-            // 
             // pbHelp
             // 
             this.pbHelp.BackgroundImage = global::StopWatch.Properties.Resources.help22;
@@ -206,6 +196,18 @@ namespace StopWatch
             this.pbHelp.TabStop = false;
             this.ttMain.SetToolTip(this.pbHelp, "Open help page in your browser");
             this.pbHelp.Click += new System.EventHandler(this.pbHelp_Click);
+            // 
+            // pTop
+            // 
+            this.pTop.BackColor = System.Drawing.Color.SteelBlue;
+            this.pTop.Controls.Add(this.pbHelp);
+            this.pTop.Controls.Add(this.lblActiveFilter);
+            this.pTop.Controls.Add(this.cbFilters);
+            this.pTop.Controls.Add(this.pbAddIssue);
+            this.pTop.Location = new System.Drawing.Point(0, 0);
+            this.pTop.Name = "pTop";
+            this.pTop.Size = new System.Drawing.Size(517, 35);
+            this.pTop.TabIndex = 11;
             // 
             // MainForm
             // 
@@ -230,9 +232,9 @@ namespace StopWatch
             this.pBottom.ResumeLayout(false);
             this.pBottom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddIssue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbHelp)).EndInit();
             this.pTop.ResumeLayout(false);
             this.pTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbHelp)).EndInit();
             this.ResumeLayout(false);
 
         }
