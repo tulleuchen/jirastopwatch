@@ -44,7 +44,6 @@ namespace StopWatch
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pbSettings = new System.Windows.Forms.PictureBox();
             this.lblConnectionStatus = new System.Windows.Forms.Label();
             this.cbFilters = new System.Windows.Forms.ComboBox();
@@ -116,7 +115,6 @@ namespace StopWatch
             // 
             // notifyIcon
             // 
-            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "JIRA StopWatch";
             this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
             // 
@@ -219,7 +217,6 @@ namespace StopWatch
             this.Controls.Add(this.pBottom);
             this.Controls.Add(this.pMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::StopWatch.Properties.Resources.stopwatchicon;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "MainForm";

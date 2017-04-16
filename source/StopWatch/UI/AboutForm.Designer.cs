@@ -43,7 +43,6 @@ namespace StopWatch
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.lblNameVersion = new System.Windows.Forms.Label();
             this.lblLicense = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -130,7 +129,6 @@ namespace StopWatch
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblLicense);
             this.Controls.Add(this.lblNameVersion);
-            this.Icon = Properties.Resources.stopwatchicon;
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About Jira StopWatch";
