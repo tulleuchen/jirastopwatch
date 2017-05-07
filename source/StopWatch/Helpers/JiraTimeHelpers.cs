@@ -48,6 +48,9 @@ namespace StopWatch
 
             time = time.Trim();
 
+            if (time == "0")
+                return TimeSpan.Zero;
+
             MatchCollection matches = new Regex(@"([0-9,\.]+[dhm] *?)+?", RegexOptions.IgnoreCase).Matches(time);
             if (matches.Count == 0)
                 return null;

@@ -84,6 +84,7 @@
             Assert.AreEqual(120, JiraTimeHelpers.JiraTimeToTimeSpan("2h").Value.TotalMinutes);
             Assert.AreEqual(125, JiraTimeHelpers.JiraTimeToTimeSpan("2h 5m").Value.TotalMinutes);
             Assert.AreEqual(5, JiraTimeHelpers.JiraTimeToTimeSpan("5m").Value.TotalMinutes);
+            Assert.AreEqual(0, JiraTimeHelpers.JiraTimeToTimeSpan("0").Value.TotalMinutes);
         }
 
         [Test]
