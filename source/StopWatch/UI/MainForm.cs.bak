@@ -897,14 +897,6 @@ namespace StopWatch
         {
             System.Diagnostics.Process.Start("http://jirastopwatch.com/doc");
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (var f = new CreateIssueForm())
-            {
-                f.ShowDialog(this);
-            }
-        }
     }
 
     // content item for the combo box

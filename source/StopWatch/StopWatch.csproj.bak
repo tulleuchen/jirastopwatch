@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Helpers\JiraKeyHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
-    <Compile Include="Helpers\StringMatching.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="UI\AboutForm.cs">
       <SubType>Form</SubType>
@@ -60,16 +59,7 @@
     </Compile>
     <Compile Include="Helpers\CrossPlatformHelpers.cs" />
     <Compile Include="Helpers\DPApi.cs" />
-    <Compile Include="UI\AutoCompleteTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UI\ComboTextBoxEvents.cs" />
-    <Compile Include="UI\CreateIssueForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\CreateIssueForm.Designer.cs">
-      <DependentUpon>CreateIssueForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\EditTimeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,9 +119,6 @@
     <Compile Include="UpdateCheck\ReleaseHelper.cs" />
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\CreateIssueForm.resx">
-      <DependentUpon>CreateIssueForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\EditTimeForm.resx">
       <DependentUpon>EditTimeForm.cs</DependentUpon>
