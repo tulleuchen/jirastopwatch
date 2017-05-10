@@ -59,7 +59,6 @@ namespace StopWatch
             this.ttMain = new System.Windows.Forms.ToolTip(this.components);
             this.pbHelp = new System.Windows.Forms.PictureBox();
             this.pTop = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
             this.pBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddIssue)).BeginInit();
@@ -201,7 +200,6 @@ namespace StopWatch
             // pTop
             // 
             this.pTop.BackColor = System.Drawing.Color.SteelBlue;
-            this.pTop.Controls.Add(this.button1);
             this.pTop.Controls.Add(this.pbHelp);
             this.pTop.Controls.Add(this.lblActiveFilter);
             this.pTop.Controls.Add(this.cbFilters);
@@ -210,16 +208,6 @@ namespace StopWatch
             this.pTop.Name = "pTop";
             this.pTop.Size = new System.Drawing.Size(517, 35);
             this.pTop.TabIndex = 11;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(313, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // MainForm
             // 
@@ -267,7 +255,6 @@ namespace StopWatch
         private System.Windows.Forms.Panel pTop;
         private System.Windows.Forms.Label lblDivider;
         private System.Windows.Forms.PictureBox pbHelp;
-        private System.Windows.Forms.Button button1;
     }
 }
 
