@@ -185,6 +185,21 @@ namespace StopWatch
                 return false;
             }
         }
+
+
+        public List<Project> GetProjects()
+        {
+            var request = jiraApiRequestFactory.CreateGetProjectsRequest();
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<List<Project>>(request);
+            }
+            catch (RequestDeniedException)
+            {
+                return new List<Project>();
+            }
+
+        }
         #endregion
 
         #region private members

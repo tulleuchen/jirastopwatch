@@ -152,6 +152,11 @@ namespace StopWatch
 
             return CreateAuthenticateRequest(this.username, this.password);
         }
+
+        public IRestRequest CreateGetProjectsRequest()
+        {
+            return restRequestFactory.Create("/rest/api/2/project", Method.GET);
+        }
         #endregion
 
 
