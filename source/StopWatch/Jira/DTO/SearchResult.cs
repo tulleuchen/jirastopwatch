@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace StopWatch
 {
-    internal class SearchResult
+    public class SearchResult
     {
         public List<Issue> Issues { get; set; }
     }

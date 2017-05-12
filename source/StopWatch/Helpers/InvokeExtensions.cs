@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace StopWatch
 {
-    internal static class InvokeExtensions
+    public static class InvokeExtensions
     {
         /// <summary>
         /// Make thread-safing your UI controls easier

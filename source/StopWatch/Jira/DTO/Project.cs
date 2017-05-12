@@ -15,12 +15,12 @@ limitations under the License.
 **************************************************************************/
 namespace StopWatch
 {
-    internal class ProjectCategory
+    public class ProjectCategory
     {
         public string Name { get; set; }
     }
 
-    internal class Project
+    public class Project
     {
         public int Id { get; set; }
         public string Key { get; set; }

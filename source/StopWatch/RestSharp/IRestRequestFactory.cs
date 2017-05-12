@@ -17,7 +17,7 @@ using RestSharp;
 
 namespace StopWatch
 {
-    internal interface IRestRequestFactory
+    public interface IRestRequestFactory
     {
         IRestRequest Create(string url, Method method);
     }

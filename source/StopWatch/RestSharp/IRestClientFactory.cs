@@ -17,7 +17,7 @@ using RestSharp;
 
 namespace StopWatch
 {
-    internal interface IRestClientFactory
+    public interface IRestClientFactory
     {
         string BaseUrl { get; set; }
 

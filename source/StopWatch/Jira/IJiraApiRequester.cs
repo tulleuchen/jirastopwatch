@@ -17,7 +17,7 @@ using RestSharp;
 
 namespace StopWatch
 {
-    interface IJiraApiRequester
+    public interface IJiraApiRequester
     {
         string ErrorMessage { get; }
 

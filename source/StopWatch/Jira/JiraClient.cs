@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace StopWatch
 {
-    internal class JiraClient
+    public class JiraClient
     {
         public bool SessionValid { get; private set; }
 

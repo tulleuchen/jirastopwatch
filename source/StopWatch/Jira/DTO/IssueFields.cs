@@ -15,13 +15,13 @@ limitations under the License.
 **************************************************************************/
 namespace StopWatch
 {
-    internal class IssueFields
+    public class IssueFields
     {
         public string Summary { get; set; }
         public TimetrackingFields Timetracking { get; set; }
     }
 
-    internal class TimetrackingFields
+    public class TimetrackingFields
     {
         public string RemainingEstimate { get; set; }
         public int RemainingEstimateSeconds { get; set; }

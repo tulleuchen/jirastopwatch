@@ -20,12 +20,12 @@ using System.Net;
 
 namespace StopWatch
 {
-    internal class RequestDeniedException : Exception
+    public class RequestDeniedException : Exception
     {
     }
 
 
-    internal class JiraApiRequester : IJiraApiRequester
+    public class JiraApiRequester : IJiraApiRequester
     {
         public string ErrorMessage { get; private set; }
 

@@ -18,7 +18,7 @@ using System.Net;
 
 namespace StopWatch
 {
-    internal class RestClientFactory : IRestClientFactory
+    public class RestClientFactory : IRestClientFactory
     {
         public string BaseUrl { get; set; }
 

@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace StopWatch
 {
-    class AvailableTransitions
+    public class AvailableTransitions
     {
         public string Expand { get; set; }
 

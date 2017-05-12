@@ -17,7 +17,7 @@ using System;
 
 namespace StopWatch
 {
-    class StringHelpers
+    public class StringHelpers
     {
         public static string Truncate(string str, int length)
         {

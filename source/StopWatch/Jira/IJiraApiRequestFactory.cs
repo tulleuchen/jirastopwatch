@@ -18,7 +18,7 @@ using System;
 
 namespace StopWatch
 {
-    internal interface IJiraApiRequestFactory
+    public interface IJiraApiRequestFactory
     {
         IRestRequest CreateValidateSessionRequest();
         IRestRequest CreateGetFavoriteFiltersRequest();

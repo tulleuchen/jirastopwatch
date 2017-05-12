@@ -900,7 +900,7 @@ namespace StopWatch
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (var f = new CreateIssueForm())
+            using (var f = new CreateIssueForm(jiraClient))
             {
                 f.ShowDialog(this);
             }

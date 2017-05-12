@@ -39,7 +39,7 @@
             this.actbSearchProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.actbSearchProject.Location = new System.Drawing.Point(15, 25);
             this.actbSearchProject.Name = "actbSearchProject";
-            this.actbSearchProject.Size = new System.Drawing.Size(370, 27);
+            this.actbSearchProject.Size = new System.Drawing.Size(512, 27);
             this.actbSearchProject.TabIndex = 0;
             this.actbSearchProject.Values = null;
             this.actbSearchProject.WordWrap = false;
@@ -67,7 +67,7 @@
             this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitter1.Location = new System.Drawing.Point(15, 62);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(370, 2);
+            this.splitter1.Size = new System.Drawing.Size(512, 2);
             this.splitter1.TabIndex = 9;
             // 
             // CreateIssueForm
@@ -80,6 +80,7 @@
             this.Controls.Add(this.lblChooseProject);
             this.Controls.Add(this.actbSearchProject);
             this.Name = "CreateIssueForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CreateIssueForm";
             this.ResumeLayout(false);
             this.PerformLayout();

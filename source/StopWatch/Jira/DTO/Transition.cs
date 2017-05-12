@@ -15,7 +15,7 @@ limitations under the License.
 **************************************************************************/
 namespace StopWatch
 {
-    class Transition
+    public class Transition
     {
         public int Id { get; set; }
         public string Name { get; set; }

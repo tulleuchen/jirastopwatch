@@ -21,7 +21,7 @@ using System.Windows.Forms;
 
 namespace StopWatch
 {
-    internal class IssueControl : UserControl
+    public class IssueControl : UserControl
     {
         #region public members
         public string IssueKey

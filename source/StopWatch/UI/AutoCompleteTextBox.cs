@@ -137,8 +137,13 @@ namespace StopWatch
             {
                 for (int i = 0; i < _listBox.Items.Count; i++)
                 {
-                    _listBox.Height += _listBox.GetItemHeight(i);
+                    // Max height at 6 rows
+                    if (i < 6)
+                        _listBox.Height += _listBox.GetItemHeight(i);
                     int itemWidth = (int)graphics.MeasureString(((string)_listBox.Items[i]) + "_", _listBox.Font).Width;
+                    // Max width is Textbox width
+                    if (itemWidth > Width)
+                        itemWidth = Width;
                     _listBox.Width = (_listBox.Width < itemWidth) ? itemWidth : _listBox.Width;
                 }
             }

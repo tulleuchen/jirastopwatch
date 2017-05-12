@@ -42,7 +42,7 @@ namespace StopWatch
         WorklogAndComment
     }
 
-    internal sealed class Settings
+    public sealed class Settings
     {
         public static readonly Settings Instance = new Settings();
 

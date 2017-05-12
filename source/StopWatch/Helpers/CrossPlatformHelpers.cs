@@ -17,7 +17,7 @@ using System;
 
 namespace StopWatch
 {
-    internal static class CrossPlatformHelpers
+    public static class CrossPlatformHelpers
     {
         public static bool IsWindowsEnvironment()
         {

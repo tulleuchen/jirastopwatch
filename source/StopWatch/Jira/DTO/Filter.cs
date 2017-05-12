@@ -15,7 +15,7 @@ limitations under the License.
 **************************************************************************/
 namespace StopWatch
 {
-    internal class Filter
+    public class Filter
     {
         public int Id { get; set; }
         public string Name { get; set; }

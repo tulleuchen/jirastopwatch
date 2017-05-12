@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 
 namespace StopWatch
 {
-    class NativeMethods
+    public class NativeMethods
     {
         public const int HWND_BROADCAST = 0xffff;
 

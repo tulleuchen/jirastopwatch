@@ -18,7 +18,7 @@ using System.Net;
 
 namespace StopWatch
 {
-    class ReleaseHelper
+    public class ReleaseHelper
     {
         public static GithubRelease GetLatestVersion()
         {

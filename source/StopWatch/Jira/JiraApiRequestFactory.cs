@@ -18,11 +18,11 @@ using System;
 
 namespace StopWatch
 {
-    internal class AuthenticateNotYetCalledException : Exception
+    public class AuthenticateNotYetCalledException : Exception
     {
     }
 
-    internal class JiraApiRequestFactory : IJiraApiRequestFactory
+    public class JiraApiRequestFactory : IJiraApiRequestFactory
     {
         #region public methods
         public JiraApiRequestFactory(IRestRequestFactory restRequestFactory)

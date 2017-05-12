@@ -22,7 +22,7 @@ namespace StopWatch
 {
 
 
-    internal partial class SettingsForm : Form
+    public partial class SettingsForm : Form
     {
         #region public members
         public Settings settings { get; private set; }
