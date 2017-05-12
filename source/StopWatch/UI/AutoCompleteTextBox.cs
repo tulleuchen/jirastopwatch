@@ -8,38 +8,37 @@ namespace StopWatch
 {
     public class AutoCompleteTextBox : TextBox
     {
+        public string[] Values { get; set; }
+
         private ListBox _listBox;
-        private bool _isAdded;
-        private string[] _values;
         private string _formerValue = string.Empty;
 
         public AutoCompleteTextBox()
         {
             InitializeComponent();
-            ResetListBox();
         }
 
         private void InitializeComponent()
         {
             _listBox = new ListBox();
+            HideListBox();
+
             KeyDown += this_KeyDown;
             KeyUp += this_KeyUp;
         }
 
         private void ShowListBox()
         {
-            if (!_isAdded)
-            {
+            if (!Parent.Controls.Contains(_listBox))
                 Parent.Controls.Add(_listBox);
-                _listBox.Left = Left;
-                _listBox.Top = Top + Height;
-                _isAdded = true;
-            }
+            _listBox.Left = Left;
+            _listBox.Top = Top + Height;
+            _listBox.Font = new Font(Font, FontStyle.Regular);
             _listBox.Visible = true;
             _listBox.BringToFront();
         }
 
-        private void ResetListBox()
+        private void HideListBox()
         {
             _listBox.Visible = false;
         }
@@ -54,29 +53,33 @@ namespace StopWatch
             switch (e.KeyCode)
             {
                 case Keys.Tab:
+                case Keys.Enter:
+                {
+                    if (_listBox.Visible)
                     {
-                        if (_listBox.Visible)
-                        {
-                            InsertWord((string)_listBox.SelectedItem);
-                            ResetListBox();
-                            _formerValue = Text;
-                        }
-                        break;
+                        SelectItem((string)_listBox.SelectedItem);
+                        HideListBox();
+                        _formerValue = Text;
+                        e.Handled = true;
                     }
+                    break;
+                }
                 case Keys.Down:
-                    {
-                        if ((_listBox.Visible) && (_listBox.SelectedIndex < _listBox.Items.Count - 1))
-                            _listBox.SelectedIndex++;
+                {
+                    if ((_listBox.Visible) && (_listBox.SelectedIndex < _listBox.Items.Count - 1))
+                        _listBox.SelectedIndex++;
+                    e.Handled = true;
 
-                        break;
-                    }
+                    break;
+                }
                 case Keys.Up:
-                    {
-                        if ((_listBox.Visible) && (_listBox.SelectedIndex > 0))
-                            _listBox.SelectedIndex--;
+                {
+                    if ((_listBox.Visible) && (_listBox.SelectedIndex > 0))
+                        _listBox.SelectedIndex--;
+                    e.Handled = true;
 
-                        break;
-                    }
+                    break;
+                }
             }
         }
 
@@ -93,90 +96,63 @@ namespace StopWatch
 
         private void UpdateListBox()
         {
-            if (Text == _formerValue) return;
+            if (Text == _formerValue)
+                return;
+
+            if (Values == null || Values.Length == 0)
+                return;
+
             _formerValue = Text;
-            string word = GetWord();
 
-            if (_values != null && word.Length > 0)
+            string[] matches;
+            if (Text.Length == 0)
             {
-                var m = _values.Select(x => new { Value = x, Score = x.PercentMatchTo(word) }).ToArray();
-
-                string[] matches = _values
-                    .Select(x => new { Value = x, Score = x.PercentMatchTo(word) })
-                    .Where(x => x.Score > 0.01)
-                    .OrderByDescending(x => x.Score)
-                    .Select(x => x.Value).ToArray();
-                //String[] matches = Array.FindAll(_values,
-                //    x => (x.StartsWith(word, StringComparison.OrdinalIgnoreCase) && !SelectedValues.Contains(x)));
-
-                //string[] matches = _values.OrderByDescending(x => x.PercentMatchTo(word)).ToArray();
-
-                if (matches.Length > 0)
-                {
-                    ShowListBox();
-                    _listBox.Items.Clear();
-                    Array.ForEach(matches, x => _listBox.Items.Add(x));
-                    _listBox.SelectedIndex = 0;
-                    _listBox.Height = 0;
-                    _listBox.Width = 0;
-                    Focus();
-                    using (Graphics graphics = _listBox.CreateGraphics())
-                    {
-                        for (int i = 0; i < _listBox.Items.Count; i++)
-                        {
-                            _listBox.Height += _listBox.GetItemHeight(i);
-                            // it item width is larger than the current one
-                            // set it to the new max item width
-                            // GetItemRectangle does not work for me
-                            // we add a little extra space by using '_'
-                            int itemWidth = (int)graphics.MeasureString(((string)_listBox.Items[i]) + "_", _listBox.Font).Width;
-                            _listBox.Width = (_listBox.Width < itemWidth) ? itemWidth : _listBox.Width;
-                        }
-                    }
-                }
-                else
-                {
-                    ResetListBox();
-                }
+                matches = Values.OrderBy(x => x).ToArray();
             }
             else
             {
-                ResetListBox();
+                var m = Values.Select(x => new { Value = x, Score = x.PercentMatchTo(Text) }).ToArray();
+
+                matches = Values
+                    .Select(x => new { Value = x, Score = x.PercentMatchTo(Text) })
+                    .Where(x => x.Score > 0.01)
+                    .OrderByDescending(x => x.Score)
+                    .Select(x => x.Value).ToArray();
             }
-        }
 
-
-        private string GetWord()
-        {
-            return Text;
-        }
-
-
-        private void InsertWord(string newTag)
-        {
-            Text = newTag;
-        }
-
-        public string[] Values
-        {
-            get
+            if (matches.Length == 0)
             {
-                return _values;
+                HideListBox();
+                return;
             }
-            set
+
+            ShowListBox();
+            _listBox.Items.Clear();
+            Array.ForEach(matches, x => _listBox.Items.Add(x));
+            _listBox.SelectedIndex = 0;
+            _listBox.Height = 0;
+            _listBox.Width = 0;
+            Focus();
+            using (Graphics graphics = _listBox.CreateGraphics())
             {
-                _values = value;
+                for (int i = 0; i < _listBox.Items.Count; i++)
+                {
+                    _listBox.Height += _listBox.GetItemHeight(i);
+                    int itemWidth = (int)graphics.MeasureString(((string)_listBox.Items[i]) + "_", _listBox.Font).Width;
+                    _listBox.Width = (_listBox.Width < itemWidth) ? itemWidth : _listBox.Width;
+                }
             }
         }
 
-        public List<string> SelectedValues
+
+        private void SelectItem(string text)
         {
-            get
+            Text = text;
+            if (!string.IsNullOrEmpty(text))
             {
-                string[] result = Text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                return new List<string>(result);
+                SelectionStart = text.Length;
+                SelectionLength = 0;
             }
         }
-
     }
 }
