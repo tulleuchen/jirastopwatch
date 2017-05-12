@@ -103,14 +103,7 @@ namespace StopWatch
         public string GetIssueSummary(string key)
         {
             var request = jiraApiRequestFactory.CreateGetIssueSummaryRequest(key);
-            try
-            {
-                return jiraApiRequester.DoAuthenticatedRequest<Issue>(request).Fields.Summary;
-            }
-            catch (RequestDeniedException)
-            {
-                return "";
-            }
+            return jiraApiRequester.DoAuthenticatedRequest<Issue>(request).Fields.Summary;
         }
 
         public TimetrackingFields GetIssueTimetracking(string key)
