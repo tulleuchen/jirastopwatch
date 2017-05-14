@@ -205,10 +205,17 @@ namespace StopWatch
                     this.InvokeIfRequired(
                         () => key = cbJira.Text
                     );
-                    summary = jiraClient.GetIssueSummary(key);
-                    this.InvokeIfRequired(
-                        () => lblSummary.Text = summary
-                    );
+                    try
+                    {
+                        summary = jiraClient.GetIssueSummary(key);
+                        this.InvokeIfRequired(
+                            () => lblSummary.Text = summary
+                        );
+                    }
+                    catch (RequestDeniedException)
+                    {
+                        // just leave the existing summary there when fetch fails
+                    }
                 }
             );
         }
