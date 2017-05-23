@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,6 +63,9 @@
     <Compile Include="Helpers\CrossPlatformHelpers.cs" />
     <Compile Include="Helpers\DPApi.cs" />
     <Compile Include="UI\AutoCompleteTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\BetterCheckedListBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="UI\ComboTextBoxEvents.cs" />

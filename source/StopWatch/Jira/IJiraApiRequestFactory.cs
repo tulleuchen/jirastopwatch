@@ -22,7 +22,7 @@ namespace StopWatch
     {
         IRestRequest CreateValidateSessionRequest();
         IRestRequest CreateGetFavoriteFiltersRequest();
-        IRestRequest CreateGetIssuesByJQLRequest(string jql);
+        IRestRequest CreateGetIssuesByJQLRequest(string jql, int maxResults);
         IRestRequest CreateGetIssueSummaryRequest(string key);
         IRestRequest CreateGetIssueTimetrackingRequest(string key);
         IRestRequest CreatePostWorklogRequest(string key, DateTimeOffset started, TimeSpan time, string comment, EstimateUpdateMethods adjustmentMethod, string adjustmentValue);

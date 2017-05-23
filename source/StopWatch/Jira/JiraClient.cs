@@ -86,9 +86,9 @@ namespace StopWatch
         }
         
 
-        public SearchResult GetIssuesByJQL(string jql)
+        public SearchResult GetIssuesByJQL(string jql, int maxResults = 200)
         {
-            var request = jiraApiRequestFactory.CreateGetIssuesByJQLRequest(jql);
+            var request = jiraApiRequestFactory.CreateGetIssuesByJQLRequest(jql, maxResults);
             try
             {
                 return jiraApiRequester.DoAuthenticatedRequest<SearchResult>(request);
