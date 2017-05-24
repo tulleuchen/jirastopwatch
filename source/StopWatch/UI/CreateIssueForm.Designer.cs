@@ -35,7 +35,7 @@
             this.tbDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblSimilarIssues = new System.Windows.Forms.Label();
-            this.clbSimilarIssues = new StopWatch.BetterCheckedListBox();
+            this.lvRelatedIssues = new System.Windows.Forms.ListView();
             this.actbSearchProject = new StopWatch.AutoCompleteTextBox();
             this.SuspendLayout();
             // 
@@ -105,15 +105,20 @@
             this.lblSimilarIssues.TabIndex = 14;
             this.lblSimilarIssues.Text = "Related issues (double-click to open, check to link)";
             // 
-            // clbSimilarIssues
+            // lvRelatedIssues
             // 
-            this.clbSimilarIssues.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.clbSimilarIssues.FormattingEnabled = true;
-            this.clbSimilarIssues.Location = new System.Drawing.Point(519, 150);
-            this.clbSimilarIssues.Name = "clbSimilarIssues";
-            this.clbSimilarIssues.Size = new System.Drawing.Size(306, 174);
-            this.clbSimilarIssues.TabIndex = 13;
-            this.clbSimilarIssues.DoubleClick += new System.EventHandler(this.clbSimilarIssues_DoubleClick);
+            this.lvRelatedIssues.CheckBoxes = true;
+            this.lvRelatedIssues.FullRowSelect = true;
+            this.lvRelatedIssues.GridLines = true;
+            this.lvRelatedIssues.Location = new System.Drawing.Point(519, 150);
+            this.lvRelatedIssues.MultiSelect = false;
+            this.lvRelatedIssues.Name = "lvRelatedIssues";
+            this.lvRelatedIssues.ShowItemToolTips = true;
+            this.lvRelatedIssues.Size = new System.Drawing.Size(306, 174);
+            this.lvRelatedIssues.TabIndex = 15;
+            this.lvRelatedIssues.UseCompatibleStateImageBehavior = false;
+            this.lvRelatedIssues.View = System.Windows.Forms.View.List;
+            this.lvRelatedIssues.DoubleClick += new System.EventHandler(this.lvRelatedIssues_DoubleClick);
             // 
             // actbSearchProject
             // 
@@ -130,8 +135,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(839, 511);
+            this.Controls.Add(this.lvRelatedIssues);
             this.Controls.Add(this.lblSimilarIssues);
-            this.Controls.Add(this.clbSimilarIssues);
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.tbSummary);
@@ -157,6 +162,6 @@
         private System.Windows.Forms.TextBox tbDescription;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblSimilarIssues;
-        private BetterCheckedListBox clbSimilarIssues;
+        private System.Windows.Forms.ListView lvRelatedIssues;
     }
 }

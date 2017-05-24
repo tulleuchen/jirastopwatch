@@ -22,10 +22,10 @@ namespace StopWatch
 
         private void tbSummary_TextChanged(object sender, EventArgs e)
         {
-            RetrieveAndDisplaySimilarIssues(tbSummary.Text);
+            RetrieveAndDisplayRelatedIssues(tbSummary.Text);
         }
 
-        private void RetrieveAndDisplaySimilarIssues(string text)
+        private void RetrieveAndDisplayRelatedIssues(string text)
         {
             Task.Factory.StartNew(
                 () =>
@@ -43,10 +43,10 @@ namespace StopWatch
                             this.InvokeIfRequired(
                                 () =>
                                 {
-                                    clbSimilarIssues.Items.Clear();
+                                    lvRelatedIssues.Items.Clear();
                                     foreach (var issue in result.Issues)
                                     {
-                                        clbSimilarIssues.Items.Add($"{issue.Key} . {issue.Fields.Summary}");
+                                        lvRelatedIssues.Items.Add($"{issue.Key} . {issue.Fields.Summary}");
                                     }
                                 }
                             );
@@ -72,12 +72,12 @@ namespace StopWatch
             return $"text ~ \"{text}\"";
         }
 
-        private void clbSimilarIssues_DoubleClick(object sender, EventArgs e)
+        private void lvRelatedIssues_DoubleClick(object sender, EventArgs e)
         {
-            if (clbSimilarIssues.SelectedItem == null)
+            if (lvRelatedIssues.SelectedItems.Count == 0)
                 return;
 
-            string item = clbSimilarIssues.SelectedItem as string;
+            string item = lvRelatedIssues.SelectedItems[0].Text;
             string key = item.Split(null)[0];
 
             string url = Settings.Instance.JiraBaseUrl;
