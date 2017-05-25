@@ -11,7 +11,6 @@ namespace StopWatch
         public string[] Values { get; set; }
 
         private ListBox _listBox;
-        private string _formerValue = string.Empty;
 
         public AutoCompleteTextBox()
         {
@@ -25,10 +24,15 @@ namespace StopWatch
 
             KeyDown += this_KeyDown;
             KeyUp += this_KeyUp;
+            KeyPress += this_KeyPress;
         }
+
 
         private void ShowListBox()
         {
+            if (_listBox.Visible)
+                return;
+
             if (!Parent.Controls.Contains(_listBox))
                 Parent.Controls.Add(_listBox);
             _listBox.Left = Left;
@@ -43,82 +47,89 @@ namespace StopWatch
             _listBox.Visible = false;
         }
 
+        private void this_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 0x1b || e.KeyChar == 0x0d || e.KeyChar == 0x09)
+            {
+                e.Handled = true;
+                return;
+            }
+
+            UpdateListBox();
+        }
+
         private void this_KeyUp(object sender, KeyEventArgs e)
         {
-            UpdateListBox();
+            if (e.Alt && e.KeyCode == Keys.Down)
+            {
+                UpdateListBox();
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter || e.KeyCode == Keys.Down || e.KeyCode == Keys.Up)
+            {
+                e.Handled = true;
+                return;
+            }
         }
 
         private void this_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (e.KeyCode == Keys.Escape)
             {
-                case Keys.Tab:
-                case Keys.Enter:
+                if (IsAutoCompleting())
                 {
-                    if (_listBox.Visible)
-                    {
-                        SelectItem((string)_listBox.SelectedItem);
-                        HideListBox();
-                        _formerValue = Text;
-                        e.Handled = true;
-                    }
-                    break;
-                }
-                case Keys.Down:
-                {
-                    if ((_listBox.Visible) && (_listBox.SelectedIndex < _listBox.Items.Count - 1))
-                        _listBox.SelectedIndex++;
+                    HideListBox();
                     e.Handled = true;
-
-                    break;
                 }
-                case Keys.Up:
+                return;
+            }
+
+            if (e.KeyCode == Keys.Tab || e.KeyCode == Keys.Enter)
+            {
+                if (IsAutoCompleting())
                 {
-                    if ((_listBox.Visible) && (_listBox.SelectedIndex > 0))
-                        _listBox.SelectedIndex--;
+                    SelectItem();
                     e.Handled = true;
-
-                    break;
                 }
+                return;
+            }
+
+            if (e.KeyCode == Keys.Down)
+            {
+                if (IsAutoCompleting() && _listBox.SelectedIndex < _listBox.Items.Count - 1)
+                    _listBox.SelectedIndex++;
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Up)
+            {
+                if (IsAutoCompleting() && _listBox.SelectedIndex > 0)
+                    _listBox.SelectedIndex--;
+                e.Handled = true;
+                return;
             }
         }
 
         protected override bool IsInputKey(Keys keyData)
         {
-            switch (keyData)
-            {
-                case Keys.Tab:
-                    return true;
-                default:
-                    return base.IsInputKey(keyData);
-            }
+            if (keyData == Keys.Up || keyData == Keys.Down)
+                return true;
+
+            if (keyData == Keys.Tab)
+                return IsAutoCompleting();
+
+            return base.IsInputKey(keyData);
         }
 
         private void UpdateListBox()
         {
-            if (Text == _formerValue)
-                return;
-
             if (Values == null || Values.Length == 0)
                 return;
 
-            _formerValue = Text;
-
-            string[] matches;
-            if (Text.Length == 0)
-            {
-                matches = Values.OrderBy(x => x).ToArray();
-            }
-            else
-            {
-                var m = Values.Select(x => new { Value = x, Score = x.PercentMatchTo(Text) }).ToArray();
-
-                matches = Values
-                    .Select(x => new { Value = x, Score = x.PercentMatchTo(Text) })
-                    .Where(x => x.Score > 0.01)
-                    .OrderByDescending(x => x.Score)
-                    .Select(x => x.Value).ToArray();
-            }
+            string[] matches = GetRelevantValues(Text);
 
             if (matches.Length == 0)
             {
@@ -149,15 +160,29 @@ namespace StopWatch
             }
         }
 
-
-        private void SelectItem(string text)
+        private string[] GetRelevantValues(string pattern)
         {
-            Text = text;
-            if (!string.IsNullOrEmpty(text))
-            {
-                SelectionStart = text.Length;
-                SelectionLength = 0;
-            }
+            if (string.IsNullOrEmpty(pattern))
+                return Values.OrderBy(x => x).ToArray();
+
+            return Values
+                .Select(x => new { Value = x, Score = x.PercentMatchTo(pattern) })
+                .Where(x => x.Score > 0.01)
+                .OrderByDescending(x => x.Score)
+                .Select(x => x.Value).ToArray();
+        }
+
+        private void SelectItem()
+        {
+            Text = _listBox.SelectedItem as string ?? "";
+            SelectionStart = Text.Length;
+            SelectionLength = 0;
+            HideListBox();
+        }
+
+        private bool IsAutoCompleting()
+        {
+            return _listBox.Visible;
         }
     }
 }
