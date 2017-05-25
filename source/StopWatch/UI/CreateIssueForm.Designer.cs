@@ -64,7 +64,7 @@
             this.splitter1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitter1.Location = new System.Drawing.Point(15, 65);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(421, 2);
+            this.splitter1.Size = new System.Drawing.Size(498, 2);
             this.splitter1.TabIndex = 9;
             // 
             // tbSummary
@@ -72,7 +72,7 @@
             this.tbSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.tbSummary.Location = new System.Drawing.Point(15, 94);
             this.tbSummary.Name = "tbSummary";
-            this.tbSummary.Size = new System.Drawing.Size(810, 27);
+            this.tbSummary.Size = new System.Drawing.Size(498, 27);
             this.tbSummary.TabIndex = 10;
             this.tbSummary.TextChanged += new System.EventHandler(this.tbSummary_TextChanged);
             // 
@@ -99,7 +99,7 @@
             // 
             this.lblSimilarIssues.AutoSize = true;
             this.lblSimilarIssues.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.lblSimilarIssues.Location = new System.Drawing.Point(516, 131);
+            this.lblSimilarIssues.Location = new System.Drawing.Point(535, 75);
             this.lblSimilarIssues.Name = "lblSimilarIssues";
             this.lblSimilarIssues.Size = new System.Drawing.Size(309, 16);
             this.lblSimilarIssues.TabIndex = 14;
@@ -110,11 +110,11 @@
             this.lvRelatedIssues.CheckBoxes = true;
             this.lvRelatedIssues.FullRowSelect = true;
             this.lvRelatedIssues.GridLines = true;
-            this.lvRelatedIssues.Location = new System.Drawing.Point(519, 150);
+            this.lvRelatedIssues.Location = new System.Drawing.Point(538, 94);
             this.lvRelatedIssues.MultiSelect = false;
             this.lvRelatedIssues.Name = "lvRelatedIssues";
             this.lvRelatedIssues.ShowItemToolTips = true;
-            this.lvRelatedIssues.Size = new System.Drawing.Size(306, 174);
+            this.lvRelatedIssues.Size = new System.Drawing.Size(306, 230);
             this.lvRelatedIssues.TabIndex = 15;
             this.lvRelatedIssues.UseCompatibleStateImageBehavior = false;
             this.lvRelatedIssues.View = System.Windows.Forms.View.List;
@@ -125,7 +125,7 @@
             this.actbSearchProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.actbSearchProject.Location = new System.Drawing.Point(15, 28);
             this.actbSearchProject.Name = "actbSearchProject";
-            this.actbSearchProject.Size = new System.Drawing.Size(421, 27);
+            this.actbSearchProject.Size = new System.Drawing.Size(498, 27);
             this.actbSearchProject.TabIndex = 0;
             this.actbSearchProject.Values = null;
             this.actbSearchProject.WordWrap = false;
@@ -134,7 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(839, 511);
+            this.ClientSize = new System.Drawing.Size(856, 511);
             this.Controls.Add(this.lvRelatedIssues);
             this.Controls.Add(this.lblSimilarIssues);
             this.Controls.Add(this.tbDescription);
