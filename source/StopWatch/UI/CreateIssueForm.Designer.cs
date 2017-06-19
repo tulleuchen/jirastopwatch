@@ -1,4 +1,6 @@
-﻿namespace StopWatch
+﻿using StopWatch.UI;
+
+namespace StopWatch
 {
     partial class CreateIssueForm
     {
@@ -32,7 +34,7 @@
             this.lblSummary = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Label();
             this.tbSummary = new System.Windows.Forms.TextBox();
-            this.tbDescription = new System.Windows.Forms.TextBox();
+            this.tbDescription = new StopWatch.UI.PasteBinaryTextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblSimilarIssues = new System.Windows.Forms.Label();
             this.lvRelatedIssues = new System.Windows.Forms.ListView();
@@ -84,6 +86,7 @@
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(498, 174);
             this.tbDescription.TabIndex = 12;
+            this.tbDescription.OnPaste += new System.EventHandler<System.EventArgs>(this.tbDescription_OnPaste);
             // 
             // lblDescription
             // 
@@ -159,7 +162,7 @@
         private System.Windows.Forms.Label lblSummary;
         private System.Windows.Forms.Label splitter1;
         private System.Windows.Forms.TextBox tbSummary;
-        private System.Windows.Forms.TextBox tbDescription;
+        private PasteBinaryTextBox tbDescription;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblSimilarIssues;
         private System.Windows.Forms.ListView lvRelatedIssues;

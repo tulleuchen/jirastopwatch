@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -86,6 +88,50 @@ namespace StopWatch
             url += "browse/";
             url += key.Trim();
             System.Diagnostics.Process.Start(url);
+        }
+
+        private void tbDescription_OnPaste(object sender, EventArgs e)
+        {
+            if (Clipboard.ContainsImage())
+            {
+                string filepath = GetTempFileName("png");
+                SaveClipboardImageToFile(filepath);
+                PostAttachmentToJira(filepath);
+                string filename = Path.GetFileName(filepath);
+                tbDescription.Text += @"!{filename}|thumbnail! ";
+            }
+        }
+
+        private void PostAttachmentToJira(string filepath)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void SaveClipboardImageToFile(string filepath)
+        {
+            Clipboard.GetImage().Save(filepath, ImageFormat.Png);
+        }
+
+        public static string GetTempFileName(string extension)
+        {
+            int attempt = 0;
+            while (true)
+            {
+                string fileName = Path.GetRandomFileName();
+                fileName = Path.ChangeExtension(fileName, extension);
+                fileName = Path.Combine(Path.GetTempPath(), fileName);
+
+                try
+                {
+                    using (new FileStream(fileName, FileMode.CreateNew)) { }
+                    return fileName;
+                }
+                catch (IOException ex)
+                {
+                    if (++attempt == 10)
+                        throw new IOException("No unique temporary file name is available.", ex);
+                }
+            }
         }
     }
 }
