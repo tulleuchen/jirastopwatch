@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -13,8 +14,12 @@ namespace StopWatch
         private Object _searchLock = new Object();
         private JiraClient _jiraClient;
 
+        private List<string> _images;
+
         public CreateIssueForm(JiraClient jiraClient)
         {
+            _images = new List<string>();
+
             _jiraClient = jiraClient;
 
             InitializeComponent();
@@ -94,11 +99,13 @@ namespace StopWatch
         {
             if (Clipboard.ContainsImage())
             {
-                string filepath = GetTempFileName("png");
+                string filepath = GetTempFileName("screenshot-", "png");
                 SaveClipboardImageToFile(filepath);
-                PostAttachmentToJira(filepath);
-                string filename = Path.GetFileName(filepath);
-                tbDescription.Text += @"!{filename}|thumbnail! ";
+                _images.Add(filepath);
+
+                tbDescription.Text += $" !{Path.GetFileName(filepath)}|thumbnail! ";
+                tbDescription.SelectionStart = tbDescription.Text.Length;
+                tbDescription.SelectionLength = 0;
             }
         }
 
@@ -112,12 +119,12 @@ namespace StopWatch
             Clipboard.GetImage().Save(filepath, ImageFormat.Png);
         }
 
-        public static string GetTempFileName(string extension)
+        public static string GetTempFileName(string prefix, string extension)
         {
             int attempt = 0;
             while (true)
             {
-                string fileName = Path.GetRandomFileName();
+                string fileName = $"{prefix}-{Path.GetRandomFileName()}";
                 fileName = Path.ChangeExtension(fileName, extension);
                 fileName = Path.Combine(Path.GetTempPath(), fileName);
 

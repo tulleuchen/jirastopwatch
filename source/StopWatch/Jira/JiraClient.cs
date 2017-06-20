@@ -198,8 +198,10 @@ namespace StopWatch
             {
                 return new List<Project>();
             }
-
         }
+
+
+        public string AddIssue()
         #endregion
 
         #region private members
