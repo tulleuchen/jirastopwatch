@@ -30,6 +30,7 @@ namespace StopWatch
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateIssueForm));
             this.lblChooseProject = new System.Windows.Forms.Label();
             this.lblSummary = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Label();
@@ -39,6 +40,13 @@ namespace StopWatch
             this.lblSimilarIssues = new System.Windows.Forms.Label();
             this.lvRelatedIssues = new System.Windows.Forms.ListView();
             this.actbSearchProject = new StopWatch.AutoCompleteTextBox();
+            this.btnCreateIssue = new System.Windows.Forms.Button();
+            this.actbAssignee = new StopWatch.AutoCompleteTextBox();
+            this.lblAssignee = new System.Windows.Forms.Label();
+            this.btnAssignToMe = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.cbAddRowAndPressStart = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblChooseProject
@@ -130,14 +138,93 @@ namespace StopWatch
             this.actbSearchProject.Name = "actbSearchProject";
             this.actbSearchProject.Size = new System.Drawing.Size(498, 27);
             this.actbSearchProject.TabIndex = 0;
-            this.actbSearchProject.Values = null;
             this.actbSearchProject.WordWrap = false;
+            this.actbSearchProject.OnAutoComplete += new System.EventHandler<StopWatch.AutoCompleteEventArgs>(this.actbSearchProject_OnAutoComplete);
+            // 
+            // btnCreateIssue
+            // 
+            this.btnCreateIssue.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnCreateIssue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnCreateIssue.Location = new System.Drawing.Point(296, 446);
+            this.btnCreateIssue.Name = "btnCreateIssue";
+            this.btnCreateIssue.Size = new System.Drawing.Size(127, 27);
+            this.btnCreateIssue.TabIndex = 16;
+            this.btnCreateIssue.Text = "Create issue";
+            this.btnCreateIssue.UseVisualStyleBackColor = true;
+            // 
+            // actbAssignee
+            // 
+            this.actbAssignee.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.actbAssignee.Location = new System.Drawing.Point(16, 359);
+            this.actbAssignee.Name = "actbAssignee";
+            this.actbAssignee.Size = new System.Drawing.Size(283, 27);
+            this.actbAssignee.TabIndex = 17;
+            this.actbAssignee.WordWrap = false;
+            // 
+            // lblAssignee
+            // 
+            this.lblAssignee.AutoSize = true;
+            this.lblAssignee.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.lblAssignee.Location = new System.Drawing.Point(13, 340);
+            this.lblAssignee.Name = "lblAssignee";
+            this.lblAssignee.Size = new System.Drawing.Size(92, 16);
+            this.lblAssignee.TabIndex = 18;
+            this.lblAssignee.Text = "Assign to user";
+            // 
+            // btnAssignToMe
+            // 
+            this.btnAssignToMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnAssignToMe.Location = new System.Drawing.Point(305, 359);
+            this.btnAssignToMe.Name = "btnAssignToMe";
+            this.btnAssignToMe.Size = new System.Drawing.Size(105, 27);
+            this.btnAssignToMe.TabIndex = 19;
+            this.btnAssignToMe.Text = "Assign to me";
+            this.btnAssignToMe.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnCancel.Location = new System.Drawing.Point(438, 446);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 27);
+            this.btnCancel.TabIndex = 20;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // cbAddRowAndPressStart
+            // 
+            this.cbAddRowAndPressStart.AutoSize = true;
+            this.cbAddRowAndPressStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.cbAddRowAndPressStart.Location = new System.Drawing.Point(16, 402);
+            this.cbAddRowAndPressStart.Name = "cbAddRowAndPressStart";
+            this.cbAddRowAndPressStart.Size = new System.Drawing.Size(300, 20);
+            this.cbAddRowAndPressStart.TabIndex = 21;
+            this.cbAddRowAndPressStart.Text = "Add this issue to StopWatch and start the timer";
+            this.cbAddRowAndPressStart.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(15, 432);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(498, 2);
+            this.label1.TabIndex = 22;
             // 
             // CreateIssueForm
             // 
+            this.AcceptButton = this.btnCreateIssue;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 511);
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(856, 484);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbAddRowAndPressStart);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnAssignToMe);
+            this.Controls.Add(this.lblAssignee);
+            this.Controls.Add(this.actbAssignee);
+            this.Controls.Add(this.btnCreateIssue);
             this.Controls.Add(this.lvRelatedIssues);
             this.Controls.Add(this.lblSimilarIssues);
             this.Controls.Add(this.tbDescription);
@@ -147,9 +234,10 @@ namespace StopWatch
             this.Controls.Add(this.lblSummary);
             this.Controls.Add(this.lblChooseProject);
             this.Controls.Add(this.actbSearchProject);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateIssueForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CreateIssueForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Create new issue";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,5 +254,12 @@ namespace StopWatch
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.Label lblSimilarIssues;
         private System.Windows.Forms.ListView lvRelatedIssues;
+        private System.Windows.Forms.Button btnCreateIssue;
+        private AutoCompleteTextBox actbAssignee;
+        private System.Windows.Forms.Label lblAssignee;
+        private System.Windows.Forms.Button btnAssignToMe;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox cbAddRowAndPressStart;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -14,6 +14,7 @@ namespace StopWatch
         private Object _searchLock = new Object();
         private JiraClient _jiraClient;
 
+        private string[] _projects;
         private List<string> _images;
 
         public CreateIssueForm(JiraClient jiraClient)
@@ -24,7 +25,7 @@ namespace StopWatch
 
             InitializeComponent();
 
-            actbSearchProject.Values = _jiraClient.GetProjects().Select(x => $"{x.Key} - {x.Name}").ToArray();
+            _projects = _jiraClient.GetProjects().Select(x => $"{x.Key} - {x.Name}").ToArray();
         }
 
         private void tbSummary_TextChanged(object sender, EventArgs e)
@@ -109,11 +110,6 @@ namespace StopWatch
             }
         }
 
-        private void PostAttachmentToJira(string filepath)
-        {
-            throw new NotImplementedException();
-        }
-
         private void SaveClipboardImageToFile(string filepath)
         {
             Clipboard.GetImage().Save(filepath, ImageFormat.Png);
@@ -140,5 +136,21 @@ namespace StopWatch
                 }
             }
         }
+
+        private void actbSearchProject_OnAutoComplete(object sender, AutoCompleteEventArgs e)
+        {
+            if (string.IsNullOrEmpty(e.SearchPattern))
+            {
+                e.Results = _projects.OrderBy(x => x).ToArray();
+                return;
+            }
+
+            e.Results = _projects
+                .Select(x => new { Value = x, Score = x.PercentMatchTo(e.SearchPattern) })
+                .Where(x => x.Score > 0.01)
+                .OrderByDescending(x => x.Score)
+                .Select(x => x.Value).ToArray();
+        }
+
     }
 }

@@ -6,9 +6,20 @@ using System.Windows.Forms;
 
 namespace StopWatch
 {
+    public class AutoCompleteEventArgs : EventArgs
+    {
+        public string SearchPattern { get; private set; }
+        public string[] Results { get; set; }
+
+        public AutoCompleteEventArgs(string searchPatttern)
+        {
+            SearchPattern = searchPatttern;
+        }
+    }
+
     public class AutoCompleteTextBox : TextBox
     {
-        public string[] Values { get; set; }
+        public event EventHandler<AutoCompleteEventArgs> OnAutoComplete;
 
         private ListBox _listBox;
 
@@ -126,12 +137,10 @@ namespace StopWatch
 
         private void UpdateListBox()
         {
-            if (Values == null || Values.Length == 0)
-                return;
+            AutoCompleteEventArgs evt = new AutoCompleteEventArgs(Text);
+            OnAutoComplete?.Invoke(this, evt);
 
-            string[] matches = GetRelevantValues(Text);
-
-            if (matches.Length == 0)
+            if (evt.Results.Count() == 0)
             {
                 HideListBox();
                 return;
@@ -139,7 +148,8 @@ namespace StopWatch
 
             ShowListBox();
             _listBox.Items.Clear();
-            Array.ForEach(matches, x => _listBox.Items.Add(x));
+            foreach (var s in evt.Results)
+                _listBox.Items.Add(s);
             _listBox.SelectedIndex = 0;
             _listBox.Height = 0;
             _listBox.Width = 0;
@@ -158,18 +168,6 @@ namespace StopWatch
                     _listBox.Width = (_listBox.Width < itemWidth) ? itemWidth : _listBox.Width;
                 }
             }
-        }
-
-        private string[] GetRelevantValues(string pattern)
-        {
-            if (string.IsNullOrEmpty(pattern))
-                return Values.OrderBy(x => x).ToArray();
-
-            return Values
-                .Select(x => new { Value = x, Score = x.PercentMatchTo(pattern) })
-                .Where(x => x.Score > 0.01)
-                .OrderByDescending(x => x.Score)
-                .Select(x => x.Value).ToArray();
         }
 
         private void SelectItem()

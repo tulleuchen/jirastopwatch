@@ -202,6 +202,21 @@ namespace StopWatch
 
 
         public string AddIssue()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void AddAttachment(string issueKey, string filePath)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void LinkIssues(string fromIssueKey, string toIssueKey)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region private members
