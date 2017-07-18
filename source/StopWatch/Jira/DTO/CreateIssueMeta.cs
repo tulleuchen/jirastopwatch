@@ -17,11 +17,11 @@ using System.Collections.Generic;
 
 namespace StopWatch
 {
-    public class Project
+    public class CreateIssueMeta
     {
         public int Id { get; set; }
         public string Key { get; set; }
         public string Name { get; set; }
-        public List<IssueType> IssueTypes { get; set; }
+        public List<Project> Projects { get; set; }
     }
 }

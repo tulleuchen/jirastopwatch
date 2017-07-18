@@ -52,7 +52,10 @@
     <Compile Include="Helpers\JiraKeyHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\StringMatching.cs" />
+    <Compile Include="Jira\DTO\CreateIssueMeta.cs" />
     <Compile Include="Jira\DTO\Project.cs" />
+    <Compile Include="Jira\DTO\User.cs" />
+    <Compile Include="Jira\DTO\IssueType.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="UI\AboutForm.cs">
       <SubType>Form</SubType>
@@ -62,9 +65,7 @@
     </Compile>
     <Compile Include="Helpers\CrossPlatformHelpers.cs" />
     <Compile Include="Helpers\DPApi.cs" />
-    <Compile Include="UI\AutoCompleteTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="UI\AutoCompleteTextBox.cs" />
     <Compile Include="UI\BetterCheckedListBox.cs">
       <SubType>Component</SubType>
     </Compile>

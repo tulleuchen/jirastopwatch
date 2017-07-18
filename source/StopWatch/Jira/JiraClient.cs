@@ -187,23 +187,79 @@ namespace StopWatch
         }
 
 
-        public List<Project> GetProjects()
+        public CreateIssueMeta GetCreateIssueMeta()
         {
-            var request = jiraApiRequestFactory.CreateGetProjectsRequest();
+            var request = jiraApiRequestFactory.CreateGetCreateIssueMetaRequest();
             try
             {
-                return jiraApiRequester.DoAuthenticatedRequest<List<Project>>(request);
+                return jiraApiRequester.DoAuthenticatedRequest<CreateIssueMeta>(request);
             }
             catch (RequestDeniedException)
             {
-                return new List<Project>();
+                return new CreateIssueMeta();
             }
         }
 
 
-        public string AddIssue()
+        public List<User> FindUsers(string searchPattern)
         {
-            throw new NotImplementedException();
+            var request = jiraApiRequestFactory.CreateFindUsersRequest(searchPattern);
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<List<User>>(request);
+            }
+            catch (RequestDeniedException)
+            {
+                return new List<User>();
+            }
+        }
+
+        public User GetMyself()
+        {
+            var request = jiraApiRequestFactory.CreateGetMyselfRequest();
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<User>(request);
+            }
+            catch (RequestDeniedException)
+            {
+                return new User();
+            }
+        }
+
+        public string CreateIssue(int projectId, int issueTypeId, string summary, string description, string assignee)
+        {
+            var issue = new
+            {
+                fields = new 
+                {
+                    issuetype = new
+                    {
+                        id = issueTypeId
+                    },
+                    project = new
+                    {
+                        id = projectId
+                    },
+                    summary = summary,
+                    description = description,
+                    assignee = new
+                    {
+                        name = assignee
+                    }
+                }
+            };
+
+            var request = jiraApiRequestFactory.CreateCreateIssueRequest(issue);
+            try
+            {
+                var createdIssue = jiraApiRequester.DoAuthenticatedRequest<Issue>(request);
+                return createdIssue.Key;
+            }
+            catch (RequestDeniedException)
+            {
+                return null;
+            }
         }
 
 

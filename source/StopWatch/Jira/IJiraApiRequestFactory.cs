@@ -31,7 +31,10 @@ namespace StopWatch
         IRestRequest CreateReAuthenticateRequest();
         IRestRequest CreateGetAvailableTransitions(string key);
         IRestRequest CreateDoTransition(string key, int transitionId);
-        IRestRequest CreateGetProjectsRequest();
+        IRestRequest CreateGetCreateIssueMetaRequest();
+        IRestRequest CreateFindUsersRequest(string searchPattern);
+        IRestRequest CreateGetMyselfRequest();
+        IRestRequest CreateCreateIssueRequest(object issue);
     }
 
 }

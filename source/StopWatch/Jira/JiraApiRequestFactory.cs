@@ -153,9 +153,27 @@ namespace StopWatch
             return CreateAuthenticateRequest(this.username, this.password);
         }
 
-        public IRestRequest CreateGetProjectsRequest()
+        public IRestRequest CreateGetCreateIssueMetaRequest()
         {
-            return restRequestFactory.Create("/rest/api/2/project", Method.GET);
+            return restRequestFactory.Create("/rest/api/2/issue/createmeta", Method.GET);
+        }
+
+        public IRestRequest CreateFindUsersRequest(string searchPattern)
+        {
+            return restRequestFactory.Create($"/rest/api/2/user/search?username={searchPattern}", Method.GET);
+        }
+
+        public IRestRequest CreateGetMyselfRequest()
+        {
+            return restRequestFactory.Create("/rest/api/2/myself", Method.GET);
+        }
+
+        public IRestRequest CreateCreateIssueRequest(object issue)
+        {
+            var request = restRequestFactory.Create("/rest/api/2/issue/", Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddBody(issue);
+            return request;
         }
         #endregion
 

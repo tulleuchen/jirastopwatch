@@ -13,15 +13,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
-using System.Collections.Generic;
-
 namespace StopWatch
 {
-    public class Project
+    public class IssueType
     {
         public int Id { get; set; }
-        public string Key { get; set; }
         public string Name { get; set; }
-        public List<IssueType> IssueTypes { get; set; }
+        public bool SubTask { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

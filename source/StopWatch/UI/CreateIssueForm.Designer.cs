@@ -35,18 +35,20 @@ namespace StopWatch
             this.lblSummary = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Label();
             this.tbSummary = new System.Windows.Forms.TextBox();
-            this.tbDescription = new StopWatch.UI.PasteBinaryTextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblSimilarIssues = new System.Windows.Forms.Label();
             this.lvRelatedIssues = new System.Windows.Forms.ListView();
-            this.actbSearchProject = new StopWatch.AutoCompleteTextBox();
             this.btnCreateIssue = new System.Windows.Forms.Button();
-            this.actbAssignee = new StopWatch.AutoCompleteTextBox();
             this.lblAssignee = new System.Windows.Forms.Label();
             this.btnAssignToMe = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cbAddRowAndPressStart = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblIssueType = new System.Windows.Forms.Label();
+            this.cbIssueType = new System.Windows.Forms.ComboBox();
+            this.actbAssignee = new StopWatch.AutoCompleteTextBox();
+            this.tbDescription = new StopWatch.UI.PasteBinaryTextBox();
+            this.actbSearchProject = new StopWatch.AutoCompleteTextBox();
             this.SuspendLayout();
             // 
             // lblChooseProject
@@ -56,8 +58,8 @@ namespace StopWatch
             this.lblChooseProject.Location = new System.Drawing.Point(12, 9);
             this.lblChooseProject.Name = "lblChooseProject";
             this.lblChooseProject.Size = new System.Drawing.Size(99, 16);
-            this.lblChooseProject.TabIndex = 1;
-            this.lblChooseProject.Text = "Choose project";
+            this.lblChooseProject.TabIndex = 0;
+            this.lblChooseProject.Text = "Choose &project";
             // 
             // lblSummary
             // 
@@ -66,8 +68,8 @@ namespace StopWatch
             this.lblSummary.Location = new System.Drawing.Point(12, 75);
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Size = new System.Drawing.Size(65, 16);
-            this.lblSummary.TabIndex = 2;
-            this.lblSummary.Text = "Summary";
+            this.lblSummary.TabIndex = 5;
+            this.lblSummary.Text = "&Summary";
             // 
             // splitter1
             // 
@@ -75,7 +77,7 @@ namespace StopWatch
             this.splitter1.Location = new System.Drawing.Point(15, 65);
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(498, 2);
-            this.splitter1.TabIndex = 9;
+            this.splitter1.TabIndex = 4;
             // 
             // tbSummary
             // 
@@ -83,18 +85,8 @@ namespace StopWatch
             this.tbSummary.Location = new System.Drawing.Point(15, 94);
             this.tbSummary.Name = "tbSummary";
             this.tbSummary.Size = new System.Drawing.Size(498, 27);
-            this.tbSummary.TabIndex = 10;
+            this.tbSummary.TabIndex = 6;
             this.tbSummary.TextChanged += new System.EventHandler(this.tbSummary_TextChanged);
-            // 
-            // tbDescription
-            // 
-            this.tbDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.tbDescription.Location = new System.Drawing.Point(15, 150);
-            this.tbDescription.Multiline = true;
-            this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(498, 174);
-            this.tbDescription.TabIndex = 12;
-            this.tbDescription.OnPaste += new System.EventHandler<System.EventArgs>(this.tbDescription_OnPaste);
             // 
             // lblDescription
             // 
@@ -103,7 +95,7 @@ namespace StopWatch
             this.lblDescription.Location = new System.Drawing.Point(13, 131);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(76, 16);
-            this.lblDescription.TabIndex = 11;
+            this.lblDescription.TabIndex = 7;
             this.lblDescription.Text = "Description";
             // 
             // lblSimilarIssues
@@ -113,8 +105,8 @@ namespace StopWatch
             this.lblSimilarIssues.Location = new System.Drawing.Point(535, 75);
             this.lblSimilarIssues.Name = "lblSimilarIssues";
             this.lblSimilarIssues.Size = new System.Drawing.Size(309, 16);
-            this.lblSimilarIssues.TabIndex = 14;
-            this.lblSimilarIssues.Text = "Related issues (double-click to open, check to link)";
+            this.lblSimilarIssues.TabIndex = 13;
+            this.lblSimilarIssues.Text = "&Related issues (double-click to open, check to link)";
             // 
             // lvRelatedIssues
             // 
@@ -126,20 +118,10 @@ namespace StopWatch
             this.lvRelatedIssues.Name = "lvRelatedIssues";
             this.lvRelatedIssues.ShowItemToolTips = true;
             this.lvRelatedIssues.Size = new System.Drawing.Size(306, 230);
-            this.lvRelatedIssues.TabIndex = 15;
+            this.lvRelatedIssues.TabIndex = 14;
             this.lvRelatedIssues.UseCompatibleStateImageBehavior = false;
             this.lvRelatedIssues.View = System.Windows.Forms.View.List;
             this.lvRelatedIssues.DoubleClick += new System.EventHandler(this.lvRelatedIssues_DoubleClick);
-            // 
-            // actbSearchProject
-            // 
-            this.actbSearchProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.actbSearchProject.Location = new System.Drawing.Point(15, 28);
-            this.actbSearchProject.Name = "actbSearchProject";
-            this.actbSearchProject.Size = new System.Drawing.Size(498, 27);
-            this.actbSearchProject.TabIndex = 0;
-            this.actbSearchProject.WordWrap = false;
-            this.actbSearchProject.OnAutoComplete += new System.EventHandler<StopWatch.AutoCompleteEventArgs>(this.actbSearchProject_OnAutoComplete);
             // 
             // btnCreateIssue
             // 
@@ -149,17 +131,9 @@ namespace StopWatch
             this.btnCreateIssue.Name = "btnCreateIssue";
             this.btnCreateIssue.Size = new System.Drawing.Size(127, 27);
             this.btnCreateIssue.TabIndex = 16;
-            this.btnCreateIssue.Text = "Create issue";
+            this.btnCreateIssue.Text = "&Create issue";
             this.btnCreateIssue.UseVisualStyleBackColor = true;
-            // 
-            // actbAssignee
-            // 
-            this.actbAssignee.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
-            this.actbAssignee.Location = new System.Drawing.Point(16, 359);
-            this.actbAssignee.Name = "actbAssignee";
-            this.actbAssignee.Size = new System.Drawing.Size(283, 27);
-            this.actbAssignee.TabIndex = 17;
-            this.actbAssignee.WordWrap = false;
+            this.btnCreateIssue.Click += new System.EventHandler(this.btnCreateIssue_Click);
             // 
             // lblAssignee
             // 
@@ -168,8 +142,8 @@ namespace StopWatch
             this.lblAssignee.Location = new System.Drawing.Point(13, 340);
             this.lblAssignee.Name = "lblAssignee";
             this.lblAssignee.Size = new System.Drawing.Size(92, 16);
-            this.lblAssignee.TabIndex = 18;
-            this.lblAssignee.Text = "Assign to user";
+            this.lblAssignee.TabIndex = 9;
+            this.lblAssignee.Text = "Assign to &user";
             // 
             // btnAssignToMe
             // 
@@ -177,9 +151,10 @@ namespace StopWatch
             this.btnAssignToMe.Location = new System.Drawing.Point(305, 359);
             this.btnAssignToMe.Name = "btnAssignToMe";
             this.btnAssignToMe.Size = new System.Drawing.Size(105, 27);
-            this.btnAssignToMe.TabIndex = 19;
-            this.btnAssignToMe.Text = "Assign to me";
+            this.btnAssignToMe.TabIndex = 11;
+            this.btnAssignToMe.Text = "Assign to &me";
             this.btnAssignToMe.UseVisualStyleBackColor = true;
+            this.btnAssignToMe.Click += new System.EventHandler(this.btnAssignToMe_Click);
             // 
             // btnCancel
             // 
@@ -188,8 +163,8 @@ namespace StopWatch
             this.btnCancel.Location = new System.Drawing.Point(438, 446);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 27);
-            this.btnCancel.TabIndex = 20;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.TabIndex = 17;
+            this.btnCancel.Text = "Cance&l";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // cbAddRowAndPressStart
@@ -199,8 +174,8 @@ namespace StopWatch
             this.cbAddRowAndPressStart.Location = new System.Drawing.Point(16, 402);
             this.cbAddRowAndPressStart.Name = "cbAddRowAndPressStart";
             this.cbAddRowAndPressStart.Size = new System.Drawing.Size(300, 20);
-            this.cbAddRowAndPressStart.TabIndex = 21;
-            this.cbAddRowAndPressStart.Text = "Add this issue to StopWatch and start the timer";
+            this.cbAddRowAndPressStart.TabIndex = 12;
+            this.cbAddRowAndPressStart.Text = "&Add this issue to StopWatch and start the timer";
             this.cbAddRowAndPressStart.UseVisualStyleBackColor = true;
             // 
             // label1
@@ -209,15 +184,68 @@ namespace StopWatch
             this.label1.Location = new System.Drawing.Point(15, 432);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(498, 2);
-            this.label1.TabIndex = 22;
+            this.label1.TabIndex = 15;
+            // 
+            // lblIssueType
+            // 
+            this.lblIssueType.AutoSize = true;
+            this.lblIssueType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.lblIssueType.Location = new System.Drawing.Point(535, 9);
+            this.lblIssueType.Name = "lblIssueType";
+            this.lblIssueType.Size = new System.Drawing.Size(69, 16);
+            this.lblIssueType.TabIndex = 2;
+            this.lblIssueType.Text = "Issue &type";
+            // 
+            // cbIssueType
+            // 
+            this.cbIssueType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbIssueType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbIssueType.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.cbIssueType.FormattingEnabled = true;
+            this.cbIssueType.Location = new System.Drawing.Point(538, 28);
+            this.cbIssueType.Name = "cbIssueType";
+            this.cbIssueType.Size = new System.Drawing.Size(183, 28);
+            this.cbIssueType.TabIndex = 3;
+            // 
+            // actbAssignee
+            // 
+            this.actbAssignee.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.actbAssignee.Location = new System.Drawing.Point(16, 359);
+            this.actbAssignee.Name = "actbAssignee";
+            this.actbAssignee.Size = new System.Drawing.Size(283, 27);
+            this.actbAssignee.TabIndex = 10;
+            this.actbAssignee.WordWrap = false;
+            this.actbAssignee.OnAutoComplete += new System.EventHandler<StopWatch.AutoCompleteEventArgs>(this.actbAssignee_OnAutoComplete);
+            // 
+            // tbDescription
+            // 
+            this.tbDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.tbDescription.Location = new System.Drawing.Point(15, 150);
+            this.tbDescription.Multiline = true;
+            this.tbDescription.Name = "tbDescription";
+            this.tbDescription.Size = new System.Drawing.Size(498, 174);
+            this.tbDescription.TabIndex = 8;
+            this.tbDescription.OnPaste += new System.EventHandler<System.EventArgs>(this.tbDescription_OnPaste);
+            // 
+            // actbSearchProject
+            // 
+            this.actbSearchProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
+            this.actbSearchProject.Location = new System.Drawing.Point(15, 28);
+            this.actbSearchProject.Name = "actbSearchProject";
+            this.actbSearchProject.Size = new System.Drawing.Size(498, 27);
+            this.actbSearchProject.TabIndex = 1;
+            this.actbSearchProject.WordWrap = false;
+            this.actbSearchProject.OnAutoComplete += new System.EventHandler<StopWatch.AutoCompleteEventArgs>(this.actbSearchProject_OnAutoComplete);
+            this.actbSearchProject.SelectedValueChanged += new System.EventHandler(this.actbSearchProject_SelectedValueChanged);
             // 
             // CreateIssueForm
             // 
-            this.AcceptButton = this.btnCreateIssue;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(856, 484);
+            this.Controls.Add(this.cbIssueType);
+            this.Controls.Add(this.lblIssueType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbAddRowAndPressStart);
             this.Controls.Add(this.btnCancel);
@@ -261,5 +289,7 @@ namespace StopWatch
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox cbAddRowAndPressStart;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblIssueType;
+        private System.Windows.Forms.ComboBox cbIssueType;
     }
 }

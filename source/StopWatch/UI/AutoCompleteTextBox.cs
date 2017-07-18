@@ -6,10 +6,27 @@ using System.Windows.Forms;
 
 namespace StopWatch
 {
+    public class AutoCompleteResultItem
+    {
+        public object Value { get; private set; }
+        public string Text { get; private set; }
+
+        public AutoCompleteResultItem(object value, string text)
+        {
+            Value = value;
+            Text = text;
+        }
+
+        public override string ToString()
+        {
+            return Text;
+        }
+    }
+
     public class AutoCompleteEventArgs : EventArgs
     {
         public string SearchPattern { get; private set; }
-        public string[] Results { get; set; }
+        public AutoCompleteResultItem[] Results { get; set; }
 
         public AutoCompleteEventArgs(string searchPatttern)
         {
@@ -20,6 +37,10 @@ namespace StopWatch
     public class AutoCompleteTextBox : TextBox
     {
         public event EventHandler<AutoCompleteEventArgs> OnAutoComplete;
+
+        public event EventHandler SelectedValueChanged;
+
+        public object SelectedValue;
 
         private ListBox _listBox;
 
@@ -140,7 +161,7 @@ namespace StopWatch
             AutoCompleteEventArgs evt = new AutoCompleteEventArgs(Text);
             OnAutoComplete?.Invoke(this, evt);
 
-            if (evt.Results.Count() == 0)
+            if (evt.Results == null || evt.Results.Count() == 0)
             {
                 HideListBox();
                 return;
@@ -161,7 +182,7 @@ namespace StopWatch
                     // Max height at 6 rows
                     if (i < 6)
                         _listBox.Height += _listBox.GetItemHeight(i);
-                    int itemWidth = (int)graphics.MeasureString(((string)_listBox.Items[i]) + "_", _listBox.Font).Width;
+                    int itemWidth = (int)graphics.MeasureString(_listBox.Items[i].ToString() + "_", _listBox.Font).Width;
                     // Max width is Textbox width
                     if (itemWidth > Width)
                         itemWidth = Width;
@@ -172,10 +193,17 @@ namespace StopWatch
 
         private void SelectItem()
         {
-            Text = _listBox.SelectedItem as string ?? "";
+            var item = _listBox.SelectedItem as AutoCompleteResultItem;
+            if (item == null)
+                return;
+
+            SelectedValue = item.Value;
+            Text = item.Text;
             SelectionStart = Text.Length;
             SelectionLength = 0;
             HideListBox();
+
+            SelectedValueChanged?.Invoke(this, new EventArgs());
         }
 
         private bool IsAutoCompleting()
