@@ -586,7 +586,7 @@ namespace StopWatch
                     EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
                     EstimateUpdateValue = worklogForm.EstimateValue;
 
-                    PostAndReset(cbJira.Text, WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
+                    PostAndReset(cbJira.Text, WatchTimer.GetInitialStartTime(), WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
                 else if (formResult == DialogResult.Yes)
                 {
@@ -620,7 +620,7 @@ namespace StopWatch
 
 
         #region private methods
-        private void PostAndReset(string key, TimeSpan timeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
+        private void PostAndReset(string key, DateTimeOffset startTime, TimeSpan timeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {
             Task.Factory.StartNew(
                 () =>
@@ -645,7 +645,7 @@ namespace StopWatch
 
                     // Now post the WorkLog with timeElapsed - and comment unless it was reset
                     if (postSuccesful)
-                        postSuccesful = jiraClient.PostWorklog(key, timeElapsed, comment, estimateUpdateMethod, estimateUpdateValue);
+                        postSuccesful = jiraClient.PostWorklog(key, startTime, timeElapsed, comment, estimateUpdateMethod, estimateUpdateValue);
 
                     if (postSuccesful)
                     {

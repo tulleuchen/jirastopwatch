@@ -185,7 +185,8 @@ namespace StopWatch
                         TimerState timerState = new TimerState
                         {
                             Running = this.settings.SaveTimerState == SaveTimerSetting.SavePause ? false : persistedIssue.TimerRunning,
-                            StartTime = persistedIssue.StartTime,
+                            SessionStartTime = persistedIssue.SessionStartTime,
+                            InitialStartTime = persistedIssue.InitialStartTime,
                             TotalTime = persistedIssue.TotalTime
                         };
                         issueControl.WatchTimer.SetState(timerState);
@@ -554,7 +555,8 @@ namespace StopWatch
                 {
                     Key = issueControl.IssueKey,
                     TimerRunning = timerState.Running,
-                    StartTime = timerState.StartTime,
+                    SessionStartTime = timerState.SessionStartTime,
+                    InitialStartTime = timerState.InitialStartTime,
                     TotalTime = timerState.TotalTime,
                     Comment = issueControl.Comment,
                     EstimateUpdateMethod = issueControl.EstimateUpdateMethod,
