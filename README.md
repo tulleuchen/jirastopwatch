@@ -36,6 +36,15 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+2.1.0     2017-08-16     New features/improvements
+                           - HTTPS connections are now forced to use TLS 1.1 or newer.
+						   - Optional display of issue's project name.
+						   - Added ellipsis for long issue summaries.
+
+                         Bugfixes
+						   - Fixed random disappearing issue summaries.
+						   - Submit worklog accepts 0 without any unit as remaining time.
+ 
 2.0.1     2017-04-10     Bugfixes
                            - System tray icon missing when minimizing to tray.
                            - Always use current screen instead of main screen for calculating
