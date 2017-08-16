@@ -19,11 +19,17 @@ namespace StopWatch
     {
         public string Summary { get; set; }
         public TimetrackingFields Timetracking { get; set; }
+        public ProjectFields Project { get; set; }
     }
 
     internal class TimetrackingFields
     {
         public string RemainingEstimate { get; set; }
         public int RemainingEstimateSeconds { get; set; }
+    }
+
+    internal class ProjectFields
+    {
+        public string Name { get; set; } 
     }
 }
