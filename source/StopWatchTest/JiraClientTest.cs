@@ -119,7 +119,7 @@
 
             jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<Issue>(It.IsAny<IRestRequest>())).Returns(returnData);
 
-            Assert.That(jiraClient.GetIssueSummary("DG-42"), Is.EqualTo(returnData.Fields.Summary));
+            Assert.That(jiraClient.GetIssueSummary("DG-42",false), Is.EqualTo(returnData.Fields.Summary));
         }
 
 
@@ -127,7 +127,7 @@
         public void GetIssueSummary_OnFailure_It_Returns_Empty_String()
         {
             jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<Issue>(It.IsAny<IRestRequest>())).Throws<RequestDeniedException>();
-            Assert.That(jiraClient.GetIssueSummary("DG-42"), Is.EqualTo(""));
+            Assert.That(jiraClient.GetIssueSummary("DG-42",false), Is.EqualTo(""));
         }
 
         [Test, Description("GetIssueTimetracking: On success it returns a timetracking object")]

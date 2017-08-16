@@ -52,6 +52,7 @@ namespace StopWatch
         public bool MinimizeToTray { get; set; }
         public int IssueCount { get; set; }
         public bool AllowMultipleTimers { get; set; }
+        public bool IncludeProjectName { get; set; }
 
         public SaveTimerSetting SaveTimerState { get; set; }
         public PauseAndResumeSetting PauseOnSessionLock { get; set; }
@@ -114,6 +115,7 @@ namespace StopWatch
             this.JiraBaseUrl = Properties.Settings.Default.JiraBaseUrl ?? "";
 
             this.AlwaysOnTop = Properties.Settings.Default.AlwaysOnTop;
+            this.IncludeProjectName = Properties.Settings.Default.IncludeProjectName;
             this.MinimizeToTray = Properties.Settings.Default.MinimizeToTray;
             this.IssueCount = Properties.Settings.Default.IssueCount;
             this.Username = Properties.Settings.Default.Username;
@@ -149,6 +151,7 @@ namespace StopWatch
                 Properties.Settings.Default.AlwaysOnTop = this.AlwaysOnTop;
                 Properties.Settings.Default.MinimizeToTray = this.MinimizeToTray;
                 Properties.Settings.Default.IssueCount = this.IssueCount;
+                Properties.Settings.Default.IncludeProjectName = this.IncludeProjectName;
 
                 Properties.Settings.Default.Username = this.Username;
                 if (this.Password != "")

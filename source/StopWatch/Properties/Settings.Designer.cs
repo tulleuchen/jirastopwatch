@@ -226,5 +226,17 @@ namespace StopWatch.Properties {
                 this["CheckForUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IncludeProjectName {
+            get {
+                return ((bool)(this["IncludeProjectName"]));
+            }
+            set {
+                this["IncludeProjectName"] = value;
+            }
+        }
     }
 }

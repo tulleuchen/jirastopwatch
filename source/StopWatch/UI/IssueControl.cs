@@ -207,7 +207,7 @@ namespace StopWatch
                     );
                     try
                     {
-                        summary = jiraClient.GetIssueSummary(key);
+                        summary = jiraClient.GetIssueSummary(key, settings.IncludeProjectName);
                         this.InvokeIfRequired(
                             () => lblSummary.Text = summary
                         );
