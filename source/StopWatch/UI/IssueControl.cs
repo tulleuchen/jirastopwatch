@@ -576,7 +576,7 @@ namespace StopWatch
 
         public void PostAndReset()
         {
-            using (var worklogForm = new WorklogForm(WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue))
+            using (var worklogForm = new WorklogForm(WatchTimer.GetInitialStartTime(), WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
                 UpdateRemainingEstimate(worklogForm);
                 var formResult = worklogForm.ShowDialog(this);
@@ -586,7 +586,7 @@ namespace StopWatch
                     EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
                     EstimateUpdateValue = worklogForm.EstimateValue;
 
-                    PostAndReset(cbJira.Text, WatchTimer.GetInitialStartTime(), WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
+                    PostAndReset(cbJira.Text, worklogForm.InitialStartTime, WatchTimer.TimeElapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
                 else if (formResult == DialogResult.Yes)
                 {

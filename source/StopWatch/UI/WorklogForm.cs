@@ -53,7 +53,13 @@ namespace StopWatch
                 }
             }
         }
-
+        public DateTimeOffset InitialStartTime
+        {
+            get
+            {
+                return this.startDatePicker.Value.Date + this.startTimePicker.Value.TimeOfDay;
+            }
+        }
         public string RemainingEstimate
         {
             get
@@ -83,9 +89,17 @@ namespace StopWatch
 
 
         #region public methods
-        public WorklogForm(TimeSpan TimeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
+        public WorklogForm(DateTimeOffset startTime, TimeSpan TimeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {            
             this.TimeElapsed = TimeElapsed;
+            DateTimeOffset initialStartTime;
+            if (startTime == null)
+            {
+                initialStartTime = DateTimeOffset.UtcNow.Subtract(TimeElapsed);
+            }else
+            {
+                initialStartTime = startTime;
+            }
             InitializeComponent();
             if (!String.IsNullOrEmpty(comment))
             {
@@ -93,7 +107,13 @@ namespace StopWatch
                 tbComment.SelectionStart = 0;
             }
 
-            switch( estimateUpdateMethod ) {
+            // I don't see why I need to do this, but the first time I call LocalDateTime it seems to change time zone on the actual Date4TimeOffset
+            // So I don't get the right time.  So I call just once and update both from the same object
+            DateTime localInitialStartTime = initialStartTime.LocalDateTime;
+            this.startDatePicker.Value = localInitialStartTime;
+            this.startTimePicker.Value = localInitialStartTime;
+
+            switch ( estimateUpdateMethod ) {
                 case EstimateUpdateMethods.Auto:
                     rdEstimateAdjustAuto.Checked = true;
                     break;

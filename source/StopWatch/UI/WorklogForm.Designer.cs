@@ -57,6 +57,9 @@ namespace StopWatch
             this.rdEstimateAdjustManualDecrease = new System.Windows.Forms.RadioButton();
             this.rdEstimateAdjustSetTo = new System.Windows.Forms.RadioButton();
             this.rdEstimateAdjustLeave = new System.Windows.Forms.RadioButton();
+            this.startDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.startTimePicker = new System.Windows.Forms.DateTimePicker();
             this.gbRemainingEstimate.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,7 +87,7 @@ namespace StopWatch
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(254, 302);
+            this.btnCancel.Location = new System.Drawing.Point(254, 336);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
@@ -96,7 +99,7 @@ namespace StopWatch
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOk.Location = new System.Drawing.Point(193, 302);
+            this.btnOk.Location = new System.Drawing.Point(193, 336);
             this.btnOk.Margin = new System.Windows.Forms.Padding(2);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(56, 23);
@@ -108,7 +111,7 @@ namespace StopWatch
             // lblInfo
             // 
             this.lblInfo.AutoSize = true;
-            this.lblInfo.Location = new System.Drawing.Point(11, 282);
+            this.lblInfo.Location = new System.Drawing.Point(11, 316);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInfo.Name = "lblInfo";
             this.lblInfo.Size = new System.Drawing.Size(137, 13);
@@ -118,7 +121,7 @@ namespace StopWatch
             // btnSave
             // 
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.Yes;
-            this.btnSave.Location = new System.Drawing.Point(11, 302);
+            this.btnSave.Location = new System.Drawing.Point(11, 336);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(83, 23);
@@ -148,7 +151,7 @@ namespace StopWatch
             this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustSetTo);
             this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustLeave);
             this.gbRemainingEstimate.Controls.Add(this.rdEstimateAdjustAuto);
-            this.gbRemainingEstimate.Location = new System.Drawing.Point(14, 174);
+            this.gbRemainingEstimate.Location = new System.Drawing.Point(14, 208);
             this.gbRemainingEstimate.Name = "gbRemainingEstimate";
             this.gbRemainingEstimate.Size = new System.Drawing.Size(299, 102);
             this.gbRemainingEstimate.TabIndex = 2;
@@ -213,13 +216,47 @@ namespace StopWatch
             this.rdEstimateAdjustLeave.CheckedChanged += new System.EventHandler(this.estimateUpdateMethod_changed);
             this.rdEstimateAdjustLeave.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rdEstimateAdjustLeave_KeyDown);
             // 
+            // startDatePicker
+            // 
+            this.startDatePicker.AccessibleDescription = "Start Date";
+            this.startDatePicker.AccessibleName = "StartDate";
+            this.startDatePicker.Location = new System.Drawing.Point(124, 176);
+            this.startDatePicker.Name = "startDatePicker";
+            this.startDatePicker.ShowUpDown = true;
+            this.startDatePicker.Size = new System.Drawing.Size(115, 20);
+            this.startDatePicker.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 182);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Start Time";
+            // 
+            // startTimePicker
+            // 
+            this.startTimePicker.AccessibleDescription = "Start Time";
+            this.startTimePicker.AccessibleName = "StartTime";
+            this.startTimePicker.CustomFormat = "HH:mm";
+            this.startTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.startTimePicker.Location = new System.Drawing.Point(254, 176);
+            this.startTimePicker.Name = "startTimePicker";
+            this.startTimePicker.ShowUpDown = true;
+            this.startTimePicker.Size = new System.Drawing.Size(59, 20);
+            this.startTimePicker.TabIndex = 13;
+            // 
             // WorklogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(321, 332);
+            this.ClientSize = new System.Drawing.Size(321, 367);
+            this.Controls.Add(this.startTimePicker);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.startDatePicker);
             this.Controls.Add(this.gbRemainingEstimate);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblInfo);
@@ -254,5 +291,8 @@ namespace StopWatch
         private TextBox tbSetTo;
         private TextBox tbReduceBy;
         public RadioButton rdEstimateAdjustLeave;
+        private DateTimePicker startDatePicker;
+        private Label label1;
+        private DateTimePicker startTimePicker;
     }
 }
