@@ -22,7 +22,8 @@ namespace StopWatch
     {
         public string Key { get; set; }
         public bool TimerRunning { get; set; }
-        public DateTime StartTime { get; set; }
+        public DateTimeOffset? InitialStartTime { get; set; }
+        public DateTime SessionStartTime { get; set; }
         public TimeSpan TotalTime { get; set; }
         public string Comment { get; set; }
         public EstimateUpdateMethods EstimateUpdateMethod { get; set; }

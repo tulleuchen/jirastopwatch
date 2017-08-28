@@ -23,7 +23,8 @@ namespace StopWatch
 
         public TimeSpan TotalTime { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public DateTime SessionStartTime { get; set; }
+        public DateTimeOffset? InitialStartTime { get; set; }
     }
 
 
@@ -37,14 +38,15 @@ namespace StopWatch
                 if (!Running)
                     return totalTime;
 
-                return totalTime + (DateTime.Now - startTime);
+                return totalTime + (DateTime.Now - sessionStartTime);
             }
 
             set
             {
                 TimerState state = GetState();
                 state.TotalTime = value;
-                state.StartTime = DateTime.Now;
+                state.SessionStartTime = DateTime.Now;
+                state.InitialStartTime = initialStartTime;
                 SetState(state);
             }
         }
@@ -64,8 +66,11 @@ namespace StopWatch
         {
             if (Running)
                 return;
-
-            startTime = DateTime.Now;
+            sessionStartTime = DateTime.Now;
+            if( initialStartTime == null)
+            {
+                initialStartTime = DateTimeOffset.UtcNow;
+            }
             Running = true;
         }
 
@@ -75,7 +80,7 @@ namespace StopWatch
             if (!Running)
                 return;
 
-            totalTime += (DateTime.Now - startTime);
+            totalTime += (DateTime.Now - sessionStartTime);
             Running = false;
         }
 
@@ -84,6 +89,7 @@ namespace StopWatch
         {
             totalTime = new TimeSpan();
             Running = false;
+            initialStartTime = null;
         }
 
 
@@ -95,8 +101,9 @@ namespace StopWatch
                 return new TimerState
                 {
                     Running = Running,
-                    TotalTime = totalTime + (now - startTime),
-                    StartTime = now
+                    TotalTime = totalTime + (now - sessionStartTime),
+                    SessionStartTime = now,
+                    InitialStartTime = initialStartTime
                 };
             }
 
@@ -104,7 +111,8 @@ namespace StopWatch
             {
                 Running = Running,
                 TotalTime = totalTime,
-                StartTime = startTime
+                SessionStartTime = sessionStartTime,
+                InitialStartTime = initialStartTime
             };
         }
 
@@ -113,13 +121,36 @@ namespace StopWatch
         {
             this.Running = state.Running;
             this.totalTime = state.TotalTime;
-            this.startTime = state.StartTime;
+            this.sessionStartTime = state.SessionStartTime;
+            this.initialStartTime = state.InitialStartTime;
+        }
+        
+        /// <summary>
+        /// Returns the initial start time to sue when logging
+        /// We check both the estimated time (i.e. now minus the elapsed time) and the 
+        /// recorded start time (when you first pressed play on this issue) and return the earliest
+        /// This should mean that if you start and pause and restart the timer you get the actual time you first started
+        /// but if you manually edit the time spent (e.g. forgot to start the timer) then you get the estimated one
+        /// </summary>
+        /// <returns></returns>
+        public DateTimeOffset GetInitialStartTime()
+        {
+            var estimatedStartTime = DateTimeOffset.UtcNow.Subtract(TimeElapsed);
+            if(initialStartTime == null || estimatedStartTime < initialStartTime)
+            {
+                return estimatedStartTime;
+            } else
+            {
+                return (DateTimeOffset)initialStartTime;
+            }
         }
         #endregion
 
 
         #region private members
-        private DateTime startTime;
+        private DateTimeOffset? initialStartTime;
+
+        private DateTime sessionStartTime;
 
         private TimeSpan totalTime;
         #endregion

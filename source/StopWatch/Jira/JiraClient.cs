@@ -121,10 +121,9 @@ namespace StopWatch
         }
 
 
-        public bool PostWorklog(string key, TimeSpan time, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
+        public bool PostWorklog(string key, DateTimeOffset startTime, TimeSpan time, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {
-            var started = DateTimeOffset.UtcNow.Subtract(time);
-            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, started, time, comment, estimateUpdateMethod, estimateUpdateValue);
+            var request = jiraApiRequestFactory.CreatePostWorklogRequest(key, startTime, time, comment, estimateUpdateMethod, estimateUpdateValue);
             try
             {
                 jiraApiRequester.DoAuthenticatedRequest<object>(request);
