@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Helpers\JiraKeyHelpers.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
+    <Compile Include="Jira\DTO\JiraConfiguration.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="UI\AboutForm.cs">
       <SubType>Form</SubType>

@@ -97,6 +97,11 @@ namespace StopWatch
             return request;
         }
 
+        public IRestRequest CreateGetConfigurationRequest()
+        {
+            return restRequestFactory.Create("/rest/api/2/configuration", Method.GET);
+        }
+
 
         public IRestRequest CreatePostCommentRequest(string key, string comment)
         {
