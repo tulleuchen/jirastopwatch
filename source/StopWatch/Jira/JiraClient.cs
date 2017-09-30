@@ -43,6 +43,7 @@ namespace StopWatch
             try
             {
                 jiraApiRequester.DoAuthenticatedRequest<object>(request);
+                JiraTimeHelpers.Configuration = GetTimeTrackingConfiguration();
                 return true;
             }
             catch (RequestDeniedException)
@@ -120,6 +121,19 @@ namespace StopWatch
             }
         }
 
+
+        public TimeTrackingConfiguration GetTimeTrackingConfiguration()
+        {
+            var request = jiraApiRequestFactory.CreateGetConfigurationRequest();
+            try
+            {
+                return jiraApiRequester.DoAuthenticatedRequest<JiraConfiguration>(request).timeTrackingConfiguration;
+            }
+            catch (RequestDeniedException)
+            {
+                return null;
+            }
+        }
 
         public bool PostWorklog(string key, DateTimeOffset startTime, TimeSpan time, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
         {

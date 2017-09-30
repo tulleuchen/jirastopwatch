@@ -21,6 +21,8 @@ namespace StopWatch
 {
     static public class JiraTimeHelpers
     {
+        public static TimeTrackingConfiguration Configuration { get; set; }
+
         public static string DateTimeToJiraDateTime(DateTimeOffset date)
         {
             string formatted = date.ToString("yyyy-MM-dd\\THH:mm:ss.fffzzzz", CultureInfo.InvariantCulture);
@@ -29,13 +31,35 @@ namespace StopWatch
 
         public static string TimeSpanToJiraTime(TimeSpan ts)
         {
-            if (ts.Days > 0)
-                return String.Format("{0:%d}d {0:%h}h {0:%m}m", ts);
+            if (Configuration == null || ts.TotalHours < Configuration.workingHoursPerDay)
+            {
+                if (ts.Days > 0)
+                    return String.Format("{0:%d}d {0:%h}h {0:%m}m", ts);
 
-            if (ts.Hours > 0)
-                return String.Format("{0:%h}h {0:%m}m", ts);
+                if (ts.Hours > 0)
+                    return String.Format("{0:%h}h {0:%m}m", ts);
 
-            return String.Format("{0:%m}m", ts);
+                return String.Format("{0:%m}m", ts);
+            }
+            else
+            {
+                int days =(int) Math.Floor(ts.TotalMinutes / (Configuration.workingHoursPerDay * 60));
+                int hours = (int) Math.Floor(ts.TotalHours - (days * Configuration.workingHoursPerDay));
+                int minutes = (int) Math.Floor(ts.TotalMinutes - ((days * Configuration.workingHoursPerDay) + hours) * 60);
+                if (days > 0)
+                {
+                    return String.Format("{0}d {1}h {2}m", days, hours, minutes);
+                }
+                else if (hours > 0)
+                {
+                    return String.Format("{0}h {1}m", hours, minutes);
+                }
+                else
+                {
+                    return String.Format("{0}m", minutes);
+                }
+            }
+
         }
 
 
