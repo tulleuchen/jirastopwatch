@@ -51,6 +51,14 @@ namespace StopWatch
             }
         }
 
+        public TimeSpan TimeElapsedNearestMinute
+        {
+            get
+            {
+                return TimeSpan.FromMinutes(Math.Ceiling(TimeElapsed.TotalMinutes));
+            }
+        }
+
         public bool Running { get; private set; }
         #endregion
 
