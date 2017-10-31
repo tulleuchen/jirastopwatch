@@ -1,3 +1,5 @@
+[![Gitter chat](https://badges.gitter.im/carstengehling/jirastopwatch.png)](https://gitter.im/carstengehling/jirastopwatch "Gitter chat")
+
 ## Summary
 
 A Windows desktop tool for recording time spent on different Jira tasks.
@@ -36,6 +38,12 @@ All icons on buttons were downloaded from [Icons8](https://icons8.com).
 ## Changelog
 
 <pre>
+2.2.0     2017-10-31     New features/improvements:
+                           - Log work using actual start time (Thanks to Adam Conway)
+                           - Use Jira's hour/day configuration when presenting time
+                             (eg. 8 hours = 1 day) (Again thank you Adam Conway)
+                           - Posting worklog will always round up recorded time to nearest minute.
+
 2.1.0     2017-08-16     New features/improvements
                            - HTTPS connections are now forced to use TLS 1.1 or newer.
 						   - Optional display of issue's project name.
