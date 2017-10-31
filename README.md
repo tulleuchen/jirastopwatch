@@ -1,4 +1,4 @@
-[![Gitter chat](https://badges.gitter.im/carstengehling/jirastopwatch.png)](https://gitter.im/carstengehling/jirastopwatch "Gitter chat")
+[![Gitter chat](https://badges.gitter.im/jirastopwatch.png)](https://gitter.im/jirastopwatch "Gitter chat")
 
 ## Summary
 
