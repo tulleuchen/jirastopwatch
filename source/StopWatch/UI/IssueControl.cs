@@ -281,7 +281,7 @@ namespace StopWatch
             this.btnReset = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.autoCompleteTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // cbJira
@@ -394,10 +394,10 @@ namespace StopWatch
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             this.btnOpen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnOpen_MouseUp);
             // 
-            // timer1
+            // autoCompleteTimer
             // 
-            this.timer1.Interval = 300;
-            timer1.Tick += Timer1_Tick;
+            this.autoCompleteTimer.Interval = 300;
+            autoCompleteTimer.Tick += autoCompleteTimer_Tick;
             // 
             // IssueControl
             // 
@@ -419,7 +419,7 @@ namespace StopWatch
         }
 
 
-        private Timer timer1;
+        private Timer autoCompleteTimer;
 
         //Update data only when the user (not program) change something
         private void CbJira_TextUpdate(object sender, EventArgs e)
@@ -487,16 +487,16 @@ namespace StopWatch
 
         private void RestartTimer()
         {
-            timer1.Stop();
+            autoCompleteTimer.Stop();
             _canUpdate = false;
-            timer1.Start();
+            autoCompleteTimer.Start();
         }
 
         //Update data when timer stops
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void autoCompleteTimer_Tick(object sender, EventArgs e)
         {
             _canUpdate = true;
-            timer1.Stop();
+            autoCompleteTimer.Stop();
             UpdateData();
         }
 
