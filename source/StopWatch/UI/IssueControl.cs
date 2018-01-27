@@ -15,254 +15,262 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StopWatch
 {
-    internal class IssueControl : UserControl
-    {
-        #region public members
-        public string IssueKey
-        {
-            get
+	internal class IssueControl : UserControl
+	{
+		#region public members
+		public string IssueKey
+		{
+			get
+			{
+				return cbJira.Text;
+			}
+
+			set
+			{
+				cbJira.Text = value;
+				UpdateSummary();
+			}
+		}
+
+
+		public WatchTimer WatchTimer { get; private set; }
+
+		public bool MarkedForRemoval
+		{
+			get
+			{
+				return _MarkedForRemoval;
+			}
+		}
+
+
+		private void SetCbJiraDataSource(IEnumerable<Issue> issues)
+		{
+            for (int i = cbJira.Items.Count - 1; i >= 0; i--)
             {
-                return cbJira.Text;
+                cbJira.Items.RemoveAt(i);
             }
 
-            set
+            for (int i = 0; i < issues.Count(); i++)
             {
-                cbJira.Text = value;
-                UpdateSummary();
+                cbJira.Items.Insert(i, new CBIssueItem(issues.ElementAt(i).Key, issues.ElementAt(i).Fields.Summary));
             }
-        }
+		}
 
 
-        public WatchTimer WatchTimer { get; private set; }
+		public string Comment { get; set; }
+		public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
+		public string EstimateUpdateValue { get; set; }
 
-        public bool MarkedForRemoval
-        {
-            get
-            {
-                return _MarkedForRemoval;
-            }
-        }
+		public bool Current
+		{
+			get
+			{
+				return Current;
+			}
+			set
+			{
+				BackColor = value ? SystemColors.GradientInactiveCaption : SystemColors.Window;
+			}
+		}
 
-        public IEnumerable<Issue> AvailableIssues
-        {
-            set
-            {
-                cbJira.Items.Clear();
-                foreach (var issue in value)
-                    cbJira.Items.Add(new CBIssueItem(issue.Key, issue.Fields.Summary));
-            }
-        }
+		public event EventHandler RemoveMeTriggered;
 
+		public event EventHandler Selected;
 
-        public string Comment { get; set; }
-        public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
-        public string EstimateUpdateValue { get; set; }
-
-        public bool Current
-        {
-            get
-            {
-                return Current;
-            }
-            set
-            {
-                BackColor = value ? SystemColors.GradientInactiveCaption : SystemColors.Window;
-            }
-        }
-
-        public event EventHandler RemoveMeTriggered;
-
-        public event EventHandler Selected;
-
-        public event EventHandler TimeEdited;
-        #endregion
+		public event EventHandler TimeEdited;
+		#endregion
 
 
-        #region public events
-        public event EventHandler TimerStarted;
+		#region public events
+		public event EventHandler TimerStarted;
 
-        public event EventHandler TimerReset;
-        #endregion
-
-
-        #region public methods
-        public IssueControl(JiraClient jiraClient, Settings settings)
-            : base()
-        {
-            InitializeComponent();
-
-            cbJiraTbEvents = new ComboTextBoxEvents(cbJira);
-            cbJiraTbEvents.Paste += cbJiraTbEvents_Paste;
-            cbJiraTbEvents.MouseDown += CbJiraTbEvents_MouseDown;
-
-            Comment = null;
-            EstimateUpdateMethod = EstimateUpdateMethods.Auto;
-            EstimateUpdateValue = null;
-
-            this.settings = settings;
-
-            this.jiraClient = jiraClient;
-            this.WatchTimer = new WatchTimer();
-        }
-
-        private void CbJiraTbEvents_MouseDown(object sender, EventArgs e)
-        {
-            SetSelected();
-        }
-
-        public void ToggleRemoveIssueButton(bool Enable)
-        {
-            this.btnRemoveIssue.Enabled = Enable;
-        }
-
-        public bool focusJiraField()
-        {
-            return this.cbJira.Focus();
-        }
-
-        public void UpdateOutput(bool updateSummary = false)
-        {
-            tbTime.Text = JiraTimeHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
-
-            if (WatchTimer.Running)
-            {
-                btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.pause26);
-                tbTime.BackColor = Color.PaleGreen;
-            }
-            else {
-                btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.play26);
-                tbTime.BackColor = SystemColors.Control;
-            }
-
-            if (string.IsNullOrEmpty(Comment))
-                btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttime26;
-            else
-                btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttimenote26;
-
-            btnOpen.Enabled = cbJira.Text.Trim() != "";
-            btnReset.Enabled = WatchTimer.Running || WatchTimer.TimeElapsed.Ticks > 0;
-            btnPostAndReset.Enabled = WatchTimer.TimeElapsedNearestMinute.TotalMinutes >= 1;
-
-            if (updateSummary)
-                UpdateSummary();
-        }
+		public event EventHandler TimerReset;
+		#endregion
 
 
-        public void Start()
-        {
-            WatchTimer.Start();
-            UpdateOutput();
-        }
+		#region public methods
+		public IssueControl(JiraClient jiraClient, Settings settings)
+			: base()
+		{
+			InitializeComponent();
+
+			cbJiraTbEvents = new ComboTextBoxEvents(cbJira);
+			cbJiraTbEvents.Paste += cbJiraTbEvents_Paste;
+			cbJiraTbEvents.MouseDown += CbJiraTbEvents_MouseDown;
+
+			Comment = null;
+			EstimateUpdateMethod = EstimateUpdateMethods.Auto;
+			EstimateUpdateValue = null;
+
+			this.settings = settings;
+
+			this.jiraClient = jiraClient;
+			this.WatchTimer = new WatchTimer();
+		}
+
+		private void CbJiraTbEvents_MouseDown(object sender, EventArgs e)
+		{
+			SetSelected();
+		}
+
+		public void ToggleRemoveIssueButton(bool Enable)
+		{
+			this.btnRemoveIssue.Enabled = Enable;
+		}
+
+		public bool focusJiraField()
+		{
+			return this.cbJira.Focus();
+		}
+
+		public void UpdateOutput(bool updateSummary = false)
+		{
+			tbTime.Text = JiraTimeHelpers.TimeSpanToJiraTime(WatchTimer.TimeElapsed);
+
+			if (WatchTimer.Running)
+			{
+				btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.pause26);
+				tbTime.BackColor = Color.PaleGreen;
+			}
+			else
+			{
+				btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.play26);
+				tbTime.BackColor = SystemColors.Control;
+			}
+
+			if (string.IsNullOrEmpty(Comment))
+				btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttime26;
+			else
+				btnPostAndReset.Image = (System.Drawing.Image)Properties.Resources.posttimenote26;
+
+			btnOpen.Enabled = cbJira.Text.Trim() != "";
+			btnReset.Enabled = WatchTimer.Running || WatchTimer.TimeElapsed.Ticks > 0;
+			btnPostAndReset.Enabled = WatchTimer.TimeElapsedNearestMinute.TotalMinutes >= 1;
+
+			if (updateSummary)
+				UpdateSummary();
+		}
 
 
-        public void Pause()
-        {
-            WatchTimer.Pause();
-            UpdateOutput();
-        }
-
-        public void FocusKey()
-        {
-            cbJira.Focus();
-        }
-        #endregion
+		public void Start()
+		{
+			WatchTimer.Start();
+			UpdateOutput();
+		}
 
 
-        #region private methods
-        public void OpenJira()
-        {
-            if (cbJira.Text == "")
-                return;
+		public void Pause()
+		{
+			WatchTimer.Pause();
+			UpdateOutput();
+		}
 
-            OpenIssueInBrowser(cbJira.Text);
-        }
+		public void FocusKey()
+		{
+			cbJira.Focus();
+		}
+		#endregion
 
 
-        private void UpdateSummary()
-        {
+		#region private methods
+		public void OpenJira()
+		{
+			if (cbJira.Text == "")
+				return;
 
-            if (cbJira.Text == "")
-            {
-                lblSummary.Text = "";
-                return;
-            }
-            if (!jiraClient.SessionValid)
-            {
-                lblSummary.Text = "";
-                return;
-            }
+			OpenIssueInBrowser(cbJira.Text);
+		}
 
-            Task.Factory.StartNew(
-                () => {
-                    string key = "";
-                    string summary = "";
-                    this.InvokeIfRequired(
-                        () => key = cbJira.Text
-                    );
-                    try
-                    {
-                        summary = jiraClient.GetIssueSummary(key, settings.IncludeProjectName);
-                        this.InvokeIfRequired(
-                            () => lblSummary.Text = summary
-                        );
-                    }
-                    catch (RequestDeniedException)
-                    {
-                        // just leave the existing summary there when fetch fails
-                    }
-                }
-            );
-        }
 
-        private void UpdateRemainingEstimate(WorklogForm  worklogForm)
-        {
-            RemainingEstimate = "";
-            RemainingEstimateSeconds = -1;
+		private void UpdateSummary()
+		{
 
-            if (cbJira.Text == "")
-                return;
-            if (!jiraClient.SessionValid)
-                return;
+			if (cbJira.Text == "")
+			{
+				lblSummary.Text = "";
+				return;
+			}
+			if (!jiraClient.SessionValid)
+			{
+				lblSummary.Text = "";
+				return;
+			}
 
-            Task.Factory.StartNew(
-                () =>
-                {
-                    string key = "";
-                    this.InvokeIfRequired(
-                        () => key = cbJira.Text
-                    );
+			Task.Factory.StartNew(
+				() =>
+				{
+					string key = "";
+					string summary = "";
+					this.InvokeIfRequired(
+						() => key = cbJira.Text
+					);
+					try
+					{
+						summary = jiraClient.GetIssueSummary(key, settings.IncludeProjectName);
+						this.InvokeIfRequired(
+							() => lblSummary.Text = summary
+						);
+					}
+					catch (RequestDeniedException)
+					{
+						// just leave the existing summary there when fetch fails
+					}
+				}
+			);
+		}
 
-                    TimetrackingFields timetracking = jiraClient.GetIssueTimetracking(key);
-                    if (timetracking == null)
-                        return;
+		private void UpdateRemainingEstimate(WorklogForm worklogForm)
+		{
+			RemainingEstimate = "";
+			RemainingEstimateSeconds = -1;
 
-                    this.InvokeIfRequired(
-                        () => RemainingEstimate = timetracking.RemainingEstimate
-                    );
-                    this.InvokeIfRequired(
-                        () => RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
-                    );
-                    if (worklogForm != null)
-                    {
-                        this.InvokeIfRequired(
-                            () => worklogForm.RemainingEstimate = timetracking.RemainingEstimate
-                        );
-                        this.InvokeIfRequired(
-                            () => worklogForm.RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
-                        );                        
-                    }
-                }
-            );
-        }
+			if (cbJira.Text == "")
+				return;
+			if (!jiraClient.SessionValid)
+				return;
 
-        private void InitializeComponent()
-        {
+			Task.Factory.StartNew(
+				() =>
+				{
+					string key = "";
+					this.InvokeIfRequired(
+						() => key = cbJira.Text
+					);
+
+					TimetrackingFields timetracking = jiraClient.GetIssueTimetracking(key);
+					if (timetracking == null)
+						return;
+
+					this.InvokeIfRequired(
+						() => RemainingEstimate = timetracking.RemainingEstimate
+					);
+					this.InvokeIfRequired(
+						() => RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
+					);
+					if (worklogForm != null)
+					{
+						this.InvokeIfRequired(
+							() => worklogForm.RemainingEstimate = timetracking.RemainingEstimate
+						);
+						this.InvokeIfRequired(
+							() => worklogForm.RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
+						);
+					}
+				}
+			);
+		}
+
+		private void InitializeComponent()
+		{
             this.components = new System.ComponentModel.Container();
             this.cbJira = new System.Windows.Forms.ComboBox();
             this.tbTime = new System.Windows.Forms.TextBox();
@@ -273,11 +281,11 @@ namespace StopWatch
             this.btnReset = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // cbJira
             // 
-            this.cbJira.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbJira.DisplayMember = "Key";
             this.cbJira.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbJira.DropDownHeight = 90;
@@ -295,6 +303,9 @@ namespace StopWatch
             this.cbJira.SelectionChangeCommitted += new System.EventHandler(this.cbJira_SelectionChangeCommitted);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
+            this.cbJira.TextChanged += CbJira_TextChanged;
+            this.cbJira.TextUpdate += CbJira_TextUpdate;
+            this.cbJira.SelectedIndexChanged += CbJira_SelectedIndexChanged;
             // 
             // tbTime
             // 
@@ -383,6 +394,11 @@ namespace StopWatch
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             this.btnOpen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnOpen_MouseUp);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 300;
+            timer1.Tick += Timer1_Tick;
+            // 
             // IssueControl
             // 
             this.BackColor = System.Drawing.SystemColors.Window;
@@ -400,412 +416,533 @@ namespace StopWatch
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+		}
 
 
-        public void Reset()
-        {
-            Comment = null;
-            EstimateUpdateMethod = EstimateUpdateMethods.Auto;
-            EstimateUpdateValue = null;
-            this.WatchTimer.Reset();
-            UpdateOutput();
+        private Timer timer1;
 
-            if (this.TimerReset != null)
-                this.TimerReset(this, new EventArgs());
-        }
+		//Update data only when the user (not program) change something
+		private void CbJira_TextUpdate(object sender, EventArgs e)
+		{
+			_needUpdate = true;
+		}
 
+		//If an item was selected don't start new search
+		private void CbJira_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			_needUpdate = false;
+		}
 
-        public void OpenIssueInBrowser(string key)
-        {
-            if (string.IsNullOrEmpty(this.settings.JiraBaseUrl))
-                return;
+		private bool _canUpdate = true;
 
-            string url = this.settings.JiraBaseUrl;
-            if (!url.EndsWith("/"))
-                url += "/";
-            url += "browse/";
-            url += key.Trim();
-            System.Diagnostics.Process.Start(url);
-        }
-        #endregion
+		private bool _needUpdate = false;
+		private void CbJira_TextChanged(object sender, EventArgs e)
+		{
+			if (_needUpdate)
+			{
+				if (_canUpdate)
+				{
+					_canUpdate = false;
+					UpdateData();
+				}
+				else
+				{
+					RestartTimer();
+				}
+			}
+		}
 
+		private void UpdateData()
+		{
+			// The issues were never loaded
+			if (availableIssues == null || availableIssues.Count == 0)
+			{
+				this.LoadIssues();
+			}
 
-        #region private eventhandlers
-        void cbJira_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            if (e.Index == 0)
-                keyWidth = 0;
-            CBIssueItem item = (CBIssueItem)cbJira.Items[e.Index];
-            Font font = new Font(cbJira.Font.FontFamily, cbJira.Font.Size * 0.8f, cbJira.Font.Style);
-            Size size = TextRenderer.MeasureText(e.Graphics, item.Key, font);
-            e.ItemHeight = size.Height;
-            if (keyWidth < size.Width)
-                keyWidth = size.Width;
-        }
+			// Filter if text was entered
+			if (availableIssues != null && cbJira.Text.Length > 1)
+			{
+				List<Issue> newCbIssues = new List<Issue>();
+				foreach (var item in availableIssues)
+				{
+					Issue cbIssue = item as Issue;
+					if (cbIssue.Fields.Summary.IndexOf(cbJira.Text, StringComparison.OrdinalIgnoreCase) >= 0 || cbIssue.Key.IndexOf(cbJira.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+					{
+						newCbIssues.Add(cbIssue);
+					}
+				}
 
-
-        void cbJira_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            // Draw the default background
-            e.DrawBackground();
-
-            CBIssueItem item = (CBIssueItem)cbJira.Items[e.Index];
-
-            // Create rectangles for the columns to display
-            Rectangle r1 = e.Bounds;
-            Rectangle r2 = e.Bounds;
-
-            r1.Width = keyWidth;
-
-            r2.X = r1.Width + 5;
-            r2.Width = 500 - keyWidth;
-
-            Font font = new Font(e.Font.FontFamily, e.Font.Size * 0.8f, e.Font.Style);
-
-            // Draw the text on the first column
-            using (SolidBrush sb = new SolidBrush(e.ForeColor))
-                e.Graphics.DrawString(item.Key, font, sb, r1);
-
-            // Draw a line to isolate the columns 
-            using (Pen p = new Pen(Color.Black))
-                e.Graphics.DrawLine(p, r1.Right, 0, r1.Right, r1.Bottom);
-
-            // Draw the text on the second column
-            using (SolidBrush sb = new SolidBrush(e.ForeColor))
-                e.Graphics.DrawString(item.Summary, font, sb, r2);
-
-            // Draw a line to isolate the columns 
-            using (Pen p = new Pen(Color.Black))
-                e.Graphics.DrawLine(p, r1.Right, 0, r1.Right, 140);
-
-        }
+				HandleTextChanged(newCbIssues);
+			}
+			else if (availableIssues != null)
+			{
+				HandleTextChanged(availableIssues);
+			}
+		}
 
 
-        private void cbJira_DropDown(object sender, EventArgs e)
-        {
-            LoadIssues();
-        }
+
+		//While timer is running don't start search
+
+		private void RestartTimer()
+		{
+			timer1.Stop();
+			_canUpdate = false;
+			timer1.Start();
+		}
+
+		//Update data when timer stops
+		private void Timer1_Tick(object sender, EventArgs e)
+		{
+			_canUpdate = true;
+			timer1.Stop();
+			UpdateData();
+		}
+
+		//Update combobox with new data
+		private void HandleTextChanged(IEnumerable<Issue> dataSource)
+		{
+			cbJira.BeginUpdate();
+			//var text = cbJira.Text;
+			//var selectionStart = cbJira.SelectionStart;
+			//var selectionLength = cbJira.SelectionLength;
+
+			SetCbJiraDataSource(dataSource);
+			if (dataSource.Any())
+			{
+				cbJira.DroppedDown = true;
+				cbJira.DropDownHeight = 120;
+
+				//cbJira.Text = text;
+				//cbJira.SelectionStart = selectionStart;
+				//cbJira.SelectionLength = selectionLength;
+			}
+			else
+			{
+				cbJira.DroppedDown = false;
+				//cbJira.SelectionStart = text.Length;
+			}
+			cbJira.EndUpdate();
+		}
+
+		public void Reset()
+		{
+			Comment = null;
+			EstimateUpdateMethod = EstimateUpdateMethods.Auto;
+			EstimateUpdateValue = null;
+			this.WatchTimer.Reset();
+			UpdateOutput();
+
+			if (this.TimerReset != null)
+				this.TimerReset(this, new EventArgs());
+		}
 
 
-        private void btnOpen_Click(object sender, EventArgs e)
-        {
-            OpenJira();
-        }
+		public void OpenIssueInBrowser(string key)
+		{
+			if (string.IsNullOrEmpty(this.settings.JiraBaseUrl))
+				return;
+
+			string url = this.settings.JiraBaseUrl;
+			if (!url.EndsWith("/"))
+				url += "/";
+			url += "browse/";
+			url += key.Trim();
+			System.Diagnostics.Process.Start(url);
+		}
+		#endregion
 
 
-        private void cbJira_Leave(object sender, EventArgs e)
-        {
-            UpdateOutput(true);
-        }
+		#region private eventhandlers
+		void cbJira_MeasureItem(object sender, MeasureItemEventArgs e)
+		{
+			if (e.Index == 0)
+				keyWidth = 0;
+			CBIssueItem item = (CBIssueItem)cbJira.Items[e.Index];
+			Font font = new Font(cbJira.Font.FontFamily, cbJira.Font.Size * 0.8f, cbJira.Font.Style);
+			Size size = TextRenderer.MeasureText(e.Graphics, item.Key, font);
+			e.ItemHeight = size.Height;
+			if (keyWidth < size.Width)
+				keyWidth = size.Width;
+		}
 
 
-        private void cbJira_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control)
-            {
-                e.Handled = true;
-                return;
-            }
+		void cbJira_DrawItem(object sender, DrawItemEventArgs e)
+		{
+			// Draw the default background
+			e.DrawBackground();
 
-            if (e.KeyCode == Keys.Enter)
-                UpdateOutput(true);
-        }
+			CBIssueItem item = (CBIssueItem)cbJira.Items[e.Index];
 
+			// Create rectangles for the columns to display
+			Rectangle r1 = e.Bounds;
+			Rectangle r2 = e.Bounds;
 
-        private void cbJiraTbEvents_Paste(object sender, EventArgs e)
-        {
-            PasteKeyFromClipboard();
-        }
+			r1.Width = keyWidth;
 
-        public void PasteKeyFromClipboard()
-        {
-            if (Clipboard.ContainsText())
-            {
-                cbJira.Text = JiraKeyHelpers.ParseUrlToKey(Clipboard.GetText());
-                UpdateOutput(true);
-            }
-        }
+			r2.X = r1.Width + 5;
+			r2.Width = 500 - keyWidth;
 
-        public void CopyKeyToClipboard()
-        {
-            if (string.IsNullOrEmpty(cbJira.Text))
-                return;
-            Clipboard.SetText(cbJira.Text);
-        }
+			Font font = new Font(e.Font.FontFamily, e.Font.Size * 0.8f, e.Font.Style);
 
-        private void btnStartStop_Click(object sender, EventArgs e)
-        {
-            StartStop();
-        }
+			// Draw the text on the first column
+			using (SolidBrush sb = new SolidBrush(e.ForeColor))
+				e.Graphics.DrawString(item.Key, font, sb, r1);
 
-        public void StartStop()
-        {
-            if (WatchTimer.Running) {
-                this.WatchTimer.Pause();
-            }
-            else {
-                this.WatchTimer.Start();
+			// Draw a line to isolate the columns 
+			using (Pen p = new Pen(Color.Black))
+				e.Graphics.DrawLine(p, r1.Right, 0, r1.Right, r1.Bottom);
 
-                this.TimerStarted?.Invoke(this, new EventArgs());
-            }
-            UpdateOutput(true);
-        }
+			// Draw the text on the second column
+			using (SolidBrush sb = new SolidBrush(e.ForeColor))
+				e.Graphics.DrawString(item.Summary, font, sb, r2);
 
-        private void btnRemoveIssue_Click(object sender, EventArgs e)
-        {
-            Remove();
-        }
+			// Draw a line to isolate the columns 
+			using (Pen p = new Pen(Color.Black))
+				e.Graphics.DrawLine(p, r1.Right, 0, r1.Right, 140);
 
-        public void Remove()
-        {
-            this._MarkedForRemoval = true;
-            RemoveMeTriggered?.Invoke(this, new EventArgs());
-        }
-
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            Reset();
-        }
+		}
 
 
-        private void btnPostAndReset_Click(object sender, EventArgs e)
-        {
-            PostAndReset();
-        }
-
-        public void PostAndReset()
-        {
-            using (var worklogForm = new WorklogForm(WatchTimer.GetInitialStartTime(), WatchTimer.TimeElapsedNearestMinute, Comment, EstimateUpdateMethod, EstimateUpdateValue))
-            {
-                UpdateRemainingEstimate(worklogForm);
-                var formResult = worklogForm.ShowDialog(this);
-                if (formResult == DialogResult.OK)
-                {
-                    Comment = worklogForm.Comment.Trim();
-                    EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
-                    EstimateUpdateValue = worklogForm.EstimateValue;
-
-                    PostAndReset(cbJira.Text, worklogForm.InitialStartTime, WatchTimer.TimeElapsedNearestMinute, Comment, EstimateUpdateMethod, EstimateUpdateValue);
-                }
-                else if (formResult == DialogResult.Yes)
-                {
-                    Comment = string.Format("{0}:{1}{2}", DateTime.Now.ToString("g"), Environment.NewLine, worklogForm.Comment.Trim());
-                    EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
-                    EstimateUpdateValue = worklogForm.EstimateValue;
-                    UpdateOutput();
-                }
-            }
-        }
-
-        private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            EditTime();
-
-        }
+		private void cbJira_DropDown(object sender, EventArgs e)
+		{
+			LoadIssues();
+		}
 
 
-        private void tbTime_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Control)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            if (e.KeyCode == Keys.Enter)
-                EditTime();
-        }
-        #endregion
+		private void btnOpen_Click(object sender, EventArgs e)
+		{
+			OpenJira();
+		}
 
 
-        #region private methods
-        private void PostAndReset(string key, DateTimeOffset startTime, TimeSpan timeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
-        {
-            Task.Factory.StartNew(
-                () =>
-                {
-                    this.InvokeIfRequired(
-                        () => {
-                            btnPostAndReset.Enabled = false;
-                            Cursor.Current = Cursors.WaitCursor;
+		private void cbJira_Leave(object sender, EventArgs e)
+		{
+			UpdateOutput(true);
+		}
+
+
+		private void cbJira_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Control)
+			{
+				e.Handled = true;
+				return;
+			}
+
+			if (e.KeyCode == Keys.Enter)
+				UpdateOutput(true);
+		}
+
+
+		private void cbJiraTbEvents_Paste(object sender, EventArgs e)
+		{
+			PasteKeyFromClipboard();
+		}
+
+		public void PasteKeyFromClipboard()
+		{
+			if (Clipboard.ContainsText())
+			{
+				cbJira.Text = JiraKeyHelpers.ParseUrlToKey(Clipboard.GetText());
+				UpdateOutput(true);
+			}
+		}
+
+		public void CopyKeyToClipboard()
+		{
+			if (string.IsNullOrEmpty(cbJira.Text))
+				return;
+			Clipboard.SetText(cbJira.Text);
+		}
+
+		private void btnStartStop_Click(object sender, EventArgs e)
+		{
+			StartStop();
+		}
+
+		public void StartStop()
+		{
+			if (WatchTimer.Running)
+			{
+				this.WatchTimer.Pause();
+			}
+			else
+			{
+				this.WatchTimer.Start();
+
+				this.TimerStarted?.Invoke(this, new EventArgs());
+			}
+			UpdateOutput(true);
+		}
+
+		private void btnRemoveIssue_Click(object sender, EventArgs e)
+		{
+			Remove();
+		}
+
+		public void Remove()
+		{
+			this._MarkedForRemoval = true;
+			RemoveMeTriggered?.Invoke(this, new EventArgs());
+		}
+
+		private void btnReset_Click(object sender, EventArgs e)
+		{
+			Reset();
+		}
+
+
+		private void btnPostAndReset_Click(object sender, EventArgs e)
+		{
+			PostAndReset();
+		}
+
+		public void PostAndReset()
+		{
+			using (var worklogForm = new WorklogForm(WatchTimer.GetInitialStartTime(), WatchTimer.TimeElapsedNearestMinute, Comment, EstimateUpdateMethod, EstimateUpdateValue))
+			{
+				UpdateRemainingEstimate(worklogForm);
+				var formResult = worklogForm.ShowDialog(this);
+				if (formResult == DialogResult.OK)
+				{
+					Comment = worklogForm.Comment.Trim();
+					EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
+					EstimateUpdateValue = worklogForm.EstimateValue;
+
+					PostAndReset(cbJira.Text, worklogForm.InitialStartTime, WatchTimer.TimeElapsedNearestMinute, Comment, EstimateUpdateMethod, EstimateUpdateValue);
+				}
+				else if (formResult == DialogResult.Yes)
+				{
+					Comment = string.Format("{0}:{1}{2}", DateTime.Now.ToString("g"), Environment.NewLine, worklogForm.Comment.Trim());
+					EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
+					EstimateUpdateValue = worklogForm.EstimateValue;
+					UpdateOutput();
+				}
+			}
+		}
+
+		private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			EditTime();
+
+		}
+
+
+		private void tbTime_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Control)
+			{
+				e.Handled = true;
+				return;
+			}
+
+			if (e.KeyCode == Keys.Enter)
+				EditTime();
+		}
+		#endregion
+
+
+		#region private methods
+		private void PostAndReset(string key, DateTimeOffset startTime, TimeSpan timeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
+		{
+			Task.Factory.StartNew(
+				() =>
+				{
+					this.InvokeIfRequired(
+						() =>
+						{
+							btnPostAndReset.Enabled = false;
+							Cursor.Current = Cursors.WaitCursor;
+						}
+					);
+
+					bool postSuccesful = true;
+
+					// First post comment in Comment-track - and clear the comment string, if it should only be posted here
+					// Only actually post in Comment-track if text is not empty
+					if (settings.PostWorklogComment != WorklogCommentSetting.WorklogOnly && !string.IsNullOrEmpty(comment))
+					{
+						postSuccesful = jiraClient.PostComment(key, comment);
+						if (postSuccesful && settings.PostWorklogComment == WorklogCommentSetting.CommentOnly)
+							comment = "";
+					}
+
+					// Now post the WorkLog with timeElapsed - and comment unless it was reset
+					if (postSuccesful)
+						postSuccesful = jiraClient.PostWorklog(key, startTime, timeElapsed, comment, estimateUpdateMethod, estimateUpdateValue);
+
+					if (postSuccesful)
+					{
+						this.InvokeIfRequired(
+							() => Reset()
+						);
+					}
+
+					this.InvokeIfRequired(
+						() =>
+						{
+							btnPostAndReset.Enabled = true;
+							Cursor.Current = DefaultCursor;
+						}
+					);
+				}
+			);
+		}
+
+
+		private void LoadIssues()
+		{
+			// TODO: This + the datasource for cbFilters should be moved into a controller layer
+			var ctrlList = (Application.OpenForms[0] as MainForm).Controls.Find("cbFilters", true);
+			if (ctrlList.Length == 0)
+				return;
+
+			var cbFilters = ctrlList[0] as ComboBox;
+			if (cbFilters.SelectedIndex < 0)
+				return;
+
+			string jql = (cbFilters.SelectedItem as CBFilterItem).Jql;
+
+			Task.Factory.StartNew(
+				() =>
+				{
+					if (lastJql == jql && lastJqlTime < DateTime.Now.AddSeconds(-30))
+						return;
+
+					availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
+
+					if (availableIssues == null)
+						return;
+
+					this.InvokeIfRequired(
+						() =>
+						{
+							SetCbJiraDataSource(availableIssues);
+							cbJira.DropDownHeight = 120;
+							cbJira.Invalidate();
+							lastJql = jql;
+                            lastJqlTime = DateTime.Now;
                         }
-                    );
-
-                    bool postSuccesful = true;
-
-                    // First post comment in Comment-track - and clear the comment string, if it should only be posted here
-                    // Only actually post in Comment-track if text is not empty
-                    if (settings.PostWorklogComment != WorklogCommentSetting.WorklogOnly && !string.IsNullOrEmpty(comment))
-                    {
-                        postSuccesful = jiraClient.PostComment(key, comment);
-                        if (postSuccesful && settings.PostWorklogComment == WorklogCommentSetting.CommentOnly)
-                            comment = "";
-                    }
-
-                    // Now post the WorkLog with timeElapsed - and comment unless it was reset
-                    if (postSuccesful)
-                        postSuccesful = jiraClient.PostWorklog(key, startTime, timeElapsed, comment, estimateUpdateMethod, estimateUpdateValue);
-
-                    if (postSuccesful)
-                    {
-                        this.InvokeIfRequired(
-                            () => Reset()
-                        );
-                    }
-
-                    this.InvokeIfRequired(
-                        () => {
-                            btnPostAndReset.Enabled = true;
-                            Cursor.Current = DefaultCursor;
-                        }
-                    );
-                }
-            );
-        }
+					);
+				}
+			);
+		}
 
 
-        private void LoadIssues()
-        {
-            // TODO: This + the datasource for cbFilters should be moved into a controller layer
-            var ctrlList = (Application.OpenForms[0] as MainForm).Controls.Find("cbFilters", true);
-            if (ctrlList.Length == 0)
-                return;
+		public void EditTime()
+		{
+			using (var editTimeForm = new EditTimeForm(WatchTimer.TimeElapsed))
+			{
+				if (editTimeForm.ShowDialog(this) == DialogResult.OK)
+				{
+					WatchTimer.TimeElapsed = editTimeForm.Time;
 
-            var cbFilters = ctrlList[0] as ComboBox;
-            if (cbFilters.SelectedIndex < 0)
-                return;
+					UpdateOutput();
 
-            string jql = (cbFilters.SelectedItem as CBFilterItem).Jql;
-
-            Task.Factory.StartNew(
-                () =>
-                {
-                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
-
-                    if (availableIssues == null)
-                        return;
-
-                    this.InvokeIfRequired(
-                        () =>
-                        {
-                            AvailableIssues = availableIssues;
-                            cbJira.DropDownHeight = 120;
-                            cbJira.Invalidate();
-                        }
-                    );
-                }
-            );
-        }
+					TimeEdited?.Invoke(this, new EventArgs());
+				}
+			}
+		}
 
 
-        public void EditTime()
-        {
-            using (var editTimeForm = new EditTimeForm(WatchTimer.TimeElapsed))
-            {
-                if (editTimeForm.ShowDialog(this) == DialogResult.OK)
-                {
-                    WatchTimer.TimeElapsed = editTimeForm.Time;
-
-                    UpdateOutput();
-
-                    TimeEdited?.Invoke(this, new EventArgs());
-                }
-            }
-        }
+		public void OpenCombo()
+		{
+			cbJira.Focus();
+			cbJira.DroppedDown = true;
+		}
 
 
-        public void OpenCombo()
-        {
-            cbJira.Focus();
-            cbJira.DroppedDown = true;
-        }
+		private void SetSelected()
+		{
+			Selected?.Invoke(this, new EventArgs());
+		}
+		#endregion
+
+		#region private members
+		private ComboBox cbJira;
+		private Button btnOpen;
+		private TextBox tbTime;
+		private Button btnStartStop;
+		private Button btnReset;
+		private Label lblSummary;
+
+		private ToolTip ttIssue;
+		private System.ComponentModel.IContainer components;
+		private Button btnPostAndReset;
+
+		private JiraClient jiraClient;
+
+		private Settings settings;
+
+		private int keyWidth;
+		private string RemainingEstimate;
+		private int RemainingEstimateSeconds;
+		private Button btnRemoveIssue;
+		private bool _MarkedForRemoval = false;
+
+		private ComboTextBoxEvents cbJiraTbEvents;
+		private List<Issue> availableIssues;
+		private string lastJql;
+        private DateTime lastJqlTime;
+		#endregion
 
 
-        private void SetSelected()
-        {
-            Selected?.Invoke(this, new EventArgs());
-        }
-        #endregion
+		#region private classes
+		// content item for the combo box
+		private class CBIssueItem
+		{
+			public string Key { get; set; }
+			public string Summary { get; set; }
 
-        #region private members
-        private ComboBox cbJira;
-        private Button btnOpen;
-        private TextBox tbTime;
-        private Button btnStartStop;
-        private Button btnReset;
-        private Label lblSummary;
+			public CBIssueItem(string key, string summary)
+			{
+				Key = key;
+				Summary = summary;
+			}
+		}
+		#endregion
 
-        private ToolTip ttIssue;
-        private System.ComponentModel.IContainer components;
-        private Button btnPostAndReset;
+		private void IssueControl_MouseUp(object sender, MouseEventArgs e)
+		{
+			SetSelected();
+		}
 
-        private JiraClient jiraClient;
+		private void btnOpen_MouseUp(object sender, MouseEventArgs e)
+		{
+			SetSelected();
+		}
 
-        private Settings settings;
+		private void btnStartStop_MouseUp(object sender, MouseEventArgs e)
+		{
+			SetSelected();
+		}
 
-        private int keyWidth;
-        private string RemainingEstimate;
-        private int RemainingEstimateSeconds;
-        private Button btnRemoveIssue;
-        private bool _MarkedForRemoval = false;
+		private void tbTime_MouseUp(object sender, MouseEventArgs e)
+		{
+			SetSelected();
+		}
 
-        private ComboTextBoxEvents cbJiraTbEvents;
-        #endregion
+		private void btnPostAndReset_MouseUp(object sender, MouseEventArgs e)
+		{
+			SetSelected();
+		}
 
+		private void btnReset_MouseUp(object sender, MouseEventArgs e)
+		{
+			SetSelected();
+		}
 
-        #region private classes
-        // content item for the combo box
-        private class CBIssueItem {
-            public string Key { get; set; }
-            public string Summary { get; set; }
+		private void lblSummary_MouseUp(object sender, MouseEventArgs e)
+		{
+			SetSelected();
+		}
 
-            public CBIssueItem(string key, string summary) {
-                Key = key;
-                Summary = summary;
-            }
-        }
-        #endregion
-
-        private void IssueControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnOpen_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnStartStop_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void tbTime_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnPostAndReset_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnReset_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void lblSummary_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void cbJira_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            SetSelected();
-            UpdateOutput(true);
-        }
-    }
+		private void cbJira_SelectionChangeCommitted(object sender, EventArgs e)
+		{
+			SetSelected();
+			UpdateOutput(true);
+		}
+	}
 }
