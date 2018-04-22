@@ -48,7 +48,7 @@ namespace StopWatch
 
                 mutex.ReleaseMutex();
             }
-            else {
+            else if (Environment.OSVersion.Platform != PlatformID.Unix) {
                 // Send Win32 message to make the currently running instance jump on top of all the other windows
                 NativeMethods.PostMessage(
                     (IntPtr)NativeMethods.HWND_BROADCAST,

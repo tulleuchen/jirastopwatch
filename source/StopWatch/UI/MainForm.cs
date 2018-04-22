@@ -621,7 +621,7 @@ namespace StopWatch
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == NativeMethods.WM_SHOWME)
+            if (m.Msg == NativeMethods.WM_SHOWME && Environment.OSVersion.Platform != PlatformID.Unix)
                 ShowOnTop();
 
             base.WndProc(ref m);

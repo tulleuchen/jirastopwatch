@@ -22,7 +22,7 @@ namespace StopWatch
     {
         public const int HWND_BROADCAST = 0xffff;
 
-        public static readonly int WM_SHOWME = RegisterWindowMessage("WM_SHOWME");
+        public static readonly int WM_SHOWME = Environment.OSVersion.Platform != PlatformID.Unix ? RegisterWindowMessage("WM_SHOWME") : 0;
 
         [DllImport("user32")]
         public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);

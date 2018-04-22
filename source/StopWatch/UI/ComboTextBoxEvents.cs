@@ -33,8 +33,11 @@ namespace StopWatch
             if (comboBox == null) throw new ArgumentNullException("comboBox");
 
             _comboBox = comboBox;
-            IntPtr lhWnd = FindWindowEx(_comboBox.Handle, IntPtr.Zero, "EDIT", null);
-            AssignHandle(lhWnd);
+            if (Environment.OSVersion.Platform != PlatformID.Unix)
+            {
+                IntPtr lhWnd = FindWindowEx(_comboBox.Handle, IntPtr.Zero, "EDIT", null);
+                AssignHandle(lhWnd);
+            }
         }
 
         protected override void WndProc(ref Message m)
