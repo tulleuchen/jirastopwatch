@@ -574,7 +574,7 @@ namespace StopWatch
             PostAndReset();
         }
 
-        public void PostAndReset()
+        public DialogResult PostAndReset()
         {
             using (var worklogForm = new WorklogForm(WatchTimer.GetInitialStartTime(), WatchTimer.TimeElapsedNearestMinute, Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
@@ -595,6 +595,7 @@ namespace StopWatch
                     EstimateUpdateValue = worklogForm.EstimateValue;
                     UpdateOutput();
                 }
+                return formResult;
             }
         }
 
