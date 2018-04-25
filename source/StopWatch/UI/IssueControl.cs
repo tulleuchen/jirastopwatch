@@ -38,6 +38,12 @@ namespace StopWatch
             }
         }
 
+        public string Summary
+        {
+            get;
+            private set;
+        }
+
 
         public WatchTimer WatchTimer { get; private set; }
 
@@ -209,7 +215,11 @@ namespace StopWatch
                     {
                         summary = jiraClient.GetIssueSummary(key, settings.IncludeProjectName);
                         this.InvokeIfRequired(
-                            () => lblSummary.Text = summary
+                            () =>
+                            {
+                                lblSummary.Text = summary;
+                                Summary = summary;
+                            }
                         );
                     }
                     catch (RequestDeniedException)
@@ -576,7 +586,7 @@ namespace StopWatch
 
         public DialogResult PostAndReset()
         {
-            using (var worklogForm = new WorklogForm(WatchTimer.GetInitialStartTime(), WatchTimer.TimeElapsedNearestMinute, Comment, EstimateUpdateMethod, EstimateUpdateValue))
+            using (var worklogForm = new WorklogForm(this))
             {
                 UpdateRemainingEstimate(worklogForm);
                 var formResult = worklogForm.ShowDialog(this);
