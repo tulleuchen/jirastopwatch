@@ -67,7 +67,6 @@ namespace StopWatch
         {
             string s;
             decimal t;
-            bool negative = false;
             int minutes = 0;
             bool validFormat = true;
 
@@ -84,9 +83,6 @@ namespace StopWatch
             {
                 s = match.Value.ToUpper();
                 s = s.Trim();
-                
-                if (s.StartsWith("-"))
-                    negative = true;
 
                 if (!s.Contains("M") && !s.Contains("H") && !s.Contains("D"))
                 {
@@ -94,14 +90,11 @@ namespace StopWatch
                     break;
                 }
 
-                if (!decimal.TryParse(s.Replace("M", "").Replace("H", "").Replace("D", "").Replace(",", ".").s.Replace("-", ""), NumberStyles.Any, CultureInfo.InvariantCulture, out t))
+                if (!decimal.TryParse(s.Replace("M", "").Replace("H", "").Replace("D", "").Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out t))
                 {
                     validFormat = false;
                     break;
                 }
-                
-                if (negative)
-                    (int)t*-1;
 
                 if (s.Contains("M"))
                     minutes += (int)t;
@@ -113,7 +106,7 @@ namespace StopWatch
                     minutes += (int)(t * 60 * 24);
                 
                 if (minutes < 0)
-                    minutes = 0;
++                    minutes = 0;
             }
 
             if (!validFormat)
