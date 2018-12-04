@@ -119,7 +119,7 @@ namespace StopWatch
             this.MinimizeToTray = Properties.Settings.Default.MinimizeToTray;
             this.IssueCount = Properties.Settings.Default.IssueCount;
             this.Username = Properties.Settings.Default.Username;
-            if (Properties.Settings.Default.Password != "")
+            if (Properties.Settings.Default.Password != "" && Environment.OSVersion.Platform != PlatformID.Unix)
                 this.Password = DPAPI.Decrypt(Properties.Settings.Default.Password);
             else
                 this.Password = "";
@@ -154,7 +154,7 @@ namespace StopWatch
                 Properties.Settings.Default.IncludeProjectName = this.IncludeProjectName;
 
                 Properties.Settings.Default.Username = this.Username;
-                if (this.Password != "")
+                if (this.Password != "" && Environment.OSVersion.Platform != PlatformID.Unix)
                     Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
                 else
                     Properties.Settings.Default.Password = "";
