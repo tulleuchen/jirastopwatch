@@ -15,7 +15,9 @@ limitations under the License.
 **************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -49,13 +51,17 @@ namespace StopWatch
             }
         }
 
-        public IEnumerable<Issue> AvailableIssues
+
+        private void SetCbJiraDataSource(IEnumerable<Issue> issues)
         {
-            set
+            for (int i = cbJira.Items.Count - 1; i >= 0; i--)
             {
-                cbJira.Items.Clear();
-                foreach (var issue in value)
-                    cbJira.Items.Add(new CBIssueItem(issue.Key, issue.Fields.Summary));
+                cbJira.Items.RemoveAt(i);
+            }
+
+            for (int i = 0; i < issues.Count(); i++)
+            {
+                cbJira.Items.Insert(i, new CBIssueItem(issues.ElementAt(i).Key, issues.ElementAt(i).Fields.Summary));
             }
         }
 
@@ -135,7 +141,8 @@ namespace StopWatch
                 btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.pause26);
                 tbTime.BackColor = Color.PaleGreen;
             }
-            else {
+            else
+            {
                 btnStartStop.Image = (System.Drawing.Image)(Properties.Resources.play26);
                 tbTime.BackColor = SystemColors.Control;
             }
@@ -199,7 +206,8 @@ namespace StopWatch
             }
 
             Task.Factory.StartNew(
-                () => {
+                () =>
+                {
                     string key = "";
                     string summary = "";
                     this.InvokeIfRequired(
@@ -220,7 +228,7 @@ namespace StopWatch
             );
         }
 
-        private void UpdateRemainingEstimate(WorklogForm  worklogForm)
+        private void UpdateRemainingEstimate(WorklogForm worklogForm)
         {
             RemainingEstimate = "";
             RemainingEstimateSeconds = -1;
@@ -255,7 +263,7 @@ namespace StopWatch
                         );
                         this.InvokeIfRequired(
                             () => worklogForm.RemainingEstimateSeconds = timetracking.RemainingEstimateSeconds
-                        );                        
+                        );
                     }
                 }
             );
@@ -273,11 +281,11 @@ namespace StopWatch
             this.btnReset = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.autoCompleteTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // cbJira
             // 
-            this.cbJira.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbJira.DisplayMember = "Key";
             this.cbJira.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.cbJira.DropDownHeight = 90;
@@ -295,6 +303,9 @@ namespace StopWatch
             this.cbJira.SelectionChangeCommitted += new System.EventHandler(this.cbJira_SelectionChangeCommitted);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
+            this.cbJira.TextChanged += CbJira_TextChanged;
+            this.cbJira.TextUpdate += CbJira_TextUpdate;
+            this.cbJira.SelectedIndexChanged += CbJira_SelectedIndexChanged;
             // 
             // tbTime
             // 
@@ -383,6 +394,11 @@ namespace StopWatch
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             this.btnOpen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnOpen_MouseUp);
             // 
+            // autoCompleteTimer
+            // 
+            this.autoCompleteTimer.Interval = 300;
+            autoCompleteTimer.Tick += autoCompleteTimer_Tick;
+            // 
             // IssueControl
             // 
             this.BackColor = System.Drawing.SystemColors.Window;
@@ -402,6 +418,113 @@ namespace StopWatch
 
         }
 
+
+        private Timer autoCompleteTimer;
+
+        //Update data only when the user (not program) change something
+        private void CbJira_TextUpdate(object sender, EventArgs e)
+        {
+            _needUpdate = true;
+        }
+
+        //If an item was selected don't start new search
+        private void CbJira_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _needUpdate = false;
+        }
+
+        private bool _canUpdate = true;
+
+        private bool _needUpdate = false;
+        private void CbJira_TextChanged(object sender, EventArgs e)
+        {
+            if (_needUpdate)
+            {
+                if (_canUpdate)
+                {
+                    _canUpdate = false;
+                    UpdateData();
+                }
+                else
+                {
+                    RestartTimer();
+                }
+            }
+        }
+
+        private void UpdateData()
+        {
+            // The issues were never loaded
+            if (availableIssues == null || availableIssues.Count == 0)
+            {
+                this.LoadIssues();
+            }
+
+            // Filter if text was entered
+            if (availableIssues != null && cbJira.Text.Length > 1)
+            {
+                List<Issue> newCbIssues = new List<Issue>();
+                foreach (var item in availableIssues)
+                {
+                    Issue cbIssue = item as Issue;
+                    if (cbIssue.Fields.Summary.IndexOf(cbJira.Text, StringComparison.OrdinalIgnoreCase) >= 0 || cbIssue.Key.IndexOf(cbJira.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        newCbIssues.Add(cbIssue);
+                    }
+                }
+
+                HandleTextChanged(newCbIssues);
+            }
+            else if (availableIssues != null)
+            {
+                HandleTextChanged(availableIssues);
+            }
+        }
+
+
+
+        //While timer is running don't start search
+
+        private void RestartTimer()
+        {
+            autoCompleteTimer.Stop();
+            _canUpdate = false;
+            autoCompleteTimer.Start();
+        }
+
+        //Update data when timer stops
+        private void autoCompleteTimer_Tick(object sender, EventArgs e)
+        {
+            _canUpdate = true;
+            autoCompleteTimer.Stop();
+            UpdateData();
+        }
+
+        //Update combobox with new data
+        private void HandleTextChanged(IEnumerable<Issue> dataSource)
+        {
+            cbJira.BeginUpdate();
+            //var text = cbJira.Text;
+            //var selectionStart = cbJira.SelectionStart;
+            //var selectionLength = cbJira.SelectionLength;
+
+            SetCbJiraDataSource(dataSource);
+            if (dataSource.Any())
+            {
+                cbJira.DroppedDown = true;
+                cbJira.DropDownHeight = 120;
+
+                //cbJira.Text = text;
+                //cbJira.SelectionStart = selectionStart;
+                //cbJira.SelectionLength = selectionLength;
+            }
+            else
+            {
+                cbJira.DroppedDown = false;
+                //cbJira.SelectionStart = text.Length;
+            }
+            cbJira.EndUpdate();
+        }
 
         public void Reset()
         {
@@ -541,10 +664,12 @@ namespace StopWatch
 
         public void StartStop()
         {
-            if (WatchTimer.Running) {
+            if (WatchTimer.Running)
+            {
                 this.WatchTimer.Pause();
             }
-            else {
+            else
+            {
                 this.WatchTimer.Start();
 
                 this.TimerStarted?.Invoke(this, new EventArgs());
@@ -626,7 +751,8 @@ namespace StopWatch
                 () =>
                 {
                     this.InvokeIfRequired(
-                        () => {
+                        () =>
+                        {
                             btnPostAndReset.Enabled = false;
                             Cursor.Current = Cursors.WaitCursor;
                         }
@@ -655,7 +781,8 @@ namespace StopWatch
                     }
 
                     this.InvokeIfRequired(
-                        () => {
+                        () =>
+                        {
                             btnPostAndReset.Enabled = true;
                             Cursor.Current = DefaultCursor;
                         }
@@ -681,7 +808,10 @@ namespace StopWatch
             Task.Factory.StartNew(
                 () =>
                 {
-                    List<Issue> availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
+                    if (lastJql == jql && lastJqlTime < DateTime.Now.AddSeconds(-30))
+                        return;
+
+                    availableIssues = jiraClient.GetIssuesByJQL(jql).Issues;
 
                     if (availableIssues == null)
                         return;
@@ -689,9 +819,11 @@ namespace StopWatch
                     this.InvokeIfRequired(
                         () =>
                         {
-                            AvailableIssues = availableIssues;
+                            SetCbJiraDataSource(availableIssues);
                             cbJira.DropDownHeight = 120;
                             cbJira.Invalidate();
+                            lastJql = jql;
+                            lastJqlTime = DateTime.Now;
                         }
                     );
                 }
@@ -751,16 +883,21 @@ namespace StopWatch
         private bool _MarkedForRemoval = false;
 
         private ComboTextBoxEvents cbJiraTbEvents;
+        private List<Issue> availableIssues;
+        private string lastJql;
+        private DateTime lastJqlTime;
         #endregion
 
 
         #region private classes
         // content item for the combo box
-        private class CBIssueItem {
+        private class CBIssueItem
+        {
             public string Key { get; set; }
             public string Summary { get; set; }
 
-            public CBIssueItem(string key, string summary) {
+            public CBIssueItem(string key, string summary)
+            {
                 Key = key;
                 Summary = summary;
             }
