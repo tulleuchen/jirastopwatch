@@ -35,10 +35,10 @@ namespace StopWatch
         }
 
 
-        public bool Authenticate(string username, string password)
+        public bool Authenticate(string username, string apiToken)
         {
             SessionValid = false;
-            jiraApiRequester.SetAuthentication(username, password);
+            jiraApiRequester.SetAuthentication(username, apiToken);
             JiraTimeHelpers.Configuration = GetTimeTrackingConfiguration();
             return true;
         }

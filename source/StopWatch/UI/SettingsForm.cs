@@ -42,7 +42,7 @@ namespace StopWatch
 
             tbJiraBaseUrl.Text = this.settings.JiraBaseUrl;
             tbUsername.Text = settings.Username;
-            tbPassword.Text = settings.Password;
+            tbApiToken.Text = settings.ApiToken;
 
             cbAlwaysOnTop.Checked = this.settings.AlwaysOnTop;
             cbMinimizeToTray.Checked = this.settings.MinimizeToTray;
@@ -95,7 +95,7 @@ namespace StopWatch
             {
                 this.settings.JiraBaseUrl = tbJiraBaseUrl.Text;
                 settings.Username = tbUsername.Text;
-                settings.Password = tbPassword.Text;
+                settings.ApiToken = tbApiToken.Text;
 
                 this.settings.AlwaysOnTop = cbAlwaysOnTop.Checked;
                 this.settings.MinimizeToTray = cbMinimizeToTray.Checked;
