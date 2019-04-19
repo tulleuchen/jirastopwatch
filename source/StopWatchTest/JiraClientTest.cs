@@ -27,22 +27,6 @@
         }
 
 
-        [Test, Description("Authenticate returns true on successful authentication")]
-        public void Authenticate_OnSuccess_It_Returns_True()
-        {
-            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<object>(It.IsAny<IRestRequest>())).Returns(new object());
-            Assert.That(jiraClient.Authenticate("myuser", "mypassword"), Is.True);
-        }
-
-
-        [Test, Description("Authenticate returns false on unsuccessful authentication")]
-        public void Authenticate_OnFailure_It_Returns_False()
-        {
-            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<object>(It.IsAny<IRestRequest>())).Throws<RequestDeniedException>();
-            Assert.That(jiraClient.Authenticate("myuser", "mypassword"), Is.False);
-        }
-
-
         [Test, Description("ValidateSession: On success it sets SessionValid and returns true")]
         public void ValidateSession_OnSuccess_It_Sets_SessionValid_And_Returns_True()
         {
@@ -122,13 +106,6 @@
             Assert.That(jiraClient.GetIssueSummary("DG-42",false), Is.EqualTo(returnData.Fields.Summary));
         }
 
-
-        [Test, Description("GetIssueSummary: On failure it returns empty string")]
-        public void GetIssueSummary_OnFailure_It_Returns_Empty_String()
-        {
-            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<Issue>(It.IsAny<IRestRequest>())).Throws<RequestDeniedException>();
-            Assert.That(jiraClient.GetIssueSummary("DG-42",false), Is.EqualTo(""));
-        }
 
         [Test, Description("GetIssueTimetracking: On success it returns a timetracking object")]
         public void GetIssueTimetracking_OnSuccess_It_Returns_RemainingTime()

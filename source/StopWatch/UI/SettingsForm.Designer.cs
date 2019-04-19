@@ -72,6 +72,7 @@ namespace StopWatch
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.cbIncludeProjectName = new System.Windows.Forms.CheckBox();
+            this.lblOpenAPITokensPage = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // lblJiraBaseUrl
@@ -316,9 +317,9 @@ namespace StopWatch
             this.lblPassword.Location = new System.Drawing.Point(9, 59);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
+            this.lblPassword.Size = new System.Drawing.Size(58, 13);
             this.lblPassword.TabIndex = 4;
-            this.lblPassword.Text = "Password";
+            this.lblPassword.Text = "API Token";
             // 
             // tbUsername
             // 
@@ -349,6 +350,17 @@ namespace StopWatch
             this.cbIncludeProjectName.Text = "Include project name in issue summary";
             this.cbIncludeProjectName.UseVisualStyleBackColor = true;
             // 
+            // lblOpenAPITokensPage
+            // 
+            this.lblOpenAPITokensPage.AutoSize = true;
+            this.lblOpenAPITokensPage.Location = new System.Drawing.Point(257, 62);
+            this.lblOpenAPITokensPage.Name = "lblOpenAPITokensPage";
+            this.lblOpenAPITokensPage.Size = new System.Drawing.Size(93, 13);
+            this.lblOpenAPITokensPage.TabIndex = 29;
+            this.lblOpenAPITokensPage.TabStop = true;
+            this.lblOpenAPITokensPage.Text = "Get an API Token";
+            this.lblOpenAPITokensPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblOpenAPITokensPage_LinkClicked);
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -356,6 +368,7 @@ namespace StopWatch
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(391, 494);
+            this.Controls.Add(this.lblOpenAPITokensPage);
             this.Controls.Add(this.cbIncludeProjectName);
             this.Controls.Add(this.tbPassword);
             this.Controls.Add(this.lblPassword);
@@ -427,5 +440,6 @@ namespace StopWatch
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.CheckBox cbIncludeProjectName;
+        private System.Windows.Forms.LinkLabel lblOpenAPITokensPage;
     }
 }

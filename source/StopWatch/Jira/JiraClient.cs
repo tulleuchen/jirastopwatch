@@ -38,19 +38,9 @@ namespace StopWatch
         public bool Authenticate(string username, string password)
         {
             SessionValid = false;
-
-            var request = jiraApiRequestFactory.CreateAuthenticateRequest(username, password);
-            try
-            {
-                jiraApiRequester.DoAuthenticatedRequest<object>(request);
-                JiraTimeHelpers.Configuration = GetTimeTrackingConfiguration();
-                return true;
-            }
-            catch (RequestDeniedException)
-            {
-                ErrorMessage = jiraApiRequester.ErrorMessage;
-                return false;
-            }
+            jiraApiRequester.SetAuthentication(username, password);
+            JiraTimeHelpers.Configuration = GetTimeTrackingConfiguration();
+            return true;
         }
 
 

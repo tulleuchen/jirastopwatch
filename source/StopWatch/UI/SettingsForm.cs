@@ -127,5 +127,10 @@ namespace StopWatch
         {
             Process.Start(Path.GetDirectoryName(Logger.Instance.LogfilePath));
         }
+
+        private void lblOpenAPITokensPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://id.atlassian.com/manage/api-tokens");
+        }
     }
 }
