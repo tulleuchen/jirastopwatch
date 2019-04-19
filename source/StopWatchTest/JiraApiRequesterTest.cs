@@ -23,9 +23,6 @@
 
         private JiraApiRequester jiraApiRequester;
 
-        private const string VALID_USERNAME = "myusername";
-        private const string VALID_APITOKEN = "myapitoken";
-
         [SetUp]
         public void Setup()
         {
@@ -39,7 +36,7 @@
             jiraApiRequester = new JiraApiRequester(clientFactoryMock.Object, jiraApiRequestFactoryMock.Object);
         }
 
-        private IRestResponse<TestPocoClass> TestAuth(IRestRequest requestMock)
+        private static IRestResponse<TestPocoClass> TestAuth(IRestRequest requestMock, string valid_username, string valid_apitoken)
         {
             var authParam = requestMock.Parameters.FirstOrDefault(p => p.Type == ParameterType.HttpHeader && p.Name == "Authorization");
             const string prefix = "Basic ";
@@ -52,7 +49,7 @@
                     {
                         string authString = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(base64));
                         var comps = authString.Split(':');
-                        if (comps.Length == 2 && comps[0] == VALID_USERNAME && comps[1] == VALID_APITOKEN)
+                        if (comps.Length == 2 && comps[0] == valid_username && comps[1] == valid_apitoken)
                         {
                             return new RestResponse<TestPocoClass>()
                             {
@@ -74,11 +71,14 @@
         [Test, Description("DoAuthenticatedRequest: with correct credentials return data without error message")]
         public void DoAuthenticatedRequest_WithValidCredentials()
         {
+            var valid_username = "validusername";
+            var valid_apitoken = "validapitoken";
+
             var requestMock = new RestRequest();
 
-            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() => TestAuth(requestMock));
+            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() => TestAuth(requestMock, valid_username, valid_apitoken));
 
-            jiraApiRequester.SetAuthentication(VALID_USERNAME, VALID_APITOKEN);
+            jiraApiRequester.SetAuthentication(valid_username, valid_apitoken);
 
             var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(requestMock);
 
@@ -89,9 +89,12 @@
         [Test, Description("DoAuthenticatedRequest: with wrong credentials it throws an exception")]
         public void DoAuthenticatedRequest_WithInvalidCredentials()
         {
+            var valid_username = "validusername";
+            var valid_apitoken = "validapitoken";
+
             var requestMock = new RestRequest();
 
-            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() => TestAuth(requestMock));
+            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() => TestAuth(requestMock, valid_username, valid_apitoken));
 
             jiraApiRequester.SetAuthentication("invalidUsername", "invalidApiToken");
 

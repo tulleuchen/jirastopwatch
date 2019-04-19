@@ -9,6 +9,12 @@
     [TestFixture]
     public class JiraTimeHelpersTest
     {
+        [SetUp]
+        public void Setup()
+        {
+            JiraTimeHelpers.Configuration = null;
+        }
+
         [Test]
         public void DateTimeToJiraDateTime_HandlesTimeZones()
         {

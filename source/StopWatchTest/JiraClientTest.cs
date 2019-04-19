@@ -27,6 +27,26 @@
         }
 
 
+        [Test, Description("Authenticate returns true on successful authentication")]
+        public void Authenticate_OnSuccess_It_Returns_True()
+        {
+            var jiraConfig = new JiraConfiguration()
+            {
+                timeTrackingConfiguration = new TimeTrackingConfiguration()
+            };
+            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<JiraConfiguration>(It.IsAny<IRestRequest>())).Returns(jiraConfig);
+            Assert.That(jiraClient.Authenticate("myuser", "myapitoken"), Is.True);
+        }
+
+
+        [Test, Description("Authenticate returns false on unsuccessful authentication")]
+        public void Authenticate_OnFailure_It_Returns_False()
+        {
+            jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<JiraConfiguration>(It.IsAny<IRestRequest>())).Throws<RequestDeniedException>();
+            Assert.That(jiraClient.Authenticate("myuser", "myapitoken"), Is.False);
+        }
+
+
         [Test, Description("ValidateSession: On success it sets SessionValid and returns true")]
         public void ValidateSession_OnSuccess_It_Sets_SessionValid_And_Returns_True()
         {
@@ -103,7 +123,7 @@
 
             jiraApiRequesterMock.Setup(m => m.DoAuthenticatedRequest<Issue>(It.IsAny<IRestRequest>())).Returns(returnData);
 
-            Assert.That(jiraClient.GetIssueSummary("DG-42",false), Is.EqualTo(returnData.Fields.Summary));
+            Assert.That(jiraClient.GetIssueSummary("DG-42", false), Is.EqualTo(returnData.Fields.Summary));
         }
 
 

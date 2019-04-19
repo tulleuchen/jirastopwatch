@@ -40,7 +40,7 @@ namespace StopWatch
             SessionValid = false;
             jiraApiRequester.SetAuthentication(username, apiToken);
             JiraTimeHelpers.Configuration = GetTimeTrackingConfiguration();
-            return true;
+            return JiraTimeHelpers.Configuration != null;
         }
 
 
@@ -75,7 +75,7 @@ namespace StopWatch
                 return null;
             }
         }
-        
+
 
         public SearchResult GetIssuesByJQL(string jql)
         {
