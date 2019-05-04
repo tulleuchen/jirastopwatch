@@ -18,18 +18,12 @@ using System;
 
 namespace StopWatch
 {
-    internal class AuthenticateNotYetCalledException : Exception
-    {
-    }
-
     internal class JiraApiRequestFactory : IJiraApiRequestFactory
     {
         #region public methods
         public JiraApiRequestFactory(IRestRequestFactory restRequestFactory)
         {
             this.restRequestFactory = restRequestFactory;
-            this.username = "";
-            this.password = "";
         }
 
 
@@ -135,36 +129,11 @@ namespace StopWatch
             );
             return request;
         }
-
-        public IRestRequest CreateAuthenticateRequest(string username, string password)
-        {
-            this.username = username;
-            this.password = password;
-
-            var request = restRequestFactory.Create("/rest/auth/1/session", Method.POST);
-            request.RequestFormat = DataFormat.Json;
-            request.AddBody(new {
-                username = this.username,
-                password = this.password
-            });
-            return request;
-        }
-
-        public IRestRequest CreateReAuthenticateRequest()
-        {
-            if (string.IsNullOrEmpty(this.username))
-                throw new AuthenticateNotYetCalledException();
-
-            return CreateAuthenticateRequest(this.username, this.password);
-        }
         #endregion
 
 
         #region private members
         private IRestRequestFactory restRequestFactory;
-
-        private string username;
-        private string password;
         #endregion
     }
 }
