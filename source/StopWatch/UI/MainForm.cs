@@ -166,7 +166,7 @@ namespace StopWatch
             else
             {
                 if (IsJiraEnabled)
-                    AuthenticateJira(this.settings.Username, this.settings.Password);
+                    AuthenticateJira(this.settings.Username, this.settings.ApiToken);
             }
 
             InitializeIssueControls();
@@ -254,7 +254,7 @@ namespace StopWatch
 
 
         #region private methods
-        private void AuthenticateJira(string username, string password)
+        private void AuthenticateJira(string username, string apiToken)
         {
             Task.Factory.StartNew(
                 () =>
@@ -267,7 +267,7 @@ namespace StopWatch
                         }
                     );
 
-                    if (jiraClient.Authenticate(username, password))
+                    if (jiraClient.Authenticate(username, apiToken))
                         this.InvokeIfRequired(
                             () => UpdateIssuesOutput(true)
                         );
@@ -536,7 +536,7 @@ namespace StopWatch
                     restClientFactory.BaseUrl = this.settings.JiraBaseUrl;
                     Logging.Logger.Instance.Enabled = settings.LoggingEnabled;
                     if (IsJiraEnabled)
-                        AuthenticateJira(this.settings.Username, this.settings.Password);
+                        AuthenticateJira(this.settings.Username, this.settings.ApiToken);
                     InitializeIssueControls();
                 }
             }
@@ -691,7 +691,7 @@ namespace StopWatch
                 return !(
                     string.IsNullOrWhiteSpace(settings.JiraBaseUrl) ||
                     string.IsNullOrWhiteSpace(settings.Username) ||
-                    string.IsNullOrWhiteSpace(settings.Password)
+                    string.IsNullOrWhiteSpace(settings.ApiToken)
                 );
             }
         }
