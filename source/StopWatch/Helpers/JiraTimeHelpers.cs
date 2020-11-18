@@ -106,7 +106,7 @@ namespace StopWatch
                     minutes += (int)(t * 60 * 24);
                 
                 if (minutes < 0)
-+                    minutes = 0;
+                    minutes = 0;
             }
 
             if (!validFormat)
