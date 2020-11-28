@@ -220,9 +220,9 @@ namespace StopWatch
             // 
             this.startDatePicker.AccessibleDescription = "Start Date";
             this.startDatePicker.AccessibleName = "StartDate";
-            this.startDatePicker.Location = new System.Drawing.Point(124, 176);
+            this.startDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.startDatePicker.Location = new System.Drawing.Point(133, 176);
             this.startDatePicker.Name = "startDatePicker";
-            this.startDatePicker.ShowUpDown = true;
             this.startDatePicker.Size = new System.Drawing.Size(115, 20);
             this.startDatePicker.TabIndex = 11;
             // 
@@ -277,7 +277,7 @@ namespace StopWatch
         }
 
         #endregion
-        
+
         private System.Windows.Forms.Label lblComment;
         private System.Windows.Forms.TextBox tbComment;
         private System.Windows.Forms.Button btnCancel;
