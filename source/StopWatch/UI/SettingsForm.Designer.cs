@@ -67,11 +67,12 @@ namespace StopWatch
             this.cbLoggingEnabbled = new System.Windows.Forms.CheckBox();
             this.lblOpenLogFolder = new System.Windows.Forms.LinkLabel();
             this.cbCheckForUpdate = new System.Windows.Forms.CheckBox();
-            this.tbPassword = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
+            this.tbApiToken = new System.Windows.Forms.TextBox();
+            this.lblApiToken = new System.Windows.Forms.Label();
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.cbIncludeProjectName = new System.Windows.Forms.CheckBox();
+            this.lblOpenAPITokensPage = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // lblJiraBaseUrl
@@ -301,24 +302,24 @@ namespace StopWatch
             this.cbCheckForUpdate.Text = "Check for updates on application start";
             this.cbCheckForUpdate.UseVisualStyleBackColor = true;
             // 
-            // tbPassword
+            // tbApiToken
             // 
-            this.tbPassword.Location = new System.Drawing.Point(122, 56);
-            this.tbPassword.Margin = new System.Windows.Forms.Padding(2);
-            this.tbPassword.Name = "tbPassword";
-            this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(129, 20);
-            this.tbPassword.TabIndex = 5;
+            this.tbApiToken.Location = new System.Drawing.Point(122, 56);
+            this.tbApiToken.Margin = new System.Windows.Forms.Padding(2);
+            this.tbApiToken.Name = "tbApiToken";
+            this.tbApiToken.PasswordChar = '*';
+            this.tbApiToken.Size = new System.Drawing.Size(129, 20);
+            this.tbApiToken.TabIndex = 5;
             // 
-            // lblPassword
+            // lblApiToken
             // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(9, 59);
-            this.lblPassword.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
-            this.lblPassword.TabIndex = 4;
-            this.lblPassword.Text = "Password";
+            this.lblApiToken.AutoSize = true;
+            this.lblApiToken.Location = new System.Drawing.Point(9, 59);
+            this.lblApiToken.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblApiToken.Name = "lblApiToken";
+            this.lblApiToken.Size = new System.Drawing.Size(58, 13);
+            this.lblApiToken.TabIndex = 4;
+            this.lblApiToken.Text = "API Token";
             // 
             // tbUsername
             // 
@@ -349,6 +350,17 @@ namespace StopWatch
             this.cbIncludeProjectName.Text = "Include project name in issue summary";
             this.cbIncludeProjectName.UseVisualStyleBackColor = true;
             // 
+            // lblOpenAPITokensPage
+            // 
+            this.lblOpenAPITokensPage.AutoSize = true;
+            this.lblOpenAPITokensPage.Location = new System.Drawing.Point(257, 62);
+            this.lblOpenAPITokensPage.Name = "lblOpenAPITokensPage";
+            this.lblOpenAPITokensPage.Size = new System.Drawing.Size(93, 13);
+            this.lblOpenAPITokensPage.TabIndex = 29;
+            this.lblOpenAPITokensPage.TabStop = true;
+            this.lblOpenAPITokensPage.Text = "Get an API Token";
+            this.lblOpenAPITokensPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblOpenAPITokensPage_LinkClicked);
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -356,9 +368,10 @@ namespace StopWatch
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(391, 494);
+            this.Controls.Add(this.lblOpenAPITokensPage);
             this.Controls.Add(this.cbIncludeProjectName);
-            this.Controls.Add(this.tbPassword);
-            this.Controls.Add(this.lblPassword);
+            this.Controls.Add(this.tbApiToken);
+            this.Controls.Add(this.lblApiToken);
             this.Controls.Add(this.tbUsername);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.cbCheckForUpdate);
@@ -422,10 +435,11 @@ namespace StopWatch
         private System.Windows.Forms.CheckBox cbLoggingEnabbled;
         private System.Windows.Forms.LinkLabel lblOpenLogFolder;
         private System.Windows.Forms.CheckBox cbCheckForUpdate;
-        private System.Windows.Forms.TextBox tbPassword;
-        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.TextBox tbApiToken;
+        private System.Windows.Forms.Label lblApiToken;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.CheckBox cbIncludeProjectName;
+        private System.Windows.Forms.LinkLabel lblOpenAPITokensPage;
     }
 }

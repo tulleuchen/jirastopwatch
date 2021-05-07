@@ -31,24 +31,6 @@
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
-        "Entry"
-        {
-        "MsmKey" = "8:_92559A03EFE2A5AC65485EFE742DBB15"
-        "OwnerKey" = "8:_50F3BB70243F4243B4B1324E58EFC858"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_50F3BB70243F4243B4B1324E58EFC858"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_92559A03EFE2A5AC65485EFE742DBB15"
-        "MsmSig" = "8:_UNDEFINED"
-        }
     }
     "Configurations"
     {
@@ -171,11 +153,6 @@
             "AssemblyAsmDisplayName" = "8:StopWatch, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_50F3BB70243F4243B4B1324E58EFC858"
-                    {
-                    "Name" = "8:StopWatch.exe"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:..\\StopWatch\\bin\\Release\\StopWatch.exe"
             "TargetName" = "8:"
@@ -213,32 +190,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_92559A03EFE2A5AC65485EFE742DBB15"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                }
-            "SourcePath" = "8:RestSharp.DLL"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_B2FCC0FC0E354BDE9A303C416C74C073"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -308,15 +259,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Jira StopWatch"
-        "ProductCode" = "8:{BACA457F-2B87-4CD0-9B70-739DA5A8AB7C}"
-        "PackageCode" = "8:{19DAFDFF-E5FC-4367-AEDC-91865BF6597A}"
+        "ProductCode" = "8:{7B0BA9B5-477F-4154-A846-6D69578BD4DD}"
+        "PackageCode" = "8:{37FDC8A8-1007-4F15-95D2-94A13D3CCBE1}"
         "UpgradeCode" = "8:{292249F1-B39F-4CA1-AA94-28FA5DA3CFFB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.2.0"
+        "ProductVersion" = "8:2.3.0"
         "Manufacturer" = "8:Carsten Gehling"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

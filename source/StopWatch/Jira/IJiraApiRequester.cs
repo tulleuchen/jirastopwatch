@@ -23,5 +23,7 @@ namespace StopWatch
 
         T DoAuthenticatedRequest<T>(IRestRequest request)
             where T : new();
+
+        void SetAuthentication(string username, string apiToken);
     }
 }

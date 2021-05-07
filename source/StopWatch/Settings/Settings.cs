@@ -59,7 +59,7 @@ namespace StopWatch
         public WorklogCommentSetting PostWorklogComment { get; set; }
 
         public string Username { get; set; }
-        public string Password { get; set; }
+        public string ApiToken { get; set; }
         public bool FirstRun { get; set; }
 
         public int CurrentFilter { get; set; }
@@ -119,10 +119,10 @@ namespace StopWatch
             this.MinimizeToTray = Properties.Settings.Default.MinimizeToTray;
             this.IssueCount = Properties.Settings.Default.IssueCount;
             this.Username = Properties.Settings.Default.Username;
-            if (Properties.Settings.Default.Password != "")
-                this.Password = DPAPI.Decrypt(Properties.Settings.Default.Password);
+            if (Properties.Settings.Default.ApiToken != "")
+                this.ApiToken = DPAPI.Decrypt(Properties.Settings.Default.ApiToken);
             else
-                this.Password = "";
+                this.ApiToken = "";
             this.FirstRun = Properties.Settings.Default.FirstRun;
             this.SaveTimerState = (SaveTimerSetting)Properties.Settings.Default.SaveTimerState;
             this.PauseOnSessionLock = (PauseAndResumeSetting)Properties.Settings.Default.PauseOnSessionLock;
@@ -154,10 +154,10 @@ namespace StopWatch
                 Properties.Settings.Default.IncludeProjectName = this.IncludeProjectName;
 
                 Properties.Settings.Default.Username = this.Username;
-                if (this.Password != "")
-                    Properties.Settings.Default.Password = DPAPI.Encrypt(this.Password);
+                if (this.ApiToken != "")
+                    Properties.Settings.Default.ApiToken = DPAPI.Encrypt(this.ApiToken);
                 else
-                    Properties.Settings.Default.Password = "";
+                    Properties.Settings.Default.ApiToken = "";
 
                 Properties.Settings.Default.FirstRun = this.FirstRun;
                 Properties.Settings.Default.SaveTimerState = (int)this.SaveTimerState;

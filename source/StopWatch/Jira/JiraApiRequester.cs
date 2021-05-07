@@ -20,11 +20,6 @@ using System.Net;
 
 namespace StopWatch
 {
-    internal class RequestDeniedException : Exception
-    {
-    }
-
-
     internal class JiraApiRequester : IJiraApiRequester
     {
         public string ErrorMessage { get; private set; }
@@ -36,10 +31,11 @@ namespace StopWatch
             ErrorMessage = "";
         }
 
-
         public T DoAuthenticatedRequest<T>(IRestRequest request)
             where T : new()
         {
+            AddAuthHeader(request);
+
             IRestClient client = restClientFactory.Create();
 
             _logger.Log(string.Format("Request: {0}", client.BuildUri(request)));
@@ -49,13 +45,7 @@ namespace StopWatch
             // If login session has expired, try to login, and then re-execute the original request
             if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.BadRequest)
             {
-                _logger.Log("Try to re-authenticate");
-                if (!ReAuthenticate())
-                    throw new RequestDeniedException();
-
-                _logger.Log(string.Format("Authenticated. Resend request: {0}", client.BuildUri(request)));
-                response = client.Execute<T>(request);
-                _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, StringHelpers.Truncate(response.Content, 100)));
+                throw new RequestDeniedException();
             }
 
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created)
@@ -68,45 +58,34 @@ namespace StopWatch
             return response.Data;
         }
 
-
-        protected bool ReAuthenticate()
+        public void SetAuthentication(string username, string apiToken)
         {
-            IRestRequest request;
-
-            try
-            {
-                request = jiraApiRequestFactory.CreateReAuthenticateRequest();
-            }
-            catch (AuthenticateNotYetCalledException)
-            {
-                return false;
-            }
-
-            var client = restClientFactory.Create(true);
-            _logger.Log(string.Format("Request: {0}", client.BuildUri(request)));
-            IRestResponse response = client.Execute(request);
-            _logger.Log(string.Format("Response: {0} - {1}", response.StatusCode, StringHelpers.Truncate(response.Content, 100)));
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                ErrorMessage = "Invalid username or password";
-                return false;
-            }
-
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                ErrorMessage = response.ErrorMessage;
-                return false;
-            }
-
-            ErrorMessage = "";
-            return true;
+            _username = username;
+            _apiToken = apiToken;
         }
 
+        private void AddAuthHeader(IRestRequest request)
+        {
+            if (string.IsNullOrEmpty(_username) || string.IsNullOrEmpty(_apiToken))
+            {
+                throw new UsernameAndApiTokenNotSetException();
+            }
+            request.AddHeader("Authorization", "Basic " + System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes($"{_username}:{_apiToken}")));
+        }
 
         private Logger _logger = Logger.Instance;
 
         private IRestClientFactory restClientFactory;
         private IJiraApiRequestFactory jiraApiRequestFactory;
+        private string _username;
+        private string _apiToken;
+    }
+
+    internal class RequestDeniedException : Exception
+    {
+    }
+
+    internal class UsernameAndApiTokenNotSetException : Exception
+    {
     }
 }

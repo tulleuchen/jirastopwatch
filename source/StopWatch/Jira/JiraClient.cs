@@ -35,22 +35,12 @@ namespace StopWatch
         }
 
 
-        public bool Authenticate(string username, string password)
+        public bool Authenticate(string username, string apiToken)
         {
             SessionValid = false;
-
-            var request = jiraApiRequestFactory.CreateAuthenticateRequest(username, password);
-            try
-            {
-                jiraApiRequester.DoAuthenticatedRequest<object>(request);
-                JiraTimeHelpers.Configuration = GetTimeTrackingConfiguration();
-                return true;
-            }
-            catch (RequestDeniedException)
-            {
-                ErrorMessage = jiraApiRequester.ErrorMessage;
-                return false;
-            }
+            jiraApiRequester.SetAuthentication(username, apiToken);
+            JiraTimeHelpers.Configuration = GetTimeTrackingConfiguration();
+            return JiraTimeHelpers.Configuration != null;
         }
 
 
@@ -85,7 +75,7 @@ namespace StopWatch
                 return null;
             }
         }
-        
+
 
         public SearchResult GetIssuesByJQL(string jql)
         {

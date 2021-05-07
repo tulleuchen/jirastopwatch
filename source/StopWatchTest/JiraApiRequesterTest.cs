@@ -4,6 +4,7 @@
     using NUnit.Framework;
     using RestSharp;
     using StopWatch;
+    using System.Linq;
     using System.Net;
 
     internal class TestPocoClass
@@ -35,121 +36,73 @@
             jiraApiRequester = new JiraApiRequester(clientFactoryMock.Object, jiraApiRequestFactoryMock.Object);
         }
 
-
-        [Test, Description("DoAuthenticatedRequest: On OK, it will not try to ReAuthenticate")]
-        public void DoAuthenticatedRequest_OnOK_It_Will_Not_Try_To_ReAuhthenticate()
+        private static IRestResponse<TestPocoClass> TestAuth(IRestRequest requestMock, string valid_username, string valid_apitoken)
         {
-            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(new RestResponse<TestPocoClass>()
+            var authParam = requestMock.Parameters.FirstOrDefault(p => p.Type == ParameterType.HttpHeader && p.Name == "Authorization");
+            const string prefix = "Basic ";
+            if (authParam != null)
             {
-                StatusCode = HttpStatusCode.OK
-            });
-
-            var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(new Mock<IRestRequest>().Object);
-
-            jiraApiRequestFactoryMock.Verify(m => m.CreateReAuthenticateRequest(), Times.Never);
+                if (authParam.Value is string && ((string)authParam.Value).StartsWith(prefix))
+                {
+                    var base64 = ((string)authParam.Value).Substring(prefix.Length);
+                    try
+                    {
+                        string authString = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(base64));
+                        var comps = authString.Split(':');
+                        if (comps.Length == 2 && comps[0] == valid_username && comps[1] == valid_apitoken)
+                        {
+                            return new RestResponse<TestPocoClass>()
+                            {
+                                StatusCode = HttpStatusCode.OK,
+                                Data = new TestPocoClass() { foo = "foo", bar = "bar" },
+                            };
+                        }
+                    }
+                    catch (System.Exception)
+                    { }
+                }
+            }
+            return new RestResponse<TestPocoClass>()
+            {
+                StatusCode = HttpStatusCode.Unauthorized
+            };
         }
 
-
-        [Test, Description("DoAuthenticatedRequest: On unauthorized, it tries to ReAuthenticate")]
-        public void DoAuthenticatedRequest_OnUnauthorized_It_Tries_To_ReAuhthenticate()
+        [Test, Description("DoAuthenticatedRequest: with correct credentials return data without error message")]
+        public void DoAuthenticatedRequest_WithValidCredentials()
         {
-            bool authenticated = false;
+            var valid_username = "validusername";
+            var valid_apitoken = "validapitoken";
 
-            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() =>
-                new RestResponse<TestPocoClass>()
-                {
-                    StatusCode = authenticated ?  HttpStatusCode.OK : HttpStatusCode.Unauthorized
-                }
-            );
+            var requestMock = new RestRequest();
 
-            clientMock.Setup(c => c.Execute(It.IsAny<IRestRequest>())).Returns(() => {
-                authenticated = true;
-                return new RestResponse()
-                {
-                    StatusCode = HttpStatusCode.OK
-                };
-            });
+            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() => TestAuth(requestMock, valid_username, valid_apitoken));
 
-            var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(new Mock<IRestRequest>().Object);
+            jiraApiRequester.SetAuthentication(valid_username, valid_apitoken);
 
-            jiraApiRequestFactoryMock.Verify(m => m.CreateReAuthenticateRequest(), Times.Once);
+            var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(requestMock);
+
+            Assert.NotNull(response);
+            Assert.IsEmpty(jiraApiRequester.ErrorMessage);
         }
 
-
-        [Test, Description("DoAuthenticatedRequest: On BadRequest, it tries to ReAuthenticate")]
-        public void DoAuthenticatedRequest_OnBadRequest_It_Tries_To_ReAuhthenticate()
+        [Test, Description("DoAuthenticatedRequest: with wrong credentials it throws an exception")]
+        public void DoAuthenticatedRequest_WithInvalidCredentials()
         {
-            bool authenticated = false;
+            var valid_username = "validusername";
+            var valid_apitoken = "validapitoken";
 
-            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() =>
-                new RestResponse<TestPocoClass>()
-                {
-                    StatusCode = authenticated ?  HttpStatusCode.OK : HttpStatusCode.BadRequest
-                }
-            );
+            var requestMock = new RestRequest();
 
-            clientMock.Setup(c => c.Execute(It.IsAny<IRestRequest>())).Returns(() => {
-                authenticated = true;
-                return new RestResponse()
-                {
-                    StatusCode = HttpStatusCode.OK
-                };
-            });
+            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() => TestAuth(requestMock, valid_username, valid_apitoken));
 
-            var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(new Mock<IRestRequest>().Object);
-
-            jiraApiRequestFactoryMock.Verify(m => m.CreateReAuthenticateRequest(), Times.Once);
-        }
-
-
-        [Test, Description("DoAuthenticatedRequest: On unauthorized after ReAuthenticate, it throws an exception")]
-        public void DoAuthenticatedRequest_OnUnauthorized_After_ReAuhthenticate_It_Throws_An_Exception()
-        {
-            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() =>
-                new RestResponse<TestPocoClass>()
-                {
-                    StatusCode = HttpStatusCode.Unauthorized
-                }
-            );
-
-            clientMock.Setup(c => c.Execute(It.IsAny<IRestRequest>())).Returns(() => {
-                return new RestResponse()
-                {
-                    StatusCode = HttpStatusCode.OK
-                };
-            });
+            jiraApiRequester.SetAuthentication("invalidUsername", "invalidApiToken");
 
             Assert.Throws<RequestDeniedException>(() =>
             {
-                var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(new Mock<IRestRequest>().Object);
+                var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(requestMock);
             });
         }
 
-
-        [Test, Description("DoAuthenticatedRequest: On ReAuthenticate unauthorized, it throws an exception")]
-        public void DoAuthenticatedRequest_On_ReAuthenticate_Unauthorized_It_Throws_An_Exception()
-        {
-            bool authenticated = false;
-
-            clientMock.Setup(c => c.Execute<TestPocoClass>(It.IsAny<IRestRequest>())).Returns(() =>
-                new RestResponse<TestPocoClass>()
-                {
-                    StatusCode = authenticated ?  HttpStatusCode.OK : HttpStatusCode.Unauthorized
-                }
-            );
-
-            clientMock.Setup(c => c.Execute(It.IsAny<IRestRequest>())).Returns(() => {
-                authenticated = true;
-                return new RestResponse()
-                {
-                    StatusCode = HttpStatusCode.Unauthorized
-                };
-            });
-
-            Assert.Throws<RequestDeniedException>(() =>
-            {
-                var response = jiraApiRequester.DoAuthenticatedRequest<TestPocoClass>(new Mock<IRestRequest>().Object);
-            });
-        }
     }
 }

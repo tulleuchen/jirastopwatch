@@ -14,7 +14,7 @@
     <Setting Name="Username" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Password" Type="System.String" Scope="User">
+    <Setting Name="ApiToken" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="JiraBaseUrl" Type="System.String" Scope="User">

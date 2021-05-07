@@ -75,7 +75,7 @@ namespace StopWatch
             if (time == "0")
                 return TimeSpan.Zero;
 
-            MatchCollection matches = new Regex(@"([0-9,\.]+[dhm] *?)+?", RegexOptions.IgnoreCase).Matches(time);
+            MatchCollection matches = new Regex(@"([-]?[0-9,\.]+[dhm] *?)+?", RegexOptions.IgnoreCase).Matches(time);
             if (matches.Count == 0)
                 return null;
 
@@ -104,6 +104,9 @@ namespace StopWatch
 
                 if (s.Contains("D"))
                     minutes += (int)(t * 60 * 24);
+                
+                if (minutes < 0)
+                    minutes = 0;
             }
 
             if (!validFormat)

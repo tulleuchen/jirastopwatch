@@ -1,0 +1,92 @@
+body {
+  padding-top: 20px;
+}
+
+.masthead {
+  border-bottom: 1px solid #CCCCCC;
+  margin-bottom: 8px;
+}
+.masthead h3 {
+  font-size: 32px;
+}
+.masthead h3 img {
+  margin-top: -14px;
+}
+
+@media (min-width: 768px) {
+  .masthead ul.navbar-nav {
+    margin-top: 14px;
+  }
+}
+
+@media (min-width: 0px) {
+  .navbar-nav>li {
+    float: left;
+  }
+}
+
+.navbar-nav>li.active {
+  font-weight: bold;
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+  background-image: url(../img/jumbotronbackground.jpg);
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+@media (max-width: 767px) {
+  .jumbotron {
+    background-position: 50% 25%;
+  }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .masthead,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.img-smaller {
+  display: inline;
+  max-width: 90%;
+}
+
+.center {
+  text-align: center;
+}
+
+.toc {
+  border-right: 1px solid #CCCCCC;
+}
+
+[data-toggle="modal"] {
+   cursor: pointer;
+}
+
+.charity-front {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
