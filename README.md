@@ -1,29 +1,10 @@
-[![Gitter chat](https://badges.gitter.im/jirastopwatch.png)](https://gitter.im/jirastopwatch "Gitter chat")
-
-## Maintainer wanted!
-
-**As I have switched job and no longer use Jira in my daily work, the incentive to actively maintain Jira StopWatch has declined for me. So I am looking for someone, who would like to take over the project. Please write me at carsten@sarum.dk, if you are interested. My only demand is, that it is kept open-source.**
+<!--[![Gitter chat](https://badges.gitter.im/jirastopwatch.png)](https://gitter.im/jirastopwatch "Gitter chat")-->
 
 ## Summary
 
 A Windows desktop tool for recording time spent on different Jira tasks.
 
 ![](http://jirastopwatch.com/img/screen2.png)
-
-## Features, download and installation:
-
-Read all about features on [the product homepage](http://jirastopwatch.com).
-
-Documentaion about [how to download, install, and use Jira StopWatch](http://jirastopwatch.com/doc/)
-is also available.
-
-Feature-requests are more than welcome :-)
-
-## Mac OSX and Linux users
-
-Jira StopWatch has been compiled and tested to work on Linux Mint 17.0 with the [Xamarin packages](http://www.mono-project.com/download/#download-lin).
-
-Anyone with a MacOSX available: I would love to know if everything works out of the box.
 
 ## License
 
