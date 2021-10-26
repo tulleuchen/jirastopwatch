@@ -721,7 +721,7 @@ namespace StopWatch
         #region private consts
         private const int firstDelay = 500;
         private const int defaultDelay = 30000;
-        private const int maxIssues = 20;
+        private const int maxIssues = 60;
         #endregion
 
         private int currentIssueIndex;
