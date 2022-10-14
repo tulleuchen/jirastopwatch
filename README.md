@@ -1,7 +1,7 @@
 [![Gitter chat](https://badges.gitter.im/jirastopwatch.png)](https://gitter.im/jirastopwatch "Gitter chat")
 
 #######################################################
-# Looking for a new maintenance for this repository!! #
+# Looking for a new maintainer for this repository!! #
 # Contact me at tulleuchen@gmail.com
 #######################################################
 
