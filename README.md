@@ -1,5 +1,10 @@
 [![Gitter chat](https://badges.gitter.im/jirastopwatch.png)](https://gitter.im/jirastopwatch "Gitter chat")
 
+#######################################################
+# Looking for a new maintenance for this repository!! #
+# Contact me at tulleuchen@gmail.com
+#######################################################
+
 ## Summary
 
 A Windows desktop tool for recording time spent on different Jira tasks.
