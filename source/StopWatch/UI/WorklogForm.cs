@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace StopWatch
 {
-    public partial class WorklogForm : Form
+    internal partial class WorklogForm : Form
     {
         #region public members
         public string Comment
@@ -89,21 +89,18 @@ namespace StopWatch
 
 
         #region public methods
-        public WorklogForm(DateTimeOffset startTime, TimeSpan TimeElapsed, string comment, EstimateUpdateMethods estimateUpdateMethod, string estimateUpdateValue)
-        {            
-            this.TimeElapsed = TimeElapsed;
-            DateTimeOffset initialStartTime;
-            if (startTime == null)
+        public WorklogForm(IssueControl issueControl)
+        {
+            this.TimeElapsed = issueControl.WatchTimer.TimeElapsedNearestMinute;
+            DateTimeOffset initialStartTime = issueControl.WatchTimer.GetInitialStartTime();
+            if (initialStartTime == null)
             {
                 initialStartTime = DateTimeOffset.UtcNow.Subtract(TimeElapsed);
-            }else
-            {
-                initialStartTime = startTime;
             }
             InitializeComponent();
-            if (!String.IsNullOrEmpty(comment))
+            if (!String.IsNullOrEmpty(issueControl.Comment))
             {
-                tbComment.Text = String.Format("{0}{0}{1}", Environment.NewLine, comment);
+                tbComment.Text = String.Format("{0}{0}{1}", Environment.NewLine, issueControl.Comment);
                 tbComment.SelectionStart = 0;
             }
 
@@ -113,7 +110,7 @@ namespace StopWatch
             this.startDatePicker.Value = localInitialStartTime;
             this.startTimePicker.Value = localInitialStartTime;
 
-            switch ( estimateUpdateMethod ) {
+            switch ( issueControl.EstimateUpdateMethod ) {
                 case EstimateUpdateMethods.Auto:
                     rdEstimateAdjustAuto.Checked = true;
                     break;
@@ -122,13 +119,15 @@ namespace StopWatch
                     break;
                 case EstimateUpdateMethods.SetTo:
                     rdEstimateAdjustSetTo.Checked = true;
-                    tbSetTo.Text = estimateUpdateValue;
+                    tbSetTo.Text = issueControl.EstimateUpdateValue;
                     break;
                 case EstimateUpdateMethods.ManualDecrease:
                     rdEstimateAdjustManualDecrease.Checked = true;
-                    tbReduceBy.Text = estimateUpdateValue;
+                    tbReduceBy.Text = issueControl.EstimateUpdateValue;
                     break;
             }
+
+            this.Text = "Submit worklog for " + issueControl.IssueKey + ": " + issueControl.Summary;
         }
         #endregion
 

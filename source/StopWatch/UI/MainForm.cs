@@ -150,6 +150,34 @@ namespace StopWatch
         }
 
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            List<IssueControl> unsubmittedControls = new List<IssueControl>();
+            foreach (var issueControl in this.issueControls)
+            {
+                if (issueControl.WatchTimer.GetState().TotalTime.TotalMinutes > 0)
+                unsubmittedControls.Add(issueControl);
+            }
+
+            if (unsubmittedControls.Count > 0)
+            {
+                switch ( MessageBox.Show("Submit tracked time before closing?", "", MessageBoxButtons.YesNoCancel) ) {
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        return;
+                    case DialogResult.Yes:
+                        foreach (var issueControl in unsubmittedControls)
+                            if (issueControl.PostAndReset() == DialogResult.Cancel)
+                            {
+                                e.Cancel = true;
+                                return;
+                            }
+                        return;
+                }
+            }
+        }
+
+
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             SaveSettingsAndIssueStates();
