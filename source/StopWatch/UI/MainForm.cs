@@ -71,15 +71,15 @@ namespace StopWatch
             if (settings.PauseOnSessionLock == PauseAndResumeSetting.NoPause)
                 return;
 
+            lastRunningIssues.Clear();
             foreach (var issue in issueControls)
             {
                 if (issue.WatchTimer.Running)
                 {
-                    lastRunningIssue = issue;
+                    lastRunningIssues.Add(issue);
                     issue.InvokeIfRequired(
                         () => issue.Pause()
                     );
-                    return;
                 }
             }
         }
@@ -90,13 +90,13 @@ namespace StopWatch
             if (settings.PauseOnSessionLock != PauseAndResumeSetting.PauseAndResume)
                 return;
 
-            if (lastRunningIssue != null)
+            foreach (var issue in lastRunningIssues)
             {
-                lastRunningIssue.InvokeIfRequired(
-                    () => lastRunningIssue.Start()
+                issue.InvokeIfRequired(
+                    () => issue.Start()
                 );
-                lastRunningIssue = null;
             }
+            lastRunningIssues.Clear();
         }
         #endregion
 
@@ -714,7 +714,7 @@ namespace StopWatch
 
         private Settings settings;
 
-        private IssueControl lastRunningIssue = null;
+        private List<IssueControl> lastRunningIssues = new List<IssueControl>();
         #endregion
 
 
